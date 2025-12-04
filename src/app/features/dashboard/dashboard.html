@@ -1,0 +1,115 @@
+<div class=" flex flex-col gap-5 px-6 py-8">
+    <div class="flex flex-col md:flex-row gap-3 justify-between items-center">
+        <div class="flex flex-col">
+            <span class="text-gray-500 dark:text-white text-sm">Welcome Back, {{user_name()}}</span>
+            <span class="text-gray-500 dark:text-neutral-400 text-xs">Measure your advertising ROI and report website
+                traffic.</span>
+        </div>
+        <div class="flex flex-row ">
+            <button
+                class="rounded-md text-neutral-400  text-xs w-24.75 shadow drop-shadow-black font-[14px] mx-1 h-7.5 cursor-pointer  bg-btn-secondary  ">
+                Export data ↓
+            </button>
+            <button
+                class="rounded-md text-neutral-400 text-xs w-24.75 shadow drop-shadow-black font-[14px] mx-1 h-7.5 cursor-pointer  bg-primary">
+                Create report
+            </button>
+        </div>
+    </div>
+    <!-- cards -->
+    <div class="flex flex-row flex-wrap gap-5 justify-between   ">
+        <!-- <app-analytics-card title="Pageviews" icon="assets/icons/eye.svg" [value]="'50.8K'"
+            [trend]="28.4"></app-analytics-card>
+        <app-analytics-card title="MOnthley Users" icon="assets/icons/uncolored/usericon.svg" [value]="'23.6K'"
+            [trend]="-12.8"></app-analytics-card>
+        <app-analytics-card title="New Signups" icon="assets/icons/plus.svg" [value]="'756'"
+            [trend]="3.1"></app-analytics-card>
+        <app-analytics-card title="Subscription" icon="assets/icons/star.svg" [value]="'2.3K'"
+            [trend]="11.3"></app-analytics-card> -->
+        <div class="w-full md:w-59 h-25 rounded-xl bg-card-bg border border-gray-800 p-3">
+            <div class="flex flex-row justify-between ">
+                <div class="flex gap-1 flex-row">
+                    <img src="assets/icons/eye.svg" alt="eye">
+                    <span class="pb-0 text-neutral-400 ">Pageview</span>
+                </div>
+                <img src="assets/icons/threedotsmenu.svg" alt="menu">
+            </div>
+            <div class="flex flex-row gap-2 items-center pt-3">
+                <span class="text-2xl text-white">50.8K</span>
+                <span class="flex flex-row  items-center gap-1 h-5 bg-up-green-arrow/30 
+                    text-xs text-up-green-arrow rounded-sm px-1 border border-up-green-arrow/50 ">
+                    28.4% <img class="size-3" src="assets/icons/uparrowgreen.svg" alt="up">
+                </span>
+                <span class="flex flex-row  items-center gap-1 h-5 bg-down-red-arrow/30 
+                    text-xs text-down-red-arrow rounded-sm px-1 border border-down-red-arrow/50  ">
+                    28.4% <img class="size-3" src="assets/icons/downarrowred.svg" alt="up">
+                </span>
+            </div>
+        </div>
+        <div class="w-full md:w-59 h-25 rounded-xl bg-card-bg border border-gray-800 p-3">
+            <div class="flex flex-row justify-between ">
+                <div class="flex gap-1 flex-row">
+                    <img src="assets/icons/uncolored/usericon.svg" alt="eye">
+                    <span class="pb-0 text-neutral-400 ">Monthley Users</span>
+                </div>
+                <img src="assets/icons/threedotsmenu.svg" alt="menu">
+            </div>
+            <div class="flex flex-row gap-2 items-center pt-3">
+                <span class="text-2xl text-white">23.6K</span>
+                <span class="flex flex-row  items-center gap-1 h-5 bg-up-green-arrow/30 
+                    text-xs text-up-green-arrow rounded-sm px-1 border border-up-green-arrow/50">
+                    12.6% <img class="size-3" src="assets/icons/uparrowgreen.svg" alt="up">
+                </span>
+                <span class="flex flex-row  items-center gap-1 h-5 bg-down-red-arrow/30 
+                    text-xs text-down-red-arrow rounded-sm px-1 border border-down-red-arrow/50">
+                    12.6% <img class="size-3" src="assets/icons/downarrowred.svg" alt="up">
+                </span>
+            </div>
+        </div>
+        <div class="w-full md:w-59 h-25 rounded-xl bg-card-bg border border-gray-800 p-3">
+            <div class="flex flex-row justify-between ">
+                <div class="flex gap-1 flex-row">
+                    <img src="assets/icons/plus.svg" alt="eye">
+                    <span class="pb-0 text-neutral-400 ">New Signups</span>
+                </div>
+                <img src="assets/icons/threedotsmenu.svg" alt="menu">
+            </div>
+            <div class="flex flex-row gap-2 items-center pt-3">
+                <span class="text-2xl text-white">756</span>
+                <span class="flex flex-row  items-center gap-1 h-5 bg-up-green-arrow/30 
+                    text-xs text-up-green-arrow rounded-sm px-1 border border-up-green-arrow/50">
+                    3.1% <img class="size-3" src="assets/icons/uparrowgreen.svg" alt="up">
+                </span>
+                <span class="flex flex-row  items-center gap-1 h-5 bg-down-red-arrow/30 
+                    text-xs text-down-red-arrow rounded-sm px-1 border border-down-red-arrow/50">
+                    3.1% <img class="size-3" src="assets/icons/downarrowred.svg" alt="up">
+                </span>
+            </div>
+        </div>
+        <div class="w-full md:w-59 h-25 rounded-xl bg-card-bg border border-gray-800 p-3">
+            <div class="flex flex-row justify-between ">
+                <div class="flex gap-1 flex-row">
+                    <img src="assets/icons/star.svg" alt="eye">
+                    <span class="pb-0 text-neutral-400 ">Subscribe</span>
+                </div>
+                <img src="assets/icons/threedotsmenu.svg" alt="menu">
+            </div>
+            <div class="flex flex-row gap-2 items-center pt-3">
+                <span class="text-2xl text-white">2.3K</span>
+                <span class="flex flex-row  items-center gap-1 h-5 bg-up-green-arrow/30 
+                    text-xs text-up-green-arrow rounded-sm px-1 border-up-green-arrow/50">
+                    11.3% <img class="size-3" src="assets/icons/uparrowgreen.svg" alt="up">
+                </span>
+                <span class="flex flex-row  items-center gap-1 h-5 bg-down-red-arrow/30 
+                    text-xs text-down-red-arrow rounded-sm px-1 border border-down-red-arrow/50">
+                    11.3% <img class="size-3" src="assets/icons/downarrowred.svg" alt="up">
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- full card -->
+    <div class="h-full w-full bg-card-bg rounded-2xl border border-gray-800 p-5">
+        full card
+    </div>
+</div>

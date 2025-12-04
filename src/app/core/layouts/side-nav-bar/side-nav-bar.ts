@@ -1,0 +1,62 @@
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { Router, RouterLinkActive, RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-side-nav-bar',
+  imports: [RouterLinkActive, RouterLink, NgClass],
+  templateUrl: './side-nav-bar.html',
+  styleUrl: './side-nav-bar.css',
+})
+export class SideNavBar implements OnInit {
+
+  sideBarOpen = signal(true);
+  open = signal<string | null>(null);
+
+  private routerRef = inject(Router);
+
+  constructor() {
+  }
+
+  ngOnInit() {
+    console.log("ng on init");
+    this.onOpen("dashboard");
+  }
+
+  openAndNavigate(section: string, route: string) {
+  this.onOpen(section);
+  this.routerRef.navigate([route]);
+}
+
+  onOpen(section: string) {
+    if (section === 'home') {
+      this.open.set('dashboard');
+    } else {
+
+      if (section === this.open()) {
+        this.open.set(null);
+      } else {
+        this.open.set(section);
+      }
+    }
+    // this.open.update(v => !v);
+  }
+
+  onRoute(route: string) {
+    this.routerRef.navigate([route]);
+    this.onOpen(route);
+  }
+
+  isActive(route: string): boolean {
+    if (route === '') {
+      return this.routerRef.url === '/' || this.routerRef.url === '';
+    }
+    return this.routerRef.url.includes(route);
+  }
+
+  onSidebarclick() {
+    this.sideBarOpen.update(v => !v)
+  }
+
+}

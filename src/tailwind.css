@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme{
+    --color-primary: #cb3cff;
+    --color-secondary: #aeb9e1;
+    --color-btn-secondary : #0a1330;
+    --color-primary-bg: #081027;
+    --color-input-bg: #0b1739;
+    --color-card-bg: #0b1738;
+    --color-active-route-bg: #0a1330;
+    --color-button-primary:#c23af4;
+    --color-active-route-text:#cb3cff;
+    --color-up-green-arrow: #14CA74;
+    --color-down-red-arrow:#FF5A65;
+    
+}

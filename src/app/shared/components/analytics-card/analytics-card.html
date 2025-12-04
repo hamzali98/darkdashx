@@ -1,0 +1,25 @@
+<div class="md:w-59 h-25 rounded-xl bg-card-bg border border-gray-800 p-3">
+
+    <!-- Header -->
+    <div class="flex flex-row justify-between">
+        <div class="flex gap-1 flex-row">
+            <img [src]="icon" alt="icon">
+            <span class="text-neutral-400">{{ title }}</span>
+        </div>
+        <img src="assets/icons/threedotsmenu.svg" alt="menu">
+    </div>
+
+    <!-- Values -->
+    <div class="flex flex-row gap-2 items-center pt-3">
+        <span class="text-2xl text-white">{{ value }}</span>
+        <!-- *ngIf="showComparison" -->
+        @if(showComparison){
+
+        <span class="flex flex-row items-center gap-1 h-5 text-xs rounded-sm px-1 border" [ngClass]="trendColor">
+            {{ trend | number:'1.0-1' }}%
+            <img class="size-3" [src]="trendIcon" alt="arrow">
+        </span>
+        }
+
+    </div>
+</div>
