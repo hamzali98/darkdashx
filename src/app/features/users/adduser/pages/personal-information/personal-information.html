@@ -1,136 +1,147 @@
 <div class="lg:pl-15 ">
-<!-- personal information card -->
+    <!-- personal information card -->
     <p class="text-neutral-400 text-md font-bold ">Personal Information</p>
     <p class="text-neutral-400 text-sm font-light">Please fill in your personal information</p>
 
-    <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-10 mt-5 mb-5 ">
-        <div class="py-6 pt-0 w-full border-b border-b-gray-500/20">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/uncolored/usericon.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Full Name</span>
-                </div>
-                <input class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md
-                " type="text" placeholder="Enter Full Name">
-            </div>
-        </div>
-        <div class="py-6 w-full border-b border-b-gray-500/20">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/uncolored/email.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Email Address</span>
-                </div>
-                <input class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md
-                " type="text" placeholder="Enter Email">
-            </div>
-        </div>
-        <div class="py-6 w-full border-b border-b-gray-500/20">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/uncolored/photo.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Photo</span>
-                </div>
-                <div class="flex w-full lg:w-92 gap-5 place-content-between items-center ">
-                    <div class="flex flex-col items-center">
-                        <div class="rounded-full overflow-hidden size-10">
-                            <img src="assets/images/profilepic.svg" alt="profile">
-                        </div>
-                        <Button class="text-gray-400 text-md text-light py-5 ">Delete</Button>
-                    </div>
-                    <!-- <div class="flex flex-col items items-center"> -->
-                        <input id="fileUpload" type="file" class="hidden" />
-                        <label for="fileUpload"  class="flex flex-col text-gray-400 text-light text-sm text-center items-center">
-                            <img src="assets/icons/colored/uploadphoto.svg" alt="upload">
-                            <p><span class="text-primary text-light text-md">Click to upload </span>
-                                or drag and drop</p>
-                            SVG, PNG, JPG, or GIF(max. 800 x 400px)
+    <p class="text-white text-md font-light">
+        <span class="text-red-600 font-bold ">
+            Note:
+        </span>
+        Fields marked with
+        <span class="text-red-600 text-xl font-bold">
+            *
+        </span>
+        are required.
+    </p>
+
+    <form [formGroup]="personalInfo">
+
+        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-10 mt-5 mb-5 ">
+            <!-- name input -->
+            <div class="py-6 pt-0 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1">
+                        <img src="assets/icons/uncolored/usericon.svg" alt="">
+                        <label for="name" class="text-gray-300 text-lg font-medium ">Full Name
+                            <span class="text-red-600">*</span>
                         </label>
-                    <!-- </div> -->
+                    </div>
+                    <div class="flex flex-col">
+                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-white text-lg font-light
+                        invalid:border-red-500 invalid:caret-red-500
+                        valid:border-green-500 valid:caret-green-500
+                        focus:border-primary caret-primary
+                        placeholder:text-gray-400 placeholder:text-md " formControlName="user_name" type="text"
+                            id="name" name="name" placeholder="Enter Full Name">
+                        @if(user_name?.hasError('required') && user_name?.touched) {
+                        <span class="py-1 px-4 text-red-500 text-md font-bold">Name Required!</span>
+                        } @else if(user_name?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Name</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- email input -->
+            <div class="py-6 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1">
+                        <img src="assets/icons/uncolored/email.svg" alt="">
+                        <label for="email" class="text-gray-300 text-lg font-medium">Email Address
+                            <span class="text-red-600">*</span>
+
+                        </label>
+                    </div>
+                    <div class="flex flex-col">
+
+                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-white text-lg font-light
+                        invalid:border-red-500 invalid:caret-red-500
+                        valid:border-green-500 valid:caret-green-500
+                        focus:border-primary caret-primary
+                        placeholder:text-gray-400 placeholder:text-md
+                        " type="text" id="email" name="email" formControlName="user_email" placeholder="Enter Email">
+                        @if(user_email?.hasError('required') && user_email?.touched){
+                        <span class="py-1 px-4 text-red-500 text-md font-bold">Email Required!</span>
+                        } @else if (user_email?.hasError('pattern')){
+                        <span class="py-1 px-4 text-red-500 text-md font-bold">Email not Valid</span>
+                        } @else if(user_email?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Email</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- photo input -->
+            <div class="py-6 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1">
+                        <img src="assets/icons/uncolored/photo.svg" alt="">
+                        <label class="text-gray-300 text-lg font-medium after ">Photo
+                            <!-- <span class="peer-invalid:text-red-600 peer-valid:text-green-600">*</span> -->
+
+                        </label>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="flex w-full lg:w-92 gap-5 place-content-between items-center ">
+                            <div class="flex flex-col items-center">
+                                <div class="rounded-full overflow-hidden size-10">
+                                    <img src="assets/images/profilepic.svg" alt="profile">
+                                </div>
+                                <Button class="text-gray-400 text-md text-light py-5 ">Delete</Button>
+                            </div>
+                            <input required id="photo" name="photo" type="file" class="hidden" />
+                            <label for="photo"
+                                class="flex flex-col text-gray-400 text-light text-sm text-center items-center">
+                                <img src="assets/icons/colored/uploadphoto.svg" alt="upload">
+                                <p><span class="text-primary text-light text-md">Click to upload </span>
+                                    or drag and drop</p>
+                                SVG, PNG, JPG, or GIF(max. 800 x 400px)
+                            </label>
+                        </div>
+                        @if(user_photo?.hasError('required') && user_photo?.touched)
+                        {
+                        <span class="py-1 px-4 text-red-500 text-md font-bold">Photo Required!</span>
+                        } @else if(user_photo?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Name</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- description input -->
+            <div class="py-6 pb-0 w-full">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1">
+                        <img src="assets/icons/uncolored/pencil.svg" alt="">
+                        <label for="desc" class="text-gray-300 text-lg font-medium">Short Description
+                            <span class="text-red-600">*</span>
+
+                        </label>
+                    </div>
+                    <div class="flex flex-col">
+
+                        <textarea required name="desc" id="desc" class=" w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-white text-lg font-light
+                        invalid:border-red-500 invalid:caret-red-500
+                        valid:border-green-500 valid:caret-green-500
+                        focus:border-primary caret-primary
+                        placeholder:text-gray-400 placeholder:text-md" formControlName="user_desc"
+                            placeholder="Write a short bio about you..."></textarea>
+                        @if(user_desc?.hasError('required') && user_desc?.touched)
+                        { <span class="py-1 px-4 text-red-500 text-md font-bold">Description Required!</span>
+                        } @else if(user_desc?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Description</span>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="py-6 pb-0 w-full">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/uncolored/pencil.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Short Description</span>
-                </div>
-                <textarea name="" id=""
-                class=" w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md"
-                placeholder="Write a short bio about you..."
-                ></textarea>
-                <!-- <input class="h-11 w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md" 
-                type="text" placeholder="Write a short bio about you..."> -->
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-    <!-- basic information card -->
-    <p class="text-neutral-400 text-md font-bold ">Basic Information</p>
-    <p class="text-neutral-400 text-sm font-light">Please fill in your basic information</p>
-
-    <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-10 mt-5 ">
-        <div class="py-6 pt-0 w-full border-b border-b-gray-500/20">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/uncolored/phone.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Phone</span>
-                </div>
-                <input class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md
-                " type="tel" placeholder="e.g. +92 3** *******">
-            </div>
-        </div>
-        <div class="py-6 w-full border-b border-b-gray-500/20">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/uncolored/companybag.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Position</span>
-                </div>
-                <input class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md
-                " type="text" placeholder="Enter your position">
-            </div>
-        </div>
-                <div class="py-6 w-full border-b border-b-gray-500/20">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/uncolored/location.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Location</span>
-                </div>
-                <input class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md
-                " type="text" placeholder="Enter Location">
-            </div>
-        </div>
-        <div class="py-6 pb-0 w-full">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/uncolored/internet.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Website</span>
-                </div>
-                <input class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md"
-                type="text" placeholder="Enter your website">
-            </div>
-        </div>
-    </div>
+    </form>
 </div>

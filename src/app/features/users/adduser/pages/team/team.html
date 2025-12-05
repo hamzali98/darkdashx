@@ -3,54 +3,135 @@
     <p class="text-neutral-400 text-md font-bold ">Team Information</p>
     <p class="text-neutral-400 text-sm font-light">Please fill in your team information</p>
 
-    <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-10 mt-5 ">
-        <div class="py-6 pt-0 w-full border-b border-b-gray-500/20">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/uncolored/companybag.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Team Name</span>
+    <form [formGroup]="teamInfo" (ngSubmit)="onFormSubmit()" >
+
+        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-10 mt-5 ">
+            <div class="py-6 pt-0 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1">
+                        <img src="assets/icons/uncolored/companybag.svg" alt="">
+                        <label for="teamname" class="text-gray-300 text-lg font-medium">Team Name
+                            <span class="text-red-600">*</span>
+
+                        </label>
+                    </div>
+                    <div class="flex flex-col">
+                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-white text-lg font-light
+                        invalid:border-red-500 invalid:caret-red-500
+                        valid:border-green-500 valid:caret-green-500
+                        focus:border-primary caret-primary
+                        placeholder:text-gray-400 placeholder:text-md " formControlName="team_name" type="text"
+                            id="teamname" name="teamname" placeholder="Enter Team Name">
+                        @if(team_name?.hasError('required') && team_name?.touched){
+                        <span class="py-1 px-4 text-red-500 text-md font-bold">Team Name Required!</span>
+                        } @else if(team_name?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Team Name</span>
+                        }
+                    </div>
                 </div>
-                <input class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md
-                " type="text" placeholder="Enter team name">
+            </div>
+            <div class="py-6 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1">
+                        <img src="assets/icons/star.svg" alt="">
+                        <label for="rank" class="text-gray-300 text-lg font-medium">Rank
+                            <span class="text-red-600">*</span>
+
+                        </label>
+                    </div>
+                    <div class="flex flex-col">
+                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-white text-lg font-light
+                        invalid:border-red-500 invalid:caret-red-500
+                        valid:border-green-500 valid:caret-green-500
+                        focus:border-primary caret-primary
+                        placeholder:text-gray-400 placeholder:text-md " formControlName="team_rank" type="text"
+                            id="rank" name="rank" placeholder="Enter Team Rank">
+                        @if(team_rank?.hasError('required') && team_rank?.touched){
+                        <span class="py-1 px-4 text-red-500 text-md font-bold">Team Rank Required!</span>
+                        } @else if(team_rank?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Team Rank</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="py-6 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1">
+                        <img src="assets/icons/uncolored/location.svg" alt="">
+                        <label for="office" class="text-gray-300 text-lg font-medium">Office
+                            <span class="text-red-600">*</span>
+
+                        </label>
+                    </div>
+                    <div class="flex flex-col">
+                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-white text-lg font-light
+                        invalid:border-red-500 invalid:caret-red-500
+                        valid:border-green-500 valid:caret-green-500
+                        focus:border-primary caret-primary
+                        placeholder:text-gray-400 placeholder:text-md " formControlName="team_office" type="tel"
+                            id="office" name="office" placeholder="Enter Team Office">
+                        @if(team_office?.hasError('required') && team_office?.touched){
+                        <span class="py-1 px-4 text-red-500 text-md font-bold">Team Office Required!</span>
+                        } @else if(team_office?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Team Office</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="py-6 pb-0 w-full">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1">
+                        <img src="assets/icons/uncolored/internet.svg" alt="">
+                        <label for="mail" class="text-gray-300 text-lg font-medium">Mail
+                            <span class="text-red-600">*</span>
+                        </label>
+                    </div>
+                    <div class="flex flex-col">
+                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-white text-lg font-light
+                        invalid:border-red-500 invalid:caret-red-500
+                        valid:border-green-500 valid:caret-green-500
+                        focus:border-primary caret-primary
+                        placeholder:text-gray-400 placeholder:text-md " formControlName="team_mail" type="text"
+                            id="mail" name="mail" placeholder="Enter Team mail">
+                        @if(team_mail?.hasError('required') && team_mail?.touched){
+                        <span class="py-1 px-4 text-red-500 text-md font-bold">Team Mail Required!</span>
+                        } @else if (team_mail?.hasError('pattern')) {
+                        <span class="py-1 px-4 text-red-500 text-md font-bold">Team Mail Not Valid!</span>
+                        } @else if(team_mail?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Team Mail</span>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="py-6 w-full border-b border-b-gray-500/20">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/star.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Rank</span>
-                </div>
-                <input class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md
-                " type="text" placeholder="Enter your team rank">
-            </div>
+        <div class=" flex justify-end mt-10">
+            <button
+            [disabled]="userFormSubmit.invalid"
+            class="h-11 w-48 rounded-sm text-white bg-primary 
+            drop-shadow-md drop-shadow-black
+            disabled:bg-primary/50 disabled:text-white/50 " type="submit">
+                @if(spin){
+                    <div class="flex flex-row justify-center items-center" >
+                        <span class="animate-pulse" >
+                            <img class=" px-3 animate-spin" src="assets/icons/logo.svg" alt="🛟">
+                        </span>
+                    </div>
+                } @else {
+                    Add User
+                }
+            </button>
         </div>
-                <div class="py-6 w-full border-b border-b-gray-500/20">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/uncolored/location.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Office</span>
-                </div>
-                <input class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md
-                " type="text" placeholder="Enter Office">
-            </div>
-        </div>
-        <div class="py-6 pb-0 w-full">
-            <div class="flex flex-col lg:flex-row items-start justify-between ">
-                <div class="flex gap-1">
-                    <img src="assets/icons/uncolored/internet.svg" alt="">
-                    <span class="text-gray-300 text-lg font-medium">Mail</span>
-                </div>
-                <input class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                focus:border-primary caret-primary
-                placeholder:text-gray-400 placeholder:text-md"
-                type="text" placeholder="Enter team mail">
-            </div>
-        </div>
-    </div>
+    </form>
 </div>
