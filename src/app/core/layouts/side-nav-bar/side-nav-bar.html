@@ -113,7 +113,7 @@
             <!-- (click)="onOpen('users')"  -->
             <button [disabled]="open() === 'users'" class="flex justify-center align-middle w-full cursor-pointer
                 size-auto opacity-100 md:size-0 md:opacity-100
-                " (click)="openAndNavigate('users', '/users/add')" >
+                " (click)="openAndNavigate('users', '/users/view')" >
                 @if(open() === 'users'){
                 <img src="assets\icons\colored\usericon.svg" alt="user">
                 } @else {
