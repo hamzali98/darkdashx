@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, Input, input, model } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { PercentPipe, DecimalPipe } from '@angular/common';
 
@@ -9,8 +9,6 @@ import { PercentPipe, DecimalPipe } from '@angular/common';
   styleUrl: './analytics-card.css',
 })
 export class AnalyticsCard {
-
-  @Input() showComparison: boolean = true;
 
   @Input() value!: number | string;
   @Input() trend!: number;
