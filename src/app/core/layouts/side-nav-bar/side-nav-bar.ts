@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-side-nav-bar',
-  imports: [RouterLinkActive, RouterLink, NgClass],
+  imports: [RouterLink, NgClass],
   templateUrl: './side-nav-bar.html',
   styleUrl: './side-nav-bar.css',
 })
@@ -21,7 +21,18 @@ export class SideNavBar implements OnInit {
 
   ngOnInit() {
     console.log("ng on init");
-    this.onOpen("dashboard");
+    const route = this.routerRef.routerState.snapshot.url.toString();
+    console.log('active route', route);
+    // this.onOpen('dashboard');
+    if(route.startsWith('/users')){
+      this.onOpen('users');
+    } else if(route.startsWith('/settings')){
+      this.onOpen('settings');
+    } else if(route.startsWith('/profile')){
+      this.onOpen('profile');
+    } else {
+      this.onOpen('dashboard');
+    }
   }
 
   openAndNavigate(section: string, route: string) {
