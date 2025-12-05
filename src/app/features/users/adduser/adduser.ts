@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet, Router } from '@angular/router';
+import { SideNav } from "./components/side-nav/side-nav";
+
 
 @Component({
   selector: 'app-adduser',
-  imports: [],
+  imports: [SideNav, RouterOutlet, ],
   templateUrl: './adduser.html',
   styleUrl: './adduser.css',
 })
