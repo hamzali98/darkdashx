@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-side-nav-bar',
-  imports: [RouterLinkActive, RouterLink, NgClass],
+  imports: [RouterLink, NgClass],
   templateUrl: './side-nav-bar.html',
   styleUrl: './side-nav-bar.css',
 })

@@ -4,7 +4,7 @@ import { PercentPipe, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-analytics-card',
-  imports: [NgClass, PercentPipe, DecimalPipe],
+  imports: [NgClass, DecimalPipe],
   templateUrl: './analytics-card.html',
   styleUrl: './analytics-card.css',
 })
