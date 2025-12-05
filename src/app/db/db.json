@@ -1,0 +1,26 @@
+{
+  "products": [],
+  "users": [
+    {
+      "id": "1040",
+      "personal_info": {
+        "user_name": "hamza",
+        "user_email": "email@email.com",
+        "user_photo": "",
+        "user_desc": "ja"
+      },
+      "basic_info": {
+        "user_phone": "3123456789",
+        "user_position": "po",
+        "user_location": "lo",
+        "user_website": "www.www"
+      },
+      "team_info": {
+        "team_name": "te",
+        "team_rank": "ra",
+        "team_office": "of",
+        "team_mail": "email@email.com"
+      }
+    }
+  ]
+}
