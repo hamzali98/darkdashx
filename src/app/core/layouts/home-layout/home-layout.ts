@@ -6,7 +6,7 @@ import { Loader } from "@app/core/component/loader/loader";
 
 @Component({
   selector: 'app-home-layout',
-  imports: [SideNavBar, RouterOutlet, Loader],
+  imports: [SideNavBar, RouterOutlet],
   templateUrl: './home-layout.html',
   styleUrl: './home-layout.css',
 })
