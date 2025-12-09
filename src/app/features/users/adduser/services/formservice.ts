@@ -8,7 +8,8 @@ export class Formservice {
 
   fB = inject(FormBuilder);
 
-  userForm2 = this.fB.group({
+  userForm = this.fB.group({
+    online : [false],
     personal_info: this.fB.group({
       user_name: ['', Validators.required],
       user_email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
@@ -30,6 +31,10 @@ export class Formservice {
   })
 
   getForm() {
-    return this.userForm2;
+    return this.userForm;
+  }
+
+  resetForm(){
+    this.userForm.reset();
   }
 }

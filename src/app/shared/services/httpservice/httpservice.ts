@@ -14,4 +14,7 @@ export class Httpservice {
     return this.httpClient.post<any>(`${this.BASE_URL}/${url}`,payload);
   }
 
+  getApi(url: string) {
+    return this.httpClient.get<any>(`${this.BASE_URL}/${url}`, {observe: 'response' as const});
+  }
 }

@@ -4,6 +4,8 @@ import { Formservice } from '../../services/formservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { finalize, timeInterval } from 'rxjs';
 import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
+import { Router } from '@angular/router';
+import { Loaderservice } from '@app/core/services/loader/loaderservice';
 
 @Component({
   selector: 'app-team',
@@ -13,12 +15,12 @@ import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 })
 export class Team {
 
-  spin: boolean = false;
-
   teamInfo: FormGroup;
   userFormSubmit: FormGroup;
   userForm = inject(Formservice);
   httpService = inject(Httpservice);
+  routerRef = inject(Router);
+  loaderService = inject(Loaderservice);
 
   constructor() {
     this.userFormSubmit = this.userForm.getForm();
@@ -40,13 +42,15 @@ export class Team {
   }
 
   onFormSubmit() {
-    this.spin = true;
+    this.loaderService.showLoader();
     console.log("Whole Form", this.userFormSubmit.value);
     this.httpService.addApi('users', this.userFormSubmit.value).pipe(
       finalize(() => {
         setTimeout(() => {
-          this.spin = false;
+          this.loaderService.hideLoader();
         }, 1200);
+        this.userForm.resetForm();
+        this.routerRef.navigate(['/users/view']);
       })
     ).subscribe({
       next: (res) => {
@@ -54,14 +58,10 @@ export class Team {
       },
       error: (err) => {
         console.log(err);
-        setTimeout(() => {
-          this.spin = false;
-        }, 1200);
+        this.loaderService.hideLoader();
       },
       complete: () => {
-        setTimeout(() => {
-          this.spin = false;
-        }, 1200);
+        this.loaderService.hideLoader();
       }
     })
   }

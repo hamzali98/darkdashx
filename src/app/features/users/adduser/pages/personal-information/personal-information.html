@@ -22,24 +22,24 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1">
                         <img src="assets/icons/uncolored/usericon.svg" alt="">
-                        <label for="name" class="text-gray-300 text-lg font-medium ">Full Name
+                        <label for="name" class="text-gray-300 text-sm font-medium ">Full Name
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col w-full lg:w-auto">
                         <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
                         text-white text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-md " formControlName="user_name" type="text"
+                        placeholder:text-gray-400 placeholder:text-sm " formControlName="user_name" type="text"
                             id="name" name="name" placeholder="Enter Full Name">
                         @if(user_name?.hasError('required') && user_name?.touched) {
-                        <span class="py-1 px-4 text-red-500 text-md font-bold">Name Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Name Required!</span>
                         } @else if(user_name?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Name</span>
+                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Name</span>
                         }
                     </div>
                 </div>
@@ -49,28 +49,28 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1">
                         <img src="assets/icons/uncolored/email.svg" alt="">
-                        <label for="email" class="text-gray-300 text-lg font-medium">Email Address
+                        <label for="email" class="text-gray-300 text-sm font-medium">Email Address
                             <span class="text-red-600">*</span>
 
                         </label>
                     </div>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col w-full lg:w-auto">
 
                         <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
                         text-white text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-md
+                        placeholder:text-gray-400 placeholder:text-sm
                         " type="text" id="email" name="email" formControlName="user_email" placeholder="Enter Email">
                         @if(user_email?.hasError('required') && user_email?.touched){
-                        <span class="py-1 px-4 text-red-500 text-md font-bold">Email Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Email Required!</span>
                         } @else if (user_email?.hasError('pattern')){
-                        <span class="py-1 px-4 text-red-500 text-md font-bold">Email not Valid</span>
+                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Email not Valid</span>
                         } @else if(user_email?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Email</span>
+                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Email</span>
                         }
                     </div>
                 </div>
@@ -80,12 +80,12 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1">
                         <img src="assets/icons/uncolored/photo.svg" alt="">
-                        <label class="text-gray-300 text-lg font-medium after ">Photo
+                        <label class="text-gray-300 text-sm font-medium after ">Photo
                             <!-- <span class="peer-invalid:text-red-600 peer-valid:text-green-600">*</span> -->
 
                         </label>
                     </div>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col w-full lg:w-auto">
                         <div class="flex w-full lg:w-92 gap-5 place-content-between items-center ">
                             <div class="flex flex-col items-center">
                                 <div class="rounded-full overflow-hidden size-10">
@@ -104,11 +104,11 @@
                         </div>
                         @if(user_photo?.hasError('required') && user_photo?.touched)
                         {
-                        <span class="py-1 px-4 text-red-500 text-md font-bold">Photo Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Photo Required!</span>
                         } @else if(user_photo?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Name</span>
+                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Name</span>
                         }
                     </div>
                 </div>
@@ -118,26 +118,25 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1">
                         <img src="assets/icons/uncolored/pencil.svg" alt="">
-                        <label for="desc" class="text-gray-300 text-lg font-medium">Short Description
+                        <label for="desc" class="text-gray-300 text-sm font-medium">Short Description
                             <span class="text-red-600">*</span>
 
                         </label>
                     </div>
-                    <div class="flex flex-col">
-
+                    <div class="flex flex-col w-full lg:w-auto">
                         <textarea required name="desc" id="desc" class=" w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
                         text-white text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-md" formControlName="user_desc"
+                        placeholder:text-gray-400 placeholder:text-sm" formControlName="user_desc"
                             placeholder="Write a short bio about you..."></textarea>
                         @if(user_desc?.hasError('required') && user_desc?.touched)
-                        { <span class="py-1 px-4 text-red-500 text-md font-bold">Description Required!</span>
+                        { <span class="py-1 px-4 text-red-500 text-sm font-medium">Description Required!</span>
                         } @else if(user_desc?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-md font-bold">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-md font-bold">Enter Description</span>
+                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Description</span>
                         }
                     </div>
                 </div>
