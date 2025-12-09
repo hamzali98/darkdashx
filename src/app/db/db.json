@@ -3,6 +3,7 @@
   "users": [
     {
       "id": "1040",
+      "online": true,
       "personal_info": {
         "user_name": "hamza",
         "user_email": "email@email.com",
@@ -20,6 +21,50 @@
         "team_rank": "ra",
         "team_office": "of",
         "team_mail": "email@email.com"
+      }
+    },
+    {
+      "id": "6a35",
+      "online": false,
+      "personal_info": {
+        "user_name": "user 1",
+        "user_email": "user1@email.com",
+        "user_photo": "",
+        "user_desc": "hello from user 1"
+      },
+      "basic_info": {
+        "user_phone": "3123456789",
+        "user_position": "user 1 position",
+        "user_location": "user 1 location",
+        "user_website": "www.user1.com"
+      },
+      "team_info": {
+        "team_name": "user 1 team",
+        "team_rank": "user 1 team rank",
+        "team_office": "user 1 office",
+        "team_mail": "user1team@email.com"
+      }
+    },
+    {
+      "id": "9d1b",
+      "online": false,
+      "personal_info": {
+        "user_name": "user 2",
+        "user_email": "user2@email.com",
+        "user_photo": "",
+        "user_desc": "hello user 2"
+      },
+      "basic_info": {
+        "user_phone": "3123456789",
+        "user_position": "user 2 position",
+        "user_location": "location",
+        "user_website": "www.website.com"
+      },
+      "team_info": {
+        "team_name": "user 2 team",
+        "team_rank": "rank",
+        "team_office": "office",
+        "team_mail": "user2team@email.com"
       }
     }
   ]
