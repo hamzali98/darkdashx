@@ -1,13 +1,13 @@
-<div class="flex flex-col border-r border-card-bg w-17 md:w-71 h-screen overflow-hidden scroll-auto transition-all duration-300 ease-in-out
-    dark:bg-primary-bg shadow-xl/45 dark:shadow-black/25 ">
+<div class="flex flex-col border-r border-card-bg w-17 md:w-71 h-screen overflow-auto scroll-smooth transition-all duration-300 ease-in-out
+    dark:bg-primary-bg drop-shadow-xl dark:drop-shadow-black/25 ">
 
-    <div class="flex flex-col gap-3 md:gap-5 w-auto h-auto px-7 py-9 ">
-        <a [routerLink]="['']" (click)="[onOpen('home')]" >
+    <div class="flex flex-col gap-3 md:gap-2.5 w-auto h-auto px-6.5 py-8.5 ">
+        <a [routerLink]="['']" (click)="[onOpen('home')]">
 
             <div class="flex flex-row justify-between align-middle items-center ">
                 <div class="flex flex-row">
-                    <img class="size-8 md:size-auto " src="assets/icons/logo.svg" alt="a">
-                    <span class="opacity-0 md:opacity-100 font-medium text-card-bg dark:text-white text-lg px-2 ">
+                    <img class="size-6.5 " src="assets/icons/logo.svg" alt="a">
+                    <span class="opacity-0 font-inter md:opacity-100 font-medium text-card-bg dark:text-white text-lg px-2 ">
                         Dashdark X
                     </span>
                 </div>
@@ -19,30 +19,23 @@
             </div>
         </a>
 
-        <div class="flex justify-center align-middle w-full h-7 my-4 mb-0 
+        <div class="mt-7">
+            <div class="flex justify-center align-middle w-full h-7 my-4 mb-0 
             opacity-100 md:opacity-0 md:my-0 md:mb-0 md:size-0 ">
-            <img src="assets/icons/search.svg" alt="">
-        </div>
-        <!-- <div class="relative my-0 mb-0 md:my-4 md:mb-15 opacity-0 md:opacity-100 ">
-            <input class="absolute pl-8.5 py-2 w-full mb-1 border border-card-bg/30 dark:border-neutral-400/30 rounded-sm caret-primary outline-0
-                placeholder:text-card-bg drop-shadow-md drop-shadow-white/25 focus:drop-shadow-primary/50
-                dark:placeholder:text-neutral-400 placeholder:text-sm focus:border-primary dark:text-neutral-400 "
-                type="search" placeholder="Search for..." />
-            <span class="text-card-bg">
-                <img class="absolute px-3 py-3.5 " src="assets/icons/search.svg" alt="">
-            </span>
-        </div> -->
-        <div class="hidden md:inline relative w-full max-w-sm">
-                <img src="assets/icons/search.svg"
-                    class="absolute left-3 top-1/2 -translate-y-1/2  pointer-events-none" alt="icon" />
-                <input class=" pl-10 py-2 w-full mb-1 border border-card-bg/30 dark:border-gray-800 rounded-sm caret-primary outline-0
-                placeholder:text-card-bg bg-input-bg
-                dark:placeholder:text-neutral-400 placeholder:text-sm focus:border-primary dark:text-neutral-400 "
-                type="search" placeholder="Search for..." />
+                <img src="assets/icons/search.svg" alt="">
             </div>
+            <div class="hidden md:flex md:flex-row relative w-auto justify-center items-center">
+                <img src="assets/icons/search.svg"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 size-3.5  pointer-events-none" alt="icon" />
+                <input class=" pl-8 w-full h-10 border border-card-bg/30 dark:border-gray-800 rounded-md caret-primary outline-0
+            placeholder:text-card-bg bg-input-bg 
+            dark:placeholder:text-gray-400 placeholder:text-xs focus:border-primary dark:text-gray-400 " type="search"
+                    placeholder="Search for..." />
+            </div>
+        </div>
 
         <!-- Dashboard selection div -->
-        <div>
+        <div class="pt-7 ">
             <button [disabled]="open() === 'dashboard'" class="flex justify-center align-middle w-full cursor-pointer
                 size-auto opacity-100 md:size-0 md:opacity-100
                 " (click)="openAndNavigate('dashboard', '')">
@@ -52,7 +45,7 @@
                 <img src="assets\icons\uncolored\homeicon.svg" alt="home">
                 }
             </button>
-            <button [disabled]="open() === 'dashboard'" class="flex flex-row items-center w-full justify-between cursor-pointer
+            <button [disabled]="open() === 'dashboard'" class="flex flex-row items-end w-full justify-between cursor-pointer
                 opacity-0 md:opacity-100 size-0 md:size-auto md:w-full
                 " (click)="openAndNavigate('dashboard', '')">
                 <div class=" flex flex-row">
@@ -64,7 +57,7 @@
                     <span [ngClass]="open() === 'dashboard'
                 ? 'text-primary'
                 : 'text-gray-500 dark:text-neutral-400'"
-                        class="opacity-0 md:opacity-100 px-1 font-bold text-sm">Dashboard</span>
+                        class="opacity-0 md:opacity-100 px-1 font-medium text-sm">Dashboard</span>
                 </div>
                 <span class="transition-transform duration-300 ease-in-out "
                     [ngClass]="open() === 'dashboard' ? 'rotate-0' : '-rotate-90' ">
@@ -73,34 +66,34 @@
             </button>
 
             <nav [ngClass]="open() === 'dashboard' 
-            ? 'opacity-100 max-h-30 pointer-events-auto'
+            ? 'opacity-100 max-h-40 pointer-events-auto '
             : 'opacity-0 max-h-0 pointer-events-none' "
-                class="flex flex-col transition-all duration-400 ease-in-out mt-2">
+                class="flex flex-col transition-all duration-400 ease-in-out mt-5">
                 <a [routerLink]="['']"
-                    [ngClass]="isActive('') ? 'border-l-4 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
-                    class=" text-left text-sm px-1.5 md:px-4 py-1 rounded-sm font-medium">
+                    [ngClass]="isActive('') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden dark:fill-white "><img class="size-5" src="assets/icons/dashboard.svg"
                             alt="dash"></span>
                     <span class="hidden md:inline">Home</span>
                     <!-- Home -->
                 </a>
                 <a [routerLink]="['/reports']"
-                    [ngClass]="isActive('/reports') ? 'border-l-4 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
-                    class=" text-left text-sm px-1.5 md:px-4 py-1 rounded-sm font-medium">
+                    [ngClass]="isActive('/reports') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden"><img class="size-5" src="assets/icons/reports.svg" alt="reports"></span>
                     <span class="hidden md:inline">Reports</span>
                     <!-- Reports -->
                 </a>
                 <a [routerLink]="['/tasks']"
-                    [ngClass]="isActive('/tasks') ? 'border-l-4 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
-                    class=" text-left text-sm px-1.5 md:px-4 py-1 rounded-sm font-medium">
+                    [ngClass]="isActive('/tasks') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden"><img class="size-5" src="assets/icons/tasks.svg" alt="tasks"></span>
                     <span class="hidden md:inline">Tasks</span>
                     <!-- Tskas -->
                 </a>
                 <a [routerLink]="['/products']"
-                    [ngClass]="isActive('/products') ? 'border-l-4 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
-                    class=" text-left text-sm px-1.5 md:px-4 py-1 rounded-sm font-medium">
+                    [ngClass]="isActive('/products') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden"><img class="size-5" src="assets/icons/cart.svg" alt="tasks"></span>
                     <span class="hidden md:inline">Products</span>
                 </a>
@@ -113,7 +106,7 @@
             <!-- (click)="onOpen('users')"  -->
             <button [disabled]="open() === 'users'" class="flex justify-center align-middle w-full cursor-pointer
                 size-auto opacity-100 md:size-0 md:opacity-100
-                " (click)="openAndNavigate('users', '/users/view')" >
+                " (click)="openAndNavigate('users', '/users/view')">
                 @if(open() === 'users'){
                 <img src="assets\icons\colored\usericon.svg" alt="user">
                 } @else {
@@ -144,21 +137,75 @@
             <nav [ngClass]="open() === 'users'
             ? 'opacity-100 max-h-30 pointer-events-auto' 
             : 'opacity-0 max-h-0 pointer-events-none' "
-                class="flex flex-col transition-all duration-400 ease-in-out mt-2">
+                class="flex flex-col transition-all duration-400 ease-in-out mt-5">
                 <a [routerLink]="['users/view']"
-                    [ngClass]="isActive('/users/view') ? 'border-l-4 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
-                    class=" text-left text-sm px-1.5  md:px-4 py-1 rounded-sm font-medium">
+                    [ngClass]="isActive('/users/view') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    class=" text-left text-sm px-1.5  md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden  "><img class=" size-5" src="assets/icons/view.svg" alt="view"></span>
                     <span class="hidden md:inline">View Users</span>
                 </a>
                 <a [routerLink]="['/users/add']"
-                    [ngClass]="isActive('/users/add') ? 'border-l-4 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
-                    class=" text-left text-sm px-1.5 md:px-4  py-1 rounded-sm font-medium">
+                    [ngClass]="isActive('/users/add') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    class=" text-left text-sm px-1.5 md:px-4  py-2.5 rounded-sm font-normal">
                     <span class="md:hidden "><img class="   size-5" src="assets/icons/add-user.svg" alt=""></span>
                     <span class="hidden md:inline">Add User</span>
                 </a>
             </nav>
         </div>
+
+        <!-- Users selection div -->
+        <div>
+            <!-- (click)="onOpen('users')"  -->
+            <button [disabled]="open() === 'features'" class="flex justify-center align-middle w-full cursor-pointer
+                size-auto opacity-100 md:size-0 md:opacity-100
+                " (click)="openAndNavigate('users', '/users/view')">
+                @if(open() === 'users'){
+                <img src="assets\icons\colored\usericon.svg" alt="user">
+                } @else {
+                <img src="assets\icons\uncolored\usericon.svg" alt="user">
+                }
+            </button>
+            <button [disabled]="open() === 'features'" class="flex flex-row items-center w-full justify-between cursor-pointer
+                opacity-0 md:opacity-100 size-0 md:size-auto md:w-full
+                " (click)="openAndNavigate('features', 'users/view')">
+                <div class=" flex flex-row ">
+                    @if(open() === 'features'){
+                    <img src="assets\icons\colored\usericon.svg" alt="user">
+                    } @else {
+                    <img src="assets\icons\uncolored\usericon.svg" alt="user">
+                    }
+                    <span [ngClass]="open() === 'features'
+                ? 'text-primary'
+                : 'text-gray-500 dark:text-neutral-400'"
+                        class="opacity-0 md:opacity-100 px-1 font-bold text-sm">Features</span>
+                </div>
+                <span class="transition-transform duration-300 ease-in-out"
+                    [ngClass]="open() === 'features' ? ' rotate-0' : ' -rotate-90' ">
+                    <img src="assets/icons/droparrow.svg" alt="drop">
+
+                </span>
+            </button>
+
+            <nav [ngClass]="open() === 'features'
+            ? 'opacity-100 max-h-30 pointer-events-auto' 
+            : 'opacity-0 max-h-0 pointer-events-none' "
+                class="flex flex-col transition-all duration-400 ease-in-out mt-5">
+                <a [routerLink]="['users/view']"
+                    [ngClass]="isActive('/users/view') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    class=" text-left text-sm px-1.5  md:px-4 py-2.5 rounded-sm font-normal">
+                    <span class="md:hidden  "><img class=" size-5" src="assets/icons/view.svg" alt="view"></span>
+                    <span class="hidden md:inline">View Users</span>
+                </a>
+                <a [routerLink]="['/users/add']"
+                    [ngClass]="isActive('/users/add') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    class=" text-left text-sm px-1.5 md:px-4  py-2.5 rounded-sm font-normal">
+                    <span class="md:hidden "><img class="   size-5" src="assets/icons/add-user.svg" alt=""></span>
+                    <span class="hidden md:inline">Add User</span>
+                </a>
+            </nav>
+        </div>
+
+
 
         <!-- divider div -->
     </div>
