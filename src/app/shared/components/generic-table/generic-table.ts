@@ -3,6 +3,12 @@ import { NgClass } from '@angular/common';
 import { User } from '@app/features/users/interface/user';
 import { FormsModule } from '@angular/forms';
 
+// export interface checkList {
+//   checkBox: boolean,
+//   checkboxId: string,
+//   data: Object,
+// }
+
 export interface tableColumns<T> {
   key: keyof T,
   render?: (row: T) => any;
@@ -20,7 +26,7 @@ export class GenericTable<T> {
 
   itemsPerPage: number = 10;
 
-  checkList : any[] = [];
+  checkList: any[] = [];
 
   checked = signal(true);
   status = signal(false);
@@ -29,22 +35,36 @@ export class GenericTable<T> {
   @Input() tableData: T[] = [];
   @Input() columns: tableColumns<T>[] = [];
 
-  @Output() onDeleteClicked : EventEmitter<any> = new EventEmitter();
-  @Output() onEditClicked : EventEmitter<any> = new EventEmitter();
+  @Output() onDeleteClicked: EventEmitter<any> = new EventEmitter();
+  @Output() onEditClicked: EventEmitter<any> = new EventEmitter();
 
   get tableTotal() {
     return this.tableData.length;
   }
 
-  onChangePerPage(){
-    console.log(this.itemsPerPage);
+  get isIndeterminate(){
+    if(this.checkList.length === 0 || this.checkList.length === this.tableData.length){
+      return false;
+    } else {
+      return true;
+    }
   }
 
-  onChecked(data: any) {
-    console.log(data);
-    if(this.checkList.includes(data)){
+  get isChecked(){
+    if (this.checkList.length === this.tableData.length){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  IncludesTableData(data:any){
+    return this.checkList.includes(data);
+  }
+
+  checkUncheckRow(data: any, event: any) {
+    if (this.checkList.includes(data)) {
       const index = this.checkList.indexOf(data);
-      console.log(index);
       this.checkList.splice(index, 1);
     } else {
       this.checkList.push(data);
@@ -52,27 +72,24 @@ export class GenericTable<T> {
     console.log(this.checkList);
   }
 
-  onCompare(){
-    if(this.tableData.length === this.checkList.length){
-      return 1;
-    } else if(this.tableData.length !== this.checkList.length && this.checkList.length !== 0){
-      return 2;
-    } else {
-      return 3;
-    }
+  onCheckboxChange(event: any) {
+    // console.log(event.target.id);
+    console.log(`checked : ${event.target.checked} , id : ${event.target.id}`);
   }
 
-  onAllCheck(){
-    if(this.checkList.length === 0){
-      this.checkList = this.tableData;
+  toggleSelectallRows(event : any){
+    const checked = event.target.checked;
+    if(checked){
+      this.checkList = [...this.tableData];
     } else {
       this.checkList = [];
     }
-    console.log(this.checkList);
+
+    console.log("whole check list : ", this.checkList);
   }
 
-  onContains(data : any){
-    return this.checkList.includes(data) ? true : false;
+  onChangePerPage() {
+    console.log(this.itemsPerPage);
   }
 
   getValue(obj: any, key: any) {
@@ -80,12 +97,12 @@ export class GenericTable<T> {
     // return key.split('.').reduce((access:any, key:any) => access?.[key], obj);
   }
 
-  onClickedDelete(data: T){
+  onClickedDelete(data: T) {
     // console.log(data);
     this.onDeleteClicked.emit(data);
   }
 
-  onClickedEdit(data: T){
+  onClickedEdit(data: T) {
     this.onEditClicked.emit(data);
   }
 }

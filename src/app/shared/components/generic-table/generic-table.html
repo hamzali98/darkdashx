@@ -1,8 +1,8 @@
-<div class="flex flex-col w-full bg-card-bg text-white border border-neutral-500/50 rounded-xl py-2">
-    <div class="flex flex-row justify-between py-4 px-8 border-b border-b-neutral-400/25">
-        <span class="text-white text-lg font-normal">{{tableName()}}</span>
-        <span class="text-sm font-light text-white px-3 ">
-            <span class="text-sm font-light text-primary px-0.5 ">
+<div class="flex flex-col w-full bg-card-bg text-white border border-neutral-500/50 rounded-xl py-2 mt-2">
+    <div class="flex flex-row justify-between py-3.5 px-8.5 pb-5 border-b border-b-neutral-400/25">
+        <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{tableName()}}</span>
+        <span class="text-sm font-semibold text-gray-400 px-4.5 ">
+            <span class="text-sm font-semibold text-primary ">
                 1 - {{tableTotal}}
             </span>
             of {{tableTotal}}
@@ -11,34 +11,28 @@
     <div class="flex flex-1">
         <table class="w-full min-w-max text-left border-collapse">
             <!-- Table Head -->
-            <thead>
-                <tr class=" text-gray-300 text-sm">
-                    <th class="p-3">
-                        <!-- <input type="checkbox"> -->
-                        <button (click)="onAllCheck()">
-                            <img [ngClass]="onCompare() === 1 ? 'inline' : 'hidden'" src="assets/icons/checkboxes/fullcheck.svg"
-                                alt="">
-                            <img [ngClass]="onCompare() === 2 ? 'inline' : 'hidden' " src="assets/icons/checkboxes/halfcheck.svg" alt="">
-                            <img [ngClass]="onCompare() === 3 ? 'inline' : 'hidden'" src="assets/icons/checkboxes/uncheck.svg"
-                                alt="">
-                        </button>
+            <thead class="">
+                <tr class="text-gray-300 text-sm">
+                    <th class="px-[7px]">
+                    </th>
+                    <th>
+                        <!-- class="p-3" -->
+                        <!-- [indeterminate]="checkListTotal" -->
+                        <input id="masterchkbox" name="masterchkbox" [indeterminate]="isIndeterminate"
+                            [checked]="isChecked" (change)="toggleSelectallRows($event)" type="checkbox" class="appearance-none bg-card-bg 
+                            indeterminate:appearance-auto indeterminate:accent-primary
+                            checked:appearance-auto checked:accent-primary border-gray-800 border size-3 rounded-xs">
                     </th>
                     @for(column of columns; track $index){
-                    <th class="p-3">
-                        <div class="flex items-center gap-1">
-                            <img [src]="column.icon" alt="i">
-                            {{column.label}}
+                    <th class="py-3.5">
+                        <div class="flex items-center gap-1 ">
+                            <img class="size-2.5" [src]="column.icon" alt="i">
+                            <span class="text-[10px] font-bold font-worksans">
+                                {{column.label}}
+                            </span>
                         </div>
                     </th>
                     }
-                    <th>
-                        <button 
-                        [ngClass]="checkList ? 'inline' : 'hidden'", 
-                        class="hover:bg-red-400 
-                        bg-red-400/25 p-0.5 rounded-sm items-center justify-center ">
-                            <img src="assets/icons/uncolored/bin.svg" class="w-4 h-4" />
-                        </button>
-                    </th>
                 </tr>
             </thead>
 
@@ -49,42 +43,50 @@
 
                 <tr class="odd:bg-active-route-bg">
 
+                    <td>
+
+                    </td>
+
                     <!-- Checkbox -->
-                    <td class="p-3">
-                        <button (click)="onChecked(data)">
-                            <img [ngClass]="onContains(data) ? 'inline' : 'hidden'" src="assets/icons/checkboxes/fullcheck.svg"
-                                alt="">
-                            <img [ngClass]="onContains(data) ? 'hidden' : 'inline'" src="assets/icons/checkboxes/uncheck.svg"
-                                alt="">
-                        </button>
-                        <!-- <input class=" bg-active-route-text " type="checkbox" /> -->
+                    <td class="">
+                        <input [id]="$index" name="childchkbox" type="checkbox" [checked]="IncludesTableData(data)"
+                            (change)="checkUncheckRow(data, $event)" class="appearance-none bg-card-bg border border-gray-800 size-3 
+                            rounded-xs checked:appearance-auto checked:accent-primary  
+                            ">
                     </td>
 
                     @for(column of columns; track $index){
-                    <td class="p-3 text-grey-300">
+                    <td class=" py-4.5 text-grey-300">
                         @if(data[column.key] === true){
-                        <img src="assets/icons/onlinetag.svg" alt="">
+                        <span
+                            class=" px-1.5 py-px border rounded-xs
+                            text-[10px] font-extralight text-up-green-arrow bg-up-green-arrow/30 border-up-green-arrow/50 ">•
+                            Online</span>
+                        <!-- <img src="assets/icons/onlinetag.svg" alt=""> -->
                         } @else if(data[column.key] === false ){
-                        <img src="assets/icons/offlinetag.svg" alt="">
+                        <span class=" px-1.5 py-px border rounded-xs
+                            text-[10px] font-extralight  text-gray-300 bg-gray-400/30 border-gray-400/50">•
+                            Offline</span>
+                        <!-- <img src="assets/icons/offlinetag.svg" alt=""> -->
                         } @else {
-                        {{getValue(data, column.key)}}
+                        <span class="text-[10px] text-gray-400 font-worksans ">
+
+                            {{getValue(data, column.key)}}
+                        </span>
                         }
                     </td>
                     }
 
                     <!-- Action Buttons -->
-                    <td class="p-3 flex justify-center gap-1">
-                        <button class="hover:bg-blue-400 
-                        bg-blue-400/25 size-5 rounded-sm flex items-center justify-center ">
+                    <td class=" flex justify-center gap-2 py-4.5 px-3 border ">
+                        <!-- <button class="flex items-center justify-center ">
                             <img src="assets/icons/eye.svg" class="w-4 h-4" />
+                        </button> -->
+                        <button (click)="onClickedEdit(tableData[$index])" class="flex items-center justify-center ">
+                            <img src="assets/icons/uncolored/pencil.svg" class="size-3" />
                         </button>
-                        <button (click)="onClickedEdit(tableData[$index])" class="hover:bg-orange-400 
-                        bg-orange-400/25 size-5 rounded-sm flex items-center justify-center ">
-                            <img src="assets/icons/uncolored/pencil.svg" class="w-4 h-4" />
-                        </button>
-                        <button (click)="onClickedDelete(tableData[$index])" class="hover:bg-red-400 
-                        bg-red-400/25 size-5 rounded-sm flex items-center justify-center ">
-                            <img src="assets/icons/uncolored/bin.svg" class="w-4 h-4" />
+                        <button (click)="onClickedDelete(tableData[$index])" class="flex items-center justify-center ">
+                            <img src="assets/icons/uncolored/bin.svg" class="size-3" />
                         </button>
                     </td>
                 </tr>
@@ -94,20 +96,24 @@
     </div>
 </div>
 
-<div class="flex flex-row items-end justify-end py-5 px-4">
-    <div class="px-15">
-        <label for="itemsperpage" class="text-white text-sm font-medium px-5">Rows per page:</label>
-        <select class="rounded-md bg-card-bg text-white p-1 text-sm font-light" [(ngModel)]="itemsPerPage"
-            (change)="onChangePerPage()" name="select" id="itemsperpage">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-        </select>
+<div class="flex flex-row items-end justify-end py-5 px-5">
+    <div class="px-14 flex flex-row items-center ">
+        <label for="itemsperpage" class="text-gray-400 text-[11px] font-medium font-inter px-3">Rows per page:</label>
+        <div class="flex relative ">
+            <img class="absolute top-1/2 -translate-y-1/2 translate-x-5 " src="assets/icons/droparrow.svg" alt="">
+            <select class=" appearance-none h-[26px] w-[41px] rounded-sm bg-card-bg/60 text-white p-1 px-2 text-[10px] font-light
+            
+            " [(ngModel)]="itemsPerPage" (change)="onChangePerPage()" name="select" id="itemsperpage">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+        </div>
     </div>
-    <button class="bg-card-bg p-2 rounded-md ml-3 hover:bg-card-bg/50">
+    <button class="bg-card-bg/60 p-[5.5px] rounded-sm hover:bg-card-bg/50">
         <img class="rotate-180" src="assets/icons/rightarrow.svg" alt="">
     </button>
-    <button class="bg-card-bg p-2 rounded-md ml-3 hover:bg-card-bg/50">
+    <button class="bg-card-bg/60 p-[5.5px] rounded-sm ml-1.5 hover:bg-card-bg/50">
         <img src="assets/icons/rightarrow.svg" alt="">
     </button>
 </div>

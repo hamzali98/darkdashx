@@ -1,24 +1,24 @@
-<div class=" flex flex-col gap-5 px-6 py-8">
+<div class=" flex flex-col gap-5 px-9 py-7">
     <div class="flex flex-col md:flex-row justify-between items-center ">
-        <div class="flex flex-col md:flex-row gap-4 items-center ">
-            <span class="text-gray-500 dark:text-white text-md">Users</span>
+        <div class="flex flex-col md:flex-row gap-13 items-center ">
+            <span class="text-gray-500 dark:text-white font-medium font-inter text-lg ">Users</span>
             <div class="relative w-full max-w-sm mb-3 md:mb-0 ">
                 <img src="assets/icons/search.svg"
-                    class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" alt="icon" />
-                <input class=" pl-10 w-full md:w-88 h-11 bg-card-bg border border-card-bg/30 dark:border-neutral-400/30 rounded-sm caret-primary outline-0
-                    placeholder:text-card-bg
-                    dark:placeholder:text-neutral-400 placeholder:text-sm focus:border-primary dark:text-neutral-400 "
+                    class="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none" alt="icon" />
+                <input class=" pl-8 w-full md:w-83 h-10 bg-card-bg border border-card-bg dark:border-gray-800 rounded-sm caret-primary outline-0
+                    placeholder:text-card-bg placeholder:font-inter
+                    dark:placeholder:text-gray-300 placeholder:text-[11px] focus:border-primary dark:text-neutral-400 "
                     type="search" placeholder="Search for..." />
             </div>
         </div>
         <button
         (click)="onAddUserClick()"
-            class="rounded-md text-white text-xs w-34.25 shadow drop-shadow-black font-[14px] mx-1 h-7.5 cursor-pointer bg-primary">
-            Add User
+            class="rounded-sm text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 cursor-pointer bg-primary">
+            Add user
         </button>
     </div>
     <!-- upper card -->
-    <div class="flex flex-col flex-wrap md:flex-row gap-1 justify-between">
+    <div class="flex flex-col flex-wrap md:flex-row justify-between pt-6.5">
         <app-totals-cards [icon]="'assets/icons/colored/totaluserspurpel.svg'" [title]="'Total Users'" [counts]="359" />
         <app-totals-cards [icon]="'assets/icons/colored/newusersyellow.svg'" [title]="'New Users'" [counts]="13" />
         <app-totals-cards [icon]="'assets/icons/colored/topusersgreen.svg'" [title]="'Top Users'" [counts]="65" />
