@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @theme{
+    --font-worksans: "Work Sans", sans-serif;
+    --font-inter: "Inter", sans-serif;
+
     --color-primary: #cb3cff;
     --color-secondary: #aeb9e1;
     --color-btn-secondary : #0a1330;
