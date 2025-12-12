@@ -18,8 +18,8 @@ export class AnalyticsCard {
 
   get trendColor() {
     return this.trend >= 0
-      ? 'text-up-green-arrow bg-up-green-arrow/30 border-up-green-arrow/50'
-      : 'text-down-red-arrow bg-down-red-arrow/30 border-down-red-arrow/50';
+      ? 'text-up-green-arrow bg-up-green-arrow/20'
+      : 'text-down-red-arrow bg-down-red-arrow/20';
   }
 
   get trendIcon() {

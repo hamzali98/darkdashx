@@ -1,142 +1,131 @@
-<div class="lg:pl-15 ">
+<div class=" lg:pr-10.5 ">
     <!-- personal information card -->
-    <p class="text-neutral-400 text-md font-bold ">Personal Information</p>
-    <p class="text-neutral-400 text-sm font-light">Please fill in your personal information</p>
-
-    <p class="text-white text-md font-light">
-        <span class="text-red-600 font-bold ">
-            Note:
-        </span>
-        Fields marked with
-        <span class="text-red-600 text-xl font-bold">
-            *
-        </span>
-        are required.
-    </p>
+    <p class="text-white text-md font-normal font-worksans ">Personal Information</p>
+    <p class="text-figma-neutral text-sm font-medium tracking-normal">Please fill in your personal information</p>
 
     <form [formGroup]="personalInfo">
 
-        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-10 mt-5 mb-5 ">
+        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
             <!-- name input -->
-            <div class="py-6 pt-0 w-full border-b border-b-gray-500/20">
+            <div class="py-1 pt-0 w-full border-b border-b-gray-500/20">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
-                        <img src="assets/icons/uncolored/usericon.svg" alt="">
-                        <label for="name" class="text-gray-300 text-sm font-medium ">Full Name
+                    <div class="flex gap-1 mt-1">
+                        <img src="assets/icons/userwhiteicon.svg" alt="">
+                        <label for="name" class="text-gray-300 text-xs font-medium ">Full Name
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-white text-lg font-light
+                        <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-sm " formControlName="user_name" type="text"
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_name" type="text"
                             id="name" name="name" placeholder="Enter Full Name">
                         @if(user_name?.hasError('required') && user_name?.touched) {
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Name Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Name Required!</span>
                         } @else if(user_name?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Name</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Name</span>
                         }
                     </div>
                 </div>
             </div>
             <!-- email input -->
-            <div class="py-6 w-full border-b border-b-gray-500/20">
+            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
+                    <div class="flex gap-1 mt-1">
                         <img src="assets/icons/uncolored/email.svg" alt="">
-                        <label for="email" class="text-gray-300 text-sm font-medium">Email Address
+                        <label for="email" class="text-gray-300 text-xs font-medium">Email Address
                             <span class="text-red-600">*</span>
 
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
 
-                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-white text-lg font-light
+                        <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-sm
+                        placeholder:text-figma-neutral placeholder:text-sm
                         " type="text" id="email" name="email" formControlName="user_email" placeholder="Enter Email">
                         @if(user_email?.hasError('required') && user_email?.touched){
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Email Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Email Required!</span>
                         } @else if (user_email?.hasError('pattern')){
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Email not Valid</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Email not Valid</span>
                         } @else if(user_email?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Email</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Email</span>
                         }
                     </div>
                 </div>
             </div>
             <!-- photo input -->
-            <div class="py-6 w-full border-b border-b-gray-500/20">
+            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
+                    <div class="flex gap-1 mt-1">
                         <img src="assets/icons/uncolored/photo.svg" alt="">
-                        <label class="text-gray-300 text-sm font-medium after ">Photo
+                        <label class="text-gray-300 text-xs font-medium ">Photo
                             <!-- <span class="peer-invalid:text-red-600 peer-valid:text-green-600">*</span> -->
 
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <div class="flex w-full lg:w-92 gap-5 place-content-between items-center ">
-                            <div class="flex flex-col items-center">
-                                <div class="rounded-full overflow-hidden size-10">
-                                    <img src="assets/images/profilepic.svg" alt="profile">
+                        <div class="flex w-full lg:w-86 gap-5 place-content-between items-center ">
+                            <div class="flex flex-col items-center justify-items-start ">
+                                <div class="rounded-full overflow-hidden size-11">
+                                    <img class="size-11" src="assets/images/profilepic.svg" alt="profile">
                                 </div>
-                                <Button class="text-gray-400 text-md text-light py-5 ">Delete</Button>
+                                <Button class="text-figma-neutral text-[10px] text-light py-2 ">Delete</Button>
                             </div>
                             <input required id="photo" name="photo" type="file" class="hidden" />
                             <label for="photo"
-                                class="flex flex-col text-gray-400 text-light text-sm text-center items-center">
-                                <img src="assets/icons/colored/uploadphoto.svg" alt="upload">
-                                <p><span class="text-primary text-light text-md">Click to upload </span>
+                                class="flex flex-col text-figma-neutral text-light text-[10px] pr-13 mt-1.5 text-center items-center">
+                                <img class="size-7.5 mb-2 " src="assets/icons/colored/uploadphoto.svg" alt="upload">
+                                <p><span class="text-primary text-light text-md  ">Click to upload </span>
                                     or drag and drop</p>
                                 SVG, PNG, JPG, or GIF(max. 800 x 400px)
                             </label>
                         </div>
                         @if(user_photo?.hasError('required') && user_photo?.touched)
                         {
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Photo Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Photo Required!</span>
                         } @else if(user_photo?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Name</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Name</span>
                         }
                     </div>
                 </div>
             </div>
             <!-- description input -->
-            <div class="py-6 pb-0 w-full">
+            <div class="py-1 pt-6 pb-0 w-full">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
+                    <div class="flex gap-1 mt-1">
                         <img src="assets/icons/uncolored/pencil.svg" alt="">
-                        <label for="desc" class="text-gray-300 text-sm font-medium">Short Description
+                        <label for="desc" class="text-gray-300 text-xs font-medium">Short Description
                             <span class="text-red-600">*</span>
 
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <textarea required name="desc" id="desc" class=" w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-white text-lg font-light
+                        <textarea required name="desc" id="desc" class=" w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-sm" formControlName="user_desc"
+                        placeholder:text-figma-neutral placeholder:text-sm" formControlName="user_desc"
                             placeholder="Write a short bio about you..."></textarea>
                         @if(user_desc?.hasError('required') && user_desc?.touched)
-                        { <span class="py-1 px-4 text-red-500 text-sm font-medium">Description Required!</span>
+                        { <span class="py-1 px-4 text-red-500 text-[12px] font-light">Description Required!</span>
                         } @else if(user_desc?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Description</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Description</span>
                         }
                     </div>
                 </div>

@@ -6,10 +6,11 @@ import { Loaderservice } from '@app/core/services/loader/loaderservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
+import { SearchBar } from "@app/shared/components/search-bar/search-bar";
 
 @Component({
   selector: 'app-viewusers',
-  imports: [GenericTable, TotalsCards],
+  imports: [GenericTable, TotalsCards, SearchBar],
   templateUrl: './viewusers.html',
   styleUrl: './viewusers.css',
 })

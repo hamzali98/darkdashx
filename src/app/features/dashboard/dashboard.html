@@ -1,27 +1,30 @@
-<div class=" flex flex-col gap-5 px-6 py-8">
+<div class=" flex flex-col gap-5 px-10.5 py-8">
     <div class="flex flex-col md:flex-row gap-3 justify-between items-center">
         <div class="flex flex-col">
-            <span class="text-gray-500 dark:text-white text-sm">Welcome Back, {{user_name()}}</span>
-            <span class="text-gray-500 dark:text-neutral-400 text-xs">Measure your advertising ROI and report website
+            <span class="text-gray-500 dark:text-white font-medium tracking-tight font-inter text-2xl">Welcome back, {{user_name()}}</span>
+            <span class="text-gray-500 dark:text-gray-400 font-worksans text-xs">Measure your advertising ROI and report website
                 traffic.</span>
         </div>
         <div class="flex flex-row ">
             <button
-                class="rounded-md text-neutral-400  text-xs w-24.75 shadow drop-shadow-black font-[14px] mx-1 h-7.5 cursor-pointer  bg-btn-secondary  ">
-                Export data ↓
+                class="rounded-sm text-white text-xs w-[92px] shadow drop-shadow-black font-[15px] mx-3
+                h-7 cursor-pointer bg-btn-secondary  ">
+                <span class="flex flex-row gap-1.5 items-center justify-center align-middle" >
+                    Export data <img class="size-2.5" src="assets/icons/downarrow.svg" alt="ar"></span>
             </button>
             <button
-                class="rounded-md text-neutral-400 text-xs w-24.75 shadow drop-shadow-black font-[14px] mx-1 h-7.5 cursor-pointer  bg-primary">
+                class="rounded-sm text-white text-xs w-[88px] shadow drop-shadow-black font-[14px] 
+                h-7 cursor-pointer  bg-primary">
                 Create report
             </button>
         </div>
     </div>
     <!-- cards -->
-    <div class="flex flex-col md:flex-wrap md:flex-row gap-1 justify-between ">
+    <div class="flex flex-col md:flex-wrap md:flex-row justify-between mt-2.5 ">
         <app-analytics-card title="Pageviews" icon="assets/icons/eye.svg" [value]="'50.8K'"
             [trend]="28.4"></app-analytics-card>
-        <app-analytics-card title="Monthley Users" icon="assets/icons/uncolored/usericon.svg" [value]="'23.6K'"
-            [trend]="-12.8"></app-analytics-card>
+        <app-analytics-card title="Monthly Users" icon="assets/icons/smallusericon.svg" [value]="'23.6K'"
+            [trend]="-12.6"></app-analytics-card>
         <app-analytics-card title="New Signups" icon="assets/icons/plus.svg" [value]="'756'"
             [trend]="3.1"></app-analytics-card>
         <app-analytics-card title="Subscription" icon="assets/icons/star.svg" [value]="'2.3K'"

@@ -1,116 +1,116 @@
-<div class="lg:pl-15 ">
+<div class="lg:pr-10.5 ">
     <!-- Team information card -->
-    <p class="text-neutral-400 text-md font-bold ">Team Information</p>
-    <p class="text-neutral-400 text-sm font-light">Please fill in your team information</p>
+    <p class="text-white text-md font-normal font-worksans ">Team Information</p>
+    <p class="text-figma-neutral text-sm font-medium tracking-normal ">Please fill in your team information</p>
 
     <form [formGroup]="teamInfo" (ngSubmit)="onFormSubmit()" >
 
-        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-10 mt-5 ">
-            <div class="py-6 pt-0 w-full border-b border-b-gray-500/20">
+        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
+            <div class="py-1 pt-0 w-full border-b border-b-gray-500/20">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
+                    <div class="flex gap-1 mt-1">
                         <img src="assets/icons/uncolored/companybag.svg" alt="">
-                        <label for="teamname" class="text-gray-300 text-sm font-medium">Team Name
+                        <label for="teamname" class="text-gray-300 text-xs font-medium">Team Name
                             <span class="text-red-600">*</span>
 
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-white text-lg font-light
+                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-sm " formControlName="team_name" type="text"
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="team_name" type="text"
                             id="teamname" name="teamname" placeholder="Enter Team Name">
                         @if(team_name?.hasError('required') && team_name?.touched){
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Team Name Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Team Name Required!</span>
                         } @else if(team_name?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Team Name</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Team Name</span>
                         }
                     </div>
                 </div>
             </div>
-            <div class="py-6 w-full border-b border-b-gray-500/20">
+            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
+                    <div class="flex gap-1 mt-1">
                         <img src="assets/icons/star.svg" alt="">
-                        <label for="rank" class="text-gray-300 text-sm font-medium">Rank
+                        <label for="rank" class="text-gray-300 text-xs font-medium">Rank
                             <span class="text-red-600">*</span>
 
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-white text-lg font-light
+                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-sm " formControlName="team_rank" type="text"
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="team_rank" type="text"
                             id="rank" name="rank" placeholder="Enter Team Rank">
                         @if(team_rank?.hasError('required') && team_rank?.touched){
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Team Rank Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Team Rank Required!</span>
                         } @else if(team_rank?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Team Rank</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Team Rank</span>
                         }
                     </div>
                 </div>
             </div>
-            <div class="py-6 w-full border-b border-b-gray-500/20">
+            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1">
                         <img src="assets/icons/uncolored/location.svg" alt="">
-                        <label for="office" class="text-gray-300 text-sm font-medium">Office
+                        <label for="office" class="text-gray-300 text-xs font-medium">Office
                             <span class="text-red-600">*</span>
 
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-white text-lg font-light
+                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-sm " formControlName="team_office" type="tel"
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="team_office" type="tel"
                             id="office" name="office" placeholder="Enter Team Office">
                         @if(team_office?.hasError('required') && team_office?.touched){
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Team Office Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Team Office Required!</span>
                         } @else if(team_office?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Team Office</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Team Office</span>
                         }
                     </div>
                 </div>
             </div>
-            <div class="py-6 pb-0 w-full">
+            <div class="py-1 pt-6 pb-0 w-full">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1">
                         <img src="assets/icons/uncolored/internet.svg" alt="">
-                        <label for="mail" class="text-gray-300 text-sm font-medium">Mail
+                        <label for="mail" class="text-gray-300 text-xs font-medium">Mail
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-white text-lg font-light
+                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-sm " formControlName="team_mail" type="text"
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="team_mail" type="text"
                             id="mail" name="mail" placeholder="Enter Team mail">
                         @if(team_mail?.hasError('required') && team_mail?.touched){
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Team Mail Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Team Mail Required!</span>
                         } @else if (team_mail?.hasError('pattern')) {
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Team Mail Not Valid!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Team Mail Not Valid!</span>
                         } @else if(team_mail?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Team Mail</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Team Mail</span>
                         }
                     </div>
                 </div>
@@ -119,9 +119,8 @@
         <div class=" flex justify-end mt-10">
             <button
             [disabled]="userFormSubmit.invalid"
-            class="h-11 w-48 rounded-sm text-white bg-primary 
-            drop-shadow-md drop-shadow-black cursor-pointer
-            disabled:bg-primary/50 disabled:text-white/50 " type="submit">
+            class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer
+            disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] " type="submit">
                     Add User
             </button>
         </div>

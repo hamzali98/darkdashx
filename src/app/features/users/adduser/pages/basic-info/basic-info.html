@@ -1,122 +1,122 @@
-<div class="lg:pl-15">
+<div class="lg:pr-10.5">
 
     <!-- basic information card -->
-    <p class="text-neutral-400 text-md font-bold ">Basic Information</p>
-    <p class="text-neutral-400 text-sm font-light">Please fill in your basic information</p>
+    <p class="text-white text-md font-normal font-worksans ">Basic Information</p>
+    <p class="text-figma-neutral text-sm font-medium tracking-normal">Please fill in your basic information</p>
 
     <form [formGroup]="basicInfo">
 
-        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-10 mt-5 ">
-            <div class="py-6 pt-0 w-full border-b border-b-gray-500/20">
+        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5 mb-5 ">
+            <div class="py-1 pt-0 w-full border-b border-b-gray-500/20">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
+                    <div class="flex gap-1 mt-1">
                         <img src="assets/icons/uncolored/phone.svg" alt="">
-                        <label for="phone" class="text-gray-300 text-sm font-medium">Phone
+                        <label for="phone" class="text-gray-300 text-xs font-medium">Phone
                             <span class="text-red-600">*</span>
 
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-white text-lg font-light
+                        <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-sm " formControlName="user_phone" type="tel"
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_phone" type="tel"
                             id="phone" name="phone" placeholder="Enter Phone">
                         @if(user_phone?.hasError('required') && user_phone?.touched){
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Phone Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Phone Required!</span>
                         } @else if(user_phone?.hasError('minlength') || user_phone?.hasError('maxlength')){
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Phone Invalid!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Phone Invalid!</span>
                         } @else if(user_phone?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Phone</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Phone</span>
                         }
                     </div>
                 </div>
             </div>
-            <div class="py-6 w-full border-b border-b-gray-500/20">
+            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
+                    <div class="flex gap-1 mt-1">
                         <img src="assets/icons/uncolored/companybag.svg" alt="">
-                        <label for="position" class="text-gray-300 text-sm font-medium">Position
+                        <label for="position" class="text-gray-300 text-xs font-medium">Position
                             <span class="text-red-600">*</span>
 
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-white text-lg font-light
+                        <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-sm " formControlName="user_position" type="text"
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_position" type="text"
                             id="position" name="position" placeholder="Enter Position">
                         @if(user_position?.hasError('required') && user_position?.touched)
                         {
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Position Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Position Required!</span>
                         } @else if(user_position?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Position</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Position</span>
                         }
                     </div>
                 </div>
             </div>
-            <div class="py-6 w-full border-b border-b-gray-500/20">
+            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
+                    <div class="flex gap-1 mt-1">
                         <img src="assets/icons/uncolored/location.svg" alt="">
-                        <label for="location" class="text-gray-300 text-sm font-medium">Location
+                        <label for="location" class="text-gray-300 text-xs font-medium">Location
                             <span class="text-red-600">*</span>
 
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-white text-lg font-light
+                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-sm " formControlName="user_location" type="text"
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_location" type="text"
                             id="location" name="location" placeholder="Enter Location">
                         @if(user_location?.hasError('required') && user_location?.touched)
                         {
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Location Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Location Required!</span>
                         } @else if(user_location?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Location</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Location</span>
                         }
                     </div>
                 </div>
             </div>
-            <div class="py-6 pb-0 w-full">
+            <div class="py-1 pt-6 pb-0 w-full">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
+                    <div class="flex gap-1 mt-1">
                         <img src="assets/icons/uncolored/internet.svg" alt="">
-                        <label for="website" class="text-gray-300 text-sm font-medium">Website
+                        <label for="website" class="text-gray-300 text-xs font-medium">Website
                             <span class="text-red-600">*</span>
 
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-92 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-white text-lg font-light
+                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-gray-400 placeholder:text-sm " formControlName="user_website" type="text"
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_website" type="text"
                             id="website" name="website" placeholder="Enter Website">
                         @if(user_website?.hasError('required') && user_website?.touched){
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Website Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Website Required!</span>
                         } @else if (user_website?.hasError('pattern')) {
-                        <span class="py-1 px-4 text-red-500 text-sm font-medium">Website Invalid!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Website Invalid!</span>
                         } @else if(user_website?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-sm font-medium">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-sm font-medium">Enter Website</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Website</span>
                         }
                     </div>
                 </div>
