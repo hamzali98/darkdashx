@@ -1,2 +1,17 @@
 @import "tailwindcss";
 @import "./tailwind.css";
+
+
+
+/* For Chrome, Safari, and Opera */
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* For IE, Edge, and Firefox */
+.scroll-container {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
