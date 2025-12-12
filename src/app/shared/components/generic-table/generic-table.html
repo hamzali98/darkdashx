@@ -83,10 +83,10 @@
                             <img src="assets/icons/eye.svg" class="w-4 h-4" />
                         </button> -->
                         <button (click)="onClickedEdit(tableData[$index])" class="flex items-center justify-center ">
-                            <img src="assets/icons/uncolored/pencil.svg" class="size-3" />
+                            <img src="assets/icons/neutral/pencil.svg" class="size-3" alt="act btn" />
                         </button>
                         <button (click)="onClickedDelete(tableData[$index])" class="flex items-center justify-center ">
-                            <img src="assets/icons/uncolored/bin.svg" class="size-3" />
+                            <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
                         </button>
                     </td>
                 </tr>
@@ -100,7 +100,7 @@
     <div class="px-14 flex flex-row items-center ">
         <label for="itemsperpage" class="text-gray-400 text-[11px] font-medium font-inter px-3">Rows per page:</label>
         <div class="flex relative ">
-            <img class="absolute top-1/2 -translate-y-1/2 translate-x-5 pointer-events-none" src="assets/icons/droparrow.svg" alt="">
+            <img class="absolute top-1/2 -translate-y-1/2 translate-x-5 pointer-events-none" src="assets/icons/neutral/droparrow.svg" alt="arrow">
             <select  class=" appearance-none h-[26px] w-[41px] rounded-sm bg-active-route-bg text-white p-1 px-2 text-[10px] font-light
             " [(ngModel)]="itemsPerPage" (change)="onChangePerPage()" name="select" id="itemsperpage">
                 <option value="5">5</option>
@@ -110,9 +110,9 @@
         </div>
     </div>
     <button class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/50">
-        <img class="rotate-180" src="assets/icons/rightarrow.svg" alt="">
+        <img src="assets/icons/white/leftarrow.svg" alt="arrow">
     </button>
     <button class="bg-active-route-bg p-[5.5px] rounded-sm ml-1.5 hover:bg-card-bg/50">
-        <img src="assets/icons/rightarrow.svg" alt="">
+        <img src="assets/icons/white/rightarrow.svg" alt="arrow">
     </button>
 </div>

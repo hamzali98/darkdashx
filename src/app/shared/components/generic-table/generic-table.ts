@@ -1,24 +1,11 @@
 import { Component, NgModule, EventEmitter, input, Input, OnInit, Output, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { User } from '@app/features/users/interface/user';
 import { FormsModule } from '@angular/forms';
-
-// export interface checkList {
-//   checkBox: boolean,
-//   checkboxId: string,
-//   data: Object,
-// }
-
-export interface tableColumns<T> {
-  key: keyof T,
-  render?: (row: T) => any;
-  icon?: string[],
-  label: string,
-}
+import { tableColumns } from '@app/shared/interface/generic-table-interface';
 
 @Component({
   selector: 'app-generic-table',
-  imports: [NgClass, FormsModule],
+  imports: [FormsModule],
   templateUrl: './generic-table.html',
   styleUrl: './generic-table.css',
 })

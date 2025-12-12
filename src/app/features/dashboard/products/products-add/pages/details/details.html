@@ -1,0 +1,125 @@
+<div class="lg:pr-10.5 ">
+        <p class="text-white text-md font-normal font-worksans ">Product Information</p>
+        <p class="text-figma-neutral text-sm font-medium tracking-normal ">Please fill in product information</p>
+
+        <form [formGroup]="detailInfo">
+
+            <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
+                <div class="py-1 pt-0 w-full border-b border-b-gray-500/20">
+                    <div class="flex flex-col lg:flex-row items-start justify-between ">
+                        <div class="flex gap-1 mt-1">
+                            <img src="assets/icons/white/expiry.svg" alt="">
+                            <label for="productexpiry" class="text-gray-300 text-xs font-medium">Product Expiry
+                                <span class="text-red-600">*</span>
+
+                            </label>
+                        </div>
+                        <div class="flex flex-col w-full lg:w-auto">
+                            <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
+                        invalid:border-red-500 invalid:caret-red-500
+                        valid:border-green-500 valid:caret-green-500
+                        focus:border-primary caret-primary
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_expiry" type="text"
+                                id="productexpiry" name="productexpiry" placeholder="Enter Product Expiry">
+                            @if(product_expiry?.hasError('required') && product_expiry?.touched){
+                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Expiry Required!</span>
+                            } @else if(product_expiry?.valid) {
+                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                            } @else {
+                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Expiry</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
+                    <div class="flex flex-col lg:flex-row items-start justify-between ">
+                        <div class="flex gap-1 mt-1">
+                            <img src="assets/icons/white/regno.svg" alt="">
+                            <label for="regno" class="text-gray-300 text-xs font-medium">Reg no.
+                                <span class="text-red-600">*</span>
+
+                            </label>
+                        </div>
+                        <div class="flex flex-col w-full lg:w-auto">
+                            <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
+                        invalid:border-red-500 invalid:caret-red-500
+                        valid:border-green-500 valid:caret-green-500
+                        focus:border-primary caret-primary
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_regno"
+                                type="text" id="regno" name="regno" placeholder="Enter Product Reg no.">
+                            @if(product_regno?.hasError('required') && product_regno?.touched){
+                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Reg no.
+                                Required!</span>
+                            } @else if(product_regno?.valid) {
+                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                            } @else {
+                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product
+                                Reg no.</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
+                    <div class="flex flex-col lg:flex-row items-start justify-between ">
+                        <div class="flex gap-1">
+                            <img src="assets/icons/white/mfg.svg" alt="">
+                            <label for="mfg" class="text-gray-300 text-xs font-medium">Manufacturing Date
+                                <span class="text-red-600">*</span>
+
+                            </label>
+                        </div>
+                        <div class="flex flex-col w-full lg:w-auto">
+                            <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
+                        invalid:border-red-500 invalid:caret-red-500
+                        valid:border-green-500 valid:caret-green-500
+                        focus:border-primary caret-primary
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_mfg" type="tel"
+                                id="mfg" name="mfg" placeholder="Enter Product Manufacturing Date">
+                            @if(product_mfg?.hasError('required') && product_mfg?.touched){
+                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Manufacturing Date Required!</span>
+                            } @else if(product_mfg?.valid) {
+                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                            } @else {
+                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Manufacturing Date</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="py-1 pt-6 pb-0 w-full">
+                    <div class="flex flex-col lg:flex-row items-start justify-between ">
+                        <div class="flex gap-1">
+                            <img src="assets/icons/white/stock.svg" alt="">
+                            <label for="stock" class="text-gray-300 text-xs font-medium">Stock
+                                <span class="text-red-600">*</span>
+                            </label>
+                        </div>
+                        <div class="flex flex-col w-full lg:w-auto">
+                            <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-lg font-light
+                        invalid:border-red-500 invalid:caret-red-500
+                        valid:border-green-500 valid:caret-green-500
+                        focus:border-primary caret-primary
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_stock"
+                                type="text" id="stock" name="stock" placeholder="Enter Product stock">
+                            @if(product_stock?.hasError('required') && product_stock?.touched){
+                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Stock Required!</span>
+                            } @else if(product_stock?.valid) {
+                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                            } @else {
+                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Stock</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" flex justify-end mt-10">
+                <button [disabled]="detailInfo.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer
+            disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] " type="submit">
+                    Add Product
+                </button>
+            </div>
+        </form>
+    </div>

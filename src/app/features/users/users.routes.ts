@@ -28,8 +28,6 @@ export const userRoutes: Routes = [
                     component: Team
                 },
         ]
-        // loadChildren: () => import('./adduser/add-user.routes')
-        //     .then(r => r.addUserRoutes),
     },
     {
         path: 'view',

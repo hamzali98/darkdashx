@@ -31,12 +31,12 @@ export class Viewusers {
 
   constructor() {
     this.userColumns = [
-      { key: ["personal_info", "user_name"], icon: "assets/icons/uncolored/usericon.svg", label: "Name" },
-      { key: ["personal_info", "user_email"], icon: "assets/icons/uncolored/email.svg", label: "Email" },
-      { key: ["basic_info", "user_phone"], icon: "assets/icons/uncolored/phone.svg", label: "Phone" },
-      { key: ["basic_info", "user_location"], icon: "assets/icons/uncolored/location.svg", label: "Location" },
-      { key: ["team_info", "team_name"], icon: "assets/icons/uncolored/companybag.svg", label: "Team" },
-      { key: "online", icon: "assets/icons/uncolored/statustick.svg", label: "Status" },
+      { key: ["personal_info", "user_name"], icon: "assets/icons/neutral/usericon.svg", label: "Name" },
+      { key: ["personal_info", "user_email"], icon: "assets/icons/neutral/email.svg", label: "Email" },
+      { key: ["basic_info", "user_phone"], icon: "assets/icons/neutral/phone.svg", label: "Phone" },
+      { key: ["basic_info", "user_location"], icon: "assets/icons/neutral/location.svg", label: "Location" },
+      { key: ["team_info", "team_name"], icon: "assets/icons/neutral/bag.svg", label: "Team" },
+      { key: "online", icon: "assets/icons/neutral/statustick.svg", label: "Status" },
     ]
 
     this.getUserData();
