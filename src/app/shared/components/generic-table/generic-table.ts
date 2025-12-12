@@ -11,13 +11,15 @@ import { tableColumns } from '@app/shared/interface/generic-table-interface';
 })
 export class GenericTable<T> {
 
+  checked = signal(true);
+  status = signal(false);
+
   itemsPerPage: number = 10;
+  
+  tableName = input("Generic");
 
   checkList: any[] = [];
 
-  checked = signal(true);
-  status = signal(false);
-  tableName = input("Generic");
 
   @Input() tableData: T[] = [];
   @Input() columns: tableColumns<T>[] = [];
@@ -26,7 +28,7 @@ export class GenericTable<T> {
   @Output() onEditClicked: EventEmitter<any> = new EventEmitter();
 
   get tableTotal() {
-    return this.tableData.length;
+    return this.tableData?.length ?? 0;
   }
 
   get isIndeterminate(){
@@ -38,7 +40,7 @@ export class GenericTable<T> {
   }
 
   get isChecked(){
-    if (this.checkList.length === this.tableData.length){
+    if (this.checkList.length === this.tableData?.length){
       return true;
     } else {
       return false;

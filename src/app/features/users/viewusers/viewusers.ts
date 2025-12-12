@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, Signal, signal } from '@angular/core';
 import { GenericTable } from '@app/shared/components/generic-table/generic-table';
 import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
 import { User } from '../interface/user';
@@ -16,14 +16,11 @@ import { SearchBar } from "@app/shared/components/search-bar/search-bar";
 })
 export class Viewusers {
 
-  // tableIcons: string[];
-  // tableHeads: string[];
-  // columnKeys: string[];
+  length: number = 0;
 
-  total: number = 0;
+  // totalUsers: number = 0;
   userData!: User[];
   userColumns: any[];
-  // userData!: any[];
 
   private loaderService = inject(Loaderservice);
   private httpService = inject(Httpservice);
@@ -38,11 +35,10 @@ export class Viewusers {
       { key: ["team_info", "team_name"], icon: "assets/icons/neutral/bag.svg", label: "Team" },
       { key: "online", icon: "assets/icons/neutral/statustick.svg", label: "Status" },
     ]
-
     this.getUserData();
   }
 
-  onAddUserClick(){
+  onAddUserClick() {
     this.routerRef.navigate(['/users/add']);
   }
 
@@ -56,6 +52,7 @@ export class Viewusers {
       next: (res) => {
         console.log(res);
         this.userData = res.body;
+        this.length = this.userData.length;
       },
       error: (err) => {
         console.log(err);
@@ -63,7 +60,7 @@ export class Viewusers {
     })
   }
 
-  deleteUserData(val: any){
+  deleteUserData(val: any) {
     console.log(val);
   }
 
