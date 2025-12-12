@@ -1,4 +1,4 @@
-import { Component, input, Input } from '@angular/core';
+import { Component, computed, input, Input, model } from '@angular/core';
 
 @Component({
   selector: 'app-totals-cards',
