@@ -1,5 +1,5 @@
-<div class="flex flex-col border-r border-card-bg w-17 md:w-71 h-screen overflow-auto scroll-smooth transition-all duration-300 ease-in-out
-    dark:bg-primary-bg drop-shadow-xl dark:drop-shadow-black/25 ">
+<div class="flex flex-col border-r border-card-bg w-17 md:w-71 h-screen overflow-auto scroll-container scroll-smooth 
+    transition-all duration-300 ease-in-out dark:bg-primary-bg drop-shadow-xl dark:drop-shadow-black/25 ">
 
     <div class="flex flex-col gap-3 md:gap-2.5 w-auto h-auto px-6.5 py-8.5 ">
         <a [routerLink]="['']" (click)="[onOpen('home')]">
@@ -7,7 +7,8 @@
             <div class="flex flex-row justify-between align-middle items-center ">
                 <div class="flex flex-row">
                     <img class="size-6.5 " src="assets/icons/logo.svg" alt="a">
-                    <span class="opacity-0 font-inter md:opacity-100 font-medium text-card-bg dark:text-white text-lg px-2 ">
+                    <span
+                        class="opacity-0 font-inter md:opacity-100 font-medium text-card-bg dark:text-white text-lg px-2 ">
                         Dashdark X
                     </span>
                 </div>
@@ -32,6 +33,7 @@
             dark:placeholder:text-gray-400 placeholder:text-xs focus:border-primary dark:text-gray-400 " type="search"
                     placeholder="Search for..." />
             </div>
+            <!-- <app-search-bar></app-search-bar> -->
         </div>
 
         <!-- Dashboard selection div -->
@@ -59,7 +61,7 @@
                 : 'text-gray-500 dark:text-neutral-400'"
                         class="opacity-0 md:opacity-100 px-1 font-medium text-sm">Dashboard</span>
                 </div>
-                <span class="transition-transform duration-300 ease-in-out "
+                <span class="transition-transform duration-300 ease-in-out mr-3 "
                     [ngClass]="open() === 'dashboard' ? 'rotate-0' : '-rotate-90' ">
                     <img src="assets/icons/droparrow.svg" alt="drop">
                 </span>
@@ -70,7 +72,7 @@
             : 'opacity-0 max-h-0 pointer-events-none' "
                 class="flex flex-col transition-all duration-400 ease-in-out mt-5">
                 <a [routerLink]="['']"
-                    [ngClass]="isActive('') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
                     class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden dark:fill-white "><img class="size-5" src="assets/icons/dashboard.svg"
                             alt="dash"></span>
@@ -78,21 +80,21 @@
                     <!-- Home -->
                 </a>
                 <a [routerLink]="['/reports']"
-                    [ngClass]="isActive('/reports') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/reports') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
                     class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden"><img class="size-5" src="assets/icons/reports.svg" alt="reports"></span>
                     <span class="hidden md:inline">Reports</span>
                     <!-- Reports -->
                 </a>
                 <a [routerLink]="['/tasks']"
-                    [ngClass]="isActive('/tasks') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/tasks') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
                     class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden"><img class="size-5" src="assets/icons/tasks.svg" alt="tasks"></span>
                     <span class="hidden md:inline">Tasks</span>
                     <!-- Tskas -->
                 </a>
                 <a [routerLink]="['/products']"
-                    [ngClass]="isActive('/products') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/products') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
                     class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden"><img class="size-5" src="assets/icons/cart.svg" alt="tasks"></span>
                     <span class="hidden md:inline">Products</span>
@@ -127,7 +129,7 @@
                 : 'text-gray-500 dark:text-neutral-400'"
                         class="opacity-0 md:opacity-100 px-1 font-bold text-sm">Users</span>
                 </div>
-                <span class="transition-transform duration-300 ease-in-out"
+                <span class="transition-transform duration-300 ease-in-out  mr-3"
                     [ngClass]="open() === 'users' ? ' rotate-0' : ' -rotate-90' ">
                     <img src="assets/icons/droparrow.svg" alt="drop">
 
@@ -139,13 +141,13 @@
             : 'opacity-0 max-h-0 pointer-events-none' "
                 class="flex flex-col transition-all duration-400 ease-in-out mt-5">
                 <a [routerLink]="['users/view']"
-                    [ngClass]="isActive('/users/view') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/users/view') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
                     class=" text-left text-sm px-1.5  md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden  "><img class=" size-5" src="assets/icons/view.svg" alt="view"></span>
                     <span class="hidden md:inline">View Users</span>
                 </a>
                 <a [routerLink]="['/users/add']"
-                    [ngClass]="isActive('/users/add') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/users/add') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
                     class=" text-left text-sm px-1.5 md:px-4  py-2.5 rounded-sm font-normal">
                     <span class="md:hidden "><img class="   size-5" src="assets/icons/add-user.svg" alt=""></span>
                     <span class="hidden md:inline">Add User</span>
@@ -179,7 +181,7 @@
                 : 'text-gray-500 dark:text-neutral-400'"
                         class="opacity-0 md:opacity-100 px-1 font-bold text-sm">Features</span>
                 </div>
-                <span class="transition-transform duration-300 ease-in-out"
+                <span class="transition-transform duration-300 ease-in-out mr-3"
                     [ngClass]="open() === 'features' ? ' rotate-0' : ' -rotate-90' ">
                     <img src="assets/icons/droparrow.svg" alt="drop">
 
@@ -191,13 +193,13 @@
             : 'opacity-0 max-h-0 pointer-events-none' "
                 class="flex flex-col transition-all duration-400 ease-in-out mt-5">
                 <a [routerLink]="['users/view']"
-                    [ngClass]="isActive('/users/view') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/users/view') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
                     class=" text-left text-sm px-1.5  md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden  "><img class=" size-5" src="assets/icons/view.svg" alt="view"></span>
                     <span class="hidden md:inline">View Users</span>
                 </a>
                 <a [routerLink]="['/users/add']"
-                    [ngClass]="isActive('/users/add') ? 'border-l-3 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/users/add') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
                     class=" text-left text-sm px-1.5 md:px-4  py-2.5 rounded-sm font-normal">
                     <span class="md:hidden "><img class="   size-5" src="assets/icons/add-user.svg" alt=""></span>
                     <span class="hidden md:inline">Add User</span>
@@ -207,9 +209,9 @@
 
 
 
-        <!-- divider div -->
     </div>
-    <div class="border text-gray-500/50 dark:border-neutral-400/50 "></div>
+    <!-- divider div -->
+    <div class="border-b-[0.1px] text-gray-500/50 dark:border-b-gray-800 "></div>
     <!-- settings div -->
     <div class="flex flex-col gap-5 w-auto h-auto px-5 py-7">
         <div>

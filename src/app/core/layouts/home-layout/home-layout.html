@@ -1,9 +1,12 @@
 
-<div class="flex h-screen dark:bg-primary-bg overflow-hidden scroll-auto ">
-    <div class="w-17 md:w-71 h-full shrink-0">
-        <app-side-nav-bar></app-side-nav-bar>
+<div class="flex h-screen dark:bg-primary-bg ">
+    <div class="w-17 md:w-71 h-full shrink-0 overflow-clip">
+        <!-- <app-side-nav-bar></app-side-nav-bar> -->
+        <app-generic-side-bar
+        [navData]="sideCols"
+        ></app-generic-side-bar>
     </div>
-    <div class="flex-1 overflow-y-auto">
+    <div class="flex-1 overflow-y-auto scroll-container">
         <router-outlet></router-outlet>
     </div>
 </div>
