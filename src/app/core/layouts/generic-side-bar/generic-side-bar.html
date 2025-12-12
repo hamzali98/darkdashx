@@ -24,10 +24,10 @@
         <div class="mt-7">
             <div class="flex justify-center align-middle w-full h-7 my-4 mb-0 
             opacity-100 md:opacity-0 md:my-0 md:mb-0 md:size-0 ">
-                <img src="assets/icons/search.svg" alt="">
+                <img src="assets/icons/neutral/search.svg" alt="">
             </div>
             <div class="hidden md:flex md:flex-row relative w-auto justify-center items-center">
-                <img src="assets/icons/search.svg"
+                <img src="assets/icons/neutral/search.svg"
                     class="absolute left-3 top-1/2 -translate-y-1/2 size-3.5  pointer-events-none" alt="icon" />
                 <input class=" pl-8 w-full h-10 border border-card-bg/30 dark:border-gray-800 rounded-md caret-primary outline-0
             placeholder:text-card-bg bg-input-bg 
@@ -36,65 +36,65 @@
             </div>
             <!-- <app-search-bar></app-search-bar> -->
         </div>
+    </div>
 
-        <div class="overflow-scroll scroll-container scroll-smooth ">
-            <!-- Dashboard selection div -->
-            @for(items of navData; track $index){
-            <div [class]="items.topPadding">
-                <button [disabled]="open() === items.routePath" class="flex justify-center align-middle w-full cursor-pointer
+    <div class="overflow-scroll scroll-container scroll-smooth px-6.5 pt-2">
+        <!-- Dashboard selection div -->
+        @for(items of navData; track $index){
+        <div [class]="items.topPadding">
+            <button [disabled]="open() === items.routePath" class="flex justify-center align-middle w-full cursor-pointer
                 size-auto opacity-100 md:size-0 md:opacity-100
                 " (click)="openAndNavigate(items.routePath, items.routeLink[0])">
+                @if(open() === items.routePath){
+                <img [src]="items.coloredIcon" [alt]="items.iconsAlt">
+                } @else {
+                <img [src]="items.uncoloredIcon" [alt]="items.iconsAlt">
+                }
+            </button>
+            <button [disabled]="open() === items.routePath" class="flex flex-row items-end w-full justify-between cursor-pointer
+                opacity-0 md:opacity-100 size-0 md:size-auto md:w-full
+                " (click)="openAndNavigate(items.routePath, items.routeLink[0])">
+                <div class=" flex flex-row">
                     @if(open() === items.routePath){
                     <img [src]="items.coloredIcon" [alt]="items.iconsAlt">
                     } @else {
                     <img [src]="items.uncoloredIcon" [alt]="items.iconsAlt">
                     }
-                </button>
-                <button [disabled]="open() === items.routePath" class="flex flex-row items-end w-full justify-between cursor-pointer
-                opacity-0 md:opacity-100 size-0 md:size-auto md:w-full
-                " (click)="openAndNavigate(items.routePath, items.routeLink[0])">
-                    <div class=" flex flex-row">
-                        @if(open() === items.routePath){
-                        <img [src]="items.coloredIcon" [alt]="items.iconsAlt">
-                        } @else {
-                        <img [src]="items.uncoloredIcon" [alt]="items.iconsAlt">
-                        }
-                        <span [ngClass]="open() === items.routePath
+                    <span [ngClass]="open() === items.routePath
                 ? 'text-primary'
                 : 'text-gray-500 dark:text-neutral-400'"
-                            class="opacity-0 md:opacity-100 px-1 font-medium text-sm">{{items.tileName}}</span>
-                    </div>
-                    <span class="transition-transform duration-300 ease-in-out mr-3 "
-                        [ngClass]="open() === items.routePath ? 'rotate-0' : '-rotate-90' ">
-                        <img src="assets/icons/droparrow.svg" alt="drop">
-                    </span>
-                </button>
+                        class="opacity-0 md:opacity-100 px-1 font-medium text-sm">{{items.tileName}}</span>
+                </div>
+                <span class="transition-transform duration-300 ease-in-out mr-3 "
+                    [ngClass]="open() === items.routePath ? 'rotate-0' : '-rotate-90' ">
+                    <img src="assets/icons/neutral/droparrow.svg" alt="drop">
+                </span>
+            </button>
 
-                <nav [ngClass]="open() === items.routePath 
-            ? 'opacity-100 max-h-auto pointer-events-auto py-2'
+            <nav [ngClass]="open() === items.routePath 
+            ? 'opacity-100 max-h-auto pointer-events-auto py-4'
             : 'opacity-0 max-h-0 pointer-events-none py-3 ' "
-                    class="flex flex-col transition-all duration-400 ease-in-out mt-0">
-                    @for(list of items.routeNames; track $index){
-                    <a [routerLink]="[items.routeLink[$index]]" [ngClass]="isActive(items.routeLink[$index]) 
+                class="flex flex-col transition-all duration-400 ease-in-out ">
+                @for(list of items.routeNames; track $index){
+                <a [routerLink]="[items.routeLink[$index]]" [ngClass]="isActive(items.routeLink[$index]) 
                     ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white' 
                     : 'px-2 text-gray-500 dark:text-neutral-400'"
-                        class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
-                        <span class="md:hidden dark:fill-white "><img class="size-5" src="assets/icons/dashboard.svg"
-                                alt="dash"></span>
-                        <span class="hidden md:inline">{{items.routeNames[$index]}}</span>
-                    </a>
-                    }
-                </nav>
-            </div>
-            }
+                    class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
+                    <span class="md:hidden dark:fill-white "><img class="size-5" src="assets/icons/dashboard.svg"
+                            alt="dash"></span>
+                    <span class="hidden md:inline">{{items.routeNames[$index]}}</span>
+                </a>
+                }
+            </nav>
         </div>
-
+        }
     </div>
+
 
     <!-- divider div -->
     <!-- <div class="border-b-[0.1px] text-gray-500/50 dark:border-b-gray-800"></div> -->
     <!-- settings div -->
-    <div class="flex flex-col gap-5 w-auto h-auto px-5 py-7 absolute bottom-0 right-0 left-0
+    <div class="flex flex-col gap-5 w-auto h-auto px-5 py-7
         border-t-[0.1px] text-gray-500/50 dark:border-t-gray-800 bg-inherit
         ">
         <div>
@@ -134,6 +134,17 @@
                     <img src="assets/icons/droparrow.svg" alt="">
                 </span> -->
             </button>
+        </div>
+        <div>
+            <button class="grad w-full h-11.5 rounded-sm
+            bg-linear-to-br from-primary from-5% to-purple-900 to-95% " >
+            <div class="flex gap-2 justify-center" >
+
+                <span class="text-md text-white font-light tracking-normal font-worksans" >Get template</span>
+                <img src="assets/icons/white/rightarrow.svg" alt="arr">
+            </div>
+            </button>
+
         </div>
     </div>
 </div>

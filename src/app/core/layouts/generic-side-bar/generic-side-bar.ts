@@ -1,17 +1,18 @@
 import { Component, inject, Input, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { sidenavcols } from '@app/core/interface/generic-side-nav-interface';
 
-export interface sidenavcols<T> {
-  routePath: string; 
-  tileName: string;
-  coloredIcon: string;
-  uncoloredIcon: string;
-  iconsAlt: string;
-  topPadding?: string;
-  routeNames: string[];
-  routeLink: string[];
-}
+// export interface sidenavcols<T> {
+//   routePath: string; 
+//   tileName: string;
+//   coloredIcon: string;
+//   uncoloredIcon: string;
+//   iconsAlt: string;
+//   topPadding?: string;
+//   routeNames: string[];
+//   routeLink: string[];
+// }
 
 @Component({
   selector: 'app-generic-side-bar',
