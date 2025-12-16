@@ -4,7 +4,7 @@ export interface User {
       personal_info: {
         user_name: string,
         user_email: string,
-        user_photo: string | null,
+        user_photo: string,
         user_desc: string,
       },
       basic_info: {
