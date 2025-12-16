@@ -15,7 +15,7 @@ import { Formservice } from '../adduser/services/formservice';
   templateUrl: './viewusers.html',
   styleUrl: './viewusers.css',
 })
-export class Viewusers {
+export class Viewusers implements OnInit {
 
   length: number = 0;
 
@@ -52,6 +52,9 @@ export class Viewusers {
 
     this.userFormService.resetForm();
 
+  }
+
+  ngOnInit(): void {
     this.getUserData();
   }
 
