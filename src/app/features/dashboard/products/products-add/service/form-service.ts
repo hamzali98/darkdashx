@@ -12,7 +12,14 @@ export class FormService {
 
   fB = inject(FormBuilder);
 
-  productForm = this.fB.group({
+  productForm! : any;
+
+  constructor(){
+    this.initForm();
+  }
+
+  initForm(){
+    this.productForm = this.fB.group({
     status : [false],
     basic_info: this.fB.group({
       product_name: ['', Validators.required],
@@ -28,6 +35,7 @@ export class FormService {
     }),
     
   });
+  }
 
   patchFormData(formdata : product){
     this.editingId.set(formdata.id);
@@ -53,6 +61,6 @@ export class FormService {
   }
 
   resetForm(){
-    this.productForm.reset();
+    this.initForm();
   }
 }

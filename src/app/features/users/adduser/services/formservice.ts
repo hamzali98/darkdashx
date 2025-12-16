@@ -12,27 +12,35 @@ export class Formservice {
 
   fB = inject(FormBuilder);
 
-  userForm = this.fB.group({
+  userForm! : any;
+
+  constructor(){
+    this.initForm();
+  }
+
+  initForm(){
+    this.userForm = this.fB.group({
     status: [false],
     personal_info: this.fB.group({
       user_name: ['', Validators.required],
-      user_email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
+      user_email: ['newuser@gmail.com', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       user_photo: [''],
-      user_desc: ['', Validators.required],
+      user_desc: ['hello new user', Validators.required],
     }),
     basic_info: this.fB.group({
-      user_phone: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
-      user_position: ['', Validators.required],
-      user_location: ['', Validators.required],
-      user_website: ['', [Validators.required, Validators.pattern(/^(https?:\/\/)?(www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/.*)?$/)]],
+      user_phone: ['3123456789', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
+      user_position: ['POS', Validators.required],
+      user_location: ['LOC', Validators.required],
+      user_website: ['www.website.com', [Validators.required, Validators.pattern(/^(https?:\/\/)?(www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/.*)?$/)]],
     }),
     team_info: this.fB.group({
-      team_name: ['', Validators.required],
-      team_rank: ['', Validators.required],
-      team_office: ['', Validators.required],
-      team_mail: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
+      team_name: ['google', Validators.required],
+      team_rank: ['Rank', Validators.required],
+      team_office: ['office', Validators.required],
+      team_mail: ['team@email.com', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
     }),
   })
+  }
 
   patchFormData(formdata: User) {
     this.editingId.set(formdata.id);
@@ -64,6 +72,6 @@ export class Formservice {
   }
 
   resetForm() {
-    this.userForm.reset();
+    this.initForm();
   }
 }
