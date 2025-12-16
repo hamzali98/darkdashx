@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { FormService } from '../../service/form-service';
 import { productCategories } from '../../../interface/product-categories';
@@ -11,7 +11,7 @@ import { CompanyListService } from '@app/shared/services/companylist/company-lis
   templateUrl: './base-info.html',
   styleUrl: './base-info.css',
 })
-export class BaseInfo {
+export class BaseInfo implements OnInit {
 
   baseInfo: FormGroup;
   productCategories: productCategories[];
@@ -36,6 +36,10 @@ export class BaseInfo {
       { key: 'Network', value: 'network' },
     ];
     this.companyList = this.companyListService.getCompanyList();
+  }
+  
+  ngOnInit(): void {
+    
   }
 
   get product_name() {
