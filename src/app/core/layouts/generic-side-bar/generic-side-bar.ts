@@ -29,8 +29,7 @@ export class GenericSideBar<T> {
 
   private routerRef = inject(Router);
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
     console.log("ng on init");
