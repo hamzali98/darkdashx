@@ -48,7 +48,7 @@ export class HomeLayout {
         coloredIcon: "assets/icons/colored/star.svg",
         uncoloredIcon: "assets/icons/uncolored/star.svg",
         iconsAlt: "feat", topPadding: "pt-0",
-        routeNames: ["View Users", "Add Users"],
+        routeNames: ["View Features", "Add Features"],
         routeLink: ["/users/view", "/users/add",]
       },
       {
@@ -56,7 +56,7 @@ export class HomeLayout {
         coloredIcon: "assets/icons/colored/dollar.svg",
         uncoloredIcon: "assets/icons/uncolored/dollar.svg",
         iconsAlt: "pricing", topPadding: "pt-0",
-        routeNames: ["View Users", "Add Users"],
+        routeNames: ["View Pricing", "Add Pricing"],
         routeLink: ["/users/view", "/users/add",]
       },
       {
@@ -64,7 +64,7 @@ export class HomeLayout {
         coloredIcon: "assets/icons/colored/puzzlepiece.svg",
         uncoloredIcon: "assets/icons/uncolored/puzzlepiece.svg",
         iconsAlt: "integrations", topPadding: "pt-0",
-        routeNames: ["View Users", "Add Users"],
+        routeNames: ["View Integrations", "Add Integrations"],
         routeLink: ["/users/view", "/users/add",]
       },
     ]

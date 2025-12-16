@@ -1,2 +1,25 @@
-<p>products works!</p>
-<button class="size-15 bg-primary" (click)="goToroute()" >add product</button>
+<div class=" flex flex-col gap-5 px-9 py-7">
+    <div class="flex flex-col md:flex-row justify-between items-center ">
+        <div class="flex flex-col md:flex-row gap-13 items-center ">
+            <span class="text-gray-500 dark:text-white font-medium font-inter text-lg ">Users</span>
+            <app-search-bar></app-search-bar>
+        </div>
+        <button
+        (click)="goToroute()"
+            class="rounded-sm text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 cursor-pointer bg-primary">
+            Add product
+        </button>
+    </div>
+    <!-- upper card -->
+    <div class="flex flex-col flex-wrap md:flex-row justify-between pt-6.5">
+        <app-totals-cards [icon]="'assets/icons/colored/totalproducts.svg'" [title]="'Total Products'" [counts]="length" />
+        <app-totals-cards [icon]="'assets/icons/colored/newproducts.svg'" [title]="'New Products'" [counts]="13" />
+        <app-totals-cards [icon]="'assets/icons/colored/topusersgreen.svg'" [title]="'Top Products'" [counts]="65" />
+        <app-totals-cards [icon]="'assets/icons/colored/otherusersblue.svg'" [title]="'Other Products'" [counts]="93" />
+    </div>
+    <!-- generic table -->
+    <app-generic-table 
+    (onDeleteClicked)="deleteProductData($event)"
+    tableName="All Products" [columns]="productColumns" [tableData]="productData" />
+
+</div>

@@ -1,125 +1,130 @@
 <div class="lg:pr-10.5 ">
-        <p class="text-white text-md font-normal font-worksans ">Product Information</p>
-        <p class="text-figma-neutral text-sm font-medium tracking-normal ">Please fill in product information</p>
+    <p class="text-white text-md font-normal font-worksans ">Product Information</p>
+    <p class="text-figma-neutral text-sm font-medium tracking-normal ">Please fill in product information</p>
 
-        <form [formGroup]="baseInfo">
+    <form [formGroup]="baseInfo">
 
-            <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
-                <div class="py-1 pt-0 w-full border-b border-b-gray-500/20">
-                    <div class="flex flex-col lg:flex-row items-start justify-between ">
-                        <div class="flex gap-1 mt-1">
-                            <img src="assets/icons/white/product.svg" alt="">
-                            <label for="productname" class="text-gray-300 text-xs font-medium">Product Name
-                                <span class="text-red-600">*</span>
+        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
+            <div class="py-1 pt-0 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1 mt-1">
+                        <img src="assets/icons/white/product.svg" alt="">
+                        <label for="productname" class="text-gray-300 text-xs font-medium">Product Name
+                            <span class="text-red-600">*</span>
 
-                            </label>
-                        </div>
-                        <div class="flex flex-col w-full lg:w-auto">
-                            <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-figma-neutral text-lg font-light
+                        </label>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-auto">
+                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        text-figma-neutral text-sm font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
                         placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_name" type="text"
-                                id="productname" name="productname" placeholder="Enter Product Name">
-                            @if(product_name?.hasError('required') && product_name?.touched){
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Name Required!</span>
-                            } @else if(product_name?.valid) {
-                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
-                            } @else {
-                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Name</span>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
-                    <div class="flex flex-col lg:flex-row items-start justify-between ">
-                        <div class="flex gap-1 mt-1">
-                            <img src="assets/icons/white/category.svg" alt="">
-                            <label for="category" class="text-gray-300 text-xs font-medium">Category
-                                <span class="text-red-600">*</span>
-
-                            </label>
-                        </div>
-                        <div class="flex flex-col w-full lg:w-auto">
-                            <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-figma-neutral text-lg font-light
-                        invalid:border-red-500 invalid:caret-red-500
-                        valid:border-green-500 valid:caret-green-500
-                        focus:border-primary caret-primary
-                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_category"
-                                type="text" id="category" name="category" placeholder="Enter Product Category">
-                            @if(product_category?.hasError('required') && product_category?.touched){
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Category
-                                Required!</span>
-                            } @else if(product_category?.valid) {
-                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
-                            } @else {
-                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product
-                                Category</span>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
-                    <div class="flex flex-col lg:flex-row items-start justify-between ">
-                        <div class="flex gap-1">
-                            <img src="assets/icons/white/dollar.svg" alt="">
-                            <label for="price" class="text-gray-300 text-xs font-medium">Price
-                                <span class="text-red-600">*</span>
-
-                            </label>
-                        </div>
-                        <div class="flex flex-col w-full lg:w-auto">
-                            <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-figma-neutral text-lg font-light
-                        invalid:border-red-500 invalid:caret-red-500
-                        valid:border-green-500 valid:caret-green-500
-                        focus:border-primary caret-primary
-                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_price" type="tel"
-                                id="price" name="price" placeholder="Enter Product Price">
-                            @if(product_price?.hasError('required') && product_price?.touched){
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Price Required!</span>
-                            } @else if(product_price?.valid) {
-                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
-                            } @else {
-                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Price</span>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div class="py-1 pt-6 pb-0 w-full">
-                    <div class="flex flex-col lg:flex-row items-start justify-between ">
-                        <div class="flex gap-1">
-                            <img src="assets/icons/white/bag.svg" alt="">
-                            <label for="company" class="text-gray-300 text-xs font-medium">Company
-                                <span class="text-red-600">*</span>
-                            </label>
-                        </div>
-                        <div class="flex flex-col w-full lg:w-auto">
-                            <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-figma-neutral text-lg font-light
-                        invalid:border-red-500 invalid:caret-red-500
-                        valid:border-green-500 valid:caret-green-500
-                        focus:border-primary caret-primary
-                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_company"
-                                type="text" id="company" name="company" placeholder="Enter Product company">
-                            @if(product_company?.hasError('required') && product_company?.touched){
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Company Required!</span>
-                            } @else if(product_company?.valid) {
-                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
-                            } @else {
-                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Company</span>
-                            }
-                        </div>
+                            id="productname" name="productname" placeholder="Enter Product Name">
+                        @if(product_name?.hasError('required') && product_name?.touched){
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Name Required!</span>
+                        } @else if(product_name?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Name</span>
+                        }
                     </div>
                 </div>
             </div>
-            <!-- <div class=" flex justify-end mt-10">
+            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1 mt-1">
+                        <img src="assets/icons/white/category.svg" alt="">
+                        <label for="category" class="text-gray-300 text-xs font-medium">Category
+                            <span class="text-red-600">*</span>
+
+                        </label>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-auto">
+                        <select required name="category" id="category" formControlName="product_category" class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                                text-figma-neutral text-sm font-light bg-card-bg
+                                invalid:border-red-500 valid:border-green-500 focus:border-primary
+                                placeholder:text-figma-neutral">
+                            <option value="">Select Category</option>
+                            @for(items of productCategories; track $index){
+                            <option [value]="items.value">{{items.key}}</option>
+                            }
+                        </select>
+                        @if(product_category?.hasError('required') && product_category?.touched){
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Category
+                            Required!</span>
+                        } @else if(product_category?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product
+                            Category</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1">
+                        <img src="assets/icons/white/dollar.svg" alt="">
+                        <label for="price" class="text-gray-300 text-xs font-medium">Price
+                            <span class="text-red-600">*</span>
+
+                        </label>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-auto">
+                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                                text-figma-neutral text-sm font-light
+                                invalid:border-red-500 invalid:caret-red-500
+                                valid:border-green-500 valid:caret-green-500
+                                focus:border-primary caret-primary
+                                placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_price"
+                            type="number" id="price" name="price" placeholder="Enter Product Price">
+                        @if(product_price?.hasError('required') && product_price?.touched){
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Price Required!</span>
+                        } @else if(product_price?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Price</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="py-1 pt-6 pb-0 w-full">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1">
+                        <img src="assets/icons/white/bag.svg" alt="">
+                        <label for="company" class="text-gray-300 text-xs font-medium">Company
+                            <span class="text-red-600">*</span>
+                        </label>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-auto">
+                        <select required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                                text-figma-neutral text-sm font-light selection:text-sm bg-card-bg
+                                invalid:border-red-500 valid:border-green-500 focus:border-primary 
+                                placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_company"
+                            type="text" id="company" name="company">
+                            <option value="" >Select Company</option>
+                            @for(items of companyList; track $index){
+                            <option [value]="items.value">{{items.key}}</option>
+                            }
+                        </select>
+                        @if(product_company?.hasError('required') && product_company?.touched){
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Company Required!</span>
+                        } @else if(product_company?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Company</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class=" flex justify-end mt-10">
                 <button [disabled]="baseInfo.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer
             disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] " type="submit">
                     Add Product
                 </button>
             </div> -->
-        </form>
-    </div>
+    </form>
+</div>
