@@ -51,6 +51,7 @@ export class Team {
   }
 
   onFormSubmit() {
+    console.log("form data", this.userFormSubmit.value);
     if(this.userForm.editing()){
       this.loaderService.showLoader();
       console.log("Id for previous data", this.userForm.editingId());
