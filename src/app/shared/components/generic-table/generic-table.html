@@ -39,14 +39,10 @@
             <!-- Table Body -->
             <tbody class="text-sm">
 
-                @for(data of tableData; track $index){
-
+                @for(data of tableData; track $index ){
                 <tr class="odd:bg-active-route-bg">
-
                     <td>
-
                     </td>
-
                     <!-- Checkbox -->
                     <td class="">
                         <input [id]="$index" name="childchkbox" type="checkbox" [checked]="IncludesTableData(data)"
@@ -57,23 +53,35 @@
 
                     @for(column of columns; track $index){
                     <td class=" py-4.5 text-grey-300">
-                        @if(data[column.key] === true){
+                        @if(data[column.key] === true || data[column.key] === false) {
+                        <span class="px-1.5 py-px border rounded-xs text-[10px] font-extralight" [ngClass]="data[column.key] ? 'text-up-green-arrow bg-up-green-arrow/30 border-up-green-arrow/50' 
+                            : 'text-gray-300 bg-gray-400/30 border-gray-400/50'">
+                            • {{column?.func(data[column.key])}}
+                        </span>
+                        } @else {
+
+                        <span class=" flex gap-2 text-[10px] text-gray-400 font-worksans ">
+                            @if(column.label === "Company"){
+                                <img class="size-4 rounded-full" [src]="imgSrc(getValue(data, column.key))" alt="">
+                            }
+                            {{getValue(data, column.key)}}
+                        </span>
+                        }
+                        <!-- @if(data[column.key] === true){
                         <span
                             class=" px-1.5 py-px border rounded-xs
                             text-[10px] font-extralight text-up-green-arrow bg-up-green-arrow/30 border-up-green-arrow/50 ">•
                             Online</span>
-                        <!-- <img src="assets/icons/onlinetag.svg" alt=""> -->
                         } @else if(data[column.key] === false ){
                         <span class=" px-1.5 py-px border rounded-xs
                             text-[10px] font-extralight  text-gray-300 bg-gray-400/30 border-gray-400/50">•
                             Offline</span>
-                        <!-- <img src="assets/icons/offlinetag.svg" alt=""> -->
                         } @else {
                         <span class="text-[10px] text-gray-400 font-worksans ">
 
                             {{getValue(data, column.key)}}
                         </span>
-                        }
+                        } -->
                     </td>
                     }
 
@@ -100,8 +108,9 @@
     <div class="px-14 flex flex-row items-center ">
         <label for="itemsperpage" class="text-gray-400 text-[11px] font-medium font-inter px-3">Rows per page:</label>
         <div class="flex relative ">
-            <img class="absolute top-1/2 -translate-y-1/2 translate-x-5 pointer-events-none" src="assets/icons/neutral/droparrow.svg" alt="arrow">
-            <select  class=" appearance-none h-[26px] w-[41px] rounded-sm bg-active-route-bg text-white p-1 px-2 text-[10px] font-light
+            <img class="absolute top-1/2 -translate-y-1/2 translate-x-5 pointer-events-none"
+                src="assets/icons/neutral/droparrow.svg" alt="arrow">
+            <select class=" appearance-none h-[26px] w-[41px] rounded-sm bg-active-route-bg text-white p-1 px-2 text-[10px] font-light
             " [(ngModel)]="itemsPerPage" (change)="onChangePerPage()" name="select" id="itemsperpage">
                 <option value="5">5</option>
                 <option value="10">10</option>

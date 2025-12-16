@@ -9,7 +9,7 @@ export class Formservice {
   fB = inject(FormBuilder);
 
   userForm = this.fB.group({
-    online : [false],
+    status : [false],
     personal_info: this.fB.group({
       user_name: ['', Validators.required],
       user_email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],

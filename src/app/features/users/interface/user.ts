@@ -1,6 +1,6 @@
 export interface User {
       id: string,
-      online: boolean,
+      status: boolean,
       personal_info: {
         user_name: string,
         user_email: string,

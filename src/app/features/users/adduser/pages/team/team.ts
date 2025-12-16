@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { Formservice } from '../../services/formservice';
-import { Httpservice } from '@app/shared/services/httpservice/httpservice';
-import { finalize, timeInterval } from 'rxjs';
-import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 import { Router } from '@angular/router';
+import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs';
+import { Formservice } from '../../services/formservice';
 import { Loaderservice } from '@app/core/services/loader/loaderservice';
+import { Httpservice } from '@app/shared/services/httpservice/httpservice';
+import { CompanyListService } from '@app/shared/services/companylist/company-list-service';
+import { companyInterface } from '@app/shared/interface/company';
 
 @Component({
   selector: 'app-team',
@@ -15,14 +16,22 @@ import { Loaderservice } from '@app/core/services/loader/loaderservice';
 })
 export class Team {
 
+  url = "users";
+
+  // positions: [];
+  companyList : companyInterface[];
+
   teamInfo: FormGroup;
   userFormSubmit: FormGroup;
+
   userForm = inject(Formservice);
   httpService = inject(Httpservice);
   routerRef = inject(Router);
   loaderService = inject(Loaderservice);
+private companyListService = inject(CompanyListService);
 
   constructor() {
+    this.companyList = this.companyListService.getCompanyList();
     this.userFormSubmit = this.userForm.getForm();
     this.teamInfo = this.userForm.getForm().get('team_info') as FormGroup;
     this.teamInfo.markAllAsTouched();
@@ -44,7 +53,7 @@ export class Team {
   onFormSubmit() {
     this.loaderService.showLoader();
     console.log("Whole Form", this.userFormSubmit.value);
-    this.httpService.addApi('users', this.userFormSubmit.value).pipe(
+    this.httpService.addApi(this.url, this.userFormSubmit.value).pipe(
       finalize(() => {
         setTimeout(() => {
           this.loaderService.hideLoader();

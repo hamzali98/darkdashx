@@ -2,10 +2,11 @@ import { Component, NgModule, EventEmitter, input, Input, OnInit, Output, signal
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { tableColumns } from '@app/shared/interface/generic-table-interface';
+import { User } from '@app/features/users/interface/user';
 
 @Component({
   selector: 'app-generic-table',
-  imports: [FormsModule],
+  imports: [FormsModule, NgClass],
   templateUrl: './generic-table.html',
   styleUrl: './generic-table.css',
 })
@@ -46,6 +47,11 @@ export class GenericTable<T> {
       return false;
     }
   }
+
+imgSrc(src : any){
+  // console.log("src of img", src);
+  return `assets/logos/${src}.svg`;
+}
 
   IncludesTableData(data:any){
     return this.checkList.includes(data);
