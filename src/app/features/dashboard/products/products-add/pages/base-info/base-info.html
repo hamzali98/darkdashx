@@ -46,7 +46,7 @@
                                 text-figma-neutral text-sm font-light bg-card-bg
                                 invalid:border-red-500 valid:border-green-500 focus:border-primary
                                 placeholder:text-figma-neutral">
-                            <option value="">Select Category</option>
+                            <option value="" selected >Select Category</option>
                             @for(items of productCategories; track $index){
                             <option [value]="items.value">{{items.key}}</option>
                             }
@@ -104,7 +104,7 @@
                                 invalid:border-red-500 valid:border-green-500 focus:border-primary 
                                 placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_company"
                             type="text" id="company" name="company">
-                            <option value="" >Select Company</option>
+                            <option value="" selected >Select Company</option>
                             @for(items of companyList; track $index){
                             <option [value]="items.value">{{items.key}}</option>
                             }
@@ -119,6 +119,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
         <!-- <div class=" flex justify-end mt-10">
                 <button [disabled]="baseInfo.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer

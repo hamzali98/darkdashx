@@ -19,7 +19,7 @@
     </div>
     <!-- generic table -->
     <app-generic-table 
-    (onDeleteClicked)="deleteUserData($event)"
+    (onDeleteClicked)="deleteUserData($event)" (onEditClicked)="editUserData($event)"
     tableName="All Users" [columns]="userColumns" [tableData]="userData" />
 
 </div>

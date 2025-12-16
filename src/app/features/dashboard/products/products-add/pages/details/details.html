@@ -2,7 +2,7 @@
     <p class="text-white text-md font-normal font-worksans ">Product Information</p>
     <p class="text-figma-neutral text-sm font-medium tracking-normal ">Please fill in product information</p>
 
-    <form [formGroup]="detailInfo" (ngSubmit)="onFormSubmit()" >
+    <form [formGroup]="detailInfo" (ngSubmit)="onFormSubmit()">
 
         <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
             <div class="py-1 pt-0 w-full border-b border-b-gray-500/20">
@@ -36,7 +36,6 @@
                         <img src="assets/icons/white/regno.svg" alt="">
                         <label for="regno" class="text-gray-300 text-xs font-medium">Reg no.
                             <span class="text-red-600">*</span>
-
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
@@ -74,8 +73,8 @@
                                 invalid:border-red-500 invalid:caret-red-500
                                 valid:border-green-500 valid:caret-green-500
                                 focus:border-primary caret-primary
-                                placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_mfg" type="date"
-                            id="mfg" name="mfg" placeholder="Enter Product Manufacturing Date">
+                                placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_mfg"
+                            type="date" id="mfg" name="mfg" placeholder="Enter Product Manufacturing Date">
                         @if(product_mfg?.hasError('required') && product_mfg?.touched){
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Manufacturing Date
                             Required!</span>
@@ -118,7 +117,7 @@
         <div class=" flex justify-end mt-10">
             <button [disabled]="detailInfo.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer
             disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] " type="submit">
-                Add Product
+                {{prodcutFormService.editing() ? "Edit Product" : "Add Product"}}
             </button>
         </div>
     </form>

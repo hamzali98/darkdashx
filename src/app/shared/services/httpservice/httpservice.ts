@@ -17,4 +17,12 @@ export class Httpservice {
   getApi(url: string) {
     return this.httpClient.get<any>(`${this.BASE_URL}/${url}`, {observe: 'response' as const});
   }
+
+  delApi(url: string, valId: string) {
+    return this.httpClient.delete<any>(`${this.BASE_URL}/${url}/${valId}`);
+  }
+
+  editApi(url: string, id: string, payload: Object) {
+    return this.httpClient.put<any>(`${this.BASE_URL}/${url}/${id}`, payload);
+  }
 }

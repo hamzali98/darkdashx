@@ -1,13 +1,15 @@
 <div class=" flex flex-col gap-5 px-9.5 py-7 ">
     <div class="flex flex-col md:flex-row justify-start gap-13 items-center ">
-        <span class="text-gray-500 dark:text-white font-medium font-worksans text-lg">Add Product</span>
+        <span class="text-gray-500 dark:text-white font-medium font-worksans text-lg">
+            {{productFormService.editing() ? "Edit Product" : "Add Product"}}
+            </span>
         <app-search-bar></app-search-bar>
     </div>
 
     <div class="flex flex-col lg:flex lg:flex-row">
         <div class="grid grid-cols-1 pr-6 w-full lg:w-70.5 h-full lg:mt-18">
             <!-- <app-side-nav></app-side-nav> -->
-            <app-generic-child-nav-bar [navTitle]="title" [navData]="routerData"></app-generic-child-nav-bar>
+            <app-generic-child-nav-bar [navTitle]="title" [navData]="addProductRoutesData"></app-generic-child-nav-bar>
         </div>
         <div class="flex flex-col flex-1 lg:pl-23 lg:mt-17.5 lg:border-l lg:border-l-gray-500/25  ">
             <router-outlet></router-outlet>

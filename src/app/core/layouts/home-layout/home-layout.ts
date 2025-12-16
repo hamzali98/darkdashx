@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from "@angular/router";
 import { GenericSideBar } from "../generic-side-bar/generic-side-bar";
+import { Formservice } from '@app/features/users/adduser/services/formservice';
 
 @Component({
   selector: 'app-home-layout',
@@ -10,6 +11,7 @@ import { GenericSideBar } from "../generic-side-bar/generic-side-bar";
 })
 export class HomeLayout {
 
+  userFormService = inject(Formservice);
   /*
   routerLink paths, 
   opening names like (home)

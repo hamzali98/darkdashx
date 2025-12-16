@@ -16,7 +16,7 @@ export class GenericTable<T> {
   status = signal(false);
 
   itemsPerPage: number = 10;
-  
+
   tableName = input("Generic");
 
   checkList: any[] = [];
@@ -32,28 +32,28 @@ export class GenericTable<T> {
     return this.tableData?.length ?? 0;
   }
 
-  get isIndeterminate(){
-    if(this.checkList.length === 0 || this.checkList.length === this.tableData.length){
+  get isIndeterminate() {
+    if (this.checkList.length === 0 || this.checkList.length === this.tableData.length) {
       return false;
     } else {
       return true;
     }
   }
 
-  get isChecked(){
-    if (this.checkList.length === this.tableData?.length){
+  get isChecked() {
+    if (this.checkList.length === this.tableData?.length) {
       return true;
     } else {
       return false;
     }
   }
 
-imgSrc(src : any){
-  // console.log("src of img", src);
-  return `assets/logos/${src}.svg`;
-}
+  imgSrc(src: any) {
+    // console.log("src of img", src);
+    return `assets/logos/${src}.svg`;
+  }
 
-  IncludesTableData(data:any){
+  IncludesTableData(data: any) {
     return this.checkList.includes(data);
   }
 
@@ -72,9 +72,9 @@ imgSrc(src : any){
     console.log(`checked : ${event.target.checked} , id : ${event.target.id}`);
   }
 
-  toggleSelectallRows(event : any){
+  toggleSelectallRows(event: any) {
     const checked = event.target.checked;
-    if(checked){
+    if (checked) {
       this.checkList = [...this.tableData];
     } else {
       this.checkList = [];

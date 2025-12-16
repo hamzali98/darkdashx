@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { FormService } from '../../service/form-service';
 import { productCategories } from '../../../interface/product-categories';
@@ -13,7 +13,6 @@ import { CompanyListService } from '@app/shared/services/companylist/company-lis
 })
 export class BaseInfo {
 
-
   baseInfo: FormGroup;
   productCategories: productCategories[];
   companyList: companyInterface[];
@@ -22,6 +21,8 @@ export class BaseInfo {
   private companyListService = inject(CompanyListService);
 
   constructor() {
+    this.productForm.getForm().valid ? this.productForm.editing.set(true) : this.productForm.editing.set(false);
+
     this.baseInfo = this.productForm.getForm().get('basic_info') as FormGroup;
     this.baseInfo.markAllAsTouched();
 

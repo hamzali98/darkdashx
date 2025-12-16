@@ -14,6 +14,8 @@ export class PersonalInformation {
   userForm = inject(Formservice);
 
   constructor(){
+    this.userForm.getForm().valid ? this.userForm.editing.set(true) : this.userForm.editing.set(false);
+
     this.personalInfo = this.userForm.getForm().get('personal_info') as FormGroup;
     this.personalInfo.markAllAsTouched();
   }

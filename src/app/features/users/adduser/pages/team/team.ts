@@ -19,7 +19,7 @@ export class Team {
   url = "users";
 
   // positions: [];
-  companyList : companyInterface[];
+  companyList: companyInterface[];
 
   teamInfo: FormGroup;
   userFormSubmit: FormGroup;
@@ -28,7 +28,7 @@ export class Team {
   httpService = inject(Httpservice);
   routerRef = inject(Router);
   loaderService = inject(Loaderservice);
-private companyListService = inject(CompanyListService);
+  private companyListService = inject(CompanyListService);
 
   constructor() {
     this.companyList = this.companyListService.getCompanyList();
@@ -51,28 +51,39 @@ private companyListService = inject(CompanyListService);
   }
 
   onFormSubmit() {
-    this.loaderService.showLoader();
+    if(this.userForm.editing()){
+      this.loaderService.showLoader();
+      console.log("Id for previous data", this.userForm.editingId());
+      const id = this.userForm.editingId();
+      console.log("ID : ", id);
     console.log("Whole Form", this.userFormSubmit.value);
-    this.httpService.addApi(this.url, this.userFormSubmit.value).pipe(
-      finalize(() => {
-        setTimeout(() => {
-          this.loaderService.hideLoader();
-        }, 1200);
-        this.userForm.resetForm();
-        this.routerRef.navigate(['/users/view']);
-      })
-    ).subscribe({
+    this.httpService.editApi(this.url, id, this.userFormSubmit.value).subscribe({
       next: (res) => {
         console.log(res);
+        this.userForm.resetForm();
+        this.routerRef.navigate(['/users/view']);
       },
       error: (err) => {
         console.log(err);
         this.loaderService.hideLoader();
-      },
-      complete: () => {
-        this.loaderService.hideLoader();
       }
     })
+    } else {
+
+      this.loaderService.showLoader();
+      console.log("Whole Form", this.userFormSubmit.value);
+      this.httpService.addApi(this.url, this.userFormSubmit.value).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.userForm.resetForm();
+          this.routerRef.navigate(['/users/view']);
+        },
+        error: (err) => {
+          console.log(err);
+          this.loaderService.hideLoader();
+        }
+      })
+    }
   }
 
 }

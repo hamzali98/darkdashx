@@ -7,6 +7,7 @@ import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
 import { SearchBar } from "@app/shared/components/search-bar/search-bar";
+import { Formservice } from '../adduser/services/formservice';
 
 @Component({
   selector: 'app-viewusers',
@@ -18,6 +19,8 @@ export class Viewusers {
 
   length: number = 0;
 
+  url : string = 'users';
+
   // totalUsers: number = 0;
   userData!: User[];
   userColumns: any[];
@@ -25,16 +28,30 @@ export class Viewusers {
   private loaderService = inject(Loaderservice);
   private httpService = inject(Httpservice);
   private routerRef = inject(Router);
+  private userFormService = inject(Formservice);
 
   constructor() {
+    // this.userColumns = [
+    //   { id: 'id', key: ["personal_info", "user_name"], icon: "assets/icons/neutral/usericon.svg", label: "Name" },
+    //   { id: 'id', key: ["personal_info", "user_email"], icon: "assets/icons/neutral/email.svg", label: "Email" },
+    //   { id: 'id', key: ["basic_info", "user_phone"], icon: "assets/icons/neutral/phone.svg", label: "Phone" },
+    //   { id: 'id', key: ["basic_info", "user_location"], icon: "assets/icons/neutral/location.svg", label: "Location" },
+    //   { id: 'id', key: ["team_info", "team_name"], icon: "assets/icons/neutral/bag.svg", label: "Team" },
+    //   { id: 'id', func: (v: any) => v === true ? "Online" : "Offline", key: "status", icon: "assets/icons/neutral/statustick.svg", label: "Status" },
+    // ];
+
     this.userColumns = [
-      { id: 'id', key: ["personal_info", "user_name"], icon: "assets/icons/neutral/usericon.svg", label: "Name" },
-      { id: 'id', key: ["personal_info", "user_email"], icon: "assets/icons/neutral/email.svg", label: "Email" },
+      { id: 'id', key: ["personal_info", "user_name"], subkey: ["personal_info", "user_email"], 
+        icon: "assets/icons/neutral/usericon.svg", label: "Name" },
+      // { id: 'id', key: ["personal_info", "user_email"], icon: "assets/icons/neutral/email.svg", label: "Email" },
       { id: 'id', key: ["basic_info", "user_phone"], icon: "assets/icons/neutral/phone.svg", label: "Phone" },
       { id: 'id', key: ["basic_info", "user_location"], icon: "assets/icons/neutral/location.svg", label: "Location" },
-      { id: 'id', key: ["team_info", "team_name"], icon: "assets/icons/neutral/bag.svg", label: "Team" },
-      { id: 'id', func: (v: any) => v === true ? "Online" : "Offline" , key: "status", icon: "assets/icons/neutral/statustick.svg", label: "Status" },
-    ]
+      { id: 'id', key: ["team_info", "team_name"], icon: "assets/icons/neutral/bag.svg", label: "Company" },
+      { id: 'id', func: (v: any) => v === true ? "Online" : "Offline", key: "status", icon: "assets/icons/neutral/statustick.svg", label: "Status" },
+    ];
+
+    this.userFormService.resetForm();
+
     this.getUserData();
   }
 
@@ -44,24 +61,41 @@ export class Viewusers {
 
   getUserData() {
     this.loaderService.showLoader();
-    this.httpService.getApi('users').pipe(
-      finalize(() => {
-        this.loaderService.hideLoader();
-      }),
-    ).subscribe({
+    this.httpService.getApi(this.url).subscribe({
       next: (res) => {
         console.log(res);
         this.userData = res.body;
         this.length = this.userData.length;
+        this.loaderService.hideLoader();
       },
       error: (err) => {
         console.log(err);
+        this.loaderService.hideLoader();
       },
     })
   }
 
   deleteUserData(val: any) {
-    console.log(val);
+    this.loaderService.showLoader();
+    console.log("prod data in prod view", val);
+    this.httpService.delApi(this.url, val.id).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.loaderService.hideLoader();
+        this.getUserData();
+      },
+      error: (err) => {
+        console.log(err);
+        this.loaderService.hideLoader();
+      }
+    })
+  }
+
+  editUserData(val: User){
+    this.loaderService.showLoader();
+    this.userFormService.patchFormData(val);
+    this.loaderService.hideLoader();
+    this.routerRef.navigate(['users/add']);
   }
 
 }

@@ -3,6 +3,8 @@ export interface tableColumns<T> {
   key: keyof T,
   // render?: (row: T) => any;
   func?: (col: any) => any;
+  subkey?: keyof T,
   icon?: string[],
   label: string,
 }
+

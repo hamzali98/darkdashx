@@ -1,4 +1,4 @@
-<div class="flex flex-col w-full bg-card-bg text-white border border-gray-800 rounded-xl py-2 mt-2">
+<div class="flex flex-col w-full bg-card-bg text-white border-2 border-gray-800 rounded-xl py-2 mt-2">
     <div class="flex flex-row justify-between py-3.5 px-8.5 pb-5 border-b border-b-gray-800">
         <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{tableName()}}</span>
         <span class="text-sm font-semibold text-gray-400 px-4.5 ">
@@ -12,7 +12,7 @@
         <table class="w-full min-w-max text-left border-collapse">
             <!-- Table Head -->
             <thead class="">
-                <tr class="text-gray-300 text-sm">
+                <tr class="text-gray-300 text-sm items-center">
                     <th class="px-[7px]">
                     </th>
                     <th>
@@ -27,7 +27,7 @@
                     <th class="py-3.5">
                         <div class="flex items-center gap-1 ">
                             <img class="size-2.5" [src]="column.icon" alt="i">
-                            <span class="text-[10px] font-bold font-worksans">
+                            <span class="text-[9px] font-medium font-worksans">
                                 {{column.label}}
                             </span>
                         </div>
@@ -58,38 +58,37 @@
                             : 'text-gray-300 bg-gray-400/30 border-gray-400/50'">
                             • {{column?.func(data[column.key])}}
                         </span>
-                        } @else {
+                        } @else if(column.label === "Name") {
+                        <span class="flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center">
+                            <img class="size-7 rounded-full" src="assets/images/OIP.jpg" alt="p">
+                            <span class="flex flex-col gap-0.5">
+                                {{getValue(data, column.key)}}
+                                <span>
+                                    {{getValue(data, column.subkey)}}
+                                </span>
+                            </span>
+                        </span>
 
-                        <span class=" flex gap-2 text-[10px] text-gray-400 font-worksans ">
+                        }
+                        @else {
+                        <span class=" flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center ">
                             @if(column.label === "Company"){
-                                <img class="size-4 rounded-full" [src]="imgSrc(getValue(data, column.key))" alt="">
+                            <img class="size-4 rounded-full" [src]="imgSrc(getValue(data, column.key))" alt="">
+                            }
+                            @if(column.label === "Price"){
+                            $
+                            }
+                            @if(column.label === "Product Name"){
+                            <img class="size-7 rounded-full" src="assets/images/products/watch.svg" alt="i">
                             }
                             {{getValue(data, column.key)}}
                         </span>
                         }
-                        <!-- @if(data[column.key] === true){
-                        <span
-                            class=" px-1.5 py-px border rounded-xs
-                            text-[10px] font-extralight text-up-green-arrow bg-up-green-arrow/30 border-up-green-arrow/50 ">•
-                            Online</span>
-                        } @else if(data[column.key] === false ){
-                        <span class=" px-1.5 py-px border rounded-xs
-                            text-[10px] font-extralight  text-gray-300 bg-gray-400/30 border-gray-400/50">•
-                            Offline</span>
-                        } @else {
-                        <span class="text-[10px] text-gray-400 font-worksans ">
-
-                            {{getValue(data, column.key)}}
-                        </span>
-                        } -->
                     </td>
                     }
 
                     <!-- Action Buttons -->
-                    <td class=" flex justify-center gap-2 py-4.5 px-3 ">
-                        <!-- <button class="flex items-center justify-center ">
-                            <img src="assets/icons/eye.svg" class="w-4 h-4" />
-                        </button> -->
+                    <td class=" flex justify-center align-middle items-center self-center gap-2 py-6.5 px-0 ">
                         <button (click)="onClickedEdit(tableData[$index])" class="flex items-center justify-center ">
                             <img src="assets/icons/neutral/pencil.svg" class="size-3" alt="act btn" />
                         </button>
@@ -121,7 +120,7 @@
     <button class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/50">
         <img src="assets/icons/white/leftarrow.svg" alt="arrow">
     </button>
-    <button class="bg-active-route-bg p-[5.5px] rounded-sm ml-1.5 hover:bg-card-bg/50">
+    <button class="bg-active-route-bg p-[4.5px] rounded-sm ml-1.5 hover:bg-card-bg/50">
         <img src="assets/icons/white/rightarrow.svg" alt="arrow">
     </button>
 </div>

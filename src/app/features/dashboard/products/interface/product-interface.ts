@@ -1,6 +1,6 @@
 export interface product {
     id: string,
-    status: string,
+    status: boolean,
     basic_info: {
         product_name: string,
         product_category: string,

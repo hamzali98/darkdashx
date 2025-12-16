@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SearchBar } from "@app/shared/components/search-bar/search-bar";
 import { RouterOutlet } from "@angular/router";
 import { childnav } from '@app/shared/interface/child-nav-interface';
 import { GenericChildNavBar } from "@app/shared/components/generic-child-nav-bar/generic-child-nav-bar";
+import { ChildNavBarService } from '@app/shared/services/child-nav-bar/child-nav-bar-service';
+import { FormService } from './service/form-service';
 
 @Component({
   selector: 'app-products-add',
@@ -13,14 +15,13 @@ import { GenericChildNavBar } from "@app/shared/components/generic-child-nav-bar
 export class ProductsAdd {
 
   title: string = "Details";
-  routerData : childnav[];
+  addProductRoutesData : childnav[];
+
+  private addProductRoutesDataService = inject(ChildNavBarService);
+  productFormService = inject(FormService);
 
   constructor(){
-    this.routerData = [
-      {route: "/home/products/add/1", icon: "assets/icons/neutral/product.svg", tiletitle: "Basic Information"},
-      {route: "/home/products/add/2", icon: "assets/icons/neutral/stock.svg", tiletitle: "Detailed Information"},
-
-    ]
+    this.addProductRoutesData = this.addProductRoutesDataService.getProductAddRoutes();
   }
 
 }
