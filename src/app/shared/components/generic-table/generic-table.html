@@ -3,7 +3,7 @@
         <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{tableName()}}</span>
         <span class="text-sm font-semibold text-gray-400 px-4.5 ">
             <span class="text-sm font-semibold text-primary ">
-                1 - {{tableTotal}}
+                {{displayStartIndex}} - {{endIndex}}
             </span>
             of {{tableTotal}}
         </span>
@@ -24,12 +24,13 @@
                             checked:appearance-auto checked:accent-primary border-gray-800 border size-3 rounded-xs">
                     </th>
                     @for(column of columns; track $index){
-                    <th class="py-3.5">
+                    <th  class="py-3.5">
                         <div class="flex items-center gap-1 ">
                             <img class="size-2.5" [src]="column.icon" alt="i">
                             <span class="text-[9px] font-medium font-worksans">
                                 {{column.label}}
                             </span>
+                            <img class="size-3.5" src="assets/icons/neutral/sortarrows.svg" alt="i">
                         </div>
                     </th>
                     }
@@ -39,7 +40,7 @@
             <!-- Table Body -->
             <tbody class="text-sm">
 
-                @for(data of tableData; track $index ){
+                @for(data of currentPageData; track $index ){
                 <tr class="odd:bg-active-route-bg">
                     <td>
                     </td>
@@ -62,26 +63,25 @@
                         <span class="flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center">
                             <img class="size-7 rounded-full" src="assets/images/OIP.jpg" alt="p">
                             <span class="flex flex-col gap-0.5">
-                                {{getValue(data, column.key)}}
+                                {{getValue(data, column.key) | titlecase}}
                                 <span>
                                     {{getValue(data, column.subkey)}}
                                 </span>
                             </span>
                         </span>
-
-                        }
-                        @else {
+                        } @else if (column.label === "Price") {
+                            <span class=" flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center " >
+                                {{getValue(data, column.key) | currency}}
+                            </span>
+                        } @else {
                         <span class=" flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center ">
                             @if(column.label === "Company"){
                             <img class="size-4 rounded-full" [src]="imgSrc(getValue(data, column.key))" alt="">
                             }
-                            @if(column.label === "Price"){
-                            $
-                            }
                             @if(column.label === "Product Name"){
                             <img class="size-7 rounded-full" src="assets/images/products/watch.svg" alt="i">
                             }
-                            {{getValue(data, column.key)}}
+                            {{getValue(data, column.key) | titlecase}}
                         </span>
                         }
                     </td>
@@ -117,10 +117,12 @@
             </select>
         </div>
     </div>
-    <button class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/50">
+    <button [disabled]="displayStartIndex === 1" (click)="previousPage()"
+        class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/30 cursor-pointer disabled:opacity-25">
         <img src="assets/icons/white/leftarrow.svg" alt="arrow">
     </button>
-    <button class="bg-active-route-bg p-[4.5px] rounded-sm ml-1.5 hover:bg-card-bg/50">
+    <button [disabled]="endIndex === tableTotal" (click)="nextPage()"
+        class="bg-active-route-bg p-[4.5px] rounded-sm ml-1.5 hover:bg-card-bg/30 cursor-pointer disabled:opacity-25">
         <img src="assets/icons/white/rightarrow.svg" alt="arrow">
     </button>
 </div>
