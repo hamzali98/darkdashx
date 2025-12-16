@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchBar } from "@app/shared/components/search-bar/search-bar";
 import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
@@ -11,11 +11,11 @@ import { FormService } from './products-add/service/form-service';
 
 @Component({
   selector: 'app-products',
-  imports: [SearchBar, TotalsCards, GenericTable],
+  imports: [SearchBar, GenericTable],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
-export class Products {
+export class Products implements OnInit {
 
   length: number = 0;
 
@@ -37,6 +37,10 @@ export class Products {
       { key: ["basic_info", "product_company"], icon: "assets/icons/neutral/bag.svg", label: "Company" },
       { func: (v: any) => v === true ? "In stock" : "Out of stock", key: "status", icon: "assets/icons/neutral/statustick.svg", label: "Status" },
     ];
+    
+  }
+
+  ngOnInit(){
     this.productFormService.resetForm();
     this.getProductData();
   }
