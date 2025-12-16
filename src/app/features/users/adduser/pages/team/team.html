@@ -20,7 +20,7 @@
                         text-figma-neutral text-sm font-light invalid:border-red-500  valid:border-green-500 
                         focus:border-primary bg-card-bg
                         " id="teamname" name="teamname" formControlName="team_name">
-                            <option value="">Select Team</option>
+                            <option>Select Team</option>
                             @for(items of companyList; track $index){
                             <option [value]="items.value">{{items.key}}</option>
                             }
