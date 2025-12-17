@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <div class="overflow-scroll scroll-container scroll-smooth px-6.5 pt-2">
+    <div class="overflow-y-scroll scroll-container scroll-smooth px-6.5 pt-2">
         <!-- Dashboard selection div -->
         @for(items of navData; track $index){
         <div [class]="items.topPadding">
@@ -88,9 +88,10 @@
             </nav>
         </div>
         }
-    <!-- </div> -->
+        <!-- </div> -->
 
 
+    </div>
     <!-- divider div -->
     <!-- <div class="border-b-[0.1px] text-gray-500/50 dark:border-b-gray-800"></div> -->
     <!-- settings div -->
@@ -137,16 +138,15 @@
         </div>
         <div>
             <button class="grad w-full h-11.5 rounded-sm
-            bg-linear-to-br from-primary from-5% to-purple-900 to-95% " >
-            <div class="flex gap-2 justify-center" >
+            bg-linear-to-br from-primary from-5% to-purple-900 to-95% ">
+                <div class="flex gap-2 justify-center">
 
-                <span class="text-md text-white font-light tracking-normal font-worksans" >Get template</span>
-                <img src="assets/icons/white/rightarrow.svg" alt="arr">
-            </div>
+                    <span class="text-md text-white font-light tracking-normal font-worksans">Get template</span>
+                    <img src="assets/icons/white/rightarrow.svg" alt="arr">
+                </div>
             </button>
 
         </div>
-    </div>
     </div>
 
 </div>
