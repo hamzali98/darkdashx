@@ -3,6 +3,8 @@ import { HomeLayout } from './core/layouts/home-layout/home-layout';
 import { Dashboard } from './features/dashboard/dashboard';
 import { Settings } from './features/settings/settings';
 import { Profile } from './features/profile/profile';
+import { LoginPage } from './core/auth/pages/login-page/login-page';
+import { Signup } from './core/auth/pages/signup/signup';
 
 export const routes: Routes = [
     // {
@@ -34,6 +36,14 @@ export const routes: Routes = [
             }
         ]
     },
+    {
+        path: "login",
+        component: LoginPage
+    },
+    {
+        path: "signup",
+        component: Signup,
+    }
     //     // Admin area using another layout
     //   {
     //         path: 'admin',
