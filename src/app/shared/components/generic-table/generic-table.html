@@ -118,11 +118,11 @@
         </div>
     </div>
     <button [disabled]="displayStartIndex === 1" (click)="previousPage()"
-        class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/30 cursor-pointer disabled:opacity-25">
+        class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
         <img src="assets/icons/white/leftarrow.svg" alt="arrow">
     </button>
     <button [disabled]="endIndex === tableTotal" (click)="nextPage()"
-        class="bg-active-route-bg p-[4.5px] rounded-sm ml-1.5 hover:bg-card-bg/30 cursor-pointer disabled:opacity-25">
+        class="bg-active-route-bg p-[4.5px] rounded-sm ml-1.5 hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
         <img src="assets/icons/white/rightarrow.svg" alt="arrow">
     </button>
 </div>

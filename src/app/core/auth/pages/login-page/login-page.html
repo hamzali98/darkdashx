@@ -1,16 +1,16 @@
-<div class="relative flex items-center justify-center align-middle h-screen overflow-auto
+<div class="flex justify-center items-center min-h-screen overflow-auto
         bg-linear-to-br from-primary via-purple-500 to-secondary2">
-    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" >
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
 
-        <div class="w-full lg:w-150 h-full max-h-screen border border-gray-500/25 rounded-xl 
+        <div class="w-full lg:w-150 h-auto border border-gray-500/25 rounded-xl 
                     bg-card-bg/70 backdrop-blur-3xl p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
             <p class="text-white text-lg font-semibold font-worksans ">Login</p>
-            <p class="text-figma-neutral text-sm font-medium tracking-normal">Please fill in credentials to Login</p>
+            <p class="text-figma-neutral text-sm font-medium tracking-normal">Please fill in credentials to login</p>
             <!-- email input -->
             <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 my-2 lg:mt-1">
-                        <img src="assets/icons/white/usericon.svg" alt="">
+                        <img src="assets/icons/white/email.svg" alt="">
                         <label for="email" class="text-gray-300 text-xs font-medium ">Email
                             <span class="text-red-600">*</span>
                         </label>
@@ -25,9 +25,7 @@
                             type="email" id="email" name="email" placeholder="Enter Email">
                         @if(email?.hasError('required') && email?.touched) {
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">Email Required!</span>
-                        } @else if (email?.hasError("email")) {
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Email Invalid!</span>
-                        } @else if(email?.valid) {
+                        }@else if(email?.valid) {
                         <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
                         <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Email</span>
@@ -39,7 +37,7 @@
             <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 my-2 lg:mt-1">
-                        <img src="assets/icons/white/usericon.svg" alt="">
+                        <img src="assets/icons/white/password.svg" alt="">
                         <label for="password" class="text-gray-300 text-xs font-medium ">Password
                             <span class="text-red-600">*</span>
                         </label>
@@ -54,13 +52,7 @@
                             type="password" id="password" name="password" placeholder="Enter Password">
                         @if(password?.hasError('required') && password?.touched) {
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">Password Required!</span>
-                        } @else if (password?.hasError("minlength")) {
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light text-wrap">
-                            <!-- Atleast 8 lenght with special characters, numbers, and letters. -->
-                            Password too short!
-                        </span>
-                        }
-                        @else if(password?.valid) {
+                        } @else if(password?.valid) {
                         <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
                         <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter password</span>
@@ -68,12 +60,31 @@
                     </div>
                 </div>
             </div>
+            <!-- remember me -->
+            <div class="py-1 pt-2 w-full">
+                <div class="flex flex-col lg:flex-row items-center justify-between ">
+                    <div class="flex gap-1 my-2 lg:mt-1">
+                        <input class="accent-primary cursor-pointer" [(ngModel)]="remember"
+                            [ngModelOptions]="{ standalone: true }" type="checkbox" id="remember" name="remember">
+                        <label for="remember" class="text-gray-300 text-xs font-medium cursor-pointer
+                        ">Remember me
+                        </label>
+                    </div>
+                    <a class="text-sm text-white underline cursor-pointer ">Forgot Password!</a>
+                </div>
+            </div>
             <div class=" flex justify-center my-5">
-                <button [disabled]="loginForm.invalid" class="h-11 w-full rounded-sm text-white bg-primary 
-                cursor-pointer disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px]" 
+                <button [disabled]="loginForm.invalid"
+                    class="h-11 w-full rounded-sm text-white bg-primary 
+                cursor-pointer disabled:cursor-not-allowed disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px]" 
                 type="submit">
                     Login
                 </button>
+            </div>
+
+            <div class="mb-3 text-white text-center ">
+                Do not have an account?
+                <a routerLink="/signup" class="text-sm text-white underline cursor-pointer ">create now</a>
             </div>
         </div>
     </form>

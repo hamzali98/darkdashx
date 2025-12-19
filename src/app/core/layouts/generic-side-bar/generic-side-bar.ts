@@ -2,6 +2,7 @@ import { Component, inject, Input, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { sidenavcols } from '@app/core/interface/generic-side-nav-interface';
+import { AuthService } from '@app/core/auth/services/auth-service';
 
 // export interface sidenavcols<T> {
 //   routePath: string; 
@@ -28,6 +29,7 @@ export class GenericSideBar<T> {
   @Input() navData: sidenavcols<T>[] = [];
 
   private routerRef = inject(Router);
+  private authService = inject(AuthService);
 
   constructor() {}
 
@@ -47,6 +49,10 @@ export class GenericSideBar<T> {
     // } else {
     //   this.onOpen('dashboard');
     // }
+  }
+
+  get username(){
+    return this.authService.getUser()?.username ?? "Guest";
   }
 
   openAndNavigate(section: string, route: string) {

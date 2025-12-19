@@ -1,5 +1,24 @@
 {
-  "credentials": [],
+  "credentials": [
+    {
+      "id": "54d1",
+      "username": "hamzali98",
+      "email": "hamzali98@gmail.com",
+      "password": "123456",
+      "c_password": "123456",
+      "status": false,
+      "role": "super"
+    },
+    {
+      "id": "769e",
+      "username": "hamzali98",
+      "email": "hamzali@gmail.com",
+      "password": "123456",
+      "c_password": "123456",
+      "status": false,
+      "role": "user"
+    }
+  ],
   "products": [
     {
       "id": "0b08",

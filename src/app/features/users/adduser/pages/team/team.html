@@ -120,7 +120,7 @@
         </div>
         <div class=" flex justify-end mt-10">
             <button [disabled]="userFormSubmit.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer
-            disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] " type="submit">
+            disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] disabled:cursor-not-allowed " type="submit">
                 {{userForm.editing() ? "Edit User" : "Add User"}}
             </button>
         </div>

@@ -1,5 +1,5 @@
 <!-- bg-linear-to-br from-primary via-purple-500 to-secondary2 -->
-<div class="relative flex items-center justify-center align-middle h-screen overflow-auto
+<div class=" flex items-center justify-center min-h-screen overflow-auto
 bg-primary-bg        
 ">
 
@@ -10,7 +10,7 @@ bg-primary-bg
         </div>
         <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
 
-            <div class="w-full lg:w-150 h-full max-h-screen border border-gray-500/25 rounded-xl 
+            <div class="w-full lg:w-150 h-full border border-gray-500/25 rounded-xl 
             drop-shadow-2xl drop-shadow-primary/50
                     bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
                 <p class="text-white text-lg font-semibold font-worksans ">Sign Up</p>
@@ -51,7 +51,7 @@ bg-primary-bg
                 <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
                     <div class="flex flex-col lg:flex-row items-start justify-between ">
                         <div class="flex gap-1 my-2 lg:mt-1">
-                            <img src="assets/icons/white/usericon.svg" alt="">
+                            <img src="assets/icons/white/email.svg" alt="">
                             <label for="email" class="text-gray-300 text-xs font-medium ">Email
                                 <span class="text-red-600">*</span>
                             </label>
@@ -80,7 +80,7 @@ bg-primary-bg
                 <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
                     <div class="flex flex-col lg:flex-row items-start justify-between ">
                         <div class="flex gap-1 my-2 lg:mt-1">
-                            <img src="assets/icons/white/usericon.svg" alt="">
+                            <img src="assets/icons/white/password.svg" alt="">
                             <label for="password" class="text-gray-300 text-xs font-medium ">Password
                                 <span class="text-red-600">*</span>
                             </label>
@@ -113,7 +113,7 @@ bg-primary-bg
                 <div class="py-1 pt-2 lg:pt-6 w-full">
                     <div class="flex flex-col lg:flex-row items-start justify-between ">
                         <div class="flex gap-1 my-2 lg:mt-1">
-                            <img src="assets/icons/white/email.svg" alt="">
+                            <img src="assets/icons/white/cpass.svg" alt="">
                             <label for="cpassword" class="text-gray-300 text-xs font-medium">Confirm Password
                                 <span class="text-red-600">*</span>
 
@@ -145,10 +145,15 @@ bg-primary-bg
                 </div>
                 <div class=" flex justify-center my-5">
                     <button [disabled]="signupForm.invalid || passmatch()" class="h-11 w-full rounded-sm text-white bg-primary 
-                cursor-pointer disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px]" type="submit">
+                cursor-pointer disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] disabled:cursor-not-allowed" type="submit">
                         Sign Up
                     </button>
                 </div>
+
+                <div class="mb-3 text-white text-center ">
+                Already have an account?
+                <a routerLink="/login" class="text-sm text-white underline cursor-pointer ">Login now</a>
+            </div>
             </div>
         </form>
     </div>

@@ -38,10 +38,10 @@
         </div>
     </div>
 
-    <div class="overflow-y-scroll scroll-container scroll-smooth px-6.5 pt-2">
+    <div class="overflow-y-scroll scroll-container scroll-smooth pt-2">
         <!-- Dashboard selection div -->
         @for(items of navData; track $index){
-        <div [class]="items.topPadding">
+        <div [class]="items.topPadding" class="px-6.5" >
             <button [disabled]="open() === items.routePath" class="flex justify-center align-middle w-full cursor-pointer
                 size-auto opacity-100 md:size-0 md:opacity-100
                 " (click)="openAndNavigate(items.routePath, items.routeLink[0])">
@@ -91,61 +91,63 @@
         <!-- </div> -->
 
 
-    </div>
-    <!-- divider div -->
-    <!-- <div class="border-b-[0.1px] text-gray-500/50 dark:border-b-gray-800"></div> -->
-    <!-- settings div -->
-    <div class="flex flex-col gap-5 w-auto h-auto px-5 py-7
-        border-t-[0.1px] text-gray-500/50 dark:border-t-gray-800 bg-inherit
-        ">
-        <div>
-            <button [disabled]="open() === 'settings'"
-                class="flex flex-row items-center w-full justify-center md:justify-between cursor-pointer"
-                (click)="onRoute('settings')">
-                <div class=" flex flex-row items-center justify-center  ">
-                    @if(open() === 'settings'){
-                    <img src="assets\icons\colored\settingsicon.svg" alt="si">
-                    } @else {
-                    <img src="assets\icons\uncolored\settingsicon.svg" alt="si">
-                    }
-                    <span [ngClass]="open() === 'settings'
+        <!-- divider div -->
+        <!-- <div class="border-b-[0.1px] text-gray-500/50 dark:border-b-gray-800"></div> -->
+        <!-- settings div -->
+        <div class="flex flex-col gap-5 w-auto h-auto px-5 py-7
+    border-t-[0.1px] text-gray-500/50 dark:border-t-gray-800 bg-inherit
+    ">
+            <div>
+                <button [disabled]="open() === 'settings'"
+                    class="flex flex-row items-center w-full justify-center md:justify-between cursor-pointer"
+                    (click)="onRoute('settings')">
+                    <div class=" flex flex-row items-center justify-center  ">
+                        @if(open() === 'settings'){
+                        <img src="assets\icons\colored\settingsicon.svg" alt="si">
+                        } @else {
+                        <img src="assets\icons\uncolored\settingsicon.svg" alt="si">
+                        }
+                        <span [ngClass]="open() === 'settings'
                 ? 'text-primary'
                 : 'text-gray-500 dark:text-neutral-400'"
-                        class="hidden md:inline px-1 font-bold text-sm">Settings</span>
-                </div>
-                <!-- <span class="-rotate-90 hidden md:inline">
+                            class="hidden md:inline px-1 font-bold text-sm">Settings</span>
+                    </div>
+                    <!-- <span class="-rotate-90 hidden md:inline">
                     <img src="assets/icons/droparrow.svg" alt="">
                 </span> -->
-            </button>
-        </div>
-        <div class="py-2">
-            <button [disabled]="open() === 'profile'"
-                class="flex flex-row  items-center w-full justify-between cursor-pointer" (click)="onRoute('profile')">
-                <div class="flex fex-row items-center">
-                    <div class=" rounded-full overflow-hidden size-7 md:size-9 bg-contain  ">
-                        <img class="-mt-1" src="assets/images/OIP.webp" alt="">
+                </button>
+            </div>
+            <div class="py-2">
+                <button [disabled]="open() === 'profile'"
+                    class="flex flex-row  items-center w-full justify-between cursor-pointer"
+                    (click)="onRoute('profile')">
+                    <div class="flex fex-row items-center">
+                        <div class=" rounded-full overflow-hidden size-7 md:size-9 bg-contain  ">
+                            <img class="-mt-1" src="assets/images/OIP.webp" alt="">
+                        </div>
+                        <div class="md:flex flex-col items-start px-2 hidden ">
+                            <span
+                                [ngClass]="open() === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-neutral-100' "
+                                class=" text-sm font-bold ">{{username}}</span>
+                            <span class="text-gray-500 dark:text-neutral-400 text-xs ">Account Settings</span>
+                        </div>
                     </div>
-                    <div class="md:flex flex-col items-start px-2 hidden ">
-                        <span [ngClass]="open() === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-neutral-100' "
-                            class=" text-sm font-bold ">John Doe</span>
-                        <span class="text-gray-500 dark:text-neutral-400 text-xs ">Account Settings</span>
-                    </div>
-                </div>
-                <!-- <span class="-rotate-90">
+                    <!-- <span class="-rotate-90">
                     <img src="assets/icons/droparrow.svg" alt="">
                 </span> -->
-            </button>
-        </div>
-        <div>
-            <button class="grad w-full h-11.5 rounded-sm
+                </button>
+            </div>
+            <div>
+                <button class="grad w-full h-11.5 rounded-sm
             bg-linear-to-br from-primary from-5% to-purple-900 to-95% ">
-                <div class="flex gap-2 justify-center">
+                    <div class="flex gap-2 justify-center">
 
-                    <span class="text-md text-white font-light tracking-normal font-worksans">Get template</span>
-                    <img src="assets/icons/white/rightarrow.svg" alt="arr">
-                </div>
-            </button>
+                        <span class="text-md text-white font-light tracking-normal font-worksans">Get template</span>
+                        <img src="assets/icons/white/rightarrow.svg" alt="arr">
+                    </div>
+                </button>
 
+            </div>
         </div>
     </div>
 

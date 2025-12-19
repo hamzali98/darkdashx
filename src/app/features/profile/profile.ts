@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '@app/core/auth/services/auth-service';
 
 @Component({
   selector: 'app-profile',
@@ -8,4 +10,11 @@ import { Component } from '@angular/core';
 })
 export class Profile {
 
+  private authService = inject(AuthService);
+  private routerRef = inject(Router);
+
+  onLogout(){
+this.authService.logout();
+this.routerRef.navigate(["/login"]);
+  }
 }

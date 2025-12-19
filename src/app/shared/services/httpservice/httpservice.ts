@@ -8,6 +8,10 @@ import { environment } from '@environments/environment.development';
 export class Httpservice {
 
   httpClient = inject(HttpClient);
+
+  loginApi(url: string, email : string){
+    return this.httpClient.get<any>(`${url}/${email}`, {observe: 'response' as const})
+  }
   
   addApi(url : string, payload: Object){
     return this.httpClient.post<any>(`${url}`,payload);

@@ -10,6 +10,7 @@ import { DonutChart } from "./components/donut-chart/donut-chart";
 import { BubbleChart } from "./components/bubble-chart/bubble-chart";
 import { MapChart } from "./components/map-chart/map-chart";
 import { environment } from '@environments/environment.development';
+import { AuthService } from '@app/core/auth/services/auth-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +20,6 @@ import { environment } from '@environments/environment.development';
 })
 export class Dashboard implements OnInit {
 
-  user_name = signal('John');
   productURL = environment.PRODUCTS_URL;
   userURL = environment.USER_URL;
 
@@ -28,6 +28,7 @@ export class Dashboard implements OnInit {
 
   httpService = inject(Httpservice);
   loaderService = inject(Loaderservice);
+  authservice = inject(AuthService);
 
   ngOnInit(): void {
     this.loaderService.showLoader();
@@ -36,6 +37,9 @@ export class Dashboard implements OnInit {
     this.loaderService.hideLoader();
   }
 
+  get username() {
+    return this.authservice.getUser()?.username ?? "Guest";
+  }
   getUserData() {
     // this.loaderService.showLoader();
     this.httpService.getApi(this.userURL).pipe(
