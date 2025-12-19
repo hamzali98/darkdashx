@@ -35,6 +35,10 @@ private root!: am5.Root;
   createChart() {
     // 1️⃣ Create root
     this.root = am5.Root.new("mapchartdiv");
+    this.root.interfaceColors.set("text", am5.color("#fff"));
+    this.root.interfaceColors.set("primaryButton", am5.color("#cb3cff"));
+    this.root.interfaceColors.set("primaryButtonHover", am5.color("#aeb9e1"));
+    this.root.interfaceColors.set("primaryButtonDown", am5.color("#00c2ff"));
     this.root.setThemes([am5themes_Animated.new(this.root)]);
 
     // 2️⃣ Create map chart

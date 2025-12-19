@@ -89,6 +89,7 @@ export class AmCharts implements OnChanges {
         am5xy.CategoryAxis.new(root, {
           renderer: am5xy.AxisRendererX.new(root, {}),
           categoryField: "category"
+          
         })
       );
       xAxis.data.setAll(data);
@@ -126,6 +127,7 @@ export class AmCharts implements OnChanges {
 
       series1.columns.template.setAll({
         strokeWidth: 2,
+        width: 20,
         tooltipText: "{categoryX}\nProducts: {valueY}",
         tooltipY: 0,
         cornerRadiusTL: 5,
@@ -133,6 +135,7 @@ export class AmCharts implements OnChanges {
       });
       series2.columns.template.setAll({
         strokeWidth: 2,
+        width: 20,
         tooltipText: "{categoryX}\nStock: {valueY}",
         tooltipY: 0,
         cornerRadiusTL: 5,
@@ -146,6 +149,7 @@ export class AmCharts implements OnChanges {
       // Add cursor
       chart.set("cursor", am5xy.XYCursor.new(root, {}));
 
+      root.interfaceColors.set("text" , am5.color("#fff"));
       this.root = root;
     });
   }

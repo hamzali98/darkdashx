@@ -56,6 +56,7 @@ export class DonutChart implements OnChanges {
     this.browserOnly(() => {
       // Create root and chart
       let root = am5.Root.new("donutdiv");
+      root.interfaceColors.set("text", am5.color("#fff"));
       let chart = root.container.children.push(
         am5percent.PieChart.new(root, {
           layout: root.verticalLayout,

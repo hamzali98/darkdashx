@@ -40,116 +40,118 @@ export class BubbleChart implements OnChanges {
   }
 
   buildCompanyBubbleData(products: product[]) {
-  const map: Record<string, {
-    totalPrice: number;
-    totalStock: number;
-    count: number;
-  }> = {};
+    const map: Record<string, {
+      totalPrice: number;
+      totalStock: number;
+      count: number;
+    }> = {};
 
-  products.forEach(p => {
-    const company = p.basic_info.product_company;
+    products.forEach(p => {
+      const company = p.basic_info.product_company;
 
-    if (!map[company]) {
-      map[company] = {
-        totalPrice: 0,
-        totalStock: 0,
-        count: 0
-      };
-    }
+      if (!map[company]) {
+        map[company] = {
+          totalPrice: 0,
+          totalStock: 0,
+          count: 0
+        };
+      }
 
-    map[company].totalPrice += Number(p.basic_info.product_price);
-    map[company].totalStock += Number(p.detail_info.product_stock);
-    map[company].count += 1;
-  });
+      map[company].totalPrice += Number(p.basic_info.product_price);
+      map[company].totalStock += Number(p.detail_info.product_stock);
+      map[company].count += 1;
+    });
 
-  return Object.keys(map).map(company => ({
-    company,
-    avgPrice: +(map[company].totalPrice / map[company].count).toFixed(2),
-    totalStock: map[company].totalStock,
-    productCount: map[company].count
-  }));
-}
+    return Object.keys(map).map(company => ({
+      company,
+      avgPrice: +(map[company].totalPrice / map[company].count).toFixed(2),
+      totalStock: map[company].totalStock,
+      productCount: map[company].count
+    }));
+  }
 
 
   createChart() {
     const data = this.buildCompanyBubbleData(this.productChartData);
 
-  this.root = am5.Root.new("bubblediv");
-  this.root.setThemes([am5themes_Animated.new(this.root)]);
+    this.root = am5.Root.new("bubblediv");
+    this.root.interfaceColors.set("text", am5.color("#FFF"));
+    this.root.setThemes([am5themes_Animated.new(this.root)]);
 
-  const chart = this.root.container.children.push(
-    am5xy.XYChart.new(this.root, {
-      panX: true,
-      panY: true,
-      wheelX: "zoomX",
-      wheelY: "zoomY"
-    })
-  );
-
-  // X Axis (Avg Price)
-  const xAxis = chart.xAxes.push(
-    am5xy.ValueAxis.new(this.root, {
-      renderer: am5xy.AxisRendererX.new(this.root, {}),
-      tooltip: am5.Tooltip.new(this.root, {})
-    })
-  );
-
-  // Y Axis (Total Stock)
-  const yAxis = chart.yAxes.push(
-    am5xy.ValueAxis.new(this.root, {
-      renderer: am5xy.AxisRendererY.new(this.root, {}),
-      tooltip: am5.Tooltip.new(this.root, {})
-    })
-  );
-
-  // LineSeries used as Bubble series
-  const series = chart.series.push(
-    am5xy.LineSeries.new(this.root, {
-      xAxis,
-      yAxis,
-      valueXField: "avgPrice",
-      valueYField: "totalStock",
-      tooltip: am5.Tooltip.new(this.root, {
-        labelText:
-          "Company: {company}\nAvg Price: {avgPrice}\nStock: {totalStock}\nProducts: {productCount}"
+    const chart = this.root.container.children.push(
+      am5xy.XYChart.new(this.root, {
+        panX: true,
+        panY: true,
+        wheelX: "zoomX",
+        wheelY: "zoomY"
       })
-    })
-  );
+    );
 
-  // IMPORTANT: Hide the line
-  series.strokes.template.set("visible", false);
+    // X Axis (Avg Price)
+    const xAxis = chart.xAxes.push(
+      am5xy.ValueAxis.new(this.root, {
+        renderer: am5xy.AxisRendererX.new(this.root, {}),
+        tooltip: am5.Tooltip.new(this.root, {})
+      })
+    );
 
-// 1️⃣ Create circle template (REQUIRED for heatRules)
-const circleTemplate = am5.Template.new<am5.Circle>({
-  fillOpacity: 0.8,
-  fill: am5.color("#cb3cff"), 
-  strokeOpacity: 0
-});
+    // Y Axis (Total Stock)
+    const yAxis = chart.yAxes.push(
+      am5xy.ValueAxis.new(this.root, {
+        renderer: am5xy.AxisRendererY.new(this.root, {}),
+        tooltip: am5.Tooltip.new(this.root, {})
+      })
+    );
 
-// 2️⃣ Add ONE bullet using the template
-series.bullets.push(() =>
-  am5.Bullet.new(this.root, {
-    sprite: am5.Circle.new(this.root, {}, circleTemplate)
-  })
-);
+    // LineSeries used as Bubble series
+    const series = chart.series.push(
+      am5xy.LineSeries.new(this.root, {
+        xAxis,
+        yAxis,
+        valueXField: "avgPrice",
+        valueYField: "totalStock",
+        tooltip: am5.Tooltip.new(this.root, {
+          labelText:
+            "Company: {company}\nAvg Price: {avgPrice}\nStock: {totalStock}\nProducts: {productCount}"
+        })
+      })
+    );
 
-// 3️⃣ Heat rule controls bubble size
-series.set("heatRules", [{
-  target: circleTemplate,
-  dataField: "productCount",
-  key: "radius",
-  min: 10,
-  max: 50,
-}]);
+    // IMPORTANT: Hide the line
+    series.strokes.template.set("visible", false);
 
-  series.data.setAll(data);
+    // 1️⃣ Create circle template (REQUIRED for heatRules)
+    const circleTemplate = am5.Template.new<am5.Circle>({
+      fillOpacity: 0.8,
+      fill: am5.color("#cb3cff"),
+      strokeOpacity: 0
+    });
 
-  // Cursor
-  chart.set("cursor", am5xy.XYCursor.new(this.root, {
-    xAxis,
-    yAxis
-  }));
-}
+    // 2️⃣ Add ONE bullet using the template
+    series.bullets.push(() =>
+      am5.Bullet.new(this.root, {
+        sprite: am5.Circle.new(this.root, {}, circleTemplate)
+      })
+    );
+
+    // 3️⃣ Heat rule controls bubble size
+    series.set("heatRules", [{
+      target: circleTemplate,
+      dataField: "productCount",
+      key: "radius",
+      min: 10,
+      max: 50,
+    }]);
+
+    series.data.setAll(data);
+
+    
+    // Cursor
+    chart.set("cursor", am5xy.XYCursor.new(this.root, {
+      xAxis,
+      yAxis
+    }));
+  }
 
   ngOnDestroy() {
     this.root?.dispose();
