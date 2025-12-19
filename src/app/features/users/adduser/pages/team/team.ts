@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { Formservice } from '../../services/formservice';
-import { Loaderservice } from '@app/core/services/loader/loaderservice';
+import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { CompanyListService } from '@app/shared/services/companylist/company-list-service';
 import { companyInterface } from '@app/shared/interface/company';
+import { environment } from '@environments/environment.development';
 
 @Component({
   selector: 'app-team',
@@ -16,7 +17,7 @@ import { companyInterface } from '@app/shared/interface/company';
 })
 export class Team {
 
-  url = "users";
+  url : string = environment.USER_URL;
 
   // positions: [];
   companyList: companyInterface[];

@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormService } from '../../service/form-service';
-import { Loaderservice } from '@app/core/services/loader/loaderservice';
+import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { Router } from '@angular/router';
+import { environment } from '@environments/environment.development';
 
 @Component({
   selector: 'app-details',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class Details {
 
-  url = "products";
+  url : string = environment.PRODUCTS_URL;
 
   detailInfo: FormGroup;
   productFormSubmit: FormGroup;

@@ -4,11 +4,12 @@ import { AmCharts } from "./components/am-charts/am-charts";
 import { User } from '../users/interface/user';
 import { product } from './products/interface/product-interface';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
-import { Loaderservice } from '@app/core/services/loader/loaderservice';
+import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { finalize } from 'rxjs';
 import { DonutChart } from "./components/donut-chart/donut-chart";
 import { BubbleChart } from "./components/bubble-chart/bubble-chart";
 import { MapChart } from "./components/map-chart/map-chart";
+import { environment } from '@environments/environment.development';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,8 +20,8 @@ import { MapChart } from "./components/map-chart/map-chart";
 export class Dashboard implements OnInit {
 
   user_name = signal('John');
-  productURL = "products";
-  userURL = "users";
+  productURL = environment.PRODUCTS_URL;
+  userURL = environment.USER_URL;
 
   userData!: User[];
   productData!: product[];

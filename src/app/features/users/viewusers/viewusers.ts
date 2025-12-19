@@ -2,12 +2,14 @@ import { Component, inject, OnInit, Signal, signal } from '@angular/core';
 import { GenericTable } from '@app/shared/components/generic-table/generic-table';
 import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
 import { User } from '../interface/user';
-import { Loaderservice } from '@app/core/services/loader/loaderservice';
+import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
 import { SearchBar } from "@app/shared/components/search-bar/search-bar";
 import { Formservice } from '../adduser/services/formservice';
+import { environment } from '@environments/environment.development';
+import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 
 @Component({
   selector: 'app-viewusers',
@@ -19,7 +21,7 @@ export class Viewusers implements OnInit {
 
   length: number = 0;
 
-  url : string = 'users';
+  url: string = environment.USER_URL;
 
   // totalUsers: number = 0;
   userData!: User[];
@@ -29,6 +31,7 @@ export class Viewusers implements OnInit {
   private httpService = inject(Httpservice);
   private routerRef = inject(Router);
   private userFormService = inject(Formservice);
+  private snackService = inject(SnackBarService);
 
   constructor() {
     // this.userColumns = [
@@ -41,8 +44,10 @@ export class Viewusers implements OnInit {
     // ];
 
     this.userColumns = [
-      { id: 'id', key: ["personal_info", "user_name"], subkey: ["personal_info", "user_email"], 
-        icon: "assets/icons/neutral/usericon.svg", label: "Name" },
+      {
+        id: 'id', key: ["personal_info", "user_name"], subkey: ["personal_info", "user_email"],
+        icon: "assets/icons/neutral/usericon.svg", label: "Name"
+      },
       // { id: 'id', key: ["personal_info", "user_email"], icon: "assets/icons/neutral/email.svg", label: "Email" },
       { id: 'id', key: ["basic_info", "user_phone"], icon: "assets/icons/neutral/phone.svg", label: "Phone" },
       { id: 'id', key: ["basic_info", "user_location"], icon: "assets/icons/neutral/location.svg", label: "Location" },
@@ -69,11 +74,13 @@ export class Viewusers implements OnInit {
         console.log(res);
         this.userData = res.body;
         this.length = this.userData.length;
+        this.snackService.success("Data fetched successfully!", 2000, 'top-right' );
         this.loaderService.hideLoader();
       },
       error: (err) => {
         console.log(err);
         this.loaderService.hideLoader();
+        this.snackService.error("Server Error!", 2000, 'top-right' );
       },
     })
   }
@@ -85,16 +92,18 @@ export class Viewusers implements OnInit {
       next: (res) => {
         console.log(res);
         this.loaderService.hideLoader();
+        this.snackService.success("Data deleted successfully!", 2000, 'bottom-right' );
         this.getUserData();
       },
       error: (err) => {
         console.log(err);
         this.loaderService.hideLoader();
+        this.snackService.error("Server Error!", 2000, 'bottom-right' );
       }
     })
   }
 
-  editUserData(val: User){
+  editUserData(val: User) {
     this.loaderService.showLoader();
     this.userFormService.patchFormData(val);
     this.loaderService.hideLoader();
