@@ -1,0 +1,11 @@
+@if(isVisible && currentSnackbar ){
+
+<div class="fixed z-9999 px-5 py-8 rounded-md w-100 transition-all duration-300 ease-in-out" 
+[ngClass]="[getTypeClass(), getPositionClass()]"
+>
+    <div class="flex justify-between items-center align-middle">
+        <span class="text-white text-xl font-bold">{{ currentSnackbar.message }}</span>
+        <button class="bg-transparent font-bold cursor-pointer ml-4 text-md text-white" (click)="hide()">X</button>
+    </div>
+</div>
+}

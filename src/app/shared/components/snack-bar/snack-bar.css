@@ -1,0 +1,24 @@
+/* --- TYPE STYLES --- */
+.snackbar-success { background-color: #4CAF50; }
+.snackbar-error { background-color: #f44336; }
+.snackbar-warning { background-color: #ff9800; }
+.snackbar-general { background-color: #2196F3; }
+
+/* --- POSITION STYLES --- */
+.position-top-center {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.position-top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.position-bottom-center {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* ... define all 6 positions (top/bottom, left/center/right) ... */
