@@ -8,6 +8,8 @@
             of {{tableTotal}}
         </span>
     </div>
+
+    @if(tableData.length) {
     <div class="flex flex-1">
         <table class="w-full min-w-max text-left border-collapse">
             <!-- Table Head -->
@@ -24,7 +26,7 @@
                             checked:appearance-auto checked:accent-primary border-gray-800 border size-3 rounded-xs">
                     </th>
                     @for(column of columns; track $index){
-                    <th  class="py-3.5">
+                    <th class="py-3.5">
                         <div class="flex items-center gap-1 ">
                             <img class="size-2.5" [src]="column.icon" alt="i">
                             <span class="text-[9px] font-medium font-worksans">
@@ -38,8 +40,8 @@
             </thead>
 
             <!-- Table Body -->
-            <tbody class="text-sm">
 
+            <tbody class="text-sm">
                 @for(data of currentPageData; track $index ){
                 <tr class="odd:bg-active-route-bg">
                     <td>
@@ -70,9 +72,9 @@
                             </span>
                         </span>
                         } @else if (column.label === "Price") {
-                            <span class=" flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center " >
-                                {{getValue(data, column.key) | currency}}
-                            </span>
+                        <span class=" flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center ">
+                            {{getValue(data, column.key) | currency}}
+                        </span>
                         } @else {
                         <span class=" flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center ">
                             @if(column.label === "Company"){
@@ -88,19 +90,25 @@
                     }
 
                     <!-- Action Buttons -->
-                    <td class=" flex justify-center align-middle items-center cursor-pointer self-center gap-2 py-6.5 px-0 ">
+                    <td
+                        class=" flex justify-center align-middle items-center cursor-pointer self-center gap-2 py-6.5 px-0 ">
                         <button (click)="onClickedEdit(tableData[$index])" class="flex items-center justify-center ">
                             <img src="assets/icons/neutral/pencil.svg" class="size-3" alt="act btn" />
                         </button>
-                        <button (click)="onClickedDelete(tableData[$index])" class="flex items-center cursor-pointer justify-center ">
+                        <button (click)="onClickedDelete(tableData[$index])"
+                            class="flex items-center cursor-pointer justify-center ">
                             <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
                         </button>
                     </td>
                 </tr>
                 }
             </tbody>
+
         </table>
     </div>
+    } @else {
+    <app-data-error></app-data-error>
+    }
 </div>
 
 <div class="flex flex-row items-end justify-end py-5 px-5">

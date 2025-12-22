@@ -11,10 +11,12 @@ import { BubbleChart } from "./components/bubble-chart/bubble-chart";
 import { MapChart } from "./components/map-chart/map-chart";
 import { environment } from '@environments/environment.development';
 import { AuthService } from '@app/core/auth/services/auth-service';
+import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
+import { DataError } from "@app/shared/components/data-error/data-error";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [AnalyticsCard, AmCharts, DonutChart, BubbleChart, MapChart],
+  imports: [AnalyticsCard, AmCharts, DonutChart, BubbleChart, MapChart, DataError],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
@@ -27,53 +29,48 @@ export class Dashboard implements OnInit {
   productData!: product[];
 
   httpService = inject(Httpservice);
-  loaderService = inject(Loaderservice);
   authservice = inject(AuthService);
+  loaderService = inject(Loaderservice);
+  snackService = inject(SnackBarService);
 
   ngOnInit(): void {
-    this.loaderService.showLoader();
+    // this.loaderService.showLoader();
     this.getUserData();
-    this.getProductData();
-    this.loaderService.hideLoader();
+    // this.getProductData();
+    // this.loaderService.hideLoader();
   }
 
   get username() {
     return this.authservice.getUser()?.username ?? "Guest";
   }
   getUserData() {
-    // this.loaderService.showLoader();
-    this.httpService.getApi(this.userURL).pipe(
-      finalize(() => {
-        // this.loaderService.hideLoader();
-      })
-    ).subscribe({
+    this.loaderService.showLoader();
+    this.httpService.getApi(this.userURL).subscribe({
       next: (res) => {
         console.log(res);
         this.userData = res.body;
+        this.getProductData();
       },
       error: (err) => {
         console.log(err);
-        // this.loaderService.hideLoader();
+        this.loaderService.hideLoader();
+        this.snackService.error("Server Error!", 2000, 'top-left');
 
       }
     });
   }
 
   getProductData() {
-    // this.loaderService.showLoader();
-    this.httpService.getApi(this.productURL).pipe(
-      finalize(() => {
-        // this.loaderService.hideLoader();
-      })
-    ).subscribe({
+    this.httpService.getApi(this.productURL).subscribe({
       next: (res) => {
         console.log(res);
         this.productData = res.body;
+        this.loaderService.hideLoader();
       },
       error: (err) => {
         console.log(err);
-        // this.loaderService.hideLoader();
-
+        this.loaderService.hideLoader();
+        this.snackService.error("Server Error!", 2000, 'top-left');
       }
     })
   }

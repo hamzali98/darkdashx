@@ -35,13 +35,25 @@
 <!-- full card -->
 <div class="grid grid-cols-12 grid-rows-12 px-10.5 mb-3">
     <div class=" col-span-8 row-span-12 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-s-lg ">
+        @if(userData && productData){
         <app-am-charts [userChartData]="userData" [productChartData]="productData"></app-am-charts>
+        } @else {
+        <app-data-error></app-data-error>
+        }
     </div>
     <div class=" col-span-4 row-span-6 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-tr-lg ">
+        @if(userData && productData){
         <app-donut-chart [userChartData]="userData" [productChartData]="productData"></app-donut-chart>
+        } @else {
+        <app-data-error></app-data-error>
+        }
     </div>
     <div class=" col-span-4 row-span-6 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-br-lg ">
+        @if(userData && productData){
         <app-bubble-chart [productChartData]="productData" [userChartData]="userData"></app-bubble-chart>
+        } @else {
+        <app-data-error></app-data-error>
+        }
     </div>
 </div>
 <div class="grid grid-cols-12 grid-rows-12 px-10.5 mb-3">

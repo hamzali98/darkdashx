@@ -3,10 +3,11 @@ import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { tableColumns } from '@app/shared/interface/generic-table-interface';
 import { TitleCasePipe, CurrencyPipe } from '@angular/common';
+import { DataError } from "../data-error/data-error";
 
 @Component({
   selector: 'app-generic-table',
-  imports: [FormsModule, NgClass, TitleCasePipe, CurrencyPipe],
+  imports: [FormsModule, NgClass, TitleCasePipe, CurrencyPipe, DataError],
   templateUrl: './generic-table.html',
   styleUrl: './generic-table.css',
 })
