@@ -19,8 +19,10 @@
     </div> -->
     <!-- generic table -->
     <div class="mt-4.5">
+        <!-- @if( !loaderService.getLoader() && productData.length){ -->
         <app-generic-table (onDeleteClicked)="deleteProductData($event)" (onEditClicked)="editproductData($event)"
-        tableName="All Products" [columns]="productColumns" [tableData]="productData" />
+            tableName="All Products" [columns]="productColumns" [tableData]="productData" />
+        <!-- } -->
     </div>
 
 </div>

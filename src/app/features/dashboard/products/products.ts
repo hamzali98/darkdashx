@@ -23,12 +23,12 @@ export class Products implements OnInit {
 
   url: string = environment.PRODUCTS_URL;
 
-  productData!: product[];
+  productData: product[] = [];
   productColumns: any[];
 
   private routerRef = inject(Router);
   private httpService = inject(Httpservice);
-  private loaderService = inject(Loaderservice);
+  loaderService = inject(Loaderservice);
   private productFormService = inject(FormService);
   private snackService = inject(SnackBarService);
 
@@ -54,20 +54,28 @@ export class Products implements OnInit {
 
   getProductData() {
     this.loaderService.showLoader();
-    this.httpService.getApi(this.url).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.productData = res.body;
-        this.length = this.productData.length;
+    this.httpService.getApi(this.url).pipe(
+      finalize(() => {
         this.loaderService.hideLoader();
-        this.snackService.success("Data fetched successfully!", 2000, 'top-right');
-      },
-      error: (err) => {
-        console.log(err);
-        this.loaderService.hideLoader();
-        this.snackService.error("Data fetching failed!", 2000, 'top-right');
-      },
-    })
+      })
+    )
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.body) {
+            this.snackService.error("No data found", 2000, 'top-right');
+          }
+          this.productData = res.body;
+          this.length = this.productData.length;
+          this.snackService.success("Data fetched successfully!", 2000, 'top-right');
+          // this.loaderService.hideLoader();
+        },
+        error: (err) => {
+          console.log(err);
+          this.snackService.error("Data fetching failed!", 2000, 'top-right');
+          // this.loaderService.hideLoader();
+        },
+      })
   }
 
   deleteProductData(val: product) {
@@ -77,7 +85,6 @@ export class Products implements OnInit {
       next: (res) => {
         this.snackService.success("Data deleted successfully!", 2000, 'bottom-right');
         console.log(res);
-        this.snackService
         this.loaderService.hideLoader();
         this.getProductData();
       },

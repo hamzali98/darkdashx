@@ -4,22 +4,23 @@
             <span class="text-gray-500 dark:text-white font-medium font-inter text-lg ">Users</span>
             <app-search-bar></app-search-bar>
         </div>
-        <button
-        (click)="onAddUserClick()"
+        <button (click)="onAddUserClick()"
             class="rounded-sm text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 cursor-pointer bg-primary">
             Add user
         </button>
     </div>
     <!-- upper card -->
     <div class="flex flex-col flex-wrap md:flex-row justify-between pt-6.5">
-        <app-totals-cards [icon]="'assets/icons/colored/totaluserspurpel.svg'" [title]="'Total Users'" [counts]="length" />
+        <app-totals-cards [icon]="'assets/icons/colored/totaluserspurpel.svg'" [title]="'Total Users'"
+            [counts]="length" />
         <app-totals-cards [icon]="'assets/icons/colored/newusersyellow.svg'" [title]="'New Users'" [counts]="13" />
         <app-totals-cards [icon]="'assets/icons/colored/topusersgreen.svg'" [title]="'Top Users'" [counts]="65" />
         <app-totals-cards [icon]="'assets/icons/colored/otherusersblue.svg'" [title]="'Other Users'" [counts]="93" />
     </div>
     <!-- generic table -->
-    <app-generic-table 
-    (onDeleteClicked)="deleteUserData($event)" (onEditClicked)="editUserData($event)"
-    tableName="All Users" [columns]="userColumns" [tableData]="userData" />
+    <!-- @if ( !loaderService.getLoader() && userData.length ) { -->
+    <app-generic-table (onDeleteClicked)="deleteUserData($event)" (onEditClicked)="editUserData($event)"
+        tableName="All Users" [columns]="userColumns" [tableData]="userData" />
+    <!-- } -->
 
 </div>

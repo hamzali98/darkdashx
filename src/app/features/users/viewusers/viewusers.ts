@@ -24,10 +24,10 @@ export class Viewusers implements OnInit {
   url: string = environment.USER_URL;
 
   // totalUsers: number = 0;
-  userData!: User[];
+  userData: User[] = [];
   userColumns: any[];
 
-  private loaderService = inject(Loaderservice);
+  loaderService = inject(Loaderservice);
   private httpService = inject(Httpservice);
   private routerRef = inject(Router);
   private userFormService = inject(Formservice);
@@ -69,20 +69,28 @@ export class Viewusers implements OnInit {
 
   getUserData() {
     this.loaderService.showLoader();
-    this.httpService.getApi(this.url).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.userData = res.body;
-        this.length = this.userData.length;
-        this.snackService.success("Data fetched successfully!", 2000, 'top-right' );
+    this.httpService.getApi(this.url).pipe(
+      finalize(() => {
         this.loaderService.hideLoader();
-      },
-      error: (err) => {
-        console.log(err);
-        this.loaderService.hideLoader();
-        this.snackService.error("Server Error!", 2000, 'top-right' );
-      },
-    })
+      })
+    )
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          if (res.body) {
+            this.snackService.error("No data found", 2000, 'top-right');
+          }
+          this.userData = res.body;
+          this.length = this.userData.length ?? "error";
+          this.snackService.success("Data fetched successfully!", 2000, 'top-right');
+          // this.loaderService.hideLoader();
+        },
+        error: (err) => {
+          console.log(err);
+          this.loaderService.hideLoader();
+          this.snackService.error("Server Error!", 2000, 'top-right');
+        },
+      })
   }
 
   deleteUserData(val: any) {
@@ -92,13 +100,13 @@ export class Viewusers implements OnInit {
       next: (res) => {
         console.log(res);
         this.loaderService.hideLoader();
-        this.snackService.success("Data deleted successfully!", 2000, 'bottom-right' );
+        this.snackService.success("Data deleted successfully!", 2000, 'bottom-right');
         this.getUserData();
       },
       error: (err) => {
         console.log(err);
         this.loaderService.hideLoader();
-        this.snackService.error("Server Error!", 2000, 'bottom-right' );
+        this.snackService.error("Server Error!", 2000, 'bottom-right');
       }
     })
   }
