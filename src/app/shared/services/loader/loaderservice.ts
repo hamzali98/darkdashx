@@ -4,21 +4,21 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class Loaderservice {
-  
+
   loader = signal(false);
 
-  showLoader(){
+  showLoader() {
     this.loader.set(true);
   }
 
-  hideLoader(){
-    setInterval(() => {
+  hideLoader() {
+    setTimeout(() => {
       this.loader.set(false);
     }, 2000);
 
   }
 
-  getLoader(){
+  getLoader() {
     return this.loader();
   }
 }
