@@ -75,7 +75,7 @@ export class LoginPage {
         if(res.success) {
           console.log(res);
           // localStorage.setItem("user", JSON.stringify(res));
-          this.authService.login(res.user);
+          this.authService.login(res.user, this.remember);
           this.routerRef.navigate(["/"]);
           if(this.remember){
             

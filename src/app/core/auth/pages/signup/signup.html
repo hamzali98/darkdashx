@@ -1,161 +1,161 @@
 <!-- bg-linear-to-br from-primary via-purple-500 to-secondary2 -->
-<div class=" flex items-center justify-center min-h-screen overflow-auto
-bg-primary-bg        
-">
+<div class=" flex items-center justify-center min-h-screen 
+bg-linear-to-br from-primary via-purple-500 to-secondary2 ">
 
-    <div class="relative p-0">
-        <!-- The glowing gradient background layer -->
-        <div class="absolute inset-0 bg-linear-to-br from-primary via-purple-600 to-secondary2 rounded-lg filter blur-xl 
+    <!-- <div class="relative p-0"> -->
+    <!-- The glowing gradient background layer -->
+    <!-- <div class="absolute inset-0 bg-linear-to-br from-primary via-purple-600 to-secondary2 rounded-lg filter blur-xl 
             opacity-10 animate-pulse">
-        </div>
-        <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
+        </div> -->
+    <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
 
-            <div class="w-full lg:w-150 h-full border border-gray-500/25 rounded-xl 
+        <div class="w-full lg:w-150 h-full border border-gray-500/25 rounded-xl 
             drop-shadow-2xl drop-shadow-primary/50
-                    bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
-                <p class="text-white text-lg font-semibold font-worksans ">Sign Up</p>
-                <p class="text-figma-neutral text-sm font-medium tracking-normal">Please fill in your Signup Details to
-                    create account</p>
-                <!-- username input -->
-                <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
-                    <div class="flex flex-col lg:flex-row items-start justify-between ">
-                        <div class="flex gap-1 my-2 lg:mt-1">
-                            <img src="assets/icons/white/usericon.svg" alt="">
-                            <label for="username" class="text-gray-300 text-xs font-medium ">username
-                                <span class="text-red-600">*</span>
-                            </label>
-                        </div>
-                        <div class="flex flex-col w-full lg:w-auto">
-                            <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                    bg-card-bg/70 backdrop-blur-3xl p-5 lg:p-8 lg:pb-1  ">
+            <p class="text-white text-lg font-semibold font-worksans ">Sign Up</p>
+            <p class="text-figma-neutral text-sm font-medium tracking-normal">Please fill in your Signup Details to
+                create account</p>
+            <!-- username input -->
+            <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1 my-2 lg:mt-1">
+                        <img src="assets/icons/white/usericon.svg" alt="">
+                        <label for="username" class="text-gray-300 text-xs font-medium ">username
+                            <span class="text-red-600">*</span>
+                        </label>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-auto">
+                        <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                                 text-figma-neutral text-sm font-light
                                 invalid:border-red-500 invalid:caret-red-500
                                 valid:border-green-500 valid:caret-green-500
                                 focus:border-primary caret-primary
                                 placeholder:text-figma-neutral placeholder:text-sm " formControlName="username"
-                                type="text" id="username" name="username" placeholder="Enter username">
-                            @if(username?.hasError('required') && username?.touched) {
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Username Required!</span>
-                            } @else if (username?.hasError("maxlength") || username?.hasError("minlength")) {
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Username should be between 6 to
-                                15
-                                characters </span>
-                            } @else if(username?.valid) {
-                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
-                            } @else {
-                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Username</span>
-                            }
-                        </div>
+                            type="text" id="username" name="username" placeholder="Enter username">
+                        @if(username?.hasError('required') && username?.touched) {
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Username Required!</span>
+                        } @else if (username?.hasError("maxlength") || username?.hasError("minlength")) {
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Username should be between 6 to
+                            15
+                            characters </span>
+                        } @else if(username?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Username</span>
+                        }
                     </div>
                 </div>
-                <!-- email input -->
-                <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
-                    <div class="flex flex-col lg:flex-row items-start justify-between ">
-                        <div class="flex gap-1 my-2 lg:mt-1">
-                            <img src="assets/icons/white/email.svg" alt="">
-                            <label for="email" class="text-gray-300 text-xs font-medium ">Email
-                                <span class="text-red-600">*</span>
-                            </label>
-                        </div>
-                        <div class="flex flex-col w-full lg:w-auto">
-                            <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+            </div>
+            <!-- email input -->
+            <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1 my-2 lg:mt-1">
+                        <img src="assets/icons/white/email.svg" alt="">
+                        <label for="email" class="text-gray-300 text-xs font-medium ">Email
+                            <span class="text-red-600">*</span>
+                        </label>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-auto">
+                        <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                                 text-figma-neutral text-sm font-light
                                 invalid:border-red-500 invalid:caret-red-500
                                 valid:border-green-500 valid:caret-green-500
                                 focus:border-primary caret-primary
                                 placeholder:text-figma-neutral placeholder:text-sm " formControlName="email"
-                                type="email" id="email" name="email" placeholder="Enter Email">
-                            @if(email?.hasError('required') && email?.touched) {
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Email Required!</span>
-                            } @else if (email?.hasError("email")) {
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Email Invalid!</span>
-                            } @else if(email?.valid) {
-                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
-                            } @else {
-                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Email</span>
-                            }
-                        </div>
+                            type="email" id="email" name="email" placeholder="Enter Email">
+                        @if(email?.hasError('required') && email?.touched) {
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Email Required!</span>
+                        } @else if (email?.hasError("email")) {
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Email Invalid!</span>
+                        } @else if(email?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Email</span>
+                        }
                     </div>
                 </div>
-                <!-- Password input -->
-                <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
-                    <div class="flex flex-col lg:flex-row items-start justify-between ">
-                        <div class="flex gap-1 my-2 lg:mt-1">
-                            <img src="assets/icons/white/password.svg" alt="">
-                            <label for="password" class="text-gray-300 text-xs font-medium ">Password
-                                <span class="text-red-600">*</span>
-                            </label>
-                        </div>
-                        <div class="flex flex-col w-full lg:w-auto">
-                            <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+            </div>
+            <!-- Password input -->
+            <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1 my-2 lg:mt-1">
+                        <img src="assets/icons/white/password.svg" alt="">
+                        <label for="password" class="text-gray-300 text-xs font-medium ">Password
+                            <span class="text-red-600">*</span>
+                        </label>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-auto">
+                        <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                                 text-figma-neutral text-sm font-light
                                 invalid:border-red-500 invalid:caret-red-500
                                 valid:border-green-500 valid:caret-green-500
                                 focus:border-primary caret-primary
                                 placeholder:text-figma-neutral placeholder:text-sm " formControlName="password"
-                                type="password" id="password" name="password" placeholder="Enter Password">
-                            @if(password?.hasError('required') && password?.touched) {
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Password Required!</span>
-                            } @else if (password?.hasError("minlength")) {
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light text-wrap">
-                                <!-- Atleast 8 lenght with special characters, numbers, and letters. -->
-                                Password too short!
-                            </span>
-                            }
-                            @else if(password?.valid) {
-                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
-                            } @else {
-                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter password</span>
-                            }
-                        </div>
+                            type="password" id="password" name="password" placeholder="Enter Password">
+                        @if(password?.hasError('required') && password?.touched) {
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Password Required!</span>
+                        } @else if (password?.hasError("minlength")) {
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light text-wrap">
+                            <!-- Atleast 8 lenght with special characters, numbers, and letters. -->
+                            Password too short!
+                        </span>
+                        }
+                        @else if(password?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter password</span>
+                        }
                     </div>
                 </div>
-                <!-- confirm password input -->
-                <div class="py-1 pt-2 lg:pt-6 w-full">
-                    <div class="flex flex-col lg:flex-row items-start justify-between ">
-                        <div class="flex gap-1 my-2 lg:mt-1">
-                            <img src="assets/icons/white/cpass.svg" alt="">
-                            <label for="cpassword" class="text-gray-300 text-xs font-medium">Confirm Password
-                                <span class="text-red-600">*</span>
+            </div>
+            <!-- confirm password input -->
+            <div class="py-1 pt-2 lg:pt-6 w-full">
+                <div class="flex flex-col lg:flex-row items-start justify-between ">
+                    <div class="flex gap-1 my-2 lg:mt-1">
+                        <img src="assets/icons/white/cpass.svg" alt="">
+                        <label for="cpassword" class="text-gray-300 text-xs font-medium">Confirm Password
+                            <span class="text-red-600">*</span>
 
-                            </label>
-                        </div>
-                        <div class="flex flex-col w-full lg:w-auto">
+                        </label>
+                    </div>
+                    <div class="flex flex-col w-full lg:w-auto">
 
-                            <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                                 text-figma-neutral text-sm font-light
                                 invalid:border-red-500 invalid:caret-red-500
                                 valid:border-green-500 valid:caret-green-500
                                 focus:border-primary caret-primary
                                 placeholder:text-figma-neutral placeholder:text-sm
                         " type="password" id="cpassword" name="cpassword" formControlName="c_password"
-                                placeholder="Re-enter Password" (input)="checkPassMatch()">
-                            @if(c_password?.hasError('required') && c_password?.touched){
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Password for confirmation
-                                Required!</span>
-                            } @else if (passmatch()){
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Password not matched</span>
-                            } @else if(c_password?.valid) {
-                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
-                            } @else {
-                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Confirmation
-                                Password</span>
-                            }
-                        </div>
+                            placeholder="Re-enter Password" (input)="checkPassMatch()">
+                        @if(c_password?.hasError('required') && c_password?.touched){
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Password for confirmation
+                            Required!</span>
+                        } @else if (passmatch()){
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Password not matched</span>
+                        } @else if(c_password?.valid) {
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        } @else {
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Confirmation
+                            Password</span>
+                        }
                     </div>
                 </div>
-                <div class=" flex justify-center my-5">
-                    <button [disabled]="signupForm.invalid || passmatch()" class="h-11 w-full rounded-sm text-white bg-primary 
+            </div>
+            <div class=" flex justify-center my-5">
+                <button [disabled]="signupForm.invalid || passmatch()"
+                    class="h-11 w-full rounded-sm text-white bg-primary 
                 cursor-pointer disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] disabled:cursor-not-allowed" type="submit">
-                        Sign Up
-                    </button>
-                </div>
+                    Sign Up
+                </button>
+            </div>
 
-                <div class="mb-3 text-white text-center ">
+            <div class="mb-3 text-white text-center ">
                 Already have an account?
-                <a routerLink="/login" class="text-sm text-white underline cursor-pointer ">Login now</a>
+                <a routerLink="/login" class="text-sm text-secondary2 underline cursor-pointer ">Login now</a>
             </div>
-            </div>
-        </form>
-    </div>
-
+        </div>
+    </form>
 </div>
+
+<!-- </div> -->
