@@ -1,0 +1,83 @@
+<svg viewBox="0 0 1536 670" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1536" height="670" fill="#0a1628"/>
+  
+  <!-- Decorative circles and X shapes -->
+  <!-- Connection lines between circles (drawn first, behind circles) -->
+  <!-- Gray circle connections -->
+  <line x1="690" y1="160" x2="835" y2="140" stroke="#4a5568" stroke-width="1" opacity="0.3"/>
+  <line x1="835" y1="140" x2="992" y2="140" stroke="#4a5568" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Cyan circle connections -->
+  <line x1="605" y1="168" x2="560" y2="250" stroke="#06b6d4" stroke-width="1" opacity="0.3"/>
+  <line x1="560" y1="250" x2="760" y2="350" stroke="#06b6d4" stroke-width="1" opacity="0.3"/>
+  <line x1="760" y1="350" x2="910" y2="350" stroke="#06b6d4" stroke-width="1" opacity="0.3"/>
+  <line x1="850" y1="210" x2="760" y2="350" stroke="#06b6d4" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Purple circle connections -->
+  <line x1="518" y1="283" x2="1018" y2="383" stroke="#a855f7" stroke-width="1" opacity="0.3"/>
+  <line x1="518" y1="283" x2="690" y2="183" stroke="#a855f7" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Circles -->
+  <circle cx="690" cy="160" r="4" fill="#4a5568" opacity="0.6"/>
+  <circle cx="835" cy="140" r="4" fill="#4a5568" opacity="0.6"/>
+  <circle cx="605" cy="168" r="6" fill="#06b6d4"/>
+  <circle cx="850" cy="210" r="6" fill="#06b6d4"/>
+  <circle cx="992" cy="140" r="4" fill="#4a5568" opacity="0.6"/>
+  <circle cx="518" cy="283" r="6" fill="#a855f7"/>
+  <circle cx="690" cy="183" r="6" fill="#a855f7"/>
+  <circle cx="1018" cy="383" r="6" fill="#a855f7"/>
+  <circle cx="560" cy="250" r="4" fill="#06b6d4"/>
+  <circle cx="760" cy="350" r="4" fill="#06b6d4"/>
+  <circle cx="910" cy="350" r="4" fill="#06b6d4"/>
+  
+  <text x="425" y="185" fill="#06b6d4" font-size="20" font-family="Arial, sans-serif" opacity="0.6">×</text>
+  <text x="1038" y="445" fill="#06b6d4" font-size="20" font-family="Arial, sans-serif" opacity="0.6">×</text>
+  
+  <!-- Logo -->
+  <!-- <g transform="translate(25, 25)">
+    <circle cx="15" cy="15" r="12" fill="#06b6d4"/>
+    <circle cx="23" cy="23" r="12" fill="#a855f7"/>
+    <text x="45" y="25" fill="white" font-size="24" font-family="Arial, sans-serif" font-weight="bold">Dashdark X</text>
+  </g> -->
+  
+  <!-- Large background 404 -->
+  <text x="768" y="400" fill="#1e293b" font-size="280" font-family="Arial, sans-serif" font-weight="bold" text-anchor="middle" opacity="0.5">404</text>
+  
+  <!-- Main 404 with gradient -->
+  <!-- <defs>
+    <linearGradient id="gradient404" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+  </defs> -->
+  
+  <!-- <text x="768" y="330" fill="url(#gradient404)" font-size="200" font-family="Arial, sans-serif" font-weight="bold" text-anchor="middle">404</text> -->
+  
+  <!-- Main heading -->
+  <!-- <text x="768" y="440" fill="white" font-size="42" font-family="Arial, sans-serif" font-weight="600" text-anchor="middle">Oops! Page Not Found</text> -->
+  
+  <!-- Subheading -->
+  <!-- <text x="768" y="485" fill="#94a3b8" font-size="20" font-family="Arial, sans-serif" text-anchor="middle">We can't seem of find the page you'e looking.</text> -->
+  
+  <!-- Buttons -->
+  <!-- <defs>
+    <linearGradient id="buttonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+  </defs> -->
+  
+  <!-- Go to Dashboard button -->
+  <!-- <rect x="512" y="548" width="224" height="54" rx="6" fill="url(#buttonGradient)"/>
+  <text x="624" y="582" fill="white" font-size="20" font-family="Arial, sans-serif" font-weight="500" text-anchor="middle">Go to Dashboard</text> -->
+  
+  <!-- Report an Issue button -->
+  <!-- <rect x="760" y="548" width="214" height="54" rx="6" fill="none" stroke="#06b6d4" stroke-width="2"/>
+  <text x="867" y="582" fill="#06b6d4" font-size="20" font-family="Arial, sans-serif" font-weight="500" text-anchor="middle">Report an Issue</text> -->
+  
+  <!-- Decorative star -->
+  <!-- <g transform="translate(1480, 615)">
+    <path d="M 0,-8 L -2,-2 L -8,0 L -2,2 L 0,8 L 2,2 L 8,0 L 2,-2 Z" fill="white" opacity="0.8"/>
+  </g> -->
+</svg>
