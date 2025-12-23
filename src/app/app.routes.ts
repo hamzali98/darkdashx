@@ -4,7 +4,7 @@ import { Dashboard } from './features/dashboard/dashboard';
 import { Settings } from './features/settings/settings';
 import { Profile } from './features/profile/profile';
 import { LoginPage } from './core/auth/pages/login-page/login-page';
-import { Signup } from './core/auth/pages/signup/signup';
+import { SignupPage } from './core/auth/pages/signup-page/signup-page';
 import { authGuardGuard } from './core/auth/guard/auth-guard-guard';
 import { NotFound } from './features/not-found/not-found';
 import { ReportIssue } from './features/report-issue/report-issue';
@@ -46,7 +46,7 @@ export const routes: Routes = [
     },
     {
         path: "signup",
-        component: Signup,
+        component: SignupPage,
     },
     {
         path: "report-issue",

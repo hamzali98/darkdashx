@@ -7,12 +7,12 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 import { environment } from '@environments/environment.development';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'app-signup-page',
   imports: [ReactiveFormsModule, FormsModule, RouterLink],
-  templateUrl: './signup.html',
-  styleUrl: './signup.css',
+  templateUrl: './signup-page.html',
+  styleUrl: './signup-page.css',
 })
-export class Signup {
+export class SignupPage {
 
   passmatch = signal(false);
 
