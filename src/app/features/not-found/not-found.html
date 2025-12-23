@@ -1,0 +1,30 @@
+<div class=" flex justify-start min-h-screen bg-primary-bg
+        ">
+    <img class="absolute bg-cover" src="assets/404.svg" alt="">
+    <!-- <app-main-logo></app-main-logo> -->
+    <div class=" relative flex flex-col justify-center align-middle items-center w-full">
+        <div class="">
+            <Span class="text-[200px] font-extrabold text-transparent 
+            bg-linear-to-b from-primary from-35% to-secondary2 to-70% bg-clip-text font-sans
+            text-shadow-lg
+            ">404</Span>
+        </div>
+        <div class="text-white text-2xl font-inter font-semibold tracking-wider">Oops! Page Not Found</div>
+        <div class="text-gray-500 text-lg font-sans font-semibold tracking-wider">we can't seem to find page you are
+            looking.</div>
+        <div class="flex flex-row gap-5 py-15 ">
+            <div>
+                <button (click)="goToHome()" class="cursor-pointer text-white font-bond text-md font-worksans bg-linear-to-br from-primary from-30%  to-secondary2 to-80% 
+                px-5 py-3 rounded-md ">
+                    Go to Dashboard
+                </button>
+            </div>
+            <div>
+                <button (click)="goToReportIssue()"
+                    class="cursor-pointer text-secondary2 font-bond text-md font-worksans border border-secondary2 px-5 py-3 rounded-md ">
+                    Report an issue
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
