@@ -3,7 +3,7 @@ import { DataError } from "../data-error/data-error";
 
 @Component({
   selector: 'app-totals-cards',
-  imports: [DataError],
+  imports: [],
   templateUrl: './totals-cards.html',
   styleUrl: './totals-cards.css',
 })
