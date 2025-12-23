@@ -2,8 +2,8 @@
     transition-all duration-300 ease-in-out dark:bg-primary-bg drop-shadow-xl dark:drop-shadow-black/25 ">
 
     <div class="flex flex-col gap-3 md:gap-2.5 w-auto h-auto px-6.5 py-8.5 pb-0  ">
-        <a [routerLink]="['']" (click)="[onOpen('')]">
-
+        <app-main-logo></app-main-logo>
+        <!-- <a [routerLink]="['']" (click)="[onOpen('')]">
             <div class="flex flex-row justify-between align-middle items-center ">
                 <div class="flex flex-row">
                     <img class="size-6.5 " src="assets/icons/logo.svg" alt="a">
@@ -12,13 +12,13 @@
                         Dashdark X
                     </span>
                 </div>
-                <!-- <button class="cursor-pointer" (click)="onSidebarclick()" >
+                <button class="cursor-pointer" (click)="onSidebarclick()" >
                     <span>
                         <img src="assets/icons/doublearrows.svg" alt="">
                     </span>
-                </button> -->
+                </button>
             </div>
-        </a>
+        </a> -->
 
 
         <div class="mt-7">
@@ -41,7 +41,7 @@
     <div class="overflow-y-scroll scroll-container scroll-smooth pt-2">
         <!-- Dashboard selection div -->
         @for(items of navData; track $index){
-        <div [class]="items.topPadding" class="px-6.5" >
+        <div [class]="items.topPadding" class="px-6.5">
             <button [disabled]="open() === items.routePath" class="flex justify-center align-middle w-full cursor-pointer
                 size-auto opacity-100 md:size-0 md:opacity-100
                 " (click)="openAndNavigate(items.routePath, items.routeLink[0])">
@@ -117,7 +117,7 @@
                 </span> -->
                 </button>
             </div>
-            <div class="py-2">
+            <div class="py-2 flex">
                 <button [disabled]="open() === 'profile'"
                     class="flex flex-row  items-center w-full justify-between cursor-pointer"
                     (click)="onRoute('profile')">
@@ -132,22 +132,22 @@
                             <span class="text-gray-500 dark:text-neutral-400 text-xs ">Account Settings</span>
                         </div>
                     </div>
-                    <!-- <span class="-rotate-90">
-                    <img src="assets/icons/droparrow.svg" alt="">
-                </span> -->
+                </button>
+                <button (click)="onLogout()"
+                    class="px-4 hover:bg-red-600/20 hover:border hover:border-red-700 hover:backdrop-blur-xl rounded-xl">
+                    <img class="size-5"
+                        src="assets/icons/testlogout.svg" alt="l">
                 </button>
             </div>
-            <div>
+            <!-- <div>
                 <button class="grad w-full h-11.5 rounded-sm
             bg-linear-to-br from-primary from-5% to-purple-900 to-95% ">
                     <div class="flex gap-2 justify-center">
-
                         <span class="text-md text-white font-light tracking-normal font-worksans">Get template</span>
                         <img src="assets/icons/white/rightarrow.svg" alt="arr">
                     </div>
                 </button>
-
-            </div>
+            </div> -->
         </div>
     </div>
 

@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { sidenavcols } from '@app/core/interface/generic-side-nav-interface';
 import { AuthService } from '@app/core/auth/services/auth-service';
+import { MainLogo } from "@app/shared/components/main-logo/main-logo";
 
 // export interface sidenavcols<T> {
 //   routePath: string; 
@@ -17,7 +18,7 @@ import { AuthService } from '@app/core/auth/services/auth-service';
 
 @Component({
   selector: 'app-generic-side-bar',
-  imports: [RouterLink, NgClass],
+  imports: [RouterLink, NgClass, MainLogo],
   templateUrl: './generic-side-bar.html',
   styleUrl: './generic-side-bar.css',
 })
@@ -88,5 +89,9 @@ export class GenericSideBar<T> {
 
   onSidebarclick() {
     this.sideBarOpen.update(v => !v)
+  }
+
+  onLogout(){
+    this.authService.logout();
   }
 }
