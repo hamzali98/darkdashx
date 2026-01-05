@@ -8,6 +8,7 @@ import { SignupPage } from './core/auth/pages/signup-page/signup-page';
 import { authGuardGuard } from './core/auth/guard/auth-guard-guard';
 import { NotFound } from './features/not-found/not-found';
 import { ReportIssue } from './features/report-issue/report-issue';
+import { ForgotPassword } from './core/auth/pages/forgot-password/forgot-password';
 
 export const routes: Routes = [
     // {
@@ -43,6 +44,10 @@ export const routes: Routes = [
     {
         path: "login",
         component: LoginPage
+    },
+    {
+        path: "forgot",
+        component: ForgotPassword,
     },
     {
         path: "signup",
