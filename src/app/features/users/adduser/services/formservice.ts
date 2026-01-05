@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from '../../interface/user';
+import { customEmailValidator } from '@app/shared/utils/email-validator';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,7 @@ export class Formservice {
     status: [false],
     personal_info: this.fB.group({
       user_name: ['', Validators.required],
-      user_email: ['newuser@gmail.com', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
+      user_email: ['newuser@gmail.com', [Validators.required, customEmailValidator]],
       user_photo: [''],
       user_desc: ['hello new user', Validators.required],
     }),
@@ -37,7 +38,7 @@ export class Formservice {
       team_name: ['google', Validators.required],
       team_rank: ['Rank', Validators.required],
       team_office: ['office', Validators.required],
-      team_mail: ['team@email.com', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
+      team_mail: ['team@email.com', [Validators.required, customEmailValidator]],
     }),
   })
   }
