@@ -51,11 +51,11 @@ export class LoginPage {
     this.loaderService.showLoader();
 
     this.httpService.getApi(this.authUrl).pipe(
-       map(res => {
+      map(res => {
         const user = res.body.find(
           // (u: credentials) => u.email === this.email?.value
           (u: credentials) => {
-            if(u.email === this.email?.value && u.password === this.password?.value){
+            if (u.email === this.email?.value && u.password === this.password?.value) {
               return u;
             } else {
               return;
@@ -72,13 +72,13 @@ export class LoginPage {
     ).subscribe({
       next: (res) => {
         console.log(res);
-        if(res.success) {
+        if (res.success) {
           console.log(res);
           // localStorage.setItem("user", JSON.stringify(res));
           this.authService.login(res.user, this.remember);
           this.routerRef.navigate(["/"]);
-          if(this.remember){
-            
+          if (this.remember) {
+
           }
           this.snackService.success("Login successfull!", 2000, 'top-center');
         } else {
@@ -88,18 +88,18 @@ export class LoginPage {
             'top-center'
           );
         }
-          this.loaderService.hideLoader();
-        },
-        error: (err) => {
-          console.error(err);
-          this.loaderService.hideLoader();
-          this.snackService.error(
-            "Server Error!",
-            2000,
-            'top-center'
-          );
-        }
-      });
+        this.loaderService.hideLoader();
+      },
+      error: (err) => {
+        console.error(err);
+        this.snackService.error(
+          "Server Error!",
+          2000,
+          'top-center'
+        );
+        this.loaderService.hideLoader();
+      }
+    });
 
   }
 
