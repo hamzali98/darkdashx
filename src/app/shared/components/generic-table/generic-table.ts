@@ -21,6 +21,9 @@ export class GenericTable<T> implements OnChanges {
   startIndex: number = 0;
   endIndex: number = 0;
 
+  sortdirection = signal('');
+  sortcol = signal('id');
+
   currentPageData: T[] = [];
 
   tableName = input("Generic");
@@ -97,7 +100,7 @@ export class GenericTable<T> implements OnChanges {
 
     console.log("whole check list : ", this.checkList);
   }
-  
+
   getValue(obj: any, key: any) {
     return key.reduce((access: any, key: any) => access?.[key], obj);
     // return key.split('.').reduce((access:any, key:any) => access?.[key], obj);
@@ -107,7 +110,7 @@ export class GenericTable<T> implements OnChanges {
     // console.log(data);
     this.onDeleteClicked.emit(data);
   }
-  
+
   onClickedEdit(data: T) {
     this.onEditClicked.emit(data);
   }
@@ -147,6 +150,35 @@ export class GenericTable<T> implements OnChanges {
     }
   }
 
+  // sorting
+  doSorting(column: string) {
+    console.log('sorting called on : ', column);
+    console.log('sorting column : ', this.sortcol());
+    console.log('sorting direction : ', this.sortdirection());
+    if (this.sortcol() === column) {
+      this.sortdirection.set(
+        this.sortdirection() === 'asc'
+          ? 'dsc'
+          : this.sortdirection() === 'dsc'
+            ? ''
+            : 'asc'
+      );
+    } else {
+      this.sortcol.set(column);
+      this.sortdirection.set('asc');
+    }
+    console.log('sorting column : ', this.sortcol());
+    console.log('sorting direction : ', this.sortdirection());
+    console.log("table data", this.tableData);
+
+    if (this.sortdirection() === 'asc') {
+      this.tableData.sort((a : any, b: any) => (a[column] > b[column] ? 1 : -1));
+    } else if (this.sortdirection() === 'dsc') {
+      this.tableData.sort((a : any, b: any) => (b[column] > a[column] ? 1 : -1));
+    } else {
+      this.tableData = this.tableData;
+    }
+  }
 
 }
 
