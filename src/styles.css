@@ -11,44 +11,53 @@
 /* For IE, Edge, and Firefox */
 /* .scroll-container {
     -ms-overflow-style: none; */
-    /* IE and Edge */
-    /* scrollbar-width: none; */
-    /* Firefox */
+/* IE and Edge */
+/* scrollbar-width: none; */
+/* Firefox */
 /* } */
 
 /* Custom Scrollbar Styling */
 
 /* For Chrome, Safari, Edge, and Opera */
 .scroll-container::-webkit-scrollbar {
-    width: 12px; /* Width of vertical scrollbar */
-    height: 12px; /* Height of horizontal scrollbar */
+    width: 12px;
+    /* Width of vertical scrollbar */
+    height: 12px;
+    /* Height of horizontal scrollbar */
 }
 
 .scroll-container::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Light gray background */
+    background: #f1f1f1;
+    /* Light gray background */
     border-radius: 10px;
-    margin: 4px; /* Adds spacing at top/bottom */
+    margin: 4px;
+    /* Adds spacing at top/bottom */
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%); /* Gradient color */
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    /* Gradient color */
     border-radius: 10px;
-    border: 2px solid #f1f1f1; /* Creates padding effect */
+    border: 2px solid #f1f1f1;
+    /* Creates padding effect */
     /* transition: background 0.3s ease; */
 }
 
 .scroll-container::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #764ba2 0%, #667eea 100%); /* Reverse gradient on hover */
+    background: linear-gradient(180deg, #764ba2 0%, #667eea 100%);
+    /* Reverse gradient on hover */
     cursor: pointer;
 }
 
 .scroll-container::-webkit-scrollbar-thumb:active {
-    background: #5a67d8; /* Solid color when dragging */
+    background: #5a67d8;
+    /* Solid color when dragging */
 }
 
 /* For Firefox */
 .scroll-container {
-    scrollbar-width: thin; /* Options: auto, thin, none */
+    scrollbar-width: thin;
+    /* Options: auto, thin, none */
     /* scrollbar-color: #AEB9E1 #081027; thumb color, track color */
     scrollbar-color: #cb3cff #081027;
 }

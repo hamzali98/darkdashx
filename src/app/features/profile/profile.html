@@ -63,7 +63,8 @@
 
         <!-- setting card -->
         <div class="  bg-red-600/20 w-122 rounded-lg border border-gray-800">
-            <p class="text-lg rounded-t-md bg-card-bg text-white font-semibold font-worksans border-b border-b-gray-800 p-4">
+            <p
+                class="text-lg rounded-t-md bg-card-bg text-white font-semibold font-worksans border-b border-b-gray-800 p-4">
                 Account
                 Settings
             </p>
@@ -108,8 +109,8 @@
 
             <div class="flex flex-row justify-between p-4">
                 <p class="text-sm text-figma-neutral font-semibold font-worksans">Delete Account</p>
-                <button
-                    class="rounded-sm  text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 cursor-pointer bg-red-600">
+                <button class="rounded-sm hover:-translate-y-0.5 transition-all duration-300 text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 
+                    cursor-pointer bg-red-600">
                     Delete
                 </button>
             </div>
@@ -127,10 +128,20 @@
         }@else {
         <p class="px-4 text-red-600"></p>
         }
-        <button [disabled]="profileForm.invalid" class="rounded-sm text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 
-            cursor-pointer disabled:cursor-not-allowed bg-primary disabled:bg-primary/30">
-            Save changes
-        </button>
+        @if(profileForm.dirty){
+        <div class="flex gap-7">
+            <button (click)="profileForm.reset()"
+                class="rounded-sm text-figma-neutral hover:transform-3d text-xs w-32.5 font-[14px] h-7 
+                        cursor-pointer bg-transparent border border-primary hover:-translate-y-0.5 transition-all duration-300 ">
+                Discard changes
+            </button>
+            <button [disabled]="profileForm.invalid" class="rounded-sm text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 
+                        cursor-pointer disabled:cursor-not-allowed bg-primary disabled:bg-primary/30 
+                        hover:-translate-y-0.5 transition-all duration-300">
+                Save changes
+            </button>
+        </div>
+        }
     </div>
 
 </div>
