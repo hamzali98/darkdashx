@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators, ɵInternalFormsSharedM
 import { Router } from '@angular/router';
 import { credentials } from '@app/core/auth/interface/credentials';
 import { AuthService } from '@app/core/auth/services/auth-service';
-import { customEmailValidator } from '@app/shared/utils/email-validator';
+import { customEmailValidator } from '@app/shared/validators/email-validator';
 
 export interface profilesociallinkbtns {
   alt: string,
