@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from '../../interface/user';
-import { customEmailValidator } from '@app/shared/utils/email-validator';
+import { customEmailValidator } from '@app/shared/validators/email-validator';
 
 @Injectable({
   providedIn: 'root',
