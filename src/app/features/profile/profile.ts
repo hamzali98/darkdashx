@@ -61,10 +61,6 @@ export class Profile implements OnInit {
 
   getData() {
     this.user = this.authService.getUser();
-    // this.profileForm.patchValue({
-    //   username: this.user?.username,
-    //   email: this.user?.email,
-    // });
   }
 
   toggle(action: string) {

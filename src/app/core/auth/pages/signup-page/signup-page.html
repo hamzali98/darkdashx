@@ -94,9 +94,16 @@ bg-linear-to-br from-primary via-purple-500 to-secondary2 ">
                             type="password" id="password" name="password" placeholder="Enter Password">
                         @if(password?.hasError('required') && password?.touched) {
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">Password Required!</span>
-                        } @else if (password?.hasError("minlength")) {
+                        } @else {
+                            <div [ngClass]="passwordStrengthColorGetter" class="flex flex-row items-center px-2 ">
+                            <div class=" flex flex-row w-20 h-2 p-0.5 rounded-full border ">
+                                <div [ngClass]="passwordStrengthProgressGetter" class="rounded-full h-full"></div>
+                            </div>
+                            <span class="py-1 px-4  text-[12px] font-light">{{passwordStrengthGetter}}</span>
+                        </div>
+                        }
+                        <!-- @else if (password?.hasError("minlength")) {
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light text-wrap">
-                            <!-- Atleast 8 lenght with special characters, numbers, and letters. -->
                             Password too short!
                         </span>
                         }
@@ -104,7 +111,7 @@ bg-linear-to-br from-primary via-purple-500 to-secondary2 ">
                         <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
                         } @else {
                         <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter password</span>
-                        }
+                        } -->
                     </div>
                 </div>
             </div>
@@ -127,14 +134,14 @@ bg-linear-to-br from-primary via-purple-500 to-secondary2 ">
                                 focus:border-primary caret-primary
                                 placeholder:text-figma-neutral placeholder:text-sm
                         " type="password" id="cpassword" name="cpassword" formControlName="c_password"
-                            placeholder="Re-enter Password" (input)="checkPassMatch()">
+                            placeholder="Re-enter Password">
                         @if(c_password?.hasError('required') && c_password?.touched){
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">Password for confirmation
                             Required!</span>
-                        } @else if (passmatch()){
+                        } @else if (c_password?.hasError('mustMatch')){
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">Password not matched</span>
                         } @else if(c_password?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Password matched</span>
                         } @else {
                         <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Confirmation
                             Password</span>
@@ -143,7 +150,7 @@ bg-linear-to-br from-primary via-purple-500 to-secondary2 ">
                 </div>
             </div>
             <div class=" flex justify-center my-5">
-                <button [disabled]="signupForm.invalid || passmatch()"
+                <button [disabled]="signupForm.invalid"
                     class="h-11 w-full rounded-sm text-white bg-primary 
                 cursor-pointer disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] disabled:cursor-not-allowed" type="submit">
                     Sign Up

@@ -1,27 +1,30 @@
+import { NgClass } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
+import { PasswordCheck } from '@app/shared/services/password-check/password-check';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
+import { matchPasswordValidator } from '@app/shared/validators/match-password.validator';
 import { environment } from '@environments/environment.development';
 
 @Component({
   selector: 'app-signup-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass],
   templateUrl: './signup-page.html',
   styleUrl: './signup-page.css',
 })
 export class SignupPage {
 
-  passmatch = signal(false);
+  AuthURL: string = environment.AUTH_URL;
 
-  AuthURL : string = environment.AUTH_URL;
-
+  private routerRef = inject(Router);
   private httpService = inject(Httpservice);
   private loaderService = inject(Loaderservice);
   private snackService = inject(SnackBarService);
-  private routerRef = inject(Router);
+  private passwordService = inject(PasswordCheck);
+
 
   signupForm: FormGroup;
 
@@ -33,8 +36,16 @@ export class SignupPage {
       c_password: new FormControl("", Validators.required),
       status: new FormControl(false),
       role: new FormControl("user"),
-    });
+    },
+      {
+        validators: matchPasswordValidator('password', 'c_password')
+      }
+    );
     this.signupForm.markAllAsTouched();
+  }
+
+  get f() {
+    return this.signupForm.controls;
   }
 
   get username() {
@@ -53,15 +64,20 @@ export class SignupPage {
     return this.signupForm.get("c_password");
   }
 
-  // checkPassStrength() {
-  // }
-
-  checkPassMatch() {
-    this.passmatch.set(this.password?.value !== this.c_password?.value ? true : false);
-    // return this.password?.value !== this.c_password?.value ? true : false;
+  
+  get passwordStrengthGetter() {
+    return this.passwordService.checkPasswordStrength(this.password?.value);
   }
 
-  onSignupSubmit(){
+  get passwordStrengthColorGetter() {
+    return this.passwordService.getPasswordStrengthColor(this.passwordStrengthGetter);
+  }
+
+  get passwordStrengthProgressGetter() {
+    return this.passwordService.getPasswordStrengthProgress(this.passwordStrengthGetter);
+  }
+
+  onSignupSubmit() {
     this.loaderService.showLoader();
     this.httpService.addApi(this.AuthURL, this.signupForm.value).subscribe({
       next: (res) => {

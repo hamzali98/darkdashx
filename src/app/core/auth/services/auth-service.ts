@@ -9,7 +9,7 @@ export class AuthService {
   private readonly USER_KEY = 'user';
 
   private readonly EXPIRY_KEY = 'session_expiry';
-  private readonly SESSION_DURATION = 60 * 1000;
+  private readonly SESSION_DURATION = 10 * 1000;
   // private readonly REMEMBER_ME = 'remember';
 
   private routerRef = inject(Router);
