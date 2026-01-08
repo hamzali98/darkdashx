@@ -11,7 +11,7 @@
 //   constructor(
 //     private authService: AuthService,
 //     private router: Router,
-//     private modalService: DialogService
+//     private dialogService: DialogService
 //   ) {}
 
 //   canActivate(
@@ -22,14 +22,14 @@
 //     if (this.authService.isAuthenticated()) {
 //       return true;
 //     } else {
-//       // 1. Show the Session Expired Modal
-//       this.modalService.open({
+//       // 1. Show the Session Expired dialog
+//       this.dialogService.open({
 //         title: '⚠️ Session Expired',
 //         content: 'Your session has expired due to inactivity. Please log in again to continue.',
 //         type: 'session-expired' // Custom type for styling/logic in app.component
 //       });
 
-//       // 2. Redirect to the login page (or handle navigation after modal close)
+//       // 2. Redirect to the login page (or handle navigation after dialog close)
 //       return false;
 //       // return this.router.createUrlTree(['/login']);
 //     }
@@ -44,17 +44,17 @@ import { DialogService } from '@app/shared/services/dialog-service/dialog';
 export const authGuardGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  const modalService = inject(DialogService);
+  const dialogService = inject(DialogService);
 
   if (authService.isAuthenticated()) {
     return true;
   }
 
-  modalService.open({
+  dialogService.open({
     title: '⚠️ Session Expired',
     content: 'Your session has expired due to inactivity. Please log in again to continue.',
     type: 'session-expired' // Custom type for styling/logic in app.component
   });
-  // router.navigate(['/login']);
+  router.navigate(['/login']);
   return false;
 };
