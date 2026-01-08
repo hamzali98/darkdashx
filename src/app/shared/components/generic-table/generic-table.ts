@@ -58,11 +58,15 @@ export class GenericTable<T> implements OnChanges {
   }
 
   get isChecked() {
-    if (this.checkList.length === this.tableData?.length) {
+    if (this.checkList.length === this.currentPageData.length) {
       return true;
     } else {
       return false;
     }
+  }
+
+  get selectedItems() {
+    return this.checkList.length;
   }
 
   imgSrc(src: any) {
@@ -136,6 +140,7 @@ export class GenericTable<T> implements OnChanges {
   previousPage() {
     console.log('prev button clicked');
     if (this.currentPage > 1) {
+      this.checkList = [];
       this.currentPage--;
       this.updatePagedData();
     }
@@ -145,8 +150,12 @@ export class GenericTable<T> implements OnChanges {
     console.log('next button clicked');
     const totalpages = this.tableData.length / this.itemsPerPage;
     if (this.currentPage < totalpages) {
+      // if(this.checkList.length >= 1) {
+      // }
+      this.checkList = [];
       this.currentPage++;
       this.updatePagedData();
+
     }
   }
 
@@ -172,9 +181,9 @@ export class GenericTable<T> implements OnChanges {
     console.log("table data", this.tableData);
 
     if (this.sortdirection() === 'asc') {
-      this.tableData.sort((a : any, b: any) => (a[column] > b[column] ? 1 : -1));
+      this.tableData.sort((a: any, b: any) => (a[column] > b[column] ? 1 : -1));
     } else if (this.sortdirection() === 'dsc') {
-      this.tableData.sort((a : any, b: any) => (b[column] > a[column] ? 1 : -1));
+      this.tableData.sort((a: any, b: any) => (b[column] > a[column] ? 1 : -1));
     } else {
       this.tableData = this.tableData;
     }

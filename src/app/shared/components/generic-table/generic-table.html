@@ -1,6 +1,11 @@
 <div class="flex flex-col w-full bg-card-bg text-white border-2 border-gray-800 rounded-xl py-2 mt-2">
     <div class="flex flex-row justify-between py-3.5 px-8.5 pb-5 border-b border-b-gray-800">
+        @if(selectedItems >= 1) {
+        <span class="text-white text-[15px] tracking-normal font-worksans font-normal"> Selected entries : 
+            {{selectedItems}}</span>
+        } @else {
         <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{tableName()}}</span>
+        }
         <span class="text-sm font-semibold text-gray-400 px-4.5 ">
             <span class="text-sm font-semibold text-primary ">
                 {{displayStartIndex}} - {{endIndex}}
@@ -26,9 +31,7 @@
                             checked:appearance-auto checked:accent-primary border-gray-800 border size-3 rounded-xs">
                     </th>
                     @for(column of columns; track $index){
-                    <th class="py-3.5"
-                    (click)="doSorting(column.label)"
-                    >
+                    <th class="py-3.5" (click)="doSorting(column.label)">
                         <div class="flex items-center gap-1 ">
                             <img class="size-2.5" [src]="column.icon" alt="i">
                             <span class="text-[9px] font-medium font-worksans">
