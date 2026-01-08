@@ -21,7 +21,7 @@
             <!-- inputs -->
             <form [formGroup]="profileForm">
                 <div class="flex flex-row items-center justify-between my-5 ">
-                    <label for="username" class="text-figma-neutral text-sm ">username</label>
+                    <label for="username" class="text-figma-neutral text-sm ">Username</label>
                     <input class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                         text-figma-neutral text-sm font-light
                         invalid:border-red-500 invalid:caret-red-500
@@ -40,24 +40,33 @@
                     placeholder:text-figma-neutral placeholder:text-sm " formControlName="email" id="email"
                         name="email" [placeholder]="user?.email" required type="email">
                 </div>
+                <div
+                    class="flex flex-row items-center justify-between px-2 rounded-t-md border border-gray-700 h-10 w-full ">
+                    <label for="oldpass" class="text-figma-neutral text-sm ">Old Password</label>
+                    <input type="password" placeholder="••••••••••••••"
+                        class="outline-0 caret-figma-neutral text-figma-neutral ">
+                </div>
+                <div
+                    class="flex flex-row items-center justify-between px-2 border-e border-s border-gray-700 h-10 w-full">
+                    <label for="newpass" class="text-figma-neutral text-sm ">New Password</label>
+                    @if(password?.value){
+                    <div [ngClass]="passwordStrengthColorGetter" class="flex flex-row items-center px-2 ">
+                        <div class=" flex flex-row w-20 h-2 p-0.5 rounded-full border ">
+                            <div [ngClass]="passwordStrengthProgressGetter" class="rounded-full h-full"></div>
+                        </div>
+                        <span class="py-1 px-4  text-[12px] font-light">{{passwordStrengthGetter}}</span>
+                    </div>
+                    }
+                    <input type="password" placeholder="••••••••••••••" formControlName="password"
+                        class="outline-0 caret-figma-neutral text-figma-neutral ">
+                </div>
+                <div
+                    class="flex flex-row items-center justify-between px-2 rounded-b-md border border-gray-700 h-10 w-full">
+                    <label for="cnewpass" class="text-figma-neutral text-sm ">Confirm new Password</label>
+                    <input type="password" placeholder="••••••••••••••"
+                        class="outline-0 caret-figma-neutral text-figma-neutral ">
+                </div>
             </form>
-            <div
-                class="flex flex-row items-center justify-between px-2 rounded-t-md border border-gray-700 h-10 w-full ">
-                <label for="oldpass" class="text-figma-neutral text-sm ">Old Password</label>
-                <input type="password" placeholder="••••••••••••••"
-                    class="outline-0 caret-figma-neutral text-figma-neutral ">
-            </div>
-            <div class="flex flex-row items-center justify-between px-2 border-e border-s border-gray-700 h-10 w-full">
-                <label for="newpass" class="text-figma-neutral text-sm ">New Password</label>
-                <input type="password" placeholder="••••••••••••••"
-                    class="outline-0 caret-figma-neutral text-figma-neutral ">
-            </div>
-            <div
-                class="flex flex-row items-center justify-between px-2 rounded-b-md border border-gray-700 h-10 w-full">
-                <label for="cnewpass" class="text-figma-neutral text-sm ">Confirm new Password</label>
-                <input type="password" placeholder="••••••••••••••"
-                    class="outline-0 caret-figma-neutral text-figma-neutral ">
-            </div>
         </div>
 
 
@@ -110,11 +119,13 @@
             <div class="flex flex-row justify-between p-4">
                 <p class="text-sm text-figma-neutral font-semibold font-worksans">Delete Account</p>
                 <button class="rounded-sm hover:-translate-y-0.5 transition-all duration-300 text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 
-                    cursor-pointer bg-red-600">
+                    cursor-pointer bg-red-600"
+                    (click)="onDelete()"
+                    >
                     Delete
                 </button>
             </div>
-            <p class="px-4 text-red-600">Note : This action is not reverseable</p>
+            <p class="px-4 text-red-600">Note : This action is not reversible</p>
 
         </div>
     </div>

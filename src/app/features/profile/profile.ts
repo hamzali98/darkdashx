@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators, ɵInternalFormsSharedM
 import { Router } from '@angular/router';
 import { credentials } from '@app/core/auth/interface/credentials';
 import { AuthService } from '@app/core/auth/services/auth-service';
+import { DialogService } from '@app/shared/services/dialog-service/dialog';
+import { PasswordCheck } from '@app/shared/services/password-check/password-check';
 import { customEmailValidator } from '@app/shared/validators/email-validator';
 
 export interface profilesociallinkbtns {
@@ -29,6 +31,8 @@ export class Profile implements OnInit {
 
   private authService = inject(AuthService);
   private routerRef = inject(Router);
+  private passwordService = inject(PasswordCheck);
+  private dialogService = inject(DialogService);
 
   constructor() {
     this.profileSocialBtnsLinks = [
@@ -44,6 +48,7 @@ export class Profile implements OnInit {
     this.profileForm = new FormGroup({
       username: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, customEmailValidator]),
+      password: new FormControl('', [Validators.required]),
     })
   }
 
@@ -53,6 +58,22 @@ export class Profile implements OnInit {
 
   get email() {
     return this.profileForm.get('email');
+  }
+
+  get password() {
+    return this.profileForm.get('password');
+  }
+
+  get passwordStrengthGetter() {
+    return this.passwordService.checkPasswordStrength(this.password?.value);
+  }
+
+  get passwordStrengthColorGetter() {
+    return this.passwordService.getPasswordStrengthColor(this.passwordStrengthGetter);
+  }
+
+  get passwordStrengthProgressGetter() {
+    return this.passwordService.getPasswordStrengthProgress(this.passwordStrengthGetter);
   }
 
   ngOnInit(): void {
@@ -78,6 +99,14 @@ export class Profile implements OnInit {
         return;
     }
     // this.isOn = !this.isOn;
+  }
+
+  onDelete(){
+    this.dialogService.open({
+    title: '⚠️ Delete Alert',
+    content: 'Are you sure you want to delete your account. After deletion account is not recoverable.',
+    type: 'generic' // Custom type for styling/logic in app.component
+  });
   }
 
   onLogout() {
