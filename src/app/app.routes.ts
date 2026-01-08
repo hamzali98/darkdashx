@@ -23,20 +23,24 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
+                canActivate: [authGuardGuard],
                 // component: Dashboard,
                 loadChildren: () => import('./features/dashboard/dashboard.routes')
                     .then(r => r.dashboardRoutes),
             },
             {
                 path: 'users',
+                canActivate: [authGuardGuard],
                 loadChildren: () => import('./features/users/users.routes').then(v => v.userRoutes)
             },
             {
                 path: 'settings',
+                canActivate: [authGuardGuard],
                 component: Settings,
             },
             {
                 path: 'profile',
+                canActivate: [authGuardGuard],
                 component: Profile
             }
         ]
