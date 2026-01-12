@@ -5,17 +5,6 @@ import { sidenavcols } from '@app/core/interface/generic-side-nav-interface';
 import { AuthService } from '@app/core/auth/services/auth-service';
 import { MainLogo } from "@app/shared/components/main-logo/main-logo";
 
-// export interface sidenavcols<T> {
-//   routePath: string; 
-//   tileName: string;
-//   coloredIcon: string;
-//   uncoloredIcon: string;
-//   iconsAlt: string;
-//   topPadding?: string;
-//   routeNames: string[];
-//   routeLink: string[];
-// }
-
 @Component({
   selector: 'app-generic-side-bar',
   imports: [RouterLink, NgClass, MainLogo],
