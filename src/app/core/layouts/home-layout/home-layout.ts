@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from "@angular/router";
 import { GenericSideBar } from "../generic-side-bar/generic-side-bar";
 import { Formservice } from '@app/features/users/adduser/services/formservice';
+import { Header } from "../header/header";
 
 @Component({
   selector: 'app-home-layout',
-  imports: [RouterOutlet, GenericSideBar],
+  imports: [RouterOutlet, GenericSideBar, Header],
   templateUrl: './home-layout.html',
   styleUrl: './home-layout.css',
 })

@@ -1,0 +1,35 @@
+<div class=" flex flex-row justify-between items-center border-b border-b-primary p-2">
+    <!-- (click)="[onOpen('')]" -->
+     <app-main-logo></app-main-logo>
+    <!-- <a [routerLink]="['']">
+        <div class="flex flex-row justify-between align-middle items-center ">
+            <div class="flex flex-row">
+                <img class="size-6.5 " src="assets/icons/logo.svg" alt="a">
+                <span
+                    class="opacity-0 font-inter md:opacity-100 font-medium text-card-bg dark:text-white text-lg px-2 ">
+                    Dashdark X
+                </span>
+            </div>
+        </div>
+    </a> -->
+    <div class="py-2 flex">
+        <button [disabled]="open() === 'profile'"
+            class="flex flex-row  items-center w-full justify-between cursor-pointer" (click)="onRoute('profile')">
+            <div class="flex fex-row items-center">
+                <span class="text-primary font-medium font-worksans mx-3" >Welcome</span>
+                <div class="md:flex flex-col items-start px-2 hidden ">
+                    <span [ngClass]="open() === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-neutral-100' "
+                        class=" text-sm font-bold ">{{username}}</span>
+                    <!-- <span class="text-gray-500 dark:text-neutral-400 text-xs ">Account Settings</span> -->
+                </div>
+                <div class=" rounded-full overflow-hidden size-7 md:size-9 bg-contain  ">
+                    <img class="-mt-1" src="assets/images/OIP.webp" alt="">
+                </div>
+            </div>
+        </button>
+        <button (click)="onLogout()"
+            class="px-4 hover:bg-red-600/20 hover:border hover:border-red-700 hover:backdrop-blur-xl rounded-xl">
+            <img class="size-5 " src="assets/icons/colored/logout.svg" alt="l">
+        </button>
+    </div>
+</div>
