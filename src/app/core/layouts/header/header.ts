@@ -1,21 +1,43 @@
 import { NgClass } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Layout } from '@app/core/services/layout';
 import { MainLogo } from "@app/shared/components/main-logo/main-logo";
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, NgClass, MainLogo],
+  imports: [ NgClass, MainLogo],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header {
 
-  username = "Guest";
+  private layoutService = inject(Layout);
+  // username = "Guest";
 
-  open = signal("");
+  // open = signal("");
 
-  onRoute(val : string){}
+  // onRoute(val : string){}
 
-  onLogout() { }
+  get username() {
+    return this.layoutService.username;
+  }
+
+  get open() {
+    return this.layoutService.open();
+  }
+  
+  toggleSidebar() {
+    this.layoutService.toggleSidebar();
+  }
+
+  onRoute(route: string) {
+    this.layoutService.onRoute(route);
+    // this.routerRef.navigate([route]);
+    // this.onOpen(route);
+  }
+
+  onLogout() {
+    this.layoutService.onLogout();
+  }
 }
