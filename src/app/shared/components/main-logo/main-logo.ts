@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Layout } from '@app/core/services/layout';
 
 @Component({
   selector: 'app-main-logo',
@@ -9,4 +10,9 @@ import { RouterLink } from '@angular/router';
 })
 export class MainLogo {
 
+  private layoutService = inject(Layout);
+
+  onOpen(section: string){
+    this.layoutService.onOpen(section);
+  }
 }
