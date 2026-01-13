@@ -98,7 +98,7 @@ export class HomeLayout implements OnInit {
 
   checkScreenSize() {
     const wasMobile = this.isMobile;
-    this.isMobile = window.innerWidth < 768; // 768px is Tailwind's 'md' breakpoint
+    this.isMobile = window.innerWidth < 1110; // 768px is Tailwind's 'md' breakpoint
     
     // Close sidebar when switching to mobile if it was open
     if (this.isMobile && !wasMobile) {

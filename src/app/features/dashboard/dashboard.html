@@ -2,7 +2,7 @@
     <div class="flex flex-col md:flex-row gap-3 justify-between items-center">
         <div class="flex flex-col">
             <span class="text-gray-500 dark:text-white font-medium tracking-tight font-inter text-2xl">Welcome back,
-                <span class=" text-primary " >
+                <span class=" text-primary ">
                     {{username}}
                 </span>
             </span>
@@ -37,21 +37,22 @@
 </div>
 <!-- full card -->
 <div class="grid grid-cols-12 grid-rows-12 px-10.5 mb-3">
-    <div class=" col-span-8 row-span-12 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-s-lg ">
+    <div class="col-span-12 md:col-span-8 row-span-4 md:row-span-12 h-full w-full bg-card-bg border border-gray-800 p-2">
         @if(userData && productData){
         <app-am-charts [userChartData]="userData" [productChartData]="productData"></app-am-charts>
         } @else {
         <app-data-error></app-data-error>
         }
     </div>
-    <div class=" col-span-4 row-span-6 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-tr-lg ">
+    <div class="col-span-12 md:col-span-4 row-span-4 md:row-span-6 h-full w-full bg-card-bg border border-gray-800 p-2">
         @if(userData && productData){
         <app-donut-chart [userChartData]="userData" [productChartData]="productData"></app-donut-chart>
         } @else {
         <app-data-error></app-data-error>
         }
     </div>
-    <div class=" col-span-4 row-span-6 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-br-lg ">
+    <div
+        class="col-span-12 md:col-span-4 row-span-4 md:row-span-6 h-full w-full bg-card-bg border border-gray-800 p-2">
         @if(userData && productData){
         <app-bubble-chart [productChartData]="productData" [userChartData]="userData"></app-bubble-chart>
         } @else {
@@ -60,7 +61,7 @@
     </div>
 </div>
 <div class="grid grid-cols-12 grid-rows-12 px-10.5 mb-3">
-    <div class=" col-span-12 row-span-12 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-lg ">
+    <div class=" col-span-12 row-span-6 md:row-span-12 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-lg ">
         <app-map-chart></app-map-chart>
     </div>
 </div>
