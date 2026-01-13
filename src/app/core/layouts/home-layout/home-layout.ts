@@ -20,18 +20,6 @@ export class HomeLayout implements OnInit {
 
   userFormService = inject(Formservice);
   private layoutService = inject(Layout);
-  /*
-  routerLink paths, 
-  opening names like (home)
-  icons paths colore and uncolored. and alt names
-  toppadding?
-  tile name?
-  each tile inner routers with count and their names with links
-  
-  sidenav routes = {
-  }
-  
-  */
 
   sideCols: any[];
 
