@@ -9,6 +9,7 @@ import { authGuardGuard } from './core/auth/guard/auth-guard-guard';
 import { NotFound } from './features/not-found/not-found';
 import { ReportIssue } from './features/report-issue/report-issue';
 import { ForgotPassword } from './core/auth/pages/forgot-password/forgot-password';
+import { roleGuard } from './shared/guards/role-guard';
 
 export const routes: Routes = [
     // {
@@ -30,7 +31,7 @@ export const routes: Routes = [
             },
             {
                 path: 'users',
-                canActivate: [authGuardGuard],
+                canActivate: [authGuardGuard, roleGuard],
                 loadChildren: () => import('./features/users/users.routes').then(v => v.userRoutes)
             },
             {
