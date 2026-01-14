@@ -3,7 +3,7 @@
     {
       "username": "hamzali98",
       "email": "hamzali98@gmail.com",
-      "password": "Hamzali98@",
+      "password": "123456",
       "status": false,
       "role": "super",
       "id": "54d1"
@@ -12,7 +12,7 @@
       "id": "769e",
       "username": "hamzali",
       "email": "hamzali@gmail.com",
-      "password": "Hamzali98@",
+      "password": "123456",
       "c_password": "123456",
       "status": false,
       "role": "user"
