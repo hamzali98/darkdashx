@@ -1,131 +1,150 @@
-<div class="flex flex-1">
-    <table class="w-full min-w-max text-left border-collapse">
-        <!-- Table Head -->
-        <thead>
-            <tr class=" text-gray-300 text-sm">
-                <th class="p-3">
-                    <!-- <input type="checkbox"> -->
-                    <button (click)="onChecked()">
-                        <img [ngClass]="checked() ? 'inline' : 'hidden'" src="assets/icons/checkboxes/fullcheck.svg"
-                            alt="">
-                        <img [ngClass]="checked() ? 'hidden' : 'inline'" src="assets/icons/checkboxes/uncheck.svg"
-                            alt="">
-                    </button>
-                </th>
-                <th class="p-3 ">
-                    <div class="flex items-center gap-1">
-                        <img src="assets/icons/uncolored/usericon.svg" alt="u">
-                        Name
-                    </div>
-                </th>
-                <th class="p-3 ">
-                    <div class="flex items-center gap-1">
-                        <img src="assets/icons/uncolored/phone.svg" alt="p">
-                        Phone
-                    </div>
-                </th>
-                <th class="p-3 ">
-                    <div class="flex items-center gap-1">
-                        <img src="assets/icons/uncolored/location.svg" alt="">
-                        Location
-                    </div>
-                </th>
-                <th class="p-3 ">
-                    <div class="flex items-center gap-1">
-                        <img src="assets/icons/uncolored/companybag.svg" alt="">
-                        Company
-                    </div>
-                </th>
-                <th class="p-3 ">
-                    <div class="flex items-center gap-1">
-                        <img src="assets/icons/uncolored/statustick.svg" alt="">
-                        Status
-                    </div>
-                </th>
-                <th class="p-3 text-center"></th>
-            </tr>
-        </thead>
+<div class="flex flex-col w-full bg-card-bg text-white border-2 border-gray-800 rounded-xl py-2 mt-2">
+    <div class="flex flex-row justify-between py-3.5 px-8.5 pb-5 border-b border-b-gray-800">
+        @if(selectedItems >= 1) {
+        <span class="text-white text-[15px] tracking-normal font-worksans font-normal"> Selected entries :
+            {{selectedItems}}</span>
+        } @else {
+        <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{tableName()}}</span>
+        }
+        <span class="text-sm font-semibold text-gray-400 px-4.5 ">
+            <span class="text-sm font-semibold text-primary ">
+                {{displayStartIndex}} - {{endIndex}}
+            </span>
+            of {{tableTotal}}
+        </span>
+    </div>
 
-        <!-- Table Body -->
-        <tbody class="text-sm">
-
-            <!-- Example Row -->
-            <tr class="border-b border-gray-700 hover:bg-[#1A2234] transition">
-
-                <!-- Checkbox -->
-                <td class="p-3">
-                    <button (click)="onChecked()">
-                        <img [ngClass]="checked() ? 'inline' : 'hidden'" src="assets/icons/checkboxes/fullcheck.svg"
-                            alt="">
-                        <img [ngClass]="checked() ? 'hidden' : 'inline'" src="assets/icons/checkboxes/uncheck.svg"
-                            alt="">
-                    </button>
-                    <!-- <input class="checked:bg-primary" type="checkbox" /> -->
-                </td>
-
-                <!-- Name + Avatar -->
-                <td class="p-3">
-                    <div class="flex items-center gap-3">
-                        <img src="assets/icons/uncolored/usericon.svg"
-                            class="w-9 h-9 rounded-full border border-gray-600">
-                        <div>
-                            <div class="font-medium">John Carter</div>
-                            <div class="text-gray-400 text-xs">john@gmail.com</div>
+    @if(tableData.length) {
+    <div class="flex flex-1 overflow-x-auto scroll-container">
+        <table class="w-full text-left border-collapse  ">
+            <!-- Table Head -->
+            <thead class="">
+                <tr class="text-gray-300 text-sm items-center">
+                    <th class="px-[7px]  ">
+                    </th>
+                    <th class="sticky left-0 bg-card-bg z-10">
+                        <!-- class="p-3" -->
+                        <!-- [indeterminate]="checkListTotal" -->
+                        <input id="masterchkbox" name="masterchkbox" [indeterminate]="isIndeterminate"
+                            [checked]="isChecked" (change)="toggleSelectallRows($event)" type="checkbox" class="appearance-none bg-card-bg 
+                        indeterminate:appearance-auto indeterminate:accent-primary
+                        checked:appearance-auto checked:accent-primary border-gray-800 border size-3 rounded-xs">
+                    </th>
+                    <th class="px-[7px]  ">
+                    </th>
+                    @for(column of columns; track $index){
+                    <th class="py-3.5 whitespace-nowrap min-w-[120px] " (click)="doSorting(column.label)">
+                        <div class="flex items-center gap-1 ">
+                            <img class="size-2.5" [src]="column.icon" alt="i">
+                            <span class="text-[9px] font-medium font-worksans">
+                                {{column.label}}
+                            </span>
+                            <img class="size-3.5" src="assets/icons/neutral/sortarrows.svg" alt="i">
                         </div>
-                    </div>
-                </td>
+                    </th>
+                    }
+                </tr>
+            </thead>
 
-                <!-- Phone -->
-                <td class="p-3 text-gray-300">(449) 907-1274</td>
+            <!-- Table Body -->
 
-                <!-- Location -->
-                <td class="p-3 text-gray-300">United States</td>
+            <tbody class="text-sm">
+                @for(data of currentPageData; track $index ){
+                <tr class="odd:bg-active-route-bg overflow-x-auto scroll-container">
+                    <td class="px-[7px]">
+                    </td>
+                    <!-- Checkbox -->
+                    <td class="sticky left-0 z-10">
+                        <input [id]="$index" name="childchkbox" type="checkbox" [checked]="IncludesTableData(data)"
+                            (change)="checkUncheckRow(data, $event)" class="appearance-none bg-card-bg border border-gray-800 size-3 
+                        rounded-xs checked:appearance-auto checked:accent-primary  
+                        ">
+                    </td>
 
-                <!-- Company -->
-                <td class="p-3">
-                    <div class="flex items-center gap-2">
-                        <img src="assets/companies/google.svg" class="w-5 h-5">
-                        <span class="text-gray-300">Google</span>
-                    </div>
-                </td>
+                    <th class="px-[7px]  ">
+                    </th>
+                    @for(column of columns; track $index){
+                    <td class=" py-4.5 text-grey-300 whitespace-nowrap min-w-[120px]">
+                        @if(data[column.key] === true || data[column.key] === false) {
+                        <span class="px-1.5 py-px border rounded-xs text-[10px] font-extralight" [ngClass]="data[column.key] ? 'text-up-green-arrow bg-up-green-arrow/30 border-up-green-arrow/50' 
+                            : 'text-gray-300 bg-gray-400/30 border-gray-400/50'">
+                            • {{column?.func(data[column.key])}}
+                        </span>
+                        } @else if(column.label === "Name") {
+                        <span class="flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center">
+                            <img class="size-7 rounded-full shrink-0" src="assets/images/OIP.jpg" alt="p">
+                            <span class=" truncate max-w-[150px] flex flex-col gap-0.5">
+                                {{getValue(data, column.key) | titlecase}}
+                                <span>
+                                    {{getValue(data, column.subkey)}}
+                                </span>
+                            </span>
+                        </span>
+                        } @else if (column.label === "Price") {
+                        <span
+                            class=" truncate max-w-[150px] flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center ">
+                            {{getValue(data, column.key) | currency}}
+                        </span>
+                        } @else {
+                        <span
+                            class=" truncate max-w-[150px] flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center ">
+                            @if(column.label === "Company"){
+                            <img class="size-4 rounded-full shrink-0 " [src]="imgSrc(getValue(data, column.key))"
+                                alt="">
+                            }
+                            @if(column.label === "Product Name"){
+                            <img class="size-7 rounded-full shrink-0 " src="assets/images/products/watch.svg" alt="i">
+                            }
+                            {{getValue(data, column.key) | titlecase}}
+                        </span>
+                        }
+                    </td>
+                    }
 
-                <!-- Status Badge -->
-                <td class="p-3">
-                    <!-- <span
-                        class="px-3 py-[3px] text-xs rounded-md bg-green-600/20 text-green-400 border border-green-500/40">
-                        + Online
-                    </span> -->
-                    <button (click)="onStatus()">
-                        <img [ngClass]="status() ? 'hidden':'inline'" src="assets/icons/offlinetag.svg" alt="">
-                        <img [ngClass]="status() ? 'inline':'hidden'" src="assets/icons/onlinetag.svg" alt="">
-                    </button>
-                </td>
+                    <!-- Action Buttons -->
+                    <td class="py-6.5 px-0 whitespace-nowrap">
+                        <div class="flex px-2 justify-around align-middle items-center cursor-pointer min-w-20 gap-5">
+                            <button (click)="onClickedEdit(tableData[$index])"
+                                class="flex items-center justify-center ">
+                                <img src="assets/icons/neutral/pencil.svg" class="size-3" alt="act btn" />
+                            </button>
+                            <button (click)="onClickedDelete(tableData[$index])"
+                                class="flex items-center cursor-pointer justify-center ">
+                                <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
 
-                <!-- Action Buttons -->
-                <td class="p-3 flex justify-center gap-4">
-                    <button class="hover:text-blue-400">
-                        <img src="assets/icons/uncolored/pencil.svg" class="w-4 h-4" />
-                    </button>
-                    <button class="hover:text-red-400">
-                        <img src="assets/icons/uncolored/bin.svg" class="w-4 h-4" />
-                    </button>
-                </td>
-            </tr>
-
-            <!-- Copy & repeat for more rows -->
-
-        </tbody>
-    </table>
+        </table>
+    </div>
+    } @else {
+    <app-data-error></app-data-error>
+    }
 </div>
 
-<!-- pagination code -->
-    <!-- <div class="w-full p-4 bg-[#0F172A] text-white rounded-xl"> -->
-        <!-- Header Row (Title + Pagination) -->
-        <!-- <div class="flex justify-between items-center pb-4">
-            <h2 class="text-xl font-semibold">All Users</h2>
-            <span class="text-sm text-purple-400">1–10 of 256</span>
-        </div> -->
-        <!-- <div class="overflow-x-auto">
-            
-        </div> -->
-    <!-- </div> -->
+<div class="flex flex-row items-end justify-end py-5 px-5">
+    <div class="px-14 flex flex-row items-center ">
+        <label for="itemsperpage" class="text-gray-400 text-[11px] font-medium font-inter px-3">Rows per page:</label>
+        <div class="flex relative ">
+            <img class="absolute top-1/2 -translate-y-1/2 translate-x-5 pointer-events-none"
+                src="assets/icons/neutral/droparrow.svg" alt="arrow">
+            <select class=" appearance-none h-[26px] w-[41px] rounded-sm bg-active-route-bg text-white p-1 px-2 text-[10px] font-light
+            " [(ngModel)]="itemsPerPage" (change)="onChangePerPage()" name="select" id="itemsperpage">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+    </div>
+    <button [disabled]="displayStartIndex === 1" (click)="previousPage()" type="button"
+        class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
+        <img class="size-3 shrink-0" src="assets/icons/white/leftarrow.svg" alt="arrow">
+    </button>
+    <button [disabled]="endIndex === tableTotal" (click)="nextPage()" type="button"
+        class="bg-active-route-bg p-[5.5px] rounded-sm ml-1.5 hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
+        <img class="size-3 shrink-0" src="assets/icons/white/rightarrow.svg" alt="arrow">
+    </button>
+</div>

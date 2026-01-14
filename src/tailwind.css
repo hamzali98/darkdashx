@@ -1,12 +1,19 @@
 @import "tailwindcss";
 
 @theme{
+    --font-worksans: "Work Sans", sans-serif;
+    --font-inter: "Inter", sans-serif;
+
     --color-primary: #cb3cff;
     --color-secondary: #aeb9e1;
+    --color-secondary2: #00c2ff;
+    --color-purple: #6C72FF;
     --color-btn-secondary : #0a1330;
     --color-primary-bg: #081027;
     --color-input-bg: #0b1739;
     --color-card-bg: #0b1738;
+    --color-border: #343b4f;
+    --color-figma-neutral: #AEB9E1;
     --color-active-route-bg: #0a1330;
     --color-button-primary:#c23af4;
     --color-active-route-text:#cb3cff;

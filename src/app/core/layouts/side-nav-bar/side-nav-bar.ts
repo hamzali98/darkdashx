@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLinkActive, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { Observable } from 'rxjs';
+import { SearchBar } from "@app/shared/components/search-bar/search-bar";
 
 @Component({
   selector: 'app-side-nav-bar',

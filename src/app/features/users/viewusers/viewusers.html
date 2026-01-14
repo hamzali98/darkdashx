@@ -1,57 +1,26 @@
-<div class=" flex flex-col gap-5 px-6 py-8">
+<div class=" flex flex-col gap-5 px-9 py-7">
     <div class="flex flex-col md:flex-row justify-between items-center ">
-        <div class="flex flex-col md:flex-row gap-4 items-center ">
-            <span class="text-gray-500 dark:text-white text-md">Users</span>
-            <div class="relative w-full max-w-sm mb-3 md:mb-0 ">
-                <img src="assets/icons/search.svg"
-                    class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" alt="icon" />
-                <input class=" pl-10 w-full md:w-88 h-11 bg-card-bg border border-card-bg/30 dark:border-neutral-400/30 rounded-sm caret-primary outline-0
-                    placeholder:text-card-bg
-                    dark:placeholder:text-neutral-400 placeholder:text-sm focus:border-primary dark:text-neutral-400 "
-                    type="search" placeholder="Search for..." />
-            </div>
+        <div class="flex flex-col md:flex-row gap-13 items-center ">
+            <span class="text-gray-500 dark:text-white font-medium font-inter text-lg ">Users</span>
+            <app-search-bar></app-search-bar>
         </div>
-        <button
-            class="rounded-md text-neutral-400 text-xs w-24.75 shadow drop-shadow-black font-[14px] mx-1 h-7.5 cursor-pointer  bg-primary">
-            Add User
+        <button (click)="onAddUserClick()" type="button"
+            class="rounded-sm text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 cursor-pointer bg-primary">
+            Add user
         </button>
     </div>
     <!-- upper card -->
-    <div class="flex flex-col md:flex-row gap-1 justify-between">
-        <app-totals-cards [icon]="'assets/icons/colored/totaluserspurpel.svg'" [title]="'Total Users'" [counts]="359" />
+    <div class="flex flex-col flex-wrap md:flex-row justify-between pt-6.5">
+        <app-totals-cards [icon]="'assets/icons/colored/totaluserspurpel.svg'" [title]="'Total Users'"
+            [counts]="length" />
         <app-totals-cards [icon]="'assets/icons/colored/newusersyellow.svg'" [title]="'New Users'" [counts]="13" />
         <app-totals-cards [icon]="'assets/icons/colored/topusersgreen.svg'" [title]="'Top Users'" [counts]="65" />
         <app-totals-cards [icon]="'assets/icons/colored/otherusersblue.svg'" [title]="'Other Users'" [counts]="93" />
     </div>
-    <!-- table -->
-     <!-- class="w-full p-4 bg-[#0F172A] text-white rounded-xl" -->
-    <div class=" hidden md:inline w-full bg-card-bg text-white border border-gray-800 rounded-xl">
-        <div class="flex flex-row justify-between p-6
-        border-b border-b-neutral-400/25
-        ">
-            <span class="text-white text-lg">All Users</span>
-            <span class="text-sm font-light text-white px-0.5 ">
-                <span class="text-sm font-light text-primary  px-0.5 ">
-                    1 - 10
-                </span>
-                of 256
-            </span>
-        </div>
-        <app-generic-table></app-generic-table>
-    </div>
-    <!-- <div class="w-full p-4 bg-[#0F172A] text-white rounded-xl"> -->
-
-        <!-- Header Row (Title + Pagination) -->
-        <!-- <div class="flex justify-between items-center pb-4">
-            <h2 class="text-xl font-semibold">All Users</h2>
-            <span class="text-sm text-purple-400">1–10 of 256</span>
-        </div> -->
-
-        <!-- <div class="overflow-x-auto">
-            
-        </div> -->
-
-    <!-- </div> -->
+    <!-- generic table -->
+    <!-- @if ( !loaderService.getLoader() && userData.length ) { -->
+    <app-generic-table (onDeleteClicked)="deleteUserData($event)" (onEditClicked)="editUserData($event)"
+        tableName="All Users" [columns]="userColumns" [tableData]="userData" />
+    <!-- } -->
 
 </div>
-<!-- justify-between items-center md:items-end -->

@@ -3,8 +3,7 @@ import { Adduser } from './adduser/adduser';
 import { Viewusers } from './viewusers/viewusers';
 import { PersonalInformation } from './adduser/pages/personal-information/personal-information';
 import { Team } from './adduser/pages/team/team';
-import { Billing } from './adduser/pages/billing/billing';
-
+import { BasicInfo } from './adduser/pages/basic-info/basic-info';
 export const userRoutes: Routes = [
     {
         path: 'add',
@@ -22,15 +21,13 @@ export const userRoutes: Routes = [
                 },
                 {
                     path: "2",
-                    component: Team
+                    component: BasicInfo
                 },
                 {
                     path: "3",
-                    component: Billing
-                }
+                    component: Team
+                },
         ]
-        // loadChildren: () => import('./adduser/add-user.routes')
-        //     .then(r => r.addUserRoutes),
     },
     {
         path: 'view',

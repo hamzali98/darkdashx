@@ -1,0 +1,258 @@
+{
+  "credentials": [
+    {
+      "username": "hamzali98",
+      "email": "hamzali98@gmail.com",
+      "password": "123456",
+      "status": false,
+      "role": "super",
+      "id": "54d1"
+    },
+    {
+      "username": "hamzali",
+      "email": "hamzali@gmail.com",
+      "password": "",
+      "status": false,
+      "role": "user",
+      "id": "769e"
+    }
+  ],
+  "products": [
+    {
+      "id": "0b08",
+      "status": false,
+      "basic_info": {
+        "product_name": "Watch",
+        "product_category": "accessories",
+        "product_price": 1200,
+        "product_company": "google"
+      },
+      "detail_info": {
+        "product_expiry": "2027-11-01",
+        "product_regno": "23h89",
+        "product_mfg": "2025-12-01",
+        "product_stock": 5
+      }
+    },
+    {
+      "id": "8a55",
+      "status": true,
+      "basic_info": {
+        "product_name": "Mobile",
+        "product_category": "telecomunication",
+        "product_price": 5000,
+        "product_company": "linkedin"
+      },
+      "detail_info": {
+        "product_expiry": "2025-12-03",
+        "product_regno": "565165",
+        "product_mfg": "2025-12-01",
+        "product_stock": 35
+      }
+    },
+    {
+      "id": "9d1f",
+      "status": false,
+      "basic_info": {
+        "product_name": "product",
+        "product_category": "cosmetics",
+        "product_price": 56,
+        "product_company": "linkedin"
+      },
+      "detail_info": {
+        "product_expiry": "2025-12-06",
+        "product_regno": "5686",
+        "product_mfg": "2025-12-31",
+        "product_stock": 3
+      }
+    },
+    {
+      "status": false,
+      "basic_info": {
+        "product_name": "Note Book",
+        "product_category": "note book",
+        "product_price": 1,
+        "product_company": "pinterest"
+      },
+      "detail_info": {
+        "product_expiry": "2025-12-10",
+        "product_regno": "654",
+        "product_mfg": "2025-12-31",
+        "product_stock": 32
+      },
+      "id": "4b90"
+    },
+    {
+      "status": true,
+      "basic_info": {
+        "product_name": "prod",
+        "product_category": "accessories",
+        "product_price": 3,
+        "product_company": "reddit"
+      },
+      "detail_info": {
+        "product_expiry": "2025-12-09",
+        "product_regno": "546",
+        "product_mfg": "2025-12-12",
+        "product_stock": 3
+      },
+      "id": "f24a"
+    }
+  ],
+  "users": [
+    {
+      "id": "1040",
+      "status": true,
+      "personal_info": {
+        "user_name": "hamza",
+        "user_email": "email@email.com",
+        "user_photo": "",
+        "user_desc": "ja"
+      },
+      "basic_info": {
+        "user_phone": "3123456789",
+        "user_position": "po",
+        "user_location": "lo",
+        "user_website": "www.www"
+      },
+      "team_info": {
+        "team_name": "spotify",
+        "team_rank": "ra",
+        "team_office": "of",
+        "team_mail": "email@email.com"
+      }
+    },
+    {
+      "id": "6a35",
+      "status": false,
+      "personal_info": {
+        "user_name": "user 1",
+        "user_email": "user1@email.com",
+        "user_photo": "",
+        "user_desc": "hello from user 1"
+      },
+      "basic_info": {
+        "user_phone": "3123456789",
+        "user_position": "user 1 position",
+        "user_location": "user 1 location",
+        "user_website": "www.user1.com"
+      },
+      "team_info": {
+        "team_name": "twitter",
+        "team_rank": "user 1 team rank",
+        "team_office": "user 1 office",
+        "team_mail": "user1team@email.com"
+      }
+    },
+    {
+      "id": "9d1b",
+      "status": true,
+      "personal_info": {
+        "user_name": "user 3",
+        "user_email": "user3@email.com",
+        "user_photo": "",
+        "user_desc": "hello user 3"
+      },
+      "basic_info": {
+        "user_phone": "3123456789",
+        "user_position": "user 3 position",
+        "user_location": "location",
+        "user_website": "www.website.com"
+      },
+      "team_info": {
+        "team_name": "reddit",
+        "team_rank": "rank",
+        "team_office": "office",
+        "team_mail": "user2team@email.com"
+      }
+    },
+    {
+      "id": "e6ca",
+      "status": false,
+      "personal_info": {
+        "user_name": "user 45",
+        "user_email": "user45@gmail.com",
+        "user_photo": "",
+        "user_desc": "hello"
+      },
+      "basic_info": {
+        "user_phone": "3546568987",
+        "user_position": "pos",
+        "user_location": "loc",
+        "user_website": "www.web.com"
+      },
+      "team_info": {
+        "team_name": "facebook",
+        "team_rank": "rank",
+        "team_office": "office",
+        "team_mail": "team@email.com"
+      }
+    },
+    {
+      "status": false,
+      "personal_info": {
+        "user_name": "user 47",
+        "user_email": "user47@gmail.com",
+        "user_photo": "",
+        "user_desc": "helloo"
+      },
+      "basic_info": {
+        "user_phone": "3256489745",
+        "user_position": "pos",
+        "user_location": "loci",
+        "user_website": "www.web.com"
+      },
+      "team_info": {
+        "team_name": "spotify",
+        "team_rank": "rank 3",
+        "team_office": "office",
+        "team_mail": "user47@gmail.com"
+      },
+      "id": "78b3"
+    },
+    {
+      "id": "9d1d",
+      "status": true,
+      "personal_info": {
+        "user_name": "user 50",
+        "user_email": "user50@gmail.com",
+        "user_photo": "",
+        "user_desc": "hello user 50"
+      },
+      "basic_info": {
+        "user_phone": "3215648978",
+        "user_position": "user 50 pos",
+        "user_location": "user 50 loc",
+        "user_website": "www.web.com"
+      },
+      "team_info": {
+        "team_name": "google",
+        "team_rank": "rank",
+        "team_office": "office",
+        "team_mail": "team@gmail.com"
+      }
+    },
+    {
+      "id": "889f",
+      "status": true,
+      "personal_info": {
+        "user_name": "user 55",
+        "user_email": "user55@gmail.com",
+        "user_photo": "",
+        "user_desc": "hrllo"
+      },
+      "basic_info": {
+        "user_phone": "3123456789",
+        "user_position": "pos",
+        "user_location": "loc",
+        "user_website": "www.website.com"
+      },
+      "team_info": {
+        "team_name": "pinterest",
+        "team_rank": "3",
+        "team_office": "l",
+        "team_mail": "team@email.com"
+      }
+    }
+  ]
+}

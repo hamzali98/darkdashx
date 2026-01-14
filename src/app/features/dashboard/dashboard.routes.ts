@@ -12,20 +12,25 @@ export const dashboardRoutes: Routes = [
 
     },
     {
-        path: 'reports',
+        path: 'home/reports',
         component: Reports,
         pathMatch: 'full',
 
     },
     {
-        path: 'tasks',
+        path: 'home/tasks',
         component: Tasks,
         pathMatch: 'full',
     },
     {
-        path: 'products',
+        path: 'home/products',
         component: Products,
-        pathMatch: 'full'
+        pathMatch: 'full',
+    },
+    {
+        path: 'home/products/add',
+        loadChildren: ()=> import('@app/features/dashboard/products/products.routes').then(r => r.productAddRoutes),
+        // pathMatch: 'full'
     }
 ];
 

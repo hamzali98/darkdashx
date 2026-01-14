@@ -1,0 +1,99 @@
+<div class="flex justify-center items-center min-h-screen overflow-auto p-2 md:p-0
+        bg-primary-bg">
+
+    <div class="relative p-0">
+        <!-- The glowing gradient background layer -->
+        <div class="absolute inset-0 bg-linear-to-br from-primary via-purple-600 to-secondary2 rounded-lg filter blur-xl 
+             opacity-10 animate-pulse">
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+
+            <div class="w-full lg:w-150 h-auto border border-gray-500/25 rounded-xl 
+                    bg-card-bg/70 backdrop-blur-3xl p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
+                <p class="text-white text-lg font-semibold font-worksans ">Login</p>
+                <p class="text-figma-neutral text-sm font-medium tracking-normal">Please fill in credentials to login
+                </p>
+                <!-- email input -->
+                <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
+                    <div class="flex flex-col lg:flex-row items-start justify-between ">
+                        <div class="flex gap-1 my-2 lg:mt-1">
+                            <img src="assets/icons/white/email.svg" alt="">
+                            <label for="email" class="text-gray-300 text-xs font-medium ">Email
+                                <span class="text-red-600">*</span>
+                            </label>
+                        </div>
+                        <div class="flex flex-col w-full lg:w-auto">
+                            <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                                text-figma-neutral text-sm font-light
+                                invalid:border-red-500 invalid:caret-red-500
+                                valid:border-green-500 valid:caret-green-500
+                                focus:border-primary caret-primary
+                                placeholder:text-figma-neutral placeholder:text-sm " formControlName="email"
+                                type="email" id="email" name="email" placeholder="Enter Email">
+                            @if(email?.hasError('required') && email?.touched) {
+                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Email Required!</span>
+                            }@else if(email?.valid) {
+                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                            } @else {
+                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Email</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!-- Password input -->
+                <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
+                    <div class="flex flex-col lg:flex-row items-start justify-between ">
+                        <div class="flex gap-1 my-2 lg:mt-1">
+                            <img src="assets/icons/white/password.svg" alt="">
+                            <label for="password" class="text-gray-300 text-xs font-medium ">Password
+                                <span class="text-red-600">*</span>
+                            </label>
+                        </div>
+                        <div class="flex flex-col w-full lg:w-auto">
+                            <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                                text-figma-neutral text-sm font-light
+                                invalid:border-red-500 invalid:caret-red-500
+                                valid:border-green-500 valid:caret-green-500
+                                focus:border-primary caret-primary
+                                placeholder:text-figma-neutral placeholder:text-sm " formControlName="password"
+                                type="password" id="password" name="password" placeholder="Enter Password">
+                            @if(password?.hasError('required') && password?.touched) {
+                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">Password Required!</span>
+                            } @else if(password?.valid) {
+                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                            } @else {
+                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter password</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!-- remember me -->
+                <div class="py-1 pt-2 w-full">
+                    <div class="flex flex-col lg:flex-row items-center justify-between ">
+                        <div class="flex gap-1 my-2 lg:mt-1">
+                            <input class="accent-primary cursor-pointer" [(ngModel)]="remember"
+                                [ngModelOptions]="{ standalone: true }" type="checkbox" id="remember" name="remember">
+                            <label for="remember" class="text-gray-300 text-xs font-medium cursor-pointer
+                        ">Remember me
+                            </label>
+                        </div>
+                        <a routerLink="/forgot" class="text-sm text-primary underline cursor-pointer ">Forgot
+                            Password!</a>
+                    </div>
+                </div>
+                <div class=" flex justify-center my-5">
+                    <button [disabled]="loginForm.invalid"
+                        class="h-11 w-full rounded-sm text-white bg-primary 
+                cursor-pointer disabled:cursor-not-allowed disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px]" type="submit">
+                        Login
+                    </button>
+                </div>
+
+                <div class="mb-3 text-white text-center ">
+                    Do not have an account?
+                    <a routerLink="/signup" class="text-sm text-secondary2 underline cursor-pointer ">create now</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
