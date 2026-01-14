@@ -160,7 +160,7 @@ export class GenericTable<T> implements OnChanges {
   }
 
   // sorting
-  doSorting(column: string) {
+  doSorting(column: any) {
     console.log('sorting called on : ', column);
     console.log('sorting column : ', this.sortcol());
     console.log('sorting direction : ', this.sortdirection());
@@ -181,11 +181,11 @@ export class GenericTable<T> implements OnChanges {
     console.log("table data", this.tableData);
 
     if (this.sortdirection() === 'asc') {
-      this.tableData.sort((a: any, b: any) => (a[column] > b[column] ? 1 : -1));
+      this.currentPageData.sort((a: any, b: any) => (this.getValue(a, column) > this.getValue(b, column) ? 1 : -1));
     } else if (this.sortdirection() === 'dsc') {
-      this.tableData.sort((a: any, b: any) => (b[column] > a[column] ? 1 : -1));
+      this.currentPageData.sort((a: any, b: any) => (this.getValue(b, column) > this.getValue(a, column) ? 1 : -1));
     } else {
-      this.tableData = this.tableData;
+      this.currentPageData = this.currentPageData;
     }
   }
 

@@ -33,13 +33,23 @@
                     <th class="px-[7px]  ">
                     </th>
                     @for(column of columns; track $index){
-                    <th class="py-3.5 whitespace-nowrap min-w-[120px] " (click)="doSorting(column.label)">
+                    <th class="py-3.5 whitespace-nowrap min-w-[120px] " (click)="doSorting(column.key)">
                         <div class="flex items-center gap-1 ">
                             <img class="size-2.5" [src]="column.icon" alt="i">
                             <span class="text-[9px] font-medium font-worksans">
                                 {{column.label}}
                             </span>
+                            @if(sortcol() === column.key){
+                            @if(sortdirection() === 'asc'){
+                            <img class="size-3.5 rotate-180" src="assets/icons/neutral/droparrow.svg" alt="i">
+                            } @else if(sortdirection() === 'dsc'){
+                            <img class="size-3.5" src="assets/icons/neutral/droparrow.svg" alt="i">
+                            } @else {
                             <img class="size-3.5" src="assets/icons/neutral/sortarrows.svg" alt="i">
+                            }
+                            } @else {
+                            <img class="size-3.5" src="assets/icons/neutral/sortarrows.svg" alt="i">
+                            }
                         </div>
                     </th>
                     }
