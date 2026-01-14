@@ -60,9 +60,13 @@ export class Layout<T> implements OnInit {
     return this.isSidebarOpenSubject.value;
   }
 
-  openAndNavigate(section: string, route: string) {
-    this.onOpen(section);
-    this.routerRef.navigate([route]);
+  async openAndNavigate(section: string, route: string) {
+    const navigateSuccess = await this.routerRef.navigate([route]);
+    // this.routerRef.navigate([route]);
+    // this.onOpen(section);
+    if(navigateSuccess){
+      this.onOpen(section);
+    }
   }
 
   onOpen(section: string) {

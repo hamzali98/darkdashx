@@ -49,7 +49,6 @@ export class AuthService {
       this.logout(); // auto logout
       return false;
     }
-
     return true;
   }
 

@@ -3,12 +3,13 @@ import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { sidenavcols } from '@app/core/interface/generic-side-nav-interface';
 import { AuthService } from '@app/core/auth/services/auth-service';
-import { MainLogo } from "@app/shared/components/main-logo/main-logo";
+import { MainLogo } from "@app/core/components/main-logo/main-logo";
 import { Layout } from '@app/core/services/layout';
+import { LogoutBtn } from "@app/core/components/logout-btn/logout-btn";
 
 @Component({
   selector: 'app-generic-side-bar',
-  imports: [RouterLink, NgClass, MainLogo],
+  imports: [RouterLink, NgClass, MainLogo, LogoutBtn],
   templateUrl: './generic-side-bar.html',
   styleUrl: './generic-side-bar.css',
 })
@@ -57,7 +58,5 @@ export class GenericSideBar<T> implements OnInit {
     return this.layoutService.isActive(route);
   }
 
-  onLogout() {
-    this.layoutService.onLogout();
-  }
+  
 }

@@ -1,19 +1,18 @@
 {
   "credentials": [
     {
-      "id": "54d1",
       "username": "hamzali98",
       "email": "hamzali98@gmail.com",
-      "password": "123456",
-      "c_password": "123456",
+      "password": "Hamzali98@",
       "status": false,
-      "role": "super"
+      "role": "super",
+      "id": "54d1"
     },
     {
       "id": "769e",
-      "username": "hamzali98",
+      "username": "hamzali",
       "email": "hamzali@gmail.com",
-      "password": "123456",
+      "password": "Hamzali98@",
       "c_password": "123456",
       "status": false,
       "role": "user"
