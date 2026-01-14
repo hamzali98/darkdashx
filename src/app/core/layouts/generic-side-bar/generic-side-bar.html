@@ -5,7 +5,7 @@
         <div class="flex flex-row justify-between align-middle items-center ">
             <app-main-logo></app-main-logo>
             @if(sidebar){
-            <button class="cursor-pointer" (click)="toggleSidebar()">
+            <button type="button" class="cursor-pointer" (click)="toggleSidebar()">
                 <span>
                     <img class=" shrink-0" src="assets/icons/neutral/doublearrows.svg" alt="a">
                 </span>
@@ -44,7 +44,7 @@
                 <img [src]="items.uncoloredIcon" [alt]="items.iconsAlt">
                 }
             </button> -->
-            <button [disabled]="open === items.routePath" class="flex flex-row items-end justify-between cursor-pointer
+            <button type="button" [disabled]="open === items.routePath" class="flex flex-row items-end justify-between cursor-pointer
                  size-auto w-full
                 " (click)="openAndNavigate(items.routePath, items.routeLink[0])">
                 <div class=" flex flex-row">
@@ -90,7 +90,7 @@
     border-t-[0.1px] text-gray-500/50 dark:border-t-gray-800 bg-inherit
     ">
             <div>
-                <button [disabled]="open === 'settings'"
+                <button type="button" [disabled]="open === 'settings'"
                     class="flex flex-row items-center w-full justify-between cursor-pointer"
                     (click)="onRoute('settings')">
                     <div class=" flex flex-row items-center justify-center  ">
@@ -109,7 +109,7 @@
                 </button>
             </div>
             <div class="py-2 flex">
-                <button [disabled]="open === 'profile'"
+                <button type="button" [disabled]="open === 'profile'"
                     class="flex flex-row  items-center w-full justify-between cursor-pointer"
                     (click)="onRoute('profile')">
                     <div class="flex fex-row items-center">

@@ -19,7 +19,7 @@ export const roleGuard: CanActivateFn = (route, state) => {
   dialogService.open({
     title: '⚠️ Access Denied',
     content: 'This user does not have access to this application feature.',
-    type: 'generic' // Custom type for styling/logic in app.component
+    type: 'session-expired' // Custom type for styling/logic in app.component
   });
 
   // router.navigate(['/profile'])

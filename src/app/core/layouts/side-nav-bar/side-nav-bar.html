@@ -38,7 +38,7 @@
 
         <!-- Dashboard selection div -->
         <div class="pt-7 ">
-            <button [disabled]="open() === 'dashboard'" class="flex justify-center align-middle w-full cursor-pointer
+            <button type="button" [disabled]="open() === 'dashboard'" class="flex justify-center align-middle w-full cursor-pointer
                 size-auto opacity-100 md:size-0 md:opacity-100
                 " (click)="openAndNavigate('dashboard', '')">
                 @if(open() === 'dashboard'){
@@ -47,7 +47,7 @@
                 <img src="assets\icons\uncolored\homeicon.svg" alt="home">
                 }
             </button>
-            <button [disabled]="open() === 'dashboard'" class="flex flex-row items-end w-full justify-between cursor-pointer
+            <button type="button" [disabled]="open() === 'dashboard'" class="flex flex-row items-end w-full justify-between cursor-pointer
                 opacity-0 md:opacity-100 size-0 md:size-auto md:w-full
                 " (click)="openAndNavigate('dashboard', '')">
                 <div class=" flex flex-row">
@@ -106,7 +106,7 @@
         <!-- Users selection div -->
         <div>
             <!-- (click)="onOpen('users')"  -->
-            <button [disabled]="open() === 'users'" class="flex justify-center align-middle w-full cursor-pointer
+            <button type="button" [disabled]="open() === 'users'" class="flex justify-center align-middle w-full cursor-pointer
                 size-auto opacity-100 md:size-0 md:opacity-100
                 " (click)="openAndNavigate('users', '/users/view')">
                 @if(open() === 'users'){
@@ -115,7 +115,7 @@
                 <img src="assets\icons\uncolored\usericon.svg" alt="user">
                 }
             </button>
-            <button [disabled]="open() === 'users'" class="flex flex-row items-center w-full justify-between cursor-pointer
+            <button type="button" [disabled]="open() === 'users'" class="flex flex-row items-center w-full justify-between cursor-pointer
                 opacity-0 md:opacity-100 size-0 md:size-auto md:w-full
                 " (click)="openAndNavigate('users', 'users/view')">
                 <div class=" flex flex-row ">
@@ -158,7 +158,7 @@
         <!-- Users selection div -->
         <div>
             <!-- (click)="onOpen('users')"  -->
-            <button [disabled]="open() === 'features'" class="flex justify-center align-middle w-full cursor-pointer
+            <button type="button" [disabled]="open() === 'features'" class="flex justify-center align-middle w-full cursor-pointer
                 size-auto opacity-100 md:size-0 md:opacity-100
                 " (click)="openAndNavigate('users', '/users/view')">
                 @if(open() === 'users'){
@@ -167,7 +167,7 @@
                 <img src="assets\icons\uncolored\usericon.svg" alt="user">
                 }
             </button>
-            <button [disabled]="open() === 'features'" class="flex flex-row items-center w-full justify-between cursor-pointer
+            <button type="button" [disabled]="open() === 'features'" class="flex flex-row items-center w-full justify-between cursor-pointer
                 opacity-0 md:opacity-100 size-0 md:size-auto md:w-full
                 " (click)="openAndNavigate('features', 'users/view')">
                 <div class=" flex flex-row ">
@@ -215,7 +215,7 @@
     <!-- settings div -->
     <div class="flex flex-col gap-5 w-auto h-auto px-5 py-7">
         <div>
-            <button [disabled]="open() === 'settings'"
+            <button type="button" [disabled]="open() === 'settings'"
                 class="flex flex-row items-center w-full justify-center md:justify-between cursor-pointer"
                 (click)="onRoute('settings')">
                 <div class=" flex flex-row items-center justify-center  ">
@@ -235,7 +235,7 @@
             </button>
         </div>
         <div class="py-2">
-            <button [disabled]="open() === 'profile'"
+            <button type="button" [disabled]="open() === 'profile'"
                 class="flex flex-row  items-center w-full justify-between cursor-pointer" (click)="onRoute('profile')">
                 <div class="flex fex-row items-center">
                     <div class=" rounded-full overflow-hidden size-7 md:size-9 bg-contain  ">

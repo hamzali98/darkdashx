@@ -9,13 +9,12 @@
       "id": "54d1"
     },
     {
-      "id": "769e",
       "username": "hamzali",
       "email": "hamzali@gmail.com",
-      "password": "123456",
-      "c_password": "123456",
+      "password": "",
       "status": false,
-      "role": "user"
+      "role": "user",
+      "id": "769e"
     }
   ],
   "products": [
