@@ -48,20 +48,16 @@ export class SnackBar implements OnInit, OnDestroy {
 
     this.timerSubscription?.unsubscribe();
 
-    // 🔥 REQUIRED in zoneless Angular
     this.cdr.detectChanges();
   }
 
 
 
-  // Getter to apply the appropriate CSS class for the type
   getTypeClass(): string {
     return this.currentSnackbar ? `snackbar-${this.currentSnackbar.type}` : '';
   }
 
-  // Getter to apply the appropriate CSS class for the position
   getPositionClass(): string {
-    // Maps 'top-center' to 'position-top-center' for CSS
     return this.currentSnackbar ? `position-${this.currentSnackbar.position}` : 'position-top-center';
   }
 

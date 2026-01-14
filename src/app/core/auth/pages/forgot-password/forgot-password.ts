@@ -68,7 +68,6 @@ export class ForgotPassword implements OnDestroy {
     this.httpService.getApi(this.authUrl).pipe(
       map(res => {
         const user: credentials = res.body.find(
-          // (u: credentials) => u.email === this.email?.value
           (u: credentials) => {
             if (u.email === this.email) {
               return u;

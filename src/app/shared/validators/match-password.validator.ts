@@ -1,13 +1,5 @@
-// match-password.validator.ts
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 
-/**
- * Custom validator function that checks if two specified controls have the same value.
- *
- * @param controlName The name of the first control (e.g., 'password').
- * @param matchingControlName The name of the second control (e.g., 'confirmPassword').
- * @returns A ValidatorFn that can be applied to a FormGroup.
- */
 export function matchPasswordValidator(
   controlName: string,
   matchingControlName: string

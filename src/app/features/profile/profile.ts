@@ -223,7 +223,7 @@ export class Profile implements OnInit, OnDestroy {
     this.dialogService.open({
       title: '⚠️ Delete Alert',
       content: 'Are you sure you want to delete your account. After deletion account is not recoverable.',
-      type: 'generic' // Custom type for styling/logic in app.component
+      type: 'generic'
     });
   }
 
