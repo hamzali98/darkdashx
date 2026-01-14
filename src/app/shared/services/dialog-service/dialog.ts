@@ -3,8 +3,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface DialogData {
   title: string;
-  content: string; // Generic string content for simplicity
-  type: 'session-expired' | 'generic'; // Use 'session-expired' for your specific use case
+  content: string; 
+  type: 'session-expired' | 'generic'; 
 }
 
 @Injectable({
@@ -27,7 +27,6 @@ export class DialogService {
 
   close() {
     this.isDialogVisible.next(false);
-    // Optionally clear data after closing
     this.dialogData.next(null);
   }
 

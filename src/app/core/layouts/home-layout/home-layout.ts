@@ -71,7 +71,6 @@ export class HomeLayout implements OnInit {
   ngOnInit(): void {
     this.checkScreenSize();
     
-    // Subscribe to sidebar state changes
     this.layoutService.isSidebarOpen$
       .pipe(takeUntil(this.destroy$))
       .subscribe(isOpen => {
@@ -86,13 +85,11 @@ export class HomeLayout implements OnInit {
 
   checkScreenSize() {
     const wasMobile = this.isMobile;
-    this.isMobile = window.innerWidth < 1110; // 768px is Tailwind's 'md' breakpoint
+    this.isMobile = window.innerWidth < 1110; 
     
-    // Close sidebar when switching to mobile if it was open
     if (this.isMobile && !wasMobile) {
       this.layoutService.closeSidebar();
     }
-    // Open sidebar when switching to desktop
     if (!this.isMobile && wasMobile) {
       this.layoutService.closeSidebar();
     }

@@ -53,7 +53,6 @@ export class LoginPage {
     this.httpService.getApi(this.authUrl).pipe(
       map(res => {
         const user = res.body.find(
-          // (u: credentials) => u.email === this.email?.value
           (u: credentials) => {
             if (u.email === this.email?.value && u.password === this.password?.value) {
               return u;
@@ -74,7 +73,6 @@ export class LoginPage {
         console.log(res);
         if (res.success) {
           console.log(res);
-          // localStorage.setItem("user", JSON.stringify(res));
           this.authService.login(res.user, this.remember);
           this.routerRef.navigate(["/"]);
           if (this.remember) {
