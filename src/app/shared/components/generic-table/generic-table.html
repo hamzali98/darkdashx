@@ -1,16 +1,22 @@
 <div class="flex flex-col w-full bg-card-bg text-white border-2 border-gray-800 rounded-xl py-2 mt-2">
     <div class="flex flex-row justify-between py-3.5 px-8.5 pb-5 border-b border-b-gray-800">
         @if(selectedItems >= 1) {
-        <span class="text-white text-[15px] tracking-normal font-worksans font-normal"> Selected entries :
-            {{selectedItems}}</span>
+        <div class="flex flex-row gap-5">
+            <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{selectedItems}}
+                Selected</span>
+            <button class="flex items-center cursor-pointer justify-center ">
+                <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
+            </button>
+        </div>
         } @else {
         <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{tableName()}}</span>
         }
+
         <span class="text-sm font-semibold text-gray-400 px-4.5 ">
             <span class="text-sm font-semibold text-primary ">
-                {{displayStartIndex}} - {{endIndex}}
+                {{startIndex + 1}} - {{endIndex}}
             </span>
-            of {{tableTotal}}
+            of {{tableTotal || 0}}
         </span>
     </div>
 
@@ -33,13 +39,23 @@
                     <th class="px-[7px]  ">
                     </th>
                     @for(column of columns; track $index){
-                    <th class="py-3.5 whitespace-nowrap min-w-[120px] " (click)="doSorting(column.label)">
+                    <th class="py-3.5 whitespace-nowrap min-w-[120px] " (click)="doSorting(column.key)">
                         <div class="flex items-center gap-1 ">
                             <img class="size-2.5" [src]="column.icon" alt="i">
                             <span class="text-[9px] font-medium font-worksans">
                                 {{column.label}}
                             </span>
+                            @if(sortcol() === column.key){
+                            @if(sortdirection() === 'asc'){
+                            <img class="size-3 rotate-180" src="assets/icons/neutral/droparrow.svg" alt="i">
+                            } @else if(sortdirection() === 'dsc'){
+                            <img class="size-3" src="assets/icons/neutral/droparrow.svg" alt="i">
+                            } @else {
                             <img class="size-3.5" src="assets/icons/neutral/sortarrows.svg" alt="i">
+                            }
+                            } @else {
+                            <img class="size-3.5" src="assets/icons/neutral/sortarrows.svg" alt="i">
+                            }
                         </div>
                     </th>
                     }
@@ -96,6 +112,7 @@
                             <img class="size-7 rounded-full shrink-0 " src="assets/images/products/watch.svg" alt="i">
                             }
                             {{getValue(data, column.key) | titlecase}}
+
                         </span>
                         }
                     </td>
@@ -104,11 +121,11 @@
                     <!-- Action Buttons -->
                     <td class="py-6.5 px-0 whitespace-nowrap">
                         <div class="flex px-2 justify-around align-middle items-center cursor-pointer min-w-20 gap-5">
-                            <button (click)="onClickedEdit(tableData[$index])"
+                            <button (click)="onClickedEdit(currentPageData[$index])"
                                 class="flex items-center justify-center ">
                                 <img src="assets/icons/neutral/pencil.svg" class="size-3" alt="act btn" />
                             </button>
-                            <button (click)="onClickedDelete(tableData[$index])"
+                            <button (click)="onClickedDelete(currentPageData[$index])"
                                 class="flex items-center cursor-pointer justify-center ">
                                 <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
                             </button>
@@ -139,7 +156,7 @@
             </select>
         </div>
     </div>
-    <button [disabled]="displayStartIndex === 1" (click)="previousPage()" type="button"
+    <button [disabled]="startIndex + 1 === 1" (click)="previousPage()" type="button"
         class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
         <img class="size-3 shrink-0" src="assets/icons/white/leftarrow.svg" alt="arrow">
     </button>

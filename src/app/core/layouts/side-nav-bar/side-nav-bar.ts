@@ -21,9 +21,9 @@ export class SideNavBar implements OnInit {
   }
 
   ngOnInit() {
-    console.log("ng on init");
+    // console.log("ng on init");
     const route = this.routerRef.routerState.snapshot.url.toString();
-    console.log('active route', route);
+    // console.log('active route', route);
     // this.onOpen('dashboard');
     if(route.startsWith('/users')){
       this.onOpen('users');

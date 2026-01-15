@@ -21,6 +21,8 @@ export class Viewusers implements OnInit {
 
   length: number = 0;
 
+  parentSearchKey = signal('');
+
   url: string = environment.USER_URL;
 
   // totalUsers: number = 0;
@@ -76,7 +78,7 @@ export class Viewusers implements OnInit {
     )
       .subscribe({
         next: (res) => {
-          console.log(res);
+          // console.log(res);
           if (res.body) {
             this.snackService.error("No data found", 2000, 'top-right');
           }
@@ -86,7 +88,7 @@ export class Viewusers implements OnInit {
           // this.loaderService.hideLoader();
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
           this.loaderService.hideLoader();
           this.snackService.error("Server Error!", 2000, 'top-right');
         },
@@ -95,16 +97,16 @@ export class Viewusers implements OnInit {
 
   deleteUserData(val: any) {
     this.loaderService.showLoader();
-    console.log("prod data in prod view", val);
+    // console.log("prod data in prod view", val);
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
-        console.log(res);
+        // console.log(res);
         this.loaderService.hideLoader();
         this.snackService.success("Data deleted successfully!", 2000, 'bottom-right');
         this.getUserData();
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
         this.loaderService.hideLoader();
         this.snackService.error("Server Error!", 2000, 'bottom-right');
       }

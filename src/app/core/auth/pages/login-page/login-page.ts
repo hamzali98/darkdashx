@@ -61,7 +61,7 @@ export class LoginPage {
             }
           }
         );
-        console.log(user);
+        // console.log(user);
         if (user) {
           return { success: true, user };
         } else {
@@ -70,9 +70,9 @@ export class LoginPage {
       }),
     ).subscribe({
       next: (res) => {
-        console.log(res);
+        // console.log(res);
         if (res.success) {
-          console.log(res);
+          // console.log(res);
           this.authService.login(res.user, this.remember);
           this.routerRef.navigate(["/"]);
           if (this.remember) {

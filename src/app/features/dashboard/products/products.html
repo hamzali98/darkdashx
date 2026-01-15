@@ -3,7 +3,7 @@
         <div class="flex flex-col md:flex-row gap-13 items-center ">
             <span class="text-gray-500 dark:text-white font-medium font-inter text-lg tracking-wider">Product
                 List</span>
-            <app-search-bar></app-search-bar>
+            <app-search-bar [(searchKey)]="parentSearchKey"></app-search-bar>
         </div>
         <button (click)="goToroute()" type="button"
             class="rounded-sm text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 cursor-pointer bg-primary">
@@ -20,8 +20,9 @@
     <!-- generic table -->
     <div class="mt-4.5">
         <!-- @if( !loaderService.getLoader() && productData.length){ -->
-        <app-generic-table (onDeleteClicked)="deleteProductData($event)" (onEditClicked)="editproductData($event)"
-            tableName="All Products" [columns]="productColumns" [tableData]="productData" />
+        <app-generic-table [(searchTerm)]="parentSearchKey" (onDeleteClicked)="deleteProductData($event)"
+            (onEditClicked)="editproductData($event)" tableName="All Products" [columns]="productColumns"
+            [tableData]="productData" />
         <!-- } -->
     </div>
 

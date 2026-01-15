@@ -79,7 +79,7 @@ private root!: am5.Root;
       const dataItem : any = ev.target.dataItem;
       if (dataItem) {
         const countryName = dataItem.dataContext.name;
-        console.log("Clicked country:", countryName);
+        // console.log("Clicked country:", countryName);
         alert(`You clicked on ${countryName}`);
       }
     });

@@ -23,8 +23,8 @@ export class BubbleChart implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && this.userChartData && this.productChartData) {
-      console.log(this.userChartData);
-      console.log(this.productChartData);
+      // console.log(this.userChartData);
+      // console.log(this.productChartData);
       // this.prepareDonutChart();
       this.createChart();
     }
