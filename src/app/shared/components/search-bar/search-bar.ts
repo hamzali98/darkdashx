@@ -11,8 +11,11 @@ export class SearchBar {
 
   searchKey = model("");
 
-  updateSerchKey(key: string){
-    this.searchKey.set(key)
-  }
+  // updateSerchKey(key: string){
+  //   this.searchKey.set(key)
+  // }
 
+  updateSerchKey(key: string | null | undefined){
+  this.searchKey.set(key || "");
+}
 }
