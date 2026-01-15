@@ -6,6 +6,7 @@
         } @else {
         <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{tableName()}}</span>
         }
+        
         <span class="text-sm font-semibold text-gray-400 px-4.5 ">
             <span class="text-sm font-semibold text-primary ">
                 {{displayStartIndex}} - {{endIndex}}
@@ -41,9 +42,9 @@
                             </span>
                             @if(sortcol() === column.key){
                             @if(sortdirection() === 'asc'){
-                            <img class="size-3.5 rotate-180" src="assets/icons/neutral/droparrow.svg" alt="i">
+                            <img class="size-3 rotate-180" src="assets/icons/neutral/droparrow.svg" alt="i">
                             } @else if(sortdirection() === 'dsc'){
-                            <img class="size-3.5" src="assets/icons/neutral/droparrow.svg" alt="i">
+                            <img class="size-3" src="assets/icons/neutral/droparrow.svg" alt="i">
                             } @else {
                             <img class="size-3.5" src="assets/icons/neutral/sortarrows.svg" alt="i">
                             }

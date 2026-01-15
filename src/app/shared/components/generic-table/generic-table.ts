@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Input, Output, signal, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output, signal, OnChanges, SimpleChanges, computed, inject, model } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { tableColumns } from '@app/shared/interface/generic-table-interface';
@@ -23,12 +23,16 @@ export class GenericTable<T> implements OnChanges {
 
   sortdirection = signal('');
   sortcol = signal('id');
+  // searchterm = signal('');
+  searchTerm = model('');
 
   currentPageData: T[] = [];
 
   tableName = input("Generic");
 
   checkList: any[] = [];
+
+
 
 
   @Input() tableData: T[] = [];
@@ -40,7 +44,16 @@ export class GenericTable<T> implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tableData']) {
       this.currentPage = 1;
-      this.updatePagedData();
+      const pageResult = this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+      this.currentPageData = pageResult.currentPageData;
+      this.startIndex = pageResult.startIndex;
+      this.endIndex = pageResult.endIndex;
+      // this.tableTotal = pageResult.tableTotal;
+      // this.totalPages = pageResult.totalPages;
+    }
+
+    if (this.searchTerm()) {
+      this.onDataSearch(this.searchTerm());
     }
   }
 
@@ -125,24 +138,58 @@ export class GenericTable<T> implements OnChanges {
 
   onChangePerPage() {
     console.log(this.itemsPerPage);
-    this.updatePagedData();
+    // this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+    const pageResult = this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+      this.currentPageData = pageResult.currentPageData;
+      this.startIndex = pageResult.startIndex;
+      this.endIndex = pageResult.endIndex;
   }
 
-  updatePagedData() {
-    this.startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.endIndex = this.startIndex + this.itemsPerPage;
-    if (this.endIndex > this.tableTotal) {
-      this.endIndex = this.tableTotal;
+  // updatePagedData() {
+  //   this.startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  //   this.endIndex = this.startIndex + this.itemsPerPage;
+  //   if (this.endIndex > this.tableTotal) {
+  //     this.endIndex = this.tableTotal;
+  //   }
+  //   this.currentPageData = this.tableData.slice(this.startIndex, this.endIndex);
+  // }
+
+  updatePagedData<T>(
+    data: T[],
+    currentPage: number,
+    itemsPerPage: number
+  ) {
+    const tableTotal = data.length;
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+
+    let endIndex = startIndex + itemsPerPage;
+    if (endIndex > tableTotal) {
+      endIndex = tableTotal;
     }
-    this.currentPageData = this.tableData.slice(this.startIndex, this.endIndex);
+
+    const currentPageData = data.slice(startIndex, endIndex);
+
+    return {
+      currentPageData,
+      startIndex,
+      endIndex,
+      tableTotal,
+      totalPages: Math.ceil(tableTotal / itemsPerPage),
+    };
   }
+
 
   previousPage() {
     console.log('prev button clicked');
     if (this.currentPage > 1) {
       this.checkList = [];
       this.currentPage--;
-      this.updatePagedData();
+      // this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+      const pageResult = this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+      this.currentPageData = pageResult.currentPageData;
+      this.startIndex = pageResult.startIndex;
+      this.endIndex = pageResult.endIndex;
     }
   }
 
@@ -154,7 +201,11 @@ export class GenericTable<T> implements OnChanges {
       // }
       this.checkList = [];
       this.currentPage++;
-      this.updatePagedData();
+      // this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+      const pageResult = this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+      this.currentPageData = pageResult.currentPageData;
+      this.startIndex = pageResult.startIndex;
+      this.endIndex = pageResult.endIndex;
 
     }
   }
@@ -188,6 +239,49 @@ export class GenericTable<T> implements OnChanges {
       this.currentPageData = this.currentPageData;
     }
   }
+
+  onDataSearch(value: string) {
+    console.log(value);
+    const filtereddata = this.filterData(this.tableData, value);
+    // this.updatePagedData(filtereddata, this.currentPage, this.itemsPerPage);
+    const pageResult = this.updatePagedData(filtereddata, this.currentPage, this.itemsPerPage);
+      this.currentPageData = pageResult.currentPageData;
+      this.startIndex = pageResult.startIndex;
+      this.endIndex = pageResult.endIndex;
+    // if (value) {
+    //   console.log("condition called");
+    //   this.currentPageData = this.currentPageData;
+    //   this.currentPageData = filtereddata;
+    // } else {
+    //   console.log("else called");
+    //   this.updatePagedData();
+    // }
+    // this.currentPageData = this.filterData(this.tableData, value);
+    console.log(this.currentPageData);
+  }
+
+  filterData<T>(data: T[], searchText: string): T[] {
+    if (!searchText) return data;
+
+    const lowerSearch = searchText.toLowerCase();
+
+    return data.filter(item =>
+      JSON.stringify(item)
+        .toLowerCase()
+        .includes(lowerSearch)
+    );
+  }
+
+  // filterUsers(users: any[], search: string) {
+  //   search = search.toLowerCase();
+
+  //   return users.filter(u =>
+  //     u.personal_info.user_name.toLowerCase().includes(search) ||
+  //     u.personal_info.user_email.toLowerCase().includes(search) ||
+  //     u.team_info.team_name.toLowerCase().includes(search)
+  //   );
+  // }
+
 
 }
 

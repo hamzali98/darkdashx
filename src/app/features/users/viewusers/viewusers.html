@@ -2,7 +2,9 @@
     <div class="flex flex-col md:flex-row justify-between items-center ">
         <div class="flex flex-col md:flex-row gap-13 items-center ">
             <span class="text-gray-500 dark:text-white font-medium font-inter text-lg ">Users</span>
-            <app-search-bar></app-search-bar>
+            <app-search-bar
+            [(searchKey)]="parentSearchKey"
+            ></app-search-bar>
         </div>
         <button (click)="onAddUserClick()" type="button"
             class="rounded-sm text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 cursor-pointer bg-primary">
@@ -19,7 +21,9 @@
     </div>
     <!-- generic table -->
     <!-- @if ( !loaderService.getLoader() && userData.length ) { -->
-    <app-generic-table (onDeleteClicked)="deleteUserData($event)" (onEditClicked)="editUserData($event)"
+    <app-generic-table
+    [(searchTerm)]="parentSearchKey"
+    (onDeleteClicked)="deleteUserData($event)" (onEditClicked)="editUserData($event)"
         tableName="All Users" [columns]="userColumns" [tableData]="userData" />
     <!-- } -->
 
