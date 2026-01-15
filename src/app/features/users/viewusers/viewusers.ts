@@ -19,9 +19,9 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 })
 export class Viewusers implements OnInit {
 
-parentSearchKey = signal('');
-
   length: number = 0;
+
+  parentSearchKey = signal('');
 
   url: string = environment.USER_URL;
 

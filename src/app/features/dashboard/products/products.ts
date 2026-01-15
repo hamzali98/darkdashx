@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchBar } from "@app/shared/components/search-bar/search-bar";
 import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
@@ -20,6 +20,9 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 export class Products implements OnInit {
 
   length: number = 0;
+
+  parentSearchKey = signal('');
+
 
   url: string = environment.PRODUCTS_URL;
 

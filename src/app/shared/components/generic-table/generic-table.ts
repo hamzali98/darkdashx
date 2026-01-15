@@ -20,6 +20,8 @@ export class GenericTable<T> implements OnChanges {
   currentPage: number = 1;
   startIndex: number = 0;
   endIndex: number = 0;
+  tableTotal: number = 0;
+  totalPages: number = 0;
 
   sortdirection = signal('');
   sortcol = signal('id');
@@ -48,8 +50,8 @@ export class GenericTable<T> implements OnChanges {
       this.currentPageData = pageResult.currentPageData;
       this.startIndex = pageResult.startIndex;
       this.endIndex = pageResult.endIndex;
-      // this.tableTotal = pageResult.tableTotal;
-      // this.totalPages = pageResult.totalPages;
+      this.tableTotal = pageResult.tableTotal;
+      this.totalPages = pageResult.totalPages;
     }
 
     if (this.searchTerm()) {
@@ -57,9 +59,13 @@ export class GenericTable<T> implements OnChanges {
     }
   }
 
-  get tableTotal() {
-    return this.tableData?.length ?? 0;
-  }
+  // get displayStartIndex() {
+  //   return this.tableData ? this.startIndex + 1 : this.startIndex;
+  // }
+
+  // get tableTotal() {
+  //   return this.tableData?.length ?? 0;
+  // }
 
   get isIndeterminate() {
     // if (this.checkList.length === 0 || this.checkList.length === this.tableData.length) {
@@ -81,6 +87,7 @@ export class GenericTable<T> implements OnChanges {
   get selectedItems() {
     return this.checkList.length;
   }
+
 
   imgSrc(src: any) {
     // console.log("src of img", src);
@@ -132,17 +139,14 @@ export class GenericTable<T> implements OnChanges {
     this.onEditClicked.emit(data);
   }
 
-  get displayStartIndex() {
-    return this.tableData ? this.startIndex + 1 : this.startIndex;
-  }
 
   onChangePerPage() {
     console.log(this.itemsPerPage);
     // this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
     const pageResult = this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
-      this.currentPageData = pageResult.currentPageData;
-      this.startIndex = pageResult.startIndex;
-      this.endIndex = pageResult.endIndex;
+    this.currentPageData = pageResult.currentPageData;
+    this.startIndex = pageResult.startIndex;
+    this.endIndex = pageResult.endIndex;
   }
 
   // updatePagedData() {
@@ -244,10 +248,10 @@ export class GenericTable<T> implements OnChanges {
     console.log(value);
     const filtereddata = this.filterData(this.tableData, value);
     // this.updatePagedData(filtereddata, this.currentPage, this.itemsPerPage);
-    const pageResult = this.updatePagedData(filtereddata, this.currentPage, this.itemsPerPage);
-      this.currentPageData = pageResult.currentPageData;
-      this.startIndex = pageResult.startIndex;
-      this.endIndex = pageResult.endIndex;
+    const pageResult = this.updatePagedData(filtereddata, 1, this.itemsPerPage);
+    this.currentPageData = pageResult.currentPageData;
+    this.startIndex = pageResult.startIndex;
+    this.endIndex = pageResult.endIndex;
     // if (value) {
     //   console.log("condition called");
     //   this.currentPageData = this.currentPageData;
