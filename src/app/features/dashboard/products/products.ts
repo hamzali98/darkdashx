@@ -64,7 +64,7 @@ export class Products implements OnInit {
     )
       .subscribe({
         next: (res) => {
-          console.log(res);
+          // console.log(res);
           if (res.body) {
             this.snackService.error("No data found", 2000, 'top-right');
           }
@@ -74,7 +74,7 @@ export class Products implements OnInit {
           // this.loaderService.hideLoader();
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
           this.snackService.error("Data fetching failed!", 2000, 'top-right');
           // this.loaderService.hideLoader();
         },
@@ -83,24 +83,24 @@ export class Products implements OnInit {
 
   deleteProductData(val: product) {
     this.loaderService.showLoader();
-    console.log("prod data in prod view", val);
+    // console.log("prod data in prod view", val);
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
         this.snackService.success("Data deleted successfully!", 2000, 'bottom-right');
-        console.log(res);
+        // console.log(res);
         this.loaderService.hideLoader();
         this.getProductData();
       },
       error: (err) => {
         this.snackService.error("Data deletion failed!", 2000, 'bottom-right');
-        console.log(err);
+        // console.log(err);
         this.loaderService.hideLoader();
       }
     })
   }
 
   editproductData(val: product) {
-    console.log("editing data", val);
+    // console.log("editing data", val);
     this.loaderService.showLoader();
     this.productFormService.patchFormData(val);
     this.loaderService.hideLoader();

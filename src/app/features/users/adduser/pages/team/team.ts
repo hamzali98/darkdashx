@@ -52,36 +52,36 @@ export class Team {
   }
 
   onFormSubmit() {
-    console.log("form data", this.userFormSubmit.value);
+    // console.log("form data", this.userFormSubmit.value);
     if(this.userForm.editing()){
       this.loaderService.showLoader();
-      console.log("Id for previous data", this.userForm.editingId());
+      // console.log("Id for previous data", this.userForm.editingId());
       const id = this.userForm.editingId();
-      console.log("ID : ", id);
-    console.log("Whole Form", this.userFormSubmit.value);
+    //   console.log("ID : ", id);
+    // console.log("Whole Form", this.userFormSubmit.value);
     this.httpService.editApi(this.url, id, this.userFormSubmit.value).subscribe({
       next: (res) => {
-        console.log(res);
+        // console.log(res);
         this.userForm.resetForm();
         this.routerRef.navigate(['/users/view']);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
         this.loaderService.hideLoader();
       }
     })
     } else {
 
       this.loaderService.showLoader();
-      console.log("Whole Form", this.userFormSubmit.value);
+      // console.log("Whole Form", this.userFormSubmit.value);
       this.httpService.addApi(this.url, this.userFormSubmit.value).subscribe({
         next: (res) => {
-          console.log(res);
+          // console.log(res);
           this.userForm.resetForm();
           this.routerRef.navigate(['/users/view']);
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
           this.loaderService.hideLoader();
         }
       })

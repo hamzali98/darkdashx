@@ -22,11 +22,11 @@ export class GenericSideBar<T> implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("ng on init");
+    // console.log("ng on init");
     const route = this.routerRef.routerState.snapshot.url.toString();
-    console.log('active route', route);
+    // console.log('active route', route);
     const rout: any = route.split('/').at(1);
-    console.log(rout);
+    // console.log(rout);
     this.layoutService.onOpen(rout.toString());
   }
 

@@ -81,13 +81,13 @@ export class SignupPage {
     this.loaderService.showLoader();
     this.httpService.addApi(this.AuthURL, this.signupForm.value).subscribe({
       next: (res) => {
-        console.log(res);
+        // console.log(res);
         this.snackService.success("Account created successfully!", 2000, 'bottom-center');
         this.loaderService.hideLoader();
         this.routerRef.navigate(['/login']);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
         this.snackService.error("Server Error no user created!", 2000, 'bottom-center');
         this.loaderService.hideLoader();
       }

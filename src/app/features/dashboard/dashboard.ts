@@ -47,12 +47,12 @@ export class Dashboard implements OnInit {
     this.loaderService.showLoader();
     this.httpService.getApi(this.userURL).subscribe({
       next: (res) => {
-        console.log(res);
+        // console.log(res);
         this.userData = res.body;
         this.getProductData();
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
         this.loaderService.hideLoader();
         this.snackService.error("Server Error!", 2000, 'top-left');
 
@@ -63,12 +63,12 @@ export class Dashboard implements OnInit {
   getProductData() {
     this.httpService.getApi(this.productURL).subscribe({
       next: (res) => {
-        console.log(res);
+        // console.log(res);
         this.productData = res.body;
         this.loaderService.hideLoader();
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
         this.loaderService.hideLoader();
         this.snackService.error("Server Error!", 2000, 'top-left');
       }

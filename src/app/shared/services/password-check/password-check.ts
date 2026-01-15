@@ -7,7 +7,7 @@ export class PasswordCheck {
   
 
   checkPasswordStrength(password: string) {
-    console.log("password strength called");
+    // console.log("password strength called");
 
     const lengthRegex = /.{8}/;
     const upperRegex = /[A-Z]/;

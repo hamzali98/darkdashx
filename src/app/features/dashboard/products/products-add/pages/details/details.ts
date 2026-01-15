@@ -50,32 +50,32 @@ export class Details {
   onFormSubmit() {
     if (this.prodcutFormService.editing()) {
       this.loaderService.showLoader();
-      console.log("Id for previous data", this.prodcutFormService.editingId());
+      // console.log("Id for previous data", this.prodcutFormService.editingId());
       const id = this.prodcutFormService.editingId();
-      console.log("ID : ", id);
-      console.log("Whole Form", this.productFormSubmit.value);
+      // console.log("ID : ", id);
+      // console.log("Whole Form", this.productFormSubmit.value);
       this.httpService.editApi(this.url, id, this.productFormSubmit.value).subscribe({
         next: (res) => {
-          console.log(res);
+          // console.log(res);
           this.prodcutFormService.resetForm();
           this.routerRef.navigate(['/home/products']);
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
           this.loaderService.hideLoader();
         }
       })
     } else {
       this.loaderService.showLoader();
-      console.log("Whole Form", this.productFormSubmit.value);
+      // console.log("Whole Form", this.productFormSubmit.value);
       this.httpService.addApi(this.url, this.productFormSubmit.value).subscribe({
         next: (res) => {
-          console.log(res);
+          // console.log(res);
           this.prodcutFormService.resetForm();
           this.routerRef.navigate(['/home/products']);
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
           this.loaderService.hideLoader();
         }
       })

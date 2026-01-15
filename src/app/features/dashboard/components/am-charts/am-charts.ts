@@ -26,8 +26,8 @@ export class AmCharts implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes && this.productChartData && this.userChartData) {
-      console.log(this.userChartData);
-      console.log(this.productChartData);
+      // console.log(this.userChartData);
+      // console.log(this.productChartData);
       this.prepareBarChart();
     }
   }
@@ -62,7 +62,7 @@ export class AmCharts implements OnChanges {
       totalStock: categoryMap[category].stock
     }));
 
-    console.log("data : ", data);
+    // console.log("data : ", data);
 
     // Chart code goes in here
     this.browserOnly(() => {

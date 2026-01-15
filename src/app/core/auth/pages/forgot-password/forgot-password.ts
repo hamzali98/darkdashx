@@ -76,7 +76,7 @@ export class ForgotPassword implements OnDestroy {
             }
           }
         );
-        console.log(user);
+        // console.log(user);
         if (user) {
           return { success: true, user };
         } else {
@@ -85,7 +85,7 @@ export class ForgotPassword implements OnDestroy {
       }),
     ).subscribe({
       next: (res) => {
-        console.log(res);
+        // console.log(res);
         if (res.success) {
           this.flag = true;
           this.email = '';
@@ -109,7 +109,7 @@ export class ForgotPassword implements OnDestroy {
     const uId = this.user.id;
     this.httpService.editApi(this.authUrl, uId, this.user).subscribe({
       next: (res) => {
-        console.log(res);
+        // console.log(res);
         this.flag = true;
         this.email = '';
         this.user = {} as credentials;

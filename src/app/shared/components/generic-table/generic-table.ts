@@ -159,7 +159,7 @@ export class GenericTable<T> implements OnChanges {
 
 
   onChangePerPage() {
-    console.log(this.itemsPerPage);
+    // console.log(this.itemsPerPage);
     // this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
     const pageResult = this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
     this.currentPageData = pageResult.currentPageData;
@@ -203,7 +203,7 @@ export class GenericTable<T> implements OnChanges {
 
 
   previousPage() {
-    console.log('prev button clicked');
+    // console.log('prev button clicked');
     if (this.currentPage > 1) {
       this.checkList = [];
       this.currentPage--;
@@ -216,7 +216,7 @@ export class GenericTable<T> implements OnChanges {
   }
 
   nextPage() {
-    console.log('next button clicked');
+    // console.log('next button clicked');
     const totalpages = this.tableData.length / this.itemsPerPage;
     if (this.currentPage < totalpages) {
       // if(this.checkList.length >= 1) {
@@ -294,7 +294,7 @@ export class GenericTable<T> implements OnChanges {
       this.totalPages = pageResult.totalPages;
       return;
     }
-    console.log(value);
+    // console.log(value);
     const filtereddata = this.filterData(this.tableData, value);
     // this.updatePagedData(filtereddata, this.currentPage, this.itemsPerPage);
     const pageResult = this.updatePagedData(filtereddata, 1, this.itemsPerPage);
@@ -313,7 +313,7 @@ export class GenericTable<T> implements OnChanges {
     //   this.updatePagedData();
     // }
     // this.currentPageData = this.filterData(this.tableData, value);
-    console.log(this.currentPageData);
+    // console.log(this.currentPageData);
   }
 
   filterData<T>(data: T[], searchText: string): T[] {
