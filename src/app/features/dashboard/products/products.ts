@@ -19,8 +19,9 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 })
 export class Products implements OnInit {
 
-  length: number = 0;
+  // length: number = 0;
 
+  length = signal(0);
   parentSearchKey = signal('');
 
 
@@ -68,8 +69,11 @@ export class Products implements OnInit {
           if (res.body) {
             this.snackService.error("No data found", 2000, 'top-right');
           }
-          this.productData = res.body;
-          this.length = this.productData.length;
+          setTimeout(() => {
+            this.productData = res.body;
+          }, 2000);
+          // this.length.set(this.productData.length ?? 0);
+          // this.length = this.productData.length;
           this.snackService.success("Data fetched successfully!", 2000, 'top-right');
           // this.loaderService.hideLoader();
         },
