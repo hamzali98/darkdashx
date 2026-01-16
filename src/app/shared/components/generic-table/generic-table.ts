@@ -158,11 +158,11 @@ export class GenericTable<T> implements OnChanges {
     }).subscribe(result => {
       if (result) {
         // User clicked OK - proceed with delete
-        console.log('User confirmed deletion');
+        // console.log('User confirmed deletion');
         this.onDeleteClicked.emit(data);
       } else {
         // User clicked Cancel - do nothing
-        console.log('User cancelled deletion');
+        // console.log('User cancelled deletion');
       }
     });
     // console.log(data);

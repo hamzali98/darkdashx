@@ -22,7 +22,8 @@ export class LogoutBtn {
       if (result) {
         this.layoutService.onLogout();
       } else {
-        this.dialogService.close();
+        // this.dialogService.close();
+        
       }
     })
   }
