@@ -1,9 +1,9 @@
 import { Component, EventEmitter, input, Input, Output, signal, OnChanges, SimpleChanges, computed, inject, model } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { NgClass, TitleCasePipe, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { tableColumns } from '@app/shared/interface/generic-table-interface';
-import { TitleCasePipe, CurrencyPipe } from '@angular/common';
 import { DataError } from "../data-error/data-error";
+import { DialogService } from '@app/shared/services/dialog-service/dialog';
 
 @Component({
   selector: 'app-generic-table',
@@ -27,7 +27,7 @@ export class GenericTable<T> implements OnChanges {
 
   currentPageData: T[] = [];
   checkList: any[] = [];
-  
+
   tableName = input("Generic");
   @Input() itemsPerPage: number = 5;
   @Input() initialPage: number = 1;
@@ -37,6 +37,8 @@ export class GenericTable<T> implements OnChanges {
 
   @Output() onDeleteClicked: EventEmitter<any> = new EventEmitter();
   @Output() onEditClicked: EventEmitter<any> = new EventEmitter();
+
+  private dialogService = inject(DialogService);
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tableData'] && this.tableData) {
@@ -149,8 +151,22 @@ export class GenericTable<T> implements OnChanges {
   }
 
   onClickedDelete(data: T) {
+    this.dialogService.open({
+      title: '⚠️ Action Alert',
+      message: 'Are you sure you want to delete this entry',
+      type: 'generic'
+    }).subscribe(result => {
+      if (result) {
+        // User clicked OK - proceed with delete
+        // console.log('User confirmed deletion');
+        this.onDeleteClicked.emit(data);
+      } else {
+        // User clicked Cancel - do nothing
+        // console.log('User cancelled deletion');
+      }
+    });
     // console.log(data);
-    this.onDeleteClicked.emit(data);
+    // this.onDeleteClicked.emit(data);
   }
 
   onClickedEdit(data: T) {
