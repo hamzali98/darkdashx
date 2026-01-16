@@ -128,45 +128,45 @@ export class Profile implements OnInit, OnDestroy {
   passcheck() {
     // debounceTime(1000);
     // console.log(this.oldpass);
-    
+
     setTimeout(() => {
       this.loader.set(true);
 
-    this.httpService.getApi(this.URL).pipe(
-      // debounceTime(3000),
-      map(res => {
-        const state: boolean = res.body.find(
-          // (u: credentials) => u.email === this.email?.value
-          (u: credentials) => {
-            if (u.password === this.oldpass) {
-              return true;
-            } else {
-              return false;
+      this.httpService.getApi(this.URL).pipe(
+        // debounceTime(3000),
+        map(res => {
+          const state: boolean = res.body.find(
+            // (u: credentials) => u.email === this.email?.value
+            (u: credentials) => {
+              if (u.password === this.oldpass) {
+                return true;
+              } else {
+                return false;
+              }
             }
+          );
+          // console.log(state);
+          if (state) {
+            return true;
+          } else {
+            return false;
           }
-        );
-        // console.log(state);
-        if (state) {
-          return true;
-        } else {
-          return false;
+        })
+      ).subscribe({
+        next: (res) => {
+          // console.log(res);
+          if (res) {
+            this.message = "";
+          } else {
+            this.message = "Wrong Password"
+          }
+          this.loader.set(false);
+        },
+        error: (err) => {
+          this.message = "Server error!";
+          this.loader.set(false);
         }
       })
-    ).subscribe({
-      next: (res) => {
-        // console.log(res);
-        if (res) {
-          this.message = "";
-        } else {
-          this.message = "Wrong Password"
-        }
-        this.loader.set(false);
-      },
-      error: (err) => {
-        this.message = "Server error!";
-        this.loader.set(false);
-      }
-    })
     }, 1000);
   }
 
@@ -187,7 +187,7 @@ export class Profile implements OnInit, OnDestroy {
     // this.isOn = !this.isOn;
   }
 
-  onReset(){
+  onReset() {
     // this.profileForm.pas;
     this.patchValues();
     this.password?.reset();
