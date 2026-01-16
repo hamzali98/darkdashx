@@ -23,12 +23,13 @@
         </div>
         } @else {
         <div class=" flex justify-around mt-4 text-right">
-            <button type="button" class="px-6 py-2 bg-primary-bg border border-white cursor-pointer text-secondary rounded"
-                (click)="dialogService.close()">
+            <button type="button"
+                class="px-6 py-2 bg-primary-bg border border-white cursor-pointer text-secondary rounded"
+                (click)="dialogService.close(false)">
                 Cancel
             </button>
             <button type="button" class="px-8 py-2 bg-primary text-secondary cursor-pointer rounded"
-                (click)="dialogService.close()">
+                (click)="dialogService.close(true)">
                 OK
             </button>
         </div>
