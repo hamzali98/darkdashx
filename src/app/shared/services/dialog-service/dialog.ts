@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 export interface DialogData {
   title: string;
-  content: string;
+  message: string;
   type: 'session-expired' | 'generic';
 }
 

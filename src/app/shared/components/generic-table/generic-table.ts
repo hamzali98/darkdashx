@@ -153,7 +153,7 @@ export class GenericTable<T> implements OnChanges {
   onClickedDelete(data: T) {
     this.dialogService.open({
       title: '⚠️ Action Alert',
-      content: 'Are you sure you want to delete this entry',
+      message: 'Are you sure you want to delete this entry',
       type: 'generic'
     }).subscribe(result => {
       if (result) {
