@@ -59,7 +59,7 @@
                 <div
                     class="flex flex-row items-center justify-between px-2 border-e border-s border-gray-700 h-10 w-full">
                     <label for="newpass" class="text-figma-neutral text-sm ">New Password</label>
-                    @if(password?.value){
+                    @if(password?.value && password?.touched){
                     <div [ngClass]="passwordStrengthColorGetter" class="flex flex-row items-center px-2 ">
                         <div class=" flex flex-row w-20 h-2 p-0.5 rounded-full border ">
                             <div [ngClass]="passwordStrengthProgressGetter" class="rounded-full h-full"></div>
@@ -73,7 +73,7 @@
                 <div
                     class="flex flex-row items-center justify-between px-2 rounded-b-md border border-gray-700 h-10 w-full">
                     <label for="cnewpass" class="text-figma-neutral text-sm ">Confirm new Password</label>
-                    @if(password?.value){
+                    @if(password?.value && password?.touched){
                     @if(passcnfrm){
                     <span class="py-1 px-4 text-green-600 text-[12px] font-light">Matched</span>
                     } @else {

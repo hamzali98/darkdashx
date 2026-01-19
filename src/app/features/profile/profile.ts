@@ -49,9 +49,9 @@ export class Profile implements OnInit, OnDestroy {
 
   constructor() {
     this.profileForm = new FormGroup({
-      username: new FormControl('', Validators.required),
+      username: new FormControl(''),
       email: new FormControl('', [customEmailValidator]),
-      password: new FormControl('', Validators.required),
+      password: new FormControl(''),
       status: new FormControl(false),
       role: new FormControl(""),
     });
@@ -97,15 +97,23 @@ export class Profile implements OnInit, OnDestroy {
   }
 
   get btndisableGetter() {
-    if (this.profileForm.invalid) {
-      return true;
-    } else if (this.passcnfrm === false) {
-      return true;
-    } else if (this.message !== '') {
+    if (this.profileForm.pristine) {
       return true;
     } else {
-      return false;
-    }
+      return false; 
+    } 
+    // if (this.profileForm.touched) {
+    //   return true;
+    // } else if (this.passcnfrm === false) {
+    //   // if (this.passcnfrm === false) {
+    //   //   return true;
+    //   // }
+    //   return false;
+    // } else if (this.message !== '') {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
     // return profileForm.invalid && passcnfrm === false && message !== ''
   }
 
@@ -122,6 +130,7 @@ export class Profile implements OnInit, OnDestroy {
     this.profileForm.patchValue({
       username: this.user?.username,
       email: this.user?.email,
+      password: this.user?.password,
     });
   }
 
@@ -190,7 +199,7 @@ export class Profile implements OnInit, OnDestroy {
   onReset() {
     // this.profileForm.pas;
     this.patchValues();
-    this.password?.reset();
+    // this.password?.reset();
     this.message = '';
     this.oldpass = "";
     this.cnfrmpass = "";
