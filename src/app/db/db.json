@@ -11,7 +11,7 @@
     {
       "username": "hamzali",
       "email": "hamzali@gmail.com",
-      "password": "",
+      "password": "123456",
       "status": false,
       "role": "user",
       "id": "769e"
@@ -19,10 +19,9 @@
   ],
   "products": [
     {
-      "id": "9d1f",
       "status": false,
       "basic_info": {
-        "product_name": "product",
+        "product_name": "Mobile",
         "product_category": "cosmetics",
         "product_price": 56,
         "product_company": "linkedin"
@@ -32,7 +31,8 @@
         "product_regno": "5686",
         "product_mfg": "2025-12-31",
         "product_stock": 3
-      }
+      },
+      "id": "9d1f"
     },
     {
       "status": false,
@@ -196,28 +196,6 @@
         "team_rank": "rank",
         "team_office": "office",
         "team_mail": "user2team@email.com"
-      }
-    },
-    {
-      "id": "e6ca",
-      "status": false,
-      "personal_info": {
-        "user_name": "user 45",
-        "user_email": "user45@gmail.com",
-        "user_photo": "",
-        "user_desc": "hello"
-      },
-      "basic_info": {
-        "user_phone": "3546568987",
-        "user_position": "pos",
-        "user_location": "loc",
-        "user_website": "www.web.com"
-      },
-      "team_info": {
-        "team_name": "facebook",
-        "team_rank": "rank",
-        "team_office": "office",
-        "team_mail": "team@email.com"
       }
     },
     {
