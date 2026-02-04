@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export interface DialogData {
   title: string;
   message: string;
+  actbtn: string;
   type: 'session-expired' | 'generic';
 }
 
