@@ -10,7 +10,7 @@ import { PasswordCheck } from '@app/shared/services/password-check/password-chec
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { customEmailValidator } from '@app/shared/validators/email-validator';
 import { environment } from '@environments/environment.development';
-import { BehaviorSubject, debounceTime, fromEvent, map, timeout } from 'rxjs';
+import { BehaviorSubject, debounceTime, delay, fromEvent, map, timeout } from 'rxjs';
 
 export interface profilesociallinkbtns {
   alt: string,
@@ -100,8 +100,8 @@ export class Profile implements OnInit, OnDestroy {
     if (this.profileForm.pristine) {
       return true;
     } else {
-      return false; 
-    } 
+      return false;
+    }
     // if (this.profileForm.touched) {
     //   return true;
     // } else if (this.passcnfrm === false) {
@@ -138,45 +138,50 @@ export class Profile implements OnInit, OnDestroy {
     // debounceTime(1000);
     // console.log(this.oldpass);
 
-    setTimeout(() => {
-      this.loader.set(true);
+    // setTimeout(() => {
+    if (this.oldpass.length >= 3 || this.oldpass.length === 0) {
 
-      this.httpService.getApi(this.URL).pipe(
-        // debounceTime(3000),
-        map(res => {
-          const state: boolean = res.body.find(
-            // (u: credentials) => u.email === this.email?.value
-            (u: credentials) => {
-              if (u.password === this.oldpass) {
-                return true;
-              } else {
-                return false;
-              }
+      this.loader.set(true),
+        this.httpService.getApi(this.URL).pipe(
+          delay(600),
+          map(res => {
+            const state = res.body.some(
+              (u: credentials) => u.password === this.oldpass
+            );
+            // const state: boolean = res.body.find(
+            //   // (u: credentials) => u.email === this.email?.value
+            //   (u: credentials) => {
+            //     if (u.password === this.oldpass) {
+            //       return true;
+            //     } else {
+            //       return false;
+            //     }
+            //   }
+            // );
+            // console.log(state);
+            if (state) {
+              return true;
+            } else {
+              return false;
             }
-          );
-          // console.log(state);
-          if (state) {
-            return true;
-          } else {
-            return false;
+          }),
+        ).subscribe({
+          next: (res) => {
+            // console.log(res);
+            if (res) {
+              this.message = "";
+            } else {
+              this.message = "Wrong Password"
+            }
+            this.loader.set(false);
+          },
+          error: (err) => {
+            this.message = "Server error!";
+            this.loader.set(false);
           }
-        })
-      ).subscribe({
-        next: (res) => {
-          // console.log(res);
-          if (res) {
-            this.message = "";
-          } else {
-            this.message = "Wrong Password"
-          }
-          this.loader.set(false);
-        },
-        error: (err) => {
-          this.message = "Server error!";
-          this.loader.set(false);
-        }
-      })
-    }, 1000);
+        });
+    }
+    // }, 1000);
   }
 
   toggle(action: string) {
@@ -230,6 +235,7 @@ export class Profile implements OnInit, OnDestroy {
 
   onDelete() {
     this.dialogService.open({
+      actbtn: "Delete",
       title: '⚠️ Delete Alert',
       message: 'Are you sure you want to delete your account. After deletion account is not recoverable.',
       type: 'generic'
@@ -247,5 +253,6 @@ export class Profile implements OnInit, OnDestroy {
     this.cnfrmpass = "";
     this.user = {} as credentials | null;
     this.profileForm.reset;
+    // clearTimeout();
   }
 }
