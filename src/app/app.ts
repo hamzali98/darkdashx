@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { Loaderservice } from './shared/services/loader/loaderservice';
 import { Loader } from "./shared/components/loader/loader";
 import { SnackBar } from "./shared/components/snack-bar/snack-bar";
@@ -10,7 +10,7 @@ import { AuthService } from './core/auth/services/auth-service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Loader, SnackBar, GenericDialog, AsyncPipe],
+  imports: [RouterOutlet, Loader, SnackBar, GenericDialog, AsyncPipe, NgTemplateOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -21,8 +21,12 @@ export class App {
   private authService = inject(AuthService);
   dialogService = inject(DialogService);
 
-  get loaderState() {
-    return this.loaderService.getLoader();
+  // get loaderState() {
+  //   return this.loaderService.getLoader();
+  // }
+
+  get loaderServiceRef() {
+    return this.loaderService;
   }
 
   onLogout() {
