@@ -13,6 +13,7 @@ export const authGuardGuard: CanActivateFn = (route, state) => {
   }
 
   dialogService.open({
+    actbtn: 'Login Again',
     title: '⚠️ Session Expired',
     message: 'Your session has expired due to inactivity. Please log in again to continue.',
     type: 'session-expired'

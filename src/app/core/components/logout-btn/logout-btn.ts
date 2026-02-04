@@ -15,6 +15,7 @@ export class LogoutBtn {
 
   onLogout() {
     this.dialogService.open({
+      actbtn: "Logout",
       title: "⚠️ Logout",
       message: "Are you sure to logout?",
       type: "generic"

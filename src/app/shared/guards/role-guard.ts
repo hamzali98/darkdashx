@@ -17,6 +17,7 @@ export const roleGuard: CanActivateFn = (route, state) => {
   }
 
   dialogService.open({
+    actbtn: 'Return',
     title: '⚠️ Access Denied',
     message: 'This user does not have access to this application feature.',
     type: 'session-expired'
