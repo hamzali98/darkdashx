@@ -6,10 +6,12 @@ import { AuthService } from '@app/core/auth/services/auth-service';
 import { MainLogo } from "@app/core/components/main-logo/main-logo";
 import { Layout } from '@app/core/services/layout';
 import { LogoutBtn } from "@app/core/components/logout-btn/logout-btn";
+import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-generic-side-bar',
-  imports: [RouterLink, NgClass, MainLogo, LogoutBtn],
+  imports: [RouterLink, NgClass, MainLogo, LogoutBtn, LanguageSwitcherComponent, TranslateModule],
   templateUrl: './generic-side-bar.html',
   styleUrl: './generic-side-bar.css',
 })

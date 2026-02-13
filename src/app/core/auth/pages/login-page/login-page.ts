@@ -8,16 +8,19 @@ import { environment } from '@environments/environment.development';
 import { finalize, map } from 'rxjs';
 import { credentials } from '../../interface/credentials';
 import { AuthService } from '../../services/auth-service';
+import { TranslationService } from '@app/core/services/translate.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, TranslateModule],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
 export class LoginPage {
 
   data: credentials[] = [];
+  isRTL: boolean;
 
   loginForm: FormGroup;
 
@@ -30,8 +33,10 @@ export class LoginPage {
   private loaderService = inject(Loaderservice);
   private routerRef = inject(Router);
   private authService = inject(AuthService);
+  private translationService = inject(TranslationService);
 
   constructor() {
+    this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.loginForm = new FormGroup({
       email: new FormControl("", Validators.required),
       password: new FormControl("", Validators.required),
@@ -65,7 +70,7 @@ export class LoginPage {
         if (user) {
           return { success: true, user };
         } else {
-          return { success: false, message: 'Email or Password Incorrect!' };
+          return { success: false, message: this.isRTL ? 'ای میل یا پاس ورڈ غلط ہے!' : 'Email or Password Incorrect!' };
         }
       }),
     ).subscribe({
@@ -78,7 +83,7 @@ export class LoginPage {
           if (this.remember) {
 
           }
-          this.snackService.success("Login successfull!", 2000, 'top-center');
+          this.snackService.success(this.isRTL ? "لاگ ان کامیاب ہو گیا!" : "Login successfull!", 2000, 'top-center');
         } else {
           this.snackService.error(
             `${res.message}`,
@@ -90,7 +95,8 @@ export class LoginPage {
       },
       error: (err) => {
         console.error(err);
-        this.snackService.error(
+        this.snackService.error( 
+          this.isRTL ? "سرور کی خرابی!" :
           "Server Error!",
           2000,
           'top-center'

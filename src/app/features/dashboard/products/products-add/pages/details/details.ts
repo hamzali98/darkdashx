@@ -5,10 +5,11 @@ import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment.development';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-details',
-  imports: [ReactiveFormsModule, FormsModule,],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule],
   templateUrl: './details.html',
   styleUrl: './details.css',
 })

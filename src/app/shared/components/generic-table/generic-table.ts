@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { tableColumns } from '@app/shared/interface/generic-table-interface';
 import { DataError } from "../data-error/data-error";
 import { DialogService } from '@app/shared/services/dialog-service/dialog';
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslationService } from '@app/core/services/translate.service';
 
 @Component({
   selector: 'app-generic-table',
-  imports: [FormsModule, NgClass, TitleCasePipe, CurrencyPipe, DataError],
+  imports: [FormsModule, NgClass, TitleCasePipe, CurrencyPipe, DataError, TranslateModule],
   templateUrl: './generic-table.html',
   styleUrl: './generic-table.css',
 })
@@ -39,6 +41,7 @@ export class GenericTable<T> implements OnChanges {
   @Output() onEditClicked: EventEmitter<any> = new EventEmitter();
 
   private dialogService = inject(DialogService);
+  private translateService = inject(TranslationService);
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tableData'] && this.tableData) {
@@ -151,10 +154,11 @@ export class GenericTable<T> implements OnChanges {
   }
 
   onClickedDelete(data: T) {
+    const isRTL = this.translateService.getCurrentLanguage() === 'ur';
     this.dialogService.open({
-      actbtn: 'Delete',
-      title: '⚠️ Action Alert',
-      message: 'Are you sure you want to delete this entry',
+      actbtn: isRTL ? 'حذف کریں' : 'Delete',
+      title: isRTL ? '⚠️ حذف کرنے کی انتباہ' : '⚠️ Action Alert',
+      message: isRTL ? 'کیا آپ واقعی اس اندراج کو حذف کرنا چاہتے ہیں؟' : 'Are you sure you want to delete this entry',
       type: 'generic'
     }).subscribe(result => {
       if (result) {

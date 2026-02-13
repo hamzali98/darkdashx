@@ -7,8 +7,8 @@ import { childnav } from '@app/shared/interface/child-nav-interface';
 export class ChildNavBarService {
 
   private readonly productAddRoutes: childnav[] = [
-    { route: "/home/products/add/1", icon: "assets/icons/neutral/product.svg", tiletitle: "Basic Information" },
-    { route: "/home/products/add/2", icon: "assets/icons/neutral/stock.svg", tiletitle: "Detailed Information" },
+    { route: "/home/products/add/1", icon: "assets/icons/neutral/product.svg", tiletitle: "DPROD.BASIC_INFO" },
+    { route: "/home/products/add/2", icon: "assets/icons/neutral/stock.svg", tiletitle: "DPROD.DETAILED_INFO" },
   ];
 
   private readonly userAddRoutes: childnav[] = [

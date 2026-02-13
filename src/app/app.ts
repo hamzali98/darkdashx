@@ -7,10 +7,11 @@ import { SnackBar } from "./shared/components/snack-bar/snack-bar";
 import { GenericDialog } from './shared/components/generic-dialog/generic-dialog';
 import { DialogService, DialogData } from './shared/services/dialog-service/dialog';
 import { AuthService } from './core/auth/services/auth-service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Loader, SnackBar, GenericDialog, AsyncPipe, NgTemplateOutlet],
+  imports: [RouterOutlet, Loader, SnackBar, GenericDialog, AsyncPipe, NgTemplateOutlet, TranslateModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -21,6 +22,7 @@ export class App {
   private authService = inject(AuthService);
   dialogService = inject(DialogService);
 
+  constructor() { }
   // get loaderState() {
   //   return this.loaderService.getLoader();
   // }

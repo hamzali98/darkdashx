@@ -1,8 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-generic-dialog',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './generic-dialog.html',
   styleUrl: './generic-dialog.css',
 })

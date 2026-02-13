@@ -11,6 +11,9 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 import { customEmailValidator } from '@app/shared/validators/email-validator';
 import { environment } from '@environments/environment.development';
 import { BehaviorSubject, debounceTime, delay, fromEvent, map, timeout } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from '@app/core/components/language-switcher/language-switcher.component';
+import { TranslationService } from '@app/core/services/translate.service';
 
 export interface profilesociallinkbtns {
   alt: string,
@@ -19,11 +22,12 @@ export interface profilesociallinkbtns {
 
 @Component({
   selector: 'app-profile',
-  imports: [NgClass, ReactiveFormsModule, FormsModule],
+  imports: [NgClass, ReactiveFormsModule, FormsModule, TranslateModule],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
 export class Profile implements OnInit, OnDestroy {
+  isRTL: boolean;
 
   smsOn = false;
   tfaOn = false;
@@ -46,8 +50,10 @@ export class Profile implements OnInit, OnDestroy {
   private dialogService = inject(DialogService);
   private passwordService = inject(PasswordCheck);
   private snackService = inject(SnackBarService);
+  private translationService = inject(TranslationService);
 
   constructor() {
+    this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.profileForm = new FormGroup({
       username: new FormControl(''),
       email: new FormControl('', [customEmailValidator]),
@@ -171,17 +177,30 @@ export class Profile implements OnInit, OnDestroy {
             if (res) {
               this.message = "";
             } else {
-              this.message = "Wrong Password"
+              if(this.isRTL){
+                this.message = "غلط پاس ورڈ";
+              } else {
+                this.message = "Wrong Password";
+              }
             }
             this.loader.set(false);
           },
           error: (err) => {
-            this.message = "Server error!";
+            if(this.isRTL){
+              this.message = "سرور کی خرابی!";
+            } else {  
+              this.message = "Server error!";
+            }
             this.loader.set(false);
           }
         });
     }
     // }, 1000);
+  }
+
+  onPassChange() {
+    // console.log(password?.value);
+    // console.log(passwordStrengthGetter);
   }
 
   toggle(action: string) {
@@ -223,21 +242,22 @@ export class Profile implements OnInit, OnDestroy {
       next: (res) => {
         // console.log(res);
         this.authService.login(res, true);
-        this.snackService.success("Profile edited", 2000, 'top-center');
+        this.snackService.success(this.isRTL ? "پروفائل کامیابی سے اپ ڈیٹ ہو گیا!" : "Profile edited", 2000, 'top-center');
       },
       error: (err) => {
         // console.log(err);
-        this.snackService.error("Server error", 2000, 'top-center');
+        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error", 2000, 'top-center');
       }
     }
     );
   }
 
   onDelete() {
+    const isRTL = this.isRTL;
     this.dialogService.open({
-      actbtn: "Delete",
-      title: '⚠️ Delete Alert',
-      message: 'Are you sure you want to delete your account. After deletion account is not recoverable.',
+      actbtn: isRTL ? 'حذف کریں' : 'Delete',
+      title: isRTL ? '⚠️ حذف کرنے کی انتباہ' : '⚠️ Delete Alert',
+      message: isRTL ? 'کیا آپ واقعی اپنے اکاؤنٹ کو حذف کرنا چاہتے ہیں؟ حذف کرنے کے بعد اکاؤنٹ بحال نہیں ہو سکتا۔' : 'Are you sure you want to delete your account. After deletion account is not recoverable.',
       type: 'generic'
     });
   }

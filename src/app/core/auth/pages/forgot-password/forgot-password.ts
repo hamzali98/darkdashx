@@ -9,6 +9,7 @@ import { map } from 'rxjs';
 import { credentials } from '../../interface/credentials';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
+import { TranslationService } from '@app/core/services/translate.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,6 +20,7 @@ import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 export class ForgotPassword implements OnDestroy {
 
   flag: boolean = false;
+  isRTL: boolean;
 
   email: string = '';
   color: string = '';
@@ -34,6 +36,11 @@ export class ForgotPassword implements OnDestroy {
   snackService = inject(SnackBarService);
   loaderService = inject(Loaderservice);
   passwordService = inject(PasswordCheck);
+  translationService = inject(TranslationService);
+
+  constructor(){
+    this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
+  }
 
   get emailLengthGetter() {
     return this.email.length === 0 ? true : false;
@@ -80,7 +87,7 @@ export class ForgotPassword implements OnDestroy {
         if (user) {
           return { success: true, user };
         } else {
-          return { success: false, message: 'No account found with this email!' };
+          return { success: false, message: this.isRTL ? 'اس ای میل کے ساتھ کوئی اکاؤنٹ نہیں ملا!' : 'No account found with this email!' };
         }
       }),
     ).subscribe({
@@ -90,14 +97,14 @@ export class ForgotPassword implements OnDestroy {
           this.flag = true;
           this.email = '';
           this.user = res.user as credentials;
-          this.snackService.success("Account found!", 2000, 'top-center');
+          this.snackService.success(this.isRTL ? 'اکاؤنٹ مل گیا!' : 'Account found!', 2000, 'top-center');
         } else {
-          this.snackService.error(`${res.message}`, 2000, 'top-center');
+          this.snackService.error( `${res.message}`, 2000, 'top-center');
         }
         this.loaderService.hideLoader();
       },
       error: (err) => {
-        this.snackService.error("Server error!", 2000, 'top-center');
+        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error!", 2000, 'top-center');
         this.loaderService.hideLoader();
       }
     });
@@ -113,12 +120,12 @@ export class ForgotPassword implements OnDestroy {
         this.flag = true;
         this.email = '';
         this.user = {} as credentials;
-        this.snackService.success("Password reset successfull!", 2000, 'top-center');
+        this.snackService.success(this.isRTL ? "پاس ورڈ ری سیٹ کامیاب ہو گیا!" : "Password reset successfull!", 2000, 'top-center');
         this.loaderService.hideLoader();
         this.routerRef.navigate(['/login']);
       },
       error: (err) => {
-        this.snackService.error("Server error!", 2000, 'top-center');
+        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error!", 2000, 'top-center');
         this.loaderService.hideLoader();
       }
     });

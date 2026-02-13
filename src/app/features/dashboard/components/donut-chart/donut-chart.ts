@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, Input, NgZone, OnChanges, OnInit, PLATFORM_ID, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, inject, Inject, Input, NgZone, OnChanges, OnInit, PLATFORM_ID, SimpleChanges } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 // amCharts imports
@@ -8,6 +8,7 @@ import * as am5percent from "@amcharts/amcharts5/percent";
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import { User } from '@app/features/users/interface/user';
 import { product } from '../../products/interface/product-interface';
+import { TranslationService } from '@app/core/services/translate.service';
 
 @Component({
   selector: 'app-donut-chart',
@@ -21,6 +22,8 @@ export class DonutChart implements OnChanges {
 
   @Input() userChartData!: User[];
   @Input() productChartData!: product[];
+
+  translationService = inject(TranslationService);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone) { }
 
@@ -45,12 +48,22 @@ export class DonutChart implements OnChanges {
     const online = this.userChartData.filter(u => u.status === true).length;
     const offline = this.userChartData.filter(u => u.status === false).length;
 
-    return [
-      { category: 'Online', value: online },
-      { category: 'Offline', value: offline }
-    ];
+    if(this.translationService.getCurrentLanguage() === 'en') {
+      return [
+        { category: 'Online', value: online },
+        { category: 'Offline', value: offline }
+      ];
+    } else {
+      return [
+        { category: 'آن لائن', value: online },
+        { category: 'آف لائن', value: offline }
+      ];
+    }
+
   }
   prepareDonutChart() {
+      const isRTL = this.translationService.getCurrentLanguage() === 'ur';
+
     const donutdata = this.buildUserStatusDonutData(this.userChartData);
 
     this.browserOnly(() => {
@@ -104,8 +117,15 @@ export class DonutChart implements OnChanges {
       let legend = chart.children.push(am5.Legend.new(root, {
         // centerX: am5.percent(50),
         // x: am5.percent(50),
-        // layout: root.horizontalLayout
+        layout: root.horizontalLayout
       }));
+
+       legend.labels.template.setAll({
+        textAlign: isRTL ? "right" : "left",
+        direction: isRTL ? "rtl" : "ltr",
+        marginLeft: isRTL ? 55 : 5,
+        // marginRight: isRTL ? 5 : 0
+      });
 
       legend.data.setAll(series.dataItems);
 

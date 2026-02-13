@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, Input, NgZone, OnChanges, OnInit, PLATFORM_ID, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, inject, Inject, Input, NgZone, OnChanges, OnInit, PLATFORM_ID, SimpleChanges } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 // amCharts imports
@@ -8,6 +8,8 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
 import { User } from '@app/features/users/interface/user';
 import { product } from '../../products/interface/product-interface';
+
+import { TranslationService } from '@app/core/services/translate.service';
 
 @Component({
   selector: 'app-am-charts',
@@ -21,6 +23,8 @@ export class AmCharts implements OnChanges {
 
   @Input() userChartData!: User[];
   @Input() productChartData!: product[];
+
+  translationService = inject(TranslationService);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone) { }
 
@@ -66,6 +70,9 @@ export class AmCharts implements OnChanges {
 
     // Chart code goes in here
     this.browserOnly(() => {
+      const isRTL = this.translationService.getCurrentLanguage() === 'ur';
+
+
       let root = am5.Root.new("chartdiv");
 
       root.setThemes([am5themes_Animated.new(root)]);
@@ -87,37 +94,48 @@ export class AmCharts implements OnChanges {
       // Create X-Axis
       let xAxis = chart.xAxes.push(
         am5xy.CategoryAxis.new(root, {
-          renderer: am5xy.AxisRendererX.new(root, {}),
+          renderer: am5xy.AxisRendererX.new(root, {
+          }),
           categoryField: "category"
-          
+
         })
       );
+
       xAxis.data.setAll(data);
 
       // Create series
+      const seriesName =
+        isRTL
+          ? 'مصنوعات'
+          : 'Products';
       let series1 = chart.series.push(
         am5xy.ColumnSeries.new(root, {
-          name: "Products",
+          name: seriesName,
           xAxis: xAxis,
           yAxis: yAxis,
           valueYField: "productCount",
           categoryXField: "category",
           fill: am5.color("#cb3cff"),
           tooltip: am5.Tooltip.new(root, {
-            labelText: "{name}: {valueY}"
+            labelText: "{name}: {valueY}",
+
           })
         })
       );
+      const stockSeriesName =
+        isRTL
+          ? 'اسٹاک'
+          : 'Stock';
       let series2 = chart.series.push(
         am5xy.ColumnSeries.new(root, {
-          name: "Stock",
+          name: stockSeriesName,
           xAxis: xAxis,
           yAxis: yAxis,
           valueYField: "totalStock",
           categoryXField: "category",
           fill: am5.color("#00c2ff"),
           tooltip: am5.Tooltip.new(root, {
-            labelText: "{name}: {valueY}"
+            labelText: "{name}: {valueY}",
           })
         })
       );
@@ -129,6 +147,7 @@ export class AmCharts implements OnChanges {
         strokeWidth: 2,
         width: 20,
         tooltipText: "{categoryX}\nProducts: {valueY}",
+        
         tooltipY: 0,
         cornerRadiusTL: 5,
         cornerRadiusTR: 5
@@ -137,19 +156,36 @@ export class AmCharts implements OnChanges {
         strokeWidth: 2,
         width: 20,
         tooltipText: "{categoryX}\nStock: {valueY}",
+        
         tooltipY: 0,
         cornerRadiusTL: 5,
         cornerRadiusTR: 5
       });
 
       // Add legend
-      let legend = chart.children.push(am5.Legend.new(root, {}));
+      let legend = chart.children.push(am5.Legend.new(root, {
+        centerX: am5.percent(50),
+        x: am5.percent(50),
+        layout: root.horizontalLayout
+      }));
+
+
+      legend.labels.template.setAll({
+        // textAlign: isRTL ? "right" : "left",
+        // direction: isRTL ? "rtl" : "ltr",
+        marginLeft: isRTL ? -25 : 5,
+        // marginRight: isRTL ? 5 : 0
+      });
+
       legend.data.setAll(chart.series.values);
+      // Add legend
+      // let legend = chart.children.push(am5.Legend.new(root, {}));
+      // legend.data.setAll(chart.series.values);
 
       // Add cursor
       chart.set("cursor", am5xy.XYCursor.new(root, {}));
 
-      root.interfaceColors.set("text" , am5.color("#fff"));
+      root.interfaceColors.set("text", am5.color("#fff"));
       this.root = root;
     });
   }

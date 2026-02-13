@@ -16,7 +16,7 @@
             <span class="text-sm font-semibold text-primary ">
                 {{startIndex + 1}} - {{endIndex}}
             </span>
-            of {{tableTotal || 0}}
+            {{'GENERIC_TABLE.OF' | translate}} {{tableTotal || 0}}
         </span>
     </div>
 
@@ -42,8 +42,8 @@
                     <th class="py-3.5 whitespace-nowrap min-w-[120px] " (click)="doSorting(column.key)">
                         <div class="flex items-center gap-1 ">
                             <img class="size-2.5" [src]="column.icon" alt="i">
-                            <span class="text-[9px] font-medium font-worksans">
-                                {{column.label}}
+                            <span class="text-[9px] rtl:text-[12px] font-medium font-worksans">
+                                {{column.label | translate}}
                             </span>
                             @if(sortcol() === column.key){
                             @if(sortdirection() === 'asc'){
@@ -84,9 +84,9 @@
                         @if(data[column.key] === true || data[column.key] === false) {
                         <span class="px-1.5 py-px border rounded-xs text-[10px] font-extralight" [ngClass]="data[column.key] ? 'text-up-green-arrow bg-up-green-arrow/30 border-up-green-arrow/50' 
                             : 'text-gray-300 bg-gray-400/30 border-gray-400/50'">
-                            • {{column?.func(data[column.key])}}
+                            • {{column?.func(data[column.key]) | translate}}
                         </span>
-                        } @else if(column.label === "Name") {
+                        } @else if(column.label === "GENERIC_TABLE.NAME") {
                         <span class="flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center">
                             <img class="size-7 rounded-full shrink-0" src="assets/images/OIP.jpg" alt="p">
                             <span class=" truncate max-w-[150px] flex flex-col gap-0.5">
@@ -96,7 +96,7 @@
                                 </span>
                             </span>
                         </span>
-                        } @else if (column.label === "Price") {
+                        } @else if (column.label === "GENERIC_TABLE.PRICE") {
                         <span
                             class=" truncate max-w-[150px] flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center ">
                             {{getValue(data, column.key) | currency}}
@@ -104,11 +104,11 @@
                         } @else {
                         <span
                             class=" truncate max-w-[150px] flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center ">
-                            @if(column.label === "Company"){
+                            @if(column.label === "GENERIC_TABLE.COMPANY"){
                             <img class="size-4 rounded-full shrink-0 " [src]="imgSrc(getValue(data, column.key))"
                                 alt="">
                             }
-                            @if(column.label === "Product Name"){
+                            @if(column.label === "GENERIC_TABLE.PRODUCT_NAME"){
                             <img class="size-7 rounded-full shrink-0 " src="assets/images/products/watch.svg" alt="i">
                             }
                             {{getValue(data, column.key) | titlecase}}
@@ -120,13 +120,13 @@
 
                     <!-- Action Buttons -->
                     <td class="py-6.5 px-0 whitespace-nowrap">
-                        <div class="flex px-2 justify-around align-middle items-center cursor-pointer min-w-20 gap-5">
+                        <div class="flex px-2 justify-around align-middle items-center   min-w-20 gap-5">
                             <button type="button" (click)="onClickedEdit(currentPageData[$index])"
                                 class="flex items-center justify-center ">
                                 <img src="assets/icons/neutral/pencil.svg" class="size-3" alt="act btn" />
                             </button>
                             <button type="button" (click)="onClickedDelete(currentPageData[$index])"
-                                class="flex items-center cursor-pointer justify-center ">
+                                class="flex items-center   justify-center ">
                                 <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
                             </button>
                         </div>
@@ -142,11 +142,11 @@
     }
 </div>
 
-<div class="flex flex-row items-end justify-end py-5 px-5">
+<div class="flex flex-row rtl:gap-2 items-end justify-end py-5 px-5">
     <div class="px-14 flex flex-row items-center ">
-        <label for="itemsperpage" class="text-gray-400 text-[11px] font-medium font-inter px-3">Rows per page:</label>
+        <label for="itemsperpage" class="text-gray-400 text-[11px] font-medium font-inter px-3">{{'GENERIC_TABLE.ROWS_PER_PAGE' | translate}}</label>
         <div class="flex relative ">
-            <img class="absolute top-1/2 -translate-y-1/2 translate-x-5 pointer-events-none"
+            <img class="absolute top-1/2 rtl:-translate-x-5 -translate-y-1/2 ltr:translate-x-5 pointer-events-none"
                 src="assets/icons/neutral/droparrow.svg" alt="arrow">
             <select class=" appearance-none h-[26px] w-[41px] rounded-sm bg-active-route-bg text-white p-1 px-2 text-[10px] font-light
             " [(ngModel)]="itemsPerPage" (change)="onChangePerPage()" name="select" id="itemsperpage">
@@ -158,10 +158,10 @@
     </div>
     <button [disabled]="startIndex + 1 === 1" (click)="previousPage()" type="button"
         class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
-        <img class="size-3 shrink-0" src="assets/icons/white/leftarrow.svg" alt="arrow">
+        <img class="size-3 shrink-0 rtl:rotate-180" src="assets/icons/white/leftarrow.svg" alt="arrow">
     </button>
     <button [disabled]="endIndex === tableTotal" (click)="nextPage()" type="button"
         class="bg-active-route-bg p-[5.5px] rounded-sm ml-1.5 hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
-        <img class="size-3 shrink-0" src="assets/icons/white/rightarrow.svg" alt="arrow">
+        <img class="size-3 shrink-0 rtl:rotate-180" src="assets/icons/white/rightarrow.svg" alt="arrow">
     </button>
 </div>

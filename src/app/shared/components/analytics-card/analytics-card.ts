@@ -1,10 +1,11 @@
 import { Component, Input, input, model } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { PercentPipe, DecimalPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-analytics-card',
-  imports: [NgClass, DecimalPipe],
+  imports: [NgClass, DecimalPipe, TranslateModule],
   templateUrl: './analytics-card.html',
   styleUrl: './analytics-card.css',
 })

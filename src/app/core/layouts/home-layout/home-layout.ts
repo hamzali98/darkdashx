@@ -26,43 +26,43 @@ export class HomeLayout implements OnInit {
   constructor() {
     this.sideCols = [
       {
-        routePath: 'home', tileName: "Dashboard",
+        routePath: 'home', tileName: "DASHBOARD",
         coloredIcon: "assets/icons/colored/homeicon.svg",
         uncoloredIcon: "assets/icons/uncolored/homeicon.svg",
         iconsAlt: "home", topPadding: "pt-7",
-        routeNames: ["Home", "Reports", "Tasks", "Products"],
+        routeNames: ["HOME", "REPORTS", "TASKS", "PRODUCTS"],
         routeLink: ["/", "/home/reports", "/home/tasks", "/home/products"]
       },
       {
-        routePath: 'users', tileName: "Users",
+        routePath: 'users', tileName: "USERS",
         coloredIcon: "assets/icons/colored/usericon.svg",
         uncoloredIcon: "assets/icons/uncolored/usericon.svg",
         iconsAlt: "user", topPadding: "pt-0",
-        routeNames: ["View Users", "Add Users"],
+        routeNames: ["VIEW_USERS", "ADD_USERS"],
         routeLink: ["/users/view", "/users/add",]
       },
       {
-        routePath: 'features', tileName: "Features",
+        routePath: 'features', tileName: "FEATURES",
         coloredIcon: "assets/icons/colored/star.svg",
         uncoloredIcon: "assets/icons/uncolored/star.svg",
         iconsAlt: "feat", topPadding: "pt-0",
-        routeNames: ["View Features", "Add Features"],
+        routeNames: ["VIEW_FEATURES", "ADD_FEATURES"],
         routeLink: ["/users/view", "/users/add",]
       },
       {
-        routePath: 'pricing', tileName: "Pricing",
+        routePath: 'pricing', tileName: "PRICING",
         coloredIcon: "assets/icons/colored/dollar.svg",
         uncoloredIcon: "assets/icons/uncolored/dollar.svg",
         iconsAlt: "pricing", topPadding: "pt-0",
-        routeNames: ["View Pricing", "Add Pricing"],
+        routeNames: ["VIEW_PRICING", "ADD_PRICING"],
         routeLink: ["/users/view", "/users/add",]
       },
       {
-        routePath: 'integrations', tileName: "Integrations",
+        routePath: 'integrations', tileName: "INTEGRATIONS",
         coloredIcon: "assets/icons/colored/puzzlepiece.svg",
         uncoloredIcon: "assets/icons/uncolored/puzzlepiece.svg",
         iconsAlt: "integrations", topPadding: "pt-0",
-        routeNames: ["View Integrations", "Add Integrations"],
+        routeNames: ["VIEW_INTEGRATIONS", "ADD_INTEGRATIONS"],
         routeLink: ["/users/view", "/users/add",]
       },
     ]

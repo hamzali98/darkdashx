@@ -1,10 +1,18 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { TranslationService } from '@app/core/services/translate.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PasswordCheck {
-  
+  isRtl: boolean;
+
+  translationService = inject(TranslationService);
+
+  constructor() {
+    this.isRtl = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
+  }
+
 
   checkPasswordStrength(password: string) {
     // console.log("password strength called");
@@ -23,43 +31,88 @@ export class PasswordCheck {
     if (numberRegex.test(password)) score++;
     if (specialRegex.test(password)) score++;
 
-    switch (score) {
-      case 0:
-      case 1:
-        return "Weak";
-      case 3:
-      case 4:
-        return "Medium";
-      case 5:
-        return "Strong";
-      default:
-        return "Weak";
+    if (this.isRtl) {
+      switch (score) {
+        case 0:
+        case 1:
+          return "کمزور";
+        case 3:
+        case 4:
+          return "درمیانہ";
+        case 5:
+          return "مضبوط";
+        default:
+          return "کمزور";
+      }
+    } else {
+      switch (score) {
+        case 0:
+        case 1:
+          return "Weak";
+        case 3:
+        case 4:
+          return "Medium";
+        case 5:
+          return "Strong";
+        default:
+          return "Weak";
+      }
     }
   }
 
   getPasswordStrengthColor(val: string): string {
-    switch (val) {
-      case "Weak":
-        return "text-red-500"
-      case "Medium":
-        return "text-orange-500"
-      case "Strong":
-        return "text-green-500"
-      default:
-        return "text-red-500"
+
+    if (this.isRtl) {
+      switch (val) {
+        case "کمزور":
+          return "text-red-500"
+        case "درمیانہ":
+          return "text-orange-500"
+        case "مضبوط":
+          return "text-green-500"
+        default:
+          return "text-red-500"
+      }
+    } else {
+
+      switch (val) {
+        case "Weak":
+          return "text-red-500"
+        case "Medium":
+          return "text-orange-500"
+        case "Strong":
+          return "text-green-500"
+        default:
+          return "text-red-500"
+      }
     }
   }
 
   getPasswordStrengthProgress(val: string) {
-    switch (val) {
-      case "Weak":
-        return "w-[35%] bg-red-500"
-      case "Medium":
-        return "w-[70%] bg-orange-500"
-      case "Strong":
-        return "w-[100%] bg-green-500"
-      default:
-        return "w-[0%] bg-transparent"
+
+    if (this.isRtl) {
+      switch (val) {
+        case "کمزور":
+          return "w-[35%] bg-red-500"
+        case "درمیانہ":
+          return "w-[70%] bg-orange-500"
+        case "مضبوط":
+          return "w-[100%] bg-green-500"
+        default:
+          return "w-[0%] bg-transparent"
+      }
+    } else {
+
+      switch (val) {
+        case "Weak":
+          return "w-[35%] bg-red-500"
+        case "Medium":
+          return "w-[70%] bg-orange-500"
+        case "Strong":
+          return "w-[100%] bg-green-500"
+        default:
+          return "w-[0%] bg-transparent"
+      }
     }
   }
 
