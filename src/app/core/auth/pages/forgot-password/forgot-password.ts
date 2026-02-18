@@ -10,10 +10,11 @@ import { credentials } from '../../interface/credentials';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { TranslationService } from '@app/core/services/translate.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule],
   templateUrl: './forgot-password.html',
   styleUrl: './forgot-password.css',
 })

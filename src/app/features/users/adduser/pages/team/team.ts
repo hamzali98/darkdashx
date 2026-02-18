@@ -8,10 +8,11 @@ import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { CompanyListService } from '@app/shared/services/companylist/company-list-service';
 import { companyInterface } from '@app/shared/interface/company';
 import { environment } from '@environments/environment.development';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-team',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule],
   templateUrl: './team.html',
   styleUrl: './team.css',
 })

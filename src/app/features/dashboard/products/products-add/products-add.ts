@@ -15,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class ProductsAdd {
 
-  title: string = "DPROD.DETAILS";
+  title: string = "DETAILS";
   addProductRoutesData : childnav[];
 
   private addProductRoutesDataService = inject(ChildNavBarService);

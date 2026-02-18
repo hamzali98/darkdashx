@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, Inject, Input, NgZone, OnChanges, OnInit, PLATFORM_ID, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, inject, Inject, Input, NgZone, OnChanges, OnDestroy, OnInit, PLATFORM_ID, SimpleChanges } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 // amCharts imports
@@ -10,6 +10,7 @@ import { User } from '@app/features/users/interface/user';
 import { product } from '../../products/interface/product-interface';
 
 import { TranslationService } from '@app/core/services/translate.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-am-charts',
@@ -17,16 +18,35 @@ import { TranslationService } from '@app/core/services/translate.service';
   templateUrl: './am-charts.html',
   styleUrl: './am-charts.css',
 })
-export class AmCharts implements OnChanges {
+export class AmCharts implements OnInit, OnChanges, OnDestroy {
+
+  isRtl: boolean;
 
   private root!: am5.Root;
+  private languageSubscription?: Subscription;
 
   @Input() userChartData!: User[];
   @Input() productChartData!: product[];
 
   translationService = inject(TranslationService);
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone) {
+
+    this.isRtl = this.translationService.getCurrentLanguage() === 'ur';
+
+  }
+
+  ngOnInit(): void {
+    // Subscribe to language changes
+    this.languageSubscription = this.translationService.currentLang$.subscribe(lang => {
+      this.isRtl = lang === 'ur';
+
+      // Redraw chart if data is available
+      if (this.productChartData && this.userChartData) {
+        this.prepareBarChart();
+      }
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes && this.productChartData && this.userChartData) {
@@ -34,6 +54,225 @@ export class AmCharts implements OnChanges {
       // console.log(this.productChartData);
       this.prepareBarChart();
     }
+  }
+
+  ngOnDestroy() {
+    // Clean up
+    if (this.languageSubscription) {
+      this.languageSubscription.unsubscribe();
+    }
+
+    if (this.root) {
+      this.root.dispose();
+    }
+
+    // Clean up chart when the component is removed
+    this.browserOnly(() => {
+      if (this.root) {
+        this.root.dispose();
+      }
+    });
+  }
+
+  prepareBarChart() {
+    // Dispose existing chart before creating new one
+    if (this.root) {
+      this.root.dispose();
+    }
+
+    // Create new chart with updated language
+    this.zone.runOutsideAngular(() => {
+      this.createChart();
+    });
+  }
+
+  createChart() {
+
+    const data = this.getData();
+    const isRTL = this.isRtl;
+    const maxValue = this.getDataMax();
+
+    const productsSeriesName = isRTL ? 'مصنوعات' : 'Products';
+    const stockSeriesName = isRTL ? 'سٹاک' : 'Stock';
+
+
+    // Chart code goes in here
+    this.browserOnly(() => {
+
+      let root = am5.Root.new("chartdiv");
+      root.setThemes([am5themes_Animated.new(root)]);
+      let chart = root.container.children.push(
+        am5xy.XYChart.new(root, {
+          panY: false,
+          layout: root.verticalLayout
+        })
+      );
+
+      // Create Y-axis
+      let yAxis = chart.yAxes.push(
+        am5xy.ValueAxis.new(root, {
+          // maxDeviation: 0.3,
+          renderer: am5xy.AxisRendererY.new(root, {}),
+          min: 0,  // Start from 0
+          max: maxValue, // Fixed maximum value
+          strictMinMax: true // Enforce these limits strictly
+
+        })
+      );
+
+      yAxis.get("renderer").labels.template.setAll({
+        // textAlign: "center",
+        // fontFamily: isRTL ? "JameelNoori" : "",
+        rotation: 0,
+        centerY: am5.p50,
+        centerX: am5.p50,
+        paddingTop: 10,
+        textAlign: "center",
+        fontFamily: isRTL ? "JameelNoori" : '',
+        direction: isRTL ? "rtl" : "ltr",
+        oversizedBehavior: "wrap",
+        maxWidth: 100
+      })
+
+      // Create X-Axis with RTL support
+      let xAxis = chart.xAxes.push(
+        am5xy.CategoryAxis.new(root, {
+          renderer: am5xy.AxisRendererX.new(root, {
+            minGridDistance: 30,
+            cellStartLocation: 0.1,
+            cellEndLocation: 0.9
+          }),
+          categoryField: "category"
+        })
+      );
+
+      // Configure label properties for RTL
+      xAxis.get("renderer").labels.template.setAll({
+        rotation: 0,
+        centerY: am5.p50,
+        centerX: am5.p50,
+        paddingTop: 10,
+        textAlign: "center",
+        fontFamily: isRTL ? "JameelNoori" : '',
+        direction: isRTL ? "rtl" : "ltr",
+        oversizedBehavior: "wrap",
+        maxWidth: 100
+      });
+
+      xAxis.data.setAll(data);
+
+      // Create series
+      let series1 = chart.series.push(
+        am5xy.ColumnSeries.new(root, {
+          name: productsSeriesName,
+          xAxis: xAxis,
+          yAxis: yAxis,
+          valueYField: "productCount",
+          categoryXField: "category",
+          fill: am5.color("#cb3cff"),
+        })
+      );
+
+      let series2 = chart.series.push(
+        am5xy.ColumnSeries.new(root, {
+          name: stockSeriesName,
+          xAxis: xAxis,
+          yAxis: yAxis,
+          valueYField: "totalStock",
+          categoryXField: "category",
+          fill: am5.color("#00c2ff"),
+        })
+      );
+
+      series1.data.setAll(data);
+      series2.data.setAll(data);
+      // Configure series1 with dynamic tooltip positioning
+      series1 = this.createChartTooltip(series1, root, productsSeriesName, "#cb3cff");
+
+      // Same for series2
+      series2 = this.createChartTooltip(series2, root, stockSeriesName, "#00c2ff");
+
+      // Add legend
+      let legend = chart.children.push(am5.Legend.new(root, {
+        centerX: am5.percent(50),
+        x: am5.percent(50),
+        layout: root.horizontalLayout
+      }));
+
+      legend.labels.template.setAll({
+        fontFamily: isRTL ? 'JameelNoori' : '',
+        // textAlign: isRTL ? "right" : "left",
+        // direction: isRTL ? "rtl" : "ltr",
+        marginLeft: isRTL ? -25 : 5,
+        // marginRight: isRTL ? 5 : 0
+      });
+
+      legend.data.setAll(chart.series.values);
+
+      // Add cursor
+      // chart.set("cursor", am5xy.XYCursor.new(root, {
+      // }));
+
+      root.interfaceColors.set("text", am5.color("#fff"));
+      this.root = root;
+    });
+  }
+
+  // chart data preparation function
+  getData() {
+    const categoryMap: Record<string, { count: number; stock: number }> = {};
+
+    this.productChartData.forEach(p => {
+      const category = p.basic_info.product_category;
+
+      if (!categoryMap[category]) {
+        categoryMap[category] = { count: 0, stock: 0 };
+      }
+
+      categoryMap[category].count += 1;
+      categoryMap[category].stock += p.detail_info.product_stock;
+    });
+
+    // Translation map for categories
+    const categoryTranslations: Record<string, string> = {
+      'cosmetics': this.isRtl ? 'کاسمیٹکس' : 'Cosmetics',
+      'note book': this.isRtl ? 'نوٹ بک' : 'Note Book',
+      'accessories': this.isRtl ? 'پرزے' : 'Accessories',
+      'network': this.isRtl ? 'نیٹ ورک' : 'Network'
+    };
+
+    // Helper function to translate category
+    const translateCategory = (category: string): string => {
+      return categoryTranslations[category] || category; // Fallback to original if not found
+    };
+
+    const data = Object.keys(categoryMap).map(category => ({
+      category: translateCategory(category),
+      productCount: categoryMap[category].count,
+      totalStock: categoryMap[category].stock
+    }));
+
+    console.log('Prepared chart data:', data);
+    return data;
+  }
+
+  // function to calculate the maximum value for Y-axis scaling
+  getDataMax(): number {
+
+    // Calculate the maximum value from both productCount and totalStock
+    const data = this.getData();
+    const maxProductCount = Math.max(...data.map(item => item.productCount));
+    const maxStock = Math.max(...data.map(item => item.totalStock));
+    const maxValue = Math.max(maxProductCount, maxStock);
+
+    // Set Y-axis max with some padding
+    // Option 1: Round up to nearest 10
+    let yAxisMax = Math.ceil(maxValue / 10) * 10;
+
+    // Ensure minimum of 10
+    if (yAxisMax < 10) yAxisMax = 10;
+
+    return yAxisMax;
   }
 
   // Run the function only in the browser
@@ -45,157 +284,49 @@ export class AmCharts implements OnChanges {
     }
   }
 
-
-  prepareBarChart() {
-    const categoryMap: Record<string, { count: number; stock: string }> = {};
-
-    this.productChartData.forEach(p => {
-      const category = p.basic_info.product_category;
-
-      if (!categoryMap[category]) {
-        categoryMap[category] = { count: 0, stock: "0" };
-      }
-
-      categoryMap[category].count += 1;
-      categoryMap[category].stock += p.detail_info.product_stock;
+  createChartTooltip(series: any, root: any, seriesName: string, color: string) {
+    // Configure series1 with dynamic tooltip positioning
+    series.columns.template.setAll({
+      strokeWidth: 2,
+      width: 20,
+      tooltip: am5.Tooltip.new(root, {
+        pointerOrientation: "vertical", // Allows tooltip to flip automatically
+        getFillFromSprite: false,
+        labelText: "",
+        autoTextColor: false,
+        background: am5.RoundedRectangle.new(root, {
+          fill: am5.color(color),
+          strokeWidth: 1,
+          shadowColor: am5.color("#000"),
+          shadowBlur: 8,
+          shadowOffsetX: 0,
+          shadowOffsetY: 2,
+        }),
+      }),
+      // Custom HTML for tooltip content
+      tooltipHTML: this.getToolTipHtml(seriesName),
+      cornerRadiusTL: 5,
+      cornerRadiusTR: 5
     });
 
-    const data = Object.keys(categoryMap).map(category => ({
-      category,
-      productCount: categoryMap[category].count,
-      totalStock: categoryMap[category].stock
+    series.set("tooltip", am5.Tooltip.new(root, {
+      pointerOrientation: "vertical", // Allows tooltip to flip automatically
+      getFillFromSprite: false,
+      labelText: "",
+      autoTextColor: false
     }));
 
-    // console.log("data : ", data);
-
-    // Chart code goes in here
-    this.browserOnly(() => {
-      const isRTL = this.translationService.getCurrentLanguage() === 'ur';
-
-
-      let root = am5.Root.new("chartdiv");
-
-      root.setThemes([am5themes_Animated.new(root)]);
-
-      let chart = root.container.children.push(
-        am5xy.XYChart.new(root, {
-          panY: false,
-          layout: root.verticalLayout
-        })
-      );
-
-      // Create Y-axis
-      let yAxis = chart.yAxes.push(
-        am5xy.ValueAxis.new(root, {
-          renderer: am5xy.AxisRendererY.new(root, {})
-        })
-      );
-
-      // Create X-Axis
-      let xAxis = chart.xAxes.push(
-        am5xy.CategoryAxis.new(root, {
-          renderer: am5xy.AxisRendererX.new(root, {
-          }),
-          categoryField: "category"
-
-        })
-      );
-
-      xAxis.data.setAll(data);
-
-      // Create series
-      const seriesName =
-        isRTL
-          ? 'مصنوعات'
-          : 'Products';
-      let series1 = chart.series.push(
-        am5xy.ColumnSeries.new(root, {
-          name: seriesName,
-          xAxis: xAxis,
-          yAxis: yAxis,
-          valueYField: "productCount",
-          categoryXField: "category",
-          fill: am5.color("#cb3cff"),
-          tooltip: am5.Tooltip.new(root, {
-            labelText: "{name}: {valueY}",
-
-          })
-        })
-      );
-      const stockSeriesName =
-        isRTL
-          ? 'اسٹاک'
-          : 'Stock';
-      let series2 = chart.series.push(
-        am5xy.ColumnSeries.new(root, {
-          name: stockSeriesName,
-          xAxis: xAxis,
-          yAxis: yAxis,
-          valueYField: "totalStock",
-          categoryXField: "category",
-          fill: am5.color("#00c2ff"),
-          tooltip: am5.Tooltip.new(root, {
-            labelText: "{name}: {valueY}",
-          })
-        })
-      );
-
-      series1.data.setAll(data);
-      series2.data.setAll(data);
-
-      series1.columns.template.setAll({
-        strokeWidth: 2,
-        width: 20,
-        tooltipText: "{categoryX}\nProducts: {valueY}",
-        
-        tooltipY: 0,
-        cornerRadiusTL: 5,
-        cornerRadiusTR: 5
-      });
-      series2.columns.template.setAll({
-        strokeWidth: 2,
-        width: 20,
-        tooltipText: "{categoryX}\nStock: {valueY}",
-        
-        tooltipY: 0,
-        cornerRadiusTL: 5,
-        cornerRadiusTR: 5
-      });
-
-      // Add legend
-      let legend = chart.children.push(am5.Legend.new(root, {
-        centerX: am5.percent(50),
-        x: am5.percent(50),
-        layout: root.horizontalLayout
-      }));
-
-
-      legend.labels.template.setAll({
-        // textAlign: isRTL ? "right" : "left",
-        // direction: isRTL ? "rtl" : "ltr",
-        marginLeft: isRTL ? -25 : 5,
-        // marginRight: isRTL ? 5 : 0
-      });
-
-      legend.data.setAll(chart.series.values);
-      // Add legend
-      // let legend = chart.children.push(am5.Legend.new(root, {}));
-      // legend.data.setAll(chart.series.values);
-
-      // Add cursor
-      chart.set("cursor", am5xy.XYCursor.new(root, {}));
-
-      root.interfaceColors.set("text", am5.color("#fff"));
-      this.root = root;
-    });
+    return series;
   }
 
-  ngOnDestroy() {
-    // Clean up chart when the component is removed
-    this.browserOnly(() => {
-      if (this.root) {
-        this.root.dispose();
-      }
-    });
+  // function to generate custom HTML for tooltips
+  getToolTipHtml(seriesName: string) {
+    const fontSize = this.isRtl ? '16px' : '14px';
+    return `
+          <div style="font-weight: bold; color: #fff; text-align: center; margin-bottom: 8px; font-size: ${fontSize};">{categoryX}</div>
+          <div style="color: #fff; font-size: 13px;">
+            <span style="color: #fff; text-align: center; font-weight: 600;">${seriesName} :</span> {valueY}
+          </div>`;
   }
+
 }

@@ -35,6 +35,7 @@ export class LoginPage {
   private authService = inject(AuthService);
   private translationService = inject(TranslationService);
 
+
   constructor() {
     this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.loginForm = new FormGroup({
@@ -75,6 +76,7 @@ export class LoginPage {
       }),
     ).subscribe({
       next: (res) => {
+
         // console.log(res);
         if (res.success) {
           // console.log(res);
@@ -95,9 +97,9 @@ export class LoginPage {
       },
       error: (err) => {
         console.error(err);
-        this.snackService.error( 
+        this.snackService.error(
           this.isRTL ? "سرور کی خرابی!" :
-          "Server Error!",
+            "Server Error!",
           2000,
           'top-center'
         );

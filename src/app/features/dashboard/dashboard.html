@@ -1,60 +1,59 @@
 <div class=" flex flex-col gap-5 px-10.5 py-8">
     <div class="flex flex-col md:flex-row gap-3 justify-between items-center">
         <div class="flex flex-col">
-            <span class="text-gray-500 dark:text-white font-medium tracking-tight font-inter text-2xl">{{'DHOME.WELCOME' | translate}}
+            <span class="text-gray-500 dark:text-white font-medium tracking-tight font-inter text-2xl">{{'WELCOME' |
+                translate}}
                 <span class=" text-primary ">
                     {{username}}
                 </span>
             </span>
-            <span class="text-gray-500 dark:text-gray-400 font-worksans text-xs">{{'DHOME.DESC' | translate}}</span>
+            <span class="text-gray-500 dark:text-gray-400 font-worksans text-xs">{{'DASH_DESC' | translate}}</span>
         </div>
         <div class="flex flex-row ">
             <button type="button" class="rounded-sm text-white text-xs w-[92px] shadow drop-shadow-black font-[15px] mx-3
                 h-7 cursor-pointer bg-btn-secondary  ">
                 <span class="flex flex-row gap-1.5 items-center justify-center align-middle">
-                    {{'DHOME.BTN2' | translate}} <img class="size-2.5" src="assets/icons/white/downarrow.svg" alt="ar"></span>
+                    {{'EXPORT_DATA' | translate}} <img class="size-2.5" src="assets/icons/white/downarrow.svg"
+                        alt="ar"></span>
             </button>
             <button type="button" class="rounded-sm text-white text-xs w-[88px] shadow drop-shadow-black font-[14px] 
                 h-7 cursor-pointer  bg-primary">
-                {{'DHOME.BTN1' | translate}}
+                {{'CREATE_REPORT' | translate}}
             </button>
         </div>
     </div>
     <!-- cards -->
     <div class="flex gap-3 lg:gap-1 flex-col lg:flex-wrap lg:flex-row justify-between mt-2.5 ">
-        <app-analytics-card title="DHOME.PAGEVIEWS" icon="assets/icons/neutral/eye.svg" [value]="'50.8K'"
+        <app-analytics-card title="PAGEVIEWS" icon="assets/icons/neutral/eye.svg" [value]="'50.8K'"
             [trend]="28.4"></app-analytics-card>
-        <app-analytics-card title="DHOME.MONTHLY_USERS" icon="assets/icons/neutral/usericon.svg" [value]="'23.6K'"
+        <app-analytics-card title="MONTHLY_USERS" icon="assets/icons/neutral/usericon.svg" [value]="'23.6K'"
             [trend]="-12.6"></app-analytics-card>
-        <app-analytics-card title="DHOME.NEW_SIGNUPS" icon="assets/icons/neutral/plus.svg" [value]="'756'"
+        <app-analytics-card title="NEW_SIGNUPS" icon="assets/icons/neutral/plus.svg" [value]="'756'"
             [trend]="3.1"></app-analytics-card>
-        <app-analytics-card title="DHOME.SUBSCRIPTION" icon="assets/icons/neutral/star.svg" [value]="'2.3K'"
+        <app-analytics-card title="SUBSCRIPTION" icon="assets/icons/neutral/star.svg" [value]="'2.3K'"
             [trend]="11.3"></app-analytics-card>
     </div>
 
 </div>
 <!-- full card -->
- <!-- bg-card-bg border border-gray-800 rounded-md mx-10.5 mb-3 -->
-<div class="bg-card-bg border border-gray-800  mx-10.5 mb-3" >
+<!-- bg-card-bg border border-gray-800 rounded-md mx-10.5 mb-3 -->
+<div class="bg-card-bg border border-gray-800  mx-10.5 mb-3">
     <div class="grid grid-cols-12 grid-rows-12  ">
-        <div
-            class="col-span-12 md:col-span-8 row-span-4 md:row-span-12 h-full w-full p-2">
+        <div class="col-span-12 md:col-span-8 row-span-4 md:row-span-12 h-full w-full p-2">
             @if(userData && productData){
             <app-am-charts [userChartData]="userData" [productChartData]="productData"></app-am-charts>
             } @else {
             <app-data-error></app-data-error>
             }
         </div>
-        <div
-            class="col-span-12 md:col-span-4 row-span-4 md:row-span-6 h-full w-full p-2">
+        <div class="col-span-12 md:col-span-4 row-span-4 md:row-span-6 h-full w-full p-2">
             @if(userData && productData){
             <app-donut-chart [userChartData]="userData" [productChartData]="productData"></app-donut-chart>
             } @else {
             <app-data-error></app-data-error>
             }
         </div>
-        <div
-            class="col-span-12 md:col-span-4 row-span-4 md:row-span-6 h-full w-full p-2">
+        <div class="col-span-12 md:col-span-4 row-span-4 md:row-span-6 h-full w-full p-2">
             @if(userData && productData){
             <app-bubble-chart [productChartData]="productData" [userChartData]="userData"></app-bubble-chart>
             } @else {

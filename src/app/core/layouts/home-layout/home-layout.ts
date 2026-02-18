@@ -6,6 +6,7 @@ import { Formservice } from '@app/features/users/adduser/services/formservice';
 import { Header } from "../header/header";
 import { Subject, takeUntil } from 'rxjs';
 import { Layout } from '@app/core/services/layout';
+import { TranslationService } from '@app/core/services/translate.service';
 @Component({
   selector: 'app-home-layout',
   imports: [RouterOutlet, GenericSideBar, Header, NgClass],
@@ -20,6 +21,7 @@ export class HomeLayout implements OnInit {
 
   userFormService = inject(Formservice);
   private layoutService = inject(Layout);
+  translationService = inject(TranslationService);
 
   sideCols: any[];
 
@@ -38,7 +40,7 @@ export class HomeLayout implements OnInit {
         coloredIcon: "assets/icons/colored/usericon.svg",
         uncoloredIcon: "assets/icons/uncolored/usericon.svg",
         iconsAlt: "user", topPadding: "pt-0",
-        routeNames: ["VIEW_USERS", "ADD_USERS"],
+        routeNames: ["VIEW_USERS", "ADD_USER"],
         routeLink: ["/users/view", "/users/add",]
       },
       {
@@ -81,6 +83,10 @@ export class HomeLayout implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.checkScreenSize();
+  }
+
+  get isRtl(): boolean {
+    return this.translationService.getCurrentLanguage() === 'ur';
   }
 
   checkScreenSize() {

@@ -16,7 +16,7 @@
             <span class="text-sm font-semibold text-primary ">
                 {{startIndex + 1}} - {{endIndex}}
             </span>
-            {{'GENERIC_TABLE.OF' | translate}} {{tableTotal || 0}}
+            {{'OF' | translate}} {{tableTotal || 0}}
         </span>
     </div>
 
@@ -86,7 +86,7 @@
                             : 'text-gray-300 bg-gray-400/30 border-gray-400/50'">
                             • {{column?.func(data[column.key]) | translate}}
                         </span>
-                        } @else if(column.label === "GENERIC_TABLE.NAME") {
+                        } @else if(column.label === "NAME") {
                         <span class="flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center">
                             <img class="size-7 rounded-full shrink-0" src="assets/images/OIP.jpg" alt="p">
                             <span class=" truncate max-w-[150px] flex flex-col gap-0.5">
@@ -96,7 +96,7 @@
                                 </span>
                             </span>
                         </span>
-                        } @else if (column.label === "GENERIC_TABLE.PRICE") {
+                        } @else if (column.label === "PRICE") {
                         <span
                             class=" truncate max-w-[150px] flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center ">
                             {{getValue(data, column.key) | currency}}
@@ -104,11 +104,11 @@
                         } @else {
                         <span
                             class=" truncate max-w-[150px] flex gap-2 text-[10px] text-gray-400 font-worksans align-middle items-center ">
-                            @if(column.label === "GENERIC_TABLE.COMPANY"){
+                            @if(column.label === "COMPANY"){
                             <img class="size-4 rounded-full shrink-0 " [src]="imgSrc(getValue(data, column.key))"
                                 alt="">
                             }
-                            @if(column.label === "GENERIC_TABLE.PRODUCT_NAME"){
+                            @if(column.label === "PRODUCT_NAME"){
                             <img class="size-7 rounded-full shrink-0 " src="assets/images/products/watch.svg" alt="i">
                             }
                             {{getValue(data, column.key) | titlecase}}
@@ -144,7 +144,7 @@
 
 <div class="flex flex-row rtl:gap-2 items-end justify-end py-5 px-5">
     <div class="px-14 flex flex-row items-center ">
-        <label for="itemsperpage" class="text-gray-400 text-[11px] font-medium font-inter px-3">{{'GENERIC_TABLE.ROWS_PER_PAGE' | translate}}</label>
+        <label for="itemsperpage" class="text-gray-400 text-[11px] font-medium font-inter px-3">{{'ROWS_PER_PAGE' | translate}}</label>
         <div class="flex relative ">
             <img class="absolute top-1/2 rtl:-translate-x-5 -translate-y-1/2 ltr:translate-x-5 pointer-events-none"
                 src="assets/icons/neutral/droparrow.svg" alt="arrow">

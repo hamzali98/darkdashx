@@ -33,8 +33,8 @@
 <ng-template #sessionExpired>
     <div class="mt-4 text-center">
         <button type="button" class="px-6 py-2 bg-primary text-secondary cursor-pointer rounded"
-            (click)="dialogService.close()">
-            {{'OK_BTN' | translate}}
+            (click)="sessionRejoin()">
+            {{'OK' | translate}}
         </button>
     </div>
 </ng-template>
@@ -44,7 +44,7 @@
     <div class=" flex justify-around mt-4 text-right">
         <button type="button" class="px-6 py-2 bg-primary-bg border border-white cursor-pointer text-secondary rounded"
             (click)="dialogService.close(false)">
-            {{ 'CANCEL_BTN' | translate }}
+            {{ 'CANCEL' | translate }}
         </button>
         <button type="button" class="px-8 py-2 bg-primary text-secondary cursor-pointer rounded"
             (click)="dialogService.close(true)">

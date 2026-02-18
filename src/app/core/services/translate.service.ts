@@ -133,6 +133,8 @@ export class TranslationService {
 
   getCurrentLanguage(): Language {
     return this.translate.currentLang as Language;
+    // const lang = localStorage.getItem(this.storageKey) as Language || 'en';
+    // return lang;
   }
 
   private applyDirection(lang: Language): void {

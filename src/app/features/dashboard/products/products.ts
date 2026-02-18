@@ -43,11 +43,11 @@ export class Products implements OnInit {
   constructor() {
     this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.productColumns = [
-      { key: ["basic_info", "product_name"], icon: "assets/icons/neutral/product.svg", label: "GENERIC_TABLE.PRODUCT_NAME" },
-      { key: ["basic_info", "product_category"], icon: "assets/icons/neutral/category.svg", label: "GENERIC_TABLE.CATEGORY" },
-      { key: ["basic_info", "product_price"], icon: "assets/icons/neutral/dollar.svg", label: "GENERIC_TABLE.PRICE" },
-      { key: ["basic_info", "product_company"], icon: "assets/icons/neutral/bag.svg", label: "GENERIC_TABLE.COMPANY" },
-      { func: (v: any) => v === true ? "GENERIC_TABLE.IN_STOCK" : "GENERIC_TABLE.OUT_OF_STOCK", key: "status", icon: "assets/icons/neutral/statustick.svg", label: "GENERIC_TABLE.STATUS" },
+      { key: ["basic_info", "product_name"], icon: "assets/icons/neutral/product.svg", label: "PRODUCT_NAME" },
+      { key: ["basic_info", "product_category"], icon: "assets/icons/neutral/category.svg", label: "CATEGORY" },
+      { key: ["basic_info", "product_price"], icon: "assets/icons/neutral/dollar.svg", label: "PRICE" },
+      { key: ["basic_info", "product_company"], icon: "assets/icons/neutral/bag.svg", label: "COMPANY" },
+      { func: (v: any) => v === true ? "IN_STOCK" : "OUT_OF_STOCK", key: "status", icon: "assets/icons/neutral/statustick.svg", label: "STATUS" },
     ];
 
   }

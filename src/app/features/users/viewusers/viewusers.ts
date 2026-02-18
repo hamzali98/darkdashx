@@ -11,10 +11,11 @@ import { Formservice } from '../adduser/services/formservice';
 import { environment } from '@environments/environment.development';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { TranslationService } from '@app/core/services/translate.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-viewusers',
-  imports: [GenericTable, TotalsCards, SearchBar],
+  imports: [GenericTable, TotalsCards, SearchBar, TranslateModule],
   templateUrl: './viewusers.html',
   styleUrl: './viewusers.css',
 })
@@ -54,13 +55,13 @@ export class Viewusers implements OnInit {
     this.userColumns = [
       {
         id: 'id', key: ["personal_info", "user_name"], subkey: ["personal_info", "user_email"],
-        icon: "assets/icons/neutral/usericon.svg", label: "Name"
+        icon: "assets/icons/neutral/usericon.svg", label: "NAME"
       },
       // { id: 'id', key: ["personal_info", "user_email"], icon: "assets/icons/neutral/email.svg", label: "Email" },
-      { id: 'id', key: ["basic_info", "user_phone"], icon: "assets/icons/neutral/phone.svg", label: "Phone" },
-      { id: 'id', key: ["basic_info", "user_location"], icon: "assets/icons/neutral/location.svg", label: "Location" },
-      { id: 'id', key: ["team_info", "team_name"], icon: "assets/icons/neutral/bag.svg", label: "Company" },
-      { id: 'id', func: (v: any) => v === true ? "Online" : "Offline", key: "status", icon: "assets/icons/neutral/statustick.svg", label: "Status" },
+      { id: 'id', key: ["basic_info", "user_phone"], icon: "assets/icons/neutral/phone.svg", label: "PHONE" },
+      { id: 'id', key: ["basic_info", "user_location"], icon: "assets/icons/neutral/location.svg", label: "LOCATION" },
+      { id: 'id', key: ["team_info", "team_name"], icon: "assets/icons/neutral/bag.svg", label: "COMPANY" },
+      { id: 'id', func: (v: any) => v === true ? "ONLINE" : "OFFLINE", key: "status", icon: "assets/icons/neutral/statustick.svg", label: "STATUS" },
     ];
 
     this.userFormService.resetForm();

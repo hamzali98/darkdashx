@@ -8,6 +8,7 @@ import { GenericDialog } from './shared/components/generic-dialog/generic-dialog
 import { DialogService, DialogData } from './shared/services/dialog-service/dialog';
 import { AuthService } from './core/auth/services/auth-service';
 import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class App {
   protected readonly title = signal('dashboard');
 
+  private routerRef = inject(Router);
   private loaderService = inject(Loaderservice);
   private authService = inject(AuthService);
   dialogService = inject(DialogService);
@@ -31,7 +33,9 @@ export class App {
     return this.loaderService;
   }
 
-  onLogout() {
-    this.authService.logout();
+  sessionRejoin() {
+    this.dialogService.close();
+    // this.authService.logout();
+    this.routerRef.navigate(['/login']);
   }
 }

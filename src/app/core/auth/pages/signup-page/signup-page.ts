@@ -9,10 +9,11 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 import { matchPasswordValidator } from '@app/shared/validators/match-password.validator';
 import { environment } from '@environments/environment.development';
 import { TranslationService } from '@app/core/services/translate.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule],
   templateUrl: './signup-page.html',
   styleUrl: './signup-page.css',
 })

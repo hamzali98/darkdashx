@@ -5,17 +5,17 @@ import { GenericChildNavBar } from "@app/shared/components/generic-child-nav-bar
 import { childnav } from '@app/shared/interface/child-nav-interface';
 import { ChildNavBarService } from '@app/shared/services/child-nav-bar/child-nav-bar-service';
 import { Formservice } from './services/formservice';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-adduser',
-  imports: [RouterOutlet, SearchBar, GenericChildNavBar],
+  imports: [RouterOutlet, SearchBar, GenericChildNavBar, TranslateModule],
   templateUrl: './adduser.html',
   styleUrl: './adduser.css',
 })
 export class Adduser {
 
-  navTitle: string = "Credentials";
+  navTitle: string = "CREDENTIALS";
   addUserRoutesData: childnav[];
 
   private childNavBarDataService = inject(ChildNavBarService);

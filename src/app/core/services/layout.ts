@@ -108,6 +108,6 @@ export class Layout<T> implements OnInit {
   }
 
   onLogout(){
-    this.authService.logout();
+    this.authService.logout('manual');
   }
 }

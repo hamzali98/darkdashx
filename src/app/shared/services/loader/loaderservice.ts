@@ -13,9 +13,9 @@ isVisible$ : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   }
 
   hideLoader() {
-    setTimeout(() => {
+    // setTimeout(() => {
       this.isVisible$.next(false);
-    }, 2000);
+    // }, 2000);
   }
 
   getLoader() {

@@ -22,7 +22,7 @@ export const roleGuard: CanActivateFn = (route, state) => {
   dialogService.open({
     actbtn: isRTL ? 'واپس جائیں' : 'Return',
     title: isRTL ? '⚠️ رسائی ممنوع' : '⚠️ Access Denied',
-    message: isRTL ? 'یہ صارف اس ایپلیکیشن کے خاصیت سے رسائی نہیں رکھتا۔' : 'This user does not have access to this application feature.',
+    message: isRTL ? 'اس صارف کو ایپلیکیشن کی اس خصوصیت تک رسائی نہیں ہے۔' : 'This user does not have access to this feature of application.',
     type: 'session-expired'
   });
 
