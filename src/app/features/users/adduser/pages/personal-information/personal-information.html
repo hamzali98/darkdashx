@@ -1,7 +1,7 @@
 <div class=" lg:pr-10.5 ">
     <!-- personal information card -->
-    <p class="text-white text-md font-normal font-worksans ">Personal Information</p>
-    <p class="text-figma-neutral text-sm font-medium tracking-normal">Please fill in your personal information</p>
+    <p class="text-white text-md font-normal font-worksans ">{{"PERSONAL_INFO" | translate}}</p>
+    <p class="text-figma-neutral text-sm font-medium tracking-normal">{{"Please fill in user information" | translate}}</p>
 
     <form [formGroup]="personalInfo">
 
@@ -11,7 +11,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/usericon.svg" alt="">
-                        <label for="name" class="text-gray-300 text-xs font-medium ">Full Name
+                        <label for="name" class="text-gray-300 text-xs font-medium ">{{"FULL_NAME" | translate}}
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
@@ -22,13 +22,14 @@
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
                         placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_name" type="text"
-                            id="name" name="name" placeholder="Enter Full Name">
+                            id="name" name="name" placeholder="{{'ENTER_FULL_NAME' | translate}}">
                         @if(user_name?.hasError('required') && user_name?.touched) {
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Name Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"NAME_REQUIRED"|translate}}</span>
                         } @else if(user_name?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{"LOOKS_GOOD"| translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Name</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"ENTER_FULL_NAME"|
+                            translate}}</span>
                         }
                     </div>
                 </div>
@@ -38,7 +39,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/email.svg" alt="">
-                        <label for="email" class="text-gray-300 text-xs font-medium">Email Address
+                        <label for="email" class="text-gray-300 text-xs font-medium">{{"EMAIL"|translate}}
                             <span class="text-red-600">*</span>
 
                         </label>
@@ -51,15 +52,18 @@
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
                         placeholder:text-figma-neutral placeholder:text-sm
-                        " type="text" id="email" name="email" formControlName="user_email" placeholder="Enter Email">
+                        " type="text" id="email" name="email" formControlName="user_email"
+                            placeholder="{{'ENTER_EMAIL'|translate}}">
                         @if(user_email?.hasError('required') && user_email?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Email Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"EMAIL_REQUIRED" |
+                            translate}}</span>
                         } @else if (user_email?.hasError('pattern')){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Email not Valid</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"EMAIL_INVALID"|translate}}</span>
                         } @else if(user_email?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{"LOOKS_GOOD"|translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Email</span>
+                        <span
+                            class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"ENTER_EMAIL"|translate}}</span>
                         }
                     </div>
                 </div>
@@ -69,7 +73,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/photo.svg" alt="">
-                        <label class="text-gray-300 text-xs font-medium ">Photo
+                        <label class="text-gray-300 text-xs font-medium ">{{"PHOTO"| translate}}
                             <!-- <span class="peer-invalid:text-red-600 peer-valid:text-green-600">*</span> -->
 
                         </label>
@@ -80,24 +84,28 @@
                                 <div class="rounded-full overflow-hidden size-11">
                                     <img class="size-11" src="assets/images/profilepic.svg" alt="profile">
                                 </div>
-                                <Button class="text-figma-neutral text-[10px] text-light py-2 " type="button" >Delete</Button>
+                                <Button class="text-figma-neutral text-[10px] text-light py-2 "
+                                    type="button">{{"DELETE"|translate}}</Button>
                             </div>
                             <input required id="photo" name="photo" type="file" class="hidden" />
                             <label for="photo"
-                                class="flex flex-col text-figma-neutral text-light text-[10px] pr-13 mt-1.5 text-center items-center">
+                                class="flex flex-col text-figma-neutral rtl:text-[11px] text-light text-[10px] pr-13 mt-1.5 text-center items-center">
                                 <img class="size-7.5 mb-2 " src="assets/icons/colored/uploadphoto.svg" alt="upload">
-                                <p><span class="text-primary text-light text-md  ">Click to upload </span>
-                                    or drag and drop</p>
-                                SVG, PNG, JPG, or GIF(max. 800 x 400px)
+                                <p><span class="text-primary text-light text-md  "> {{"PHOTO_DESC_L1"|translate}}
+                                    </span>
+                                    {{"PHOTO_DESC_L2"|translate}} </p>
+                                {{"PHOTO_DESC_L3"|translate}}
                             </label>
                         </div>
                         @if(user_photo?.hasError('required') && user_photo?.touched)
                         {
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Photo Required!</span>
+                        <span
+                            class="py-1 px-4 text-red-500 text-[12px] font-light">{{"PHOTO_REQUIRED"|translate}}</span>
                         } @else if(user_photo?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
+                            translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Name</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light"></span>
                         }
                     </div>
                 </div>
@@ -107,7 +115,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/pencil.svg" alt="">
-                        <label for="desc" class="text-gray-300 text-xs font-medium">Short Description
+                        <label for="desc" class="text-gray-300 text-xs font-medium">{{"SHORT_DESC"|translate}}
                             <span class="text-red-600">*</span>
 
                         </label>
@@ -119,13 +127,14 @@
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
                         placeholder:text-figma-neutral placeholder:text-sm" formControlName="user_desc"
-                            placeholder="Write a short bio about you..."></textarea>
+                            placeholder="{{'SHORT_DESC_PLACEHOLDER'|translate}}"></textarea>
                         @if(user_desc?.hasError('required') && user_desc?.touched)
-                        { <span class="py-1 px-4 text-red-500 text-[12px] font-light">Description Required!</span>
+                        { <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"DESCRIPTION_REQUIRED"|translate}}</span>
                         } @else if(user_desc?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
+                            translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Description</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light"></span>
                         }
                     </div>
                 </div>

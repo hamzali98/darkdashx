@@ -1,5 +1,5 @@
 <div class="">
-    <p class="text-sm tracking-wide text-white font-medium font-worksans">{{navTitle}}</p>
+    <p class="text-sm tracking-wide text-white font-medium font-worksans">{{navTitle | translate}}</p>
     <!-- <div class="" > -->
     <!-- <div> -->
     <nav class="flex flex-col gap-2 mt-6.5">
@@ -9,7 +9,7 @@
             <div class="flex flex-row items-center gap-2 ">
                 
                 <span><img class="size-3" [src]="items.icon" alt="i"></span>
-                <span>{{items.tiletitle}}</span>
+                <span>{{items.tiletitle | translate}}</span>
             </div>
         </a>
     }

@@ -2,10 +2,11 @@ import { NgClass } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { childnav } from '@app/shared/interface/child-nav-interface';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-generic-child-nav-bar',
-  imports: [RouterLink, NgClass],
+  imports: [RouterLink, NgClass, TranslateModule],
   templateUrl: './generic-child-nav-bar.html',
   styleUrl: './generic-child-nav-bar.css',
 })

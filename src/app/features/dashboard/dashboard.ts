@@ -13,14 +13,18 @@ import { environment } from '@environments/environment.development';
 import { AuthService } from '@app/core/auth/services/auth-service';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { DataError } from "@app/shared/components/data-error/data-error";
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslationService } from '@app/core/services/translate.service';
+import { UsersAmChart } from "./components/users-am-chart/users-am-chart";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [AnalyticsCard, AmCharts, DonutChart, BubbleChart, MapChart, DataError],
+  imports: [AnalyticsCard, AmCharts, DonutChart, BubbleChart, MapChart, DataError, TranslateModule, UsersAmChart],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard implements OnInit {
+  isRTL: boolean;
 
   productURL = environment.PRODUCTS_URL;
   userURL = environment.USER_URL;
@@ -32,6 +36,11 @@ export class Dashboard implements OnInit {
   authservice = inject(AuthService);
   loaderService = inject(Loaderservice);
   snackService = inject(SnackBarService);
+  translationService = inject(TranslationService);
+
+  constructor(){
+this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
+  }
 
   ngOnInit(): void {
     // this.loaderService.showLoader();
@@ -54,7 +63,7 @@ export class Dashboard implements OnInit {
       error: (err) => {
         // console.log(err);
         this.loaderService.hideLoader();
-        this.snackService.error("Server Error!", 2000, 'top-left');
+        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-left');
 
       }
     });
@@ -70,7 +79,7 @@ export class Dashboard implements OnInit {
       error: (err) => {
         // console.log(err);
         this.loaderService.hideLoader();
-        this.snackService.error("Server Error!", 2000, 'top-left');
+        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-left');
       }
     })
   }

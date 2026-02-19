@@ -60,14 +60,26 @@ export class Layout<T> implements OnInit {
     return this.isSidebarOpenSubject.value;
   }
 
+  // async openAndNavigate(section: string, route: string) {
+  //   const navigateSuccess = await this.routerRef.navigate([route]);
+  //   // this.routerRef.navigate([route]);
+  //   // this.onOpen(section);
+  //   if(navigateSuccess){
+  //     this.onOpen(section);
+  //   }
+  // }
   async openAndNavigate(section: string, route: string) {
-    const navigateSuccess = await this.routerRef.navigate([route]);
-    // this.routerRef.navigate([route]);
-    // this.onOpen(section);
-    if(navigateSuccess){
-      this.onOpen(section);
-    }
+  const currentSection = this.open();
+  const navigateSuccess = await this.routerRef.navigate([route]);
+  
+  if(navigateSuccess){
+    // Always open the clicked section, don't toggle if already open
+    this.open.set(section);
+  } else if (currentSection !== section) {
+    // If navigation failed but it's a different section, still open it
+    this.open.set(section);
   }
+}
 
   onOpen(section: string) {
     if (section === '') {
@@ -96,6 +108,6 @@ export class Layout<T> implements OnInit {
   }
 
   onLogout(){
-    this.authService.logout();
+    this.authService.logout('manual');
   }
 }

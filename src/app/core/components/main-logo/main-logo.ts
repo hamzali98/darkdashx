@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Layout } from '@app/core/services/layout';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-main-logo',
-  imports: [RouterLink],
+  imports: [RouterLink, TranslateModule],
   templateUrl: './main-logo.html',
   styleUrl: './main-logo.css',
 })

@@ -4,10 +4,11 @@ import { FormService } from '../../service/form-service';
 import { productCategories } from '../../../interface/product-categories';
 import { companyInterface } from '@app/shared/interface/company';
 import { CompanyListService } from '@app/shared/services/companylist/company-list-service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-base-info',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './base-info.html',
   styleUrl: './base-info.css',
 })

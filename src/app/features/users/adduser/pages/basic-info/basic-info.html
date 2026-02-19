@@ -1,8 +1,8 @@
 <div class="lg:pr-10.5">
 
     <!-- basic information card -->
-    <p class="text-white text-md font-normal font-worksans ">Basic Information</p>
-    <p class="text-figma-neutral text-sm font-medium tracking-normal">Please fill in your basic information</p>
+    <p class="text-white text-md font-normal font-worksans ">{{"BASIC_INFO"|translate}}</p>
+    <p class="text-figma-neutral text-sm font-medium tracking-normal">{{"Please fill in user information" | translate}}</p>
 
     <form [formGroup]="basicInfo">
 
@@ -11,7 +11,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/phone.svg" alt="">
-                        <label for="phone" class="text-gray-300 text-xs font-medium">Phone
+                        <label for="phone" class="text-gray-300 text-xs font-medium">{{"Phone"|translate}}
                             <span class="text-red-600">*</span>
 
                         </label>
@@ -22,16 +22,16 @@
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_phone" type="tel"
-                            id="phone" name="phone" placeholder="Enter Phone">
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_phone" type="number"
+                            id="phone" name="phone" placeholder="{{'Enter Phone'|translate}}">
                         @if(user_phone?.hasError('required') && user_phone?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Phone Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Phone Required!"|translate}}</span>
                         } @else if(user_phone?.hasError('minlength') || user_phone?.hasError('maxlength')){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Phone Invalid!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Phone Invalid!"|translate}}</span>
                         } @else if(user_phone?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Phone</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"Enter Phone"|translate}}</span>
                         }
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/bag.svg" alt="">
-                        <label for="position" class="text-gray-300 text-xs font-medium">Position
+                        <label for="position" class="text-gray-300 text-xs font-medium">{{"Position"|translate}}
                             <span class="text-red-600">*</span>
 
                         </label>
@@ -52,14 +52,14 @@
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
                         placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_position" type="text"
-                            id="position" name="position" placeholder="Enter Position">
+                            id="position" name="position" placeholder="{{'Enter Position'|translate}}">
                         @if(user_position?.hasError('required') && user_position?.touched)
                         {
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Position Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Position Required!"|translate}}</span>
                         } @else if(user_position?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Position</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"Enter Position"|translate}}</span>
                         }
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/location.svg" alt="">
-                        <label for="location" class="text-gray-300 text-xs font-medium">Location
+                        <label for="location" class="text-gray-300 text-xs font-medium">{{"Location"|translate}}
                             <span class="text-red-600">*</span>
 
                         </label>
@@ -80,14 +80,14 @@
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
                         placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_location" type="text"
-                            id="location" name="location" placeholder="Enter Location">
+                            id="location" name="location" placeholder="{{'Enter Location'|translate}}">
                         @if(user_location?.hasError('required') && user_location?.touched)
                         {
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Location Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Location Required!"|translate}}</span>
                         } @else if(user_location?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Location</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"Enter Location"|translate}}</span>
                         }
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/internet.svg" alt="">
-                        <label for="website" class="text-gray-300 text-xs font-medium">Website
+                        <label for="website" class="text-gray-300 text-xs font-medium">{{"Website"|translate}}
                             <span class="text-red-600">*</span>
 
                         </label>
@@ -108,15 +108,15 @@
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
                         placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_website" type="text"
-                            id="website" name="website" placeholder="Enter Website">
+                            id="website" name="website" placeholder="{{'Enter Website'|translate}}">
                         @if(user_website?.hasError('required') && user_website?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Website Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Website Required!"|translate}}</span>
                         } @else if (user_website?.hasError('pattern')) {
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Website Invalid!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Website Invalid!"|translate}}</span>
                         } @else if(user_website?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Website</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"Enter Website"|translate}}</span>
                         }
                     </div>
                 </div>

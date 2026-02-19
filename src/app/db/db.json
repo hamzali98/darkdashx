@@ -11,7 +11,7 @@
     {
       "username": "hamzali",
       "email": "hamzali@gmail.com",
-      "password": "",
+      "password": "123456",
       "status": false,
       "role": "user",
       "id": "769e"
@@ -19,10 +19,9 @@
   ],
   "products": [
     {
-      "id": "9d1f",
       "status": false,
       "basic_info": {
-        "product_name": "product",
+        "product_name": "Mobile",
         "product_category": "cosmetics",
         "product_price": 56,
         "product_company": "linkedin"
@@ -31,8 +30,9 @@
         "product_expiry": "2025-12-06",
         "product_regno": "5686",
         "product_mfg": "2025-12-31",
-        "product_stock": 3
-      }
+        "product_stock": 6
+      },
+      "id": "9d1f"
     },
     {
       "status": false,
@@ -46,7 +46,7 @@
         "product_expiry": "2025-12-10",
         "product_regno": "654",
         "product_mfg": "2025-12-31",
-        "product_stock": 32
+        "product_stock": 15
       },
       "id": "4b90"
     },
@@ -62,7 +62,23 @@
         "product_expiry": "2025-12-09",
         "product_regno": "546",
         "product_mfg": "2025-12-12",
-        "product_stock": 3
+        "product_stock": 8
+      },
+      "id": "f24a"
+    },
+    {
+      "status": true,
+      "basic_info": {
+        "product_name": "prod",
+        "product_category": "accessories",
+        "product_price": 3,
+        "product_company": "reddit"
+      },
+      "detail_info": {
+        "product_expiry": "2025-12-09",
+        "product_regno": "546",
+        "product_mfg": "2025-12-12",
+        "product_stock": 7
       },
       "id": "f24a"
     },
@@ -78,7 +94,7 @@
         "product_expiry": "2026-01-13",
         "product_regno": "kl34",
         "product_mfg": "2025-11-12",
-        "product_stock": 58
+        "product_stock": 5
       },
       "id": "14b6"
     },
@@ -94,39 +110,7 @@
         "product_expiry": "2026-01-13",
         "product_regno": "kl34",
         "product_mfg": "2025-11-12",
-        "product_stock": 58
-      },
-      "id": "14b6"
-    },
-    {
-      "status": false,
-      "basic_info": {
-        "product_name": "A product",
-        "product_category": "network",
-        "product_price": 56,
-        "product_company": "youtube"
-      },
-      "detail_info": {
-        "product_expiry": "2026-01-13",
-        "product_regno": "kl34",
-        "product_mfg": "2025-11-12",
-        "product_stock": 58
-      },
-      "id": "14b6"
-    },
-    {
-      "status": false,
-      "basic_info": {
-        "product_name": "A product",
-        "product_category": "network",
-        "product_price": 56,
-        "product_company": "youtube"
-      },
-      "detail_info": {
-        "product_expiry": "2026-01-13",
-        "product_regno": "kl34",
-        "product_mfg": "2025-11-12",
-        "product_stock": 58
+        "product_stock": 5
       },
       "id": "14b6"
     }
@@ -196,28 +180,6 @@
         "team_rank": "rank",
         "team_office": "office",
         "team_mail": "user2team@email.com"
-      }
-    },
-    {
-      "id": "e6ca",
-      "status": false,
-      "personal_info": {
-        "user_name": "user 45",
-        "user_email": "user45@gmail.com",
-        "user_photo": "",
-        "user_desc": "hello"
-      },
-      "basic_info": {
-        "user_phone": "3546568987",
-        "user_position": "pos",
-        "user_location": "loc",
-        "user_website": "www.web.com"
-      },
-      "team_info": {
-        "team_name": "facebook",
-        "team_rank": "rank",
-        "team_office": "office",
-        "team_mail": "team@email.com"
       }
     },
     {

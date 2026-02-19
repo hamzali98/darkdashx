@@ -4,6 +4,7 @@
     <div class="flex flex-col gap-2.5 w-auto h-auto px-6.5 py-8.5 pb-0  ">
         <div class="flex flex-row justify-between align-middle items-center ">
             <app-main-logo></app-main-logo>
+            <app-language-switcher></app-language-switcher>
             @if(sidebar){
             <button type="button" class="cursor-pointer" (click)="toggleSidebar()">
                 <span>
@@ -22,10 +23,10 @@
             <div class="flex flex-row relative w-auto justify-center items-center">
                 <img src="assets/icons/neutral/search.svg"
                     class="absolute left-3 top-1/2 -translate-y-1/2 size-3.5  pointer-events-none" alt="icon" />
-                <input class=" pl-8 w-full h-10 border border-card-bg/30 dark:border-gray-800 rounded-md caret-primary outline-0
+                <input class=" ltr:pl-8 rtl:pr-8 w-full h-10 border border-card-bg/30 dark:border-gray-800 rounded-md caret-primary outline-0
             placeholder:text-card-bg bg-input-bg 
             dark:placeholder:text-gray-400 placeholder:text-xs focus:border-primary dark:text-gray-400 " type="search"
-                    placeholder="Search for..." />
+                    placeholder="{{'SEARCH' | translate}}" />
             </div>
             <!-- <app-search-bar></app-search-bar> -->
         </div>
@@ -55,7 +56,7 @@
                     }
                     <span [ngClass]="open === items.routePath
                 ? 'text-primary'
-                : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-medium text-sm">{{items.tileName}}</span>
+                : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-medium text-sm">{{items.tileName | translate}}</span>
                 </div>
                 <span class="transition-transform duration-300 ease-in-out mr-3 "
                     [ngClass]="open === items.routePath ? 'rotate-0' : '-rotate-90' ">
@@ -69,12 +70,12 @@
                 class="flex flex-col transition-all duration-400 ease-in-out ">
                 @for(list of items.routeNames; track $index){
                 <a [routerLink]="[items.routeLink[$index]]" [ngClass]="isActive(items.routeLink[$index]) 
-                    ? 'border-l-4 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white' 
+                    ? 'ltr:border-l-4 rtl:border-r-4 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white' 
                     : 'px-2 text-gray-500 dark:text-neutral-400'"
-                    class=" text-left text-sm px-4 py-2.5 rounded-sm font-normal">
+                    class="  ltr:text-left text-sm px-4 py-2.5 rounded-sm font-normal">
                     <!-- <span class="md:hidden dark:fill-white "><img class="size-5" src="assets/icons/dashboard.svg"
                             alt="dash"></span> -->
-                    <span class="">{{items.routeNames[$index]}}</span>
+                    <span class="">{{items.routeNames[$index] | translate}}</span>
                 </a>
                 }
             </nav>
@@ -101,14 +102,14 @@
                         }
                         <span [ngClass]="open === 'settings'
                 ? 'text-primary'
-                : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-bold text-sm">Settings</span>
+                : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-bold text-sm">{{"SETTINGS" | translate}}</span>
                     </div>
                     <!-- <span class="-rotate-90 hidden md:inline">
                     <img src="assets/icons/droparrow.svg" alt="">
                 </span> -->
                 </button>
             </div>
-            <div class="py-2 flex">
+            <div class="py-2 flex items-center">
                 <button type="button" [disabled]="open === 'profile'"
                     class="flex flex-row  items-center w-full justify-between cursor-pointer"
                     (click)="onRoute('profile')">
@@ -120,7 +121,7 @@
                             <span
                                 [ngClass]="open === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-neutral-100' "
                                 class=" text-sm font-bold ">{{username}}</span>
-                            <span class="text-gray-500 dark:text-neutral-400 text-xs ">Account Settings</span>
+                            <span class="text-gray-500 dark:text-neutral-400 text-xs ">{{"ACCOUNT_SETTINGS" | translate}}</span>
                         </div>
                     </div>
                 </button>

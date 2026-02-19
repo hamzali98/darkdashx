@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Formservice } from '../../services/formservice';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-basic-info',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule],
   templateUrl: './basic-info.html',
   styleUrl: './basic-info.css',
 })

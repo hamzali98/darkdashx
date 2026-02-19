@@ -13,34 +13,34 @@ export class Formservice {
 
   fB = inject(FormBuilder);
 
-  userForm! : any;
+  userForm!: any;
 
-  constructor(){
+  constructor() {
     this.initForm();
   }
 
-  initForm(){
+  initForm() {
     this.userForm = this.fB.group({
-    status: [false],
-    personal_info: this.fB.group({
-      user_name: ['', Validators.required],
-      user_email: ['newuser@gmail.com', [Validators.required, customEmailValidator]],
-      user_photo: [''],
-      user_desc: ['hello new user', Validators.required],
-    }),
-    basic_info: this.fB.group({
-      user_phone: ['3123456789', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
-      user_position: ['POS', Validators.required],
-      user_location: ['LOC', Validators.required],
-      user_website: ['www.website.com', [Validators.required, Validators.pattern(/^(https?:\/\/)?(www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/.*)?$/)]],
-    }),
-    team_info: this.fB.group({
-      team_name: ['google', Validators.required],
-      team_rank: ['Rank', Validators.required],
-      team_office: ['office', Validators.required],
-      team_mail: ['team@email.com', [Validators.required, customEmailValidator]],
-    }),
-  })
+      status: [false],
+      personal_info: this.fB.group({
+        user_name: [null, Validators.required],
+        user_email: [null, [Validators.required, customEmailValidator]],
+        user_photo: [null],
+        user_desc: [null, Validators.required],
+      }),
+      basic_info: this.fB.group({
+        user_phone: [null, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
+        user_position: [null, Validators.required],
+        user_location: [null, Validators.required],
+        user_website: [null, [Validators.required, Validators.pattern(/^(https?:\/\/)?(www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/.*)?$/)]],
+      }),
+      team_info: this.fB.group({
+        team_name: [null, Validators.required],
+        team_rank: [null, Validators.required],
+        team_office: [null, Validators.required],
+        team_mail: [null, [Validators.required, customEmailValidator]],
+      }),
+    })
   }
 
   patchFormData(formdata: User) {

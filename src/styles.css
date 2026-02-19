@@ -2,6 +2,22 @@
 @import "./tailwind.css";
 
 
+@font-face {
+    font-family: 'JameelNoori';
+    src: url('/fonts/Mehr_Nastaliq_Web-v.2.0.woff') format('woff');
+    /* src: url('/fonts/ZohraUnicodeZohraUnicode.ttf') format('truetype'); */
+    /* src: url('./assets/Mehr_Nastaliq_Web-v.2.0.woff') format('woff'); */
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;
+    unicode-range: U+0600-06FF, U+0750-077F;
+}
+
+:lang(ur) {
+    font-family: 'JameelNoori', serif;
+}
+
+
 
 /* For Chrome, Safari, and Opera */
 /* .scroll-container::-webkit-scrollbar {

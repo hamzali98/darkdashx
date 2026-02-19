@@ -7,7 +7,7 @@ import { LogoutBtn } from "@app/core/components/logout-btn/logout-btn";
 
 @Component({
   selector: 'app-header',
-  imports: [NgClass, MainLogo, LogoutBtn],
+  imports: [MainLogo, LogoutBtn],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })

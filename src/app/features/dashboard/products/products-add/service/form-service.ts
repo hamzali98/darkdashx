@@ -22,16 +22,16 @@ export class FormService {
     this.productForm = this.fB.group({
     status : [false],
     basic_info: this.fB.group({
-      product_name: ['', Validators.required],
-      product_category: ['', Validators.required],
-      product_price: [''],
-      product_company: ['', Validators.required],
+      product_name: [null, Validators.required],
+      product_category: [null, Validators.required],
+      product_price: [null, Validators.required],
+      product_company: [null, Validators.required],
     }),
     detail_info: this.fB.group({
-      product_expiry: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
-      product_regno: ['', Validators.required],
-      product_mfg: ['', Validators.required],
-      product_stock: ['', Validators.required],
+      product_expiry: [null, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
+      product_regno: [null, Validators.required],
+      product_mfg: [null, Validators.required],
+      product_stock: [null, Validators.required],
     }),
     
   });

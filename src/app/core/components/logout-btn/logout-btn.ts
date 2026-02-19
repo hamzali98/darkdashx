@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Layout } from '@app/core/services/layout';
 import { DialogService } from '@app/shared/services/dialog-service/dialog';
+import { TranslationService } from '@app/core/services/translate.service';
 
 @Component({
   selector: 'app-logout-btn',
@@ -12,18 +13,21 @@ export class LogoutBtn {
 
   private layoutService = inject(Layout);
   private dialogService = inject(DialogService);
+  private translateService = inject(TranslationService);
 
   onLogout() {
+    const isRTL = this.translateService.getCurrentLanguage() === 'ur';
     this.dialogService.open({
-      title: "⚠️ Logout",
-      message: "Are you sure to logout?",
+      actbtn: isRTL ? 'لاگ آؤٹ' : 'Logout',
+      title: "⚠️ " + (isRTL ? 'لاگ آؤٹ' : 'Logout'),
+      message: isRTL ? 'کیا آپ واقعی لاگ آؤٹ کرنا چاہتے ہیں؟' : 'Are you sure to logout?',
       type: "generic"
     }).subscribe(result => {
       if (result) {
         this.layoutService.onLogout();
       } else {
         // this.dialogService.close();
-        
+
       }
     })
   }

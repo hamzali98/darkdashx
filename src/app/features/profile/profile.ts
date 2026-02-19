@@ -10,7 +10,10 @@ import { PasswordCheck } from '@app/shared/services/password-check/password-chec
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { customEmailValidator } from '@app/shared/validators/email-validator';
 import { environment } from '@environments/environment.development';
-import { BehaviorSubject, debounceTime, fromEvent, map, timeout } from 'rxjs';
+import { BehaviorSubject, debounceTime, delay, fromEvent, map, timeout } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from '@app/core/components/language-switcher/language-switcher.component';
+import { TranslationService } from '@app/core/services/translate.service';
 
 export interface profilesociallinkbtns {
   alt: string,
@@ -19,11 +22,12 @@ export interface profilesociallinkbtns {
 
 @Component({
   selector: 'app-profile',
-  imports: [NgClass, ReactiveFormsModule, FormsModule],
+  imports: [NgClass, ReactiveFormsModule, FormsModule, TranslateModule],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
 export class Profile implements OnInit, OnDestroy {
+  isRTL: boolean;
 
   smsOn = false;
   tfaOn = false;
@@ -46,12 +50,14 @@ export class Profile implements OnInit, OnDestroy {
   private dialogService = inject(DialogService);
   private passwordService = inject(PasswordCheck);
   private snackService = inject(SnackBarService);
+  private translationService = inject(TranslationService);
 
   constructor() {
+    this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.profileForm = new FormGroup({
-      username: new FormControl('', Validators.required),
+      username: new FormControl(''),
       email: new FormControl('', [customEmailValidator]),
-      password: new FormControl('', Validators.required),
+      password: new FormControl(''),
       status: new FormControl(false),
       role: new FormControl(""),
     });
@@ -97,15 +103,23 @@ export class Profile implements OnInit, OnDestroy {
   }
 
   get btndisableGetter() {
-    if (this.profileForm.invalid) {
-      return true;
-    } else if (this.passcnfrm === false) {
-      return true;
-    } else if (this.message !== '') {
+    if (this.profileForm.pristine) {
       return true;
     } else {
       return false;
     }
+    // if (this.profileForm.touched) {
+    //   return true;
+    // } else if (this.passcnfrm === false) {
+    //   // if (this.passcnfrm === false) {
+    //   //   return true;
+    //   // }
+    //   return false;
+    // } else if (this.message !== '') {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
     // return profileForm.invalid && passcnfrm === false && message !== ''
   }
 
@@ -122,6 +136,7 @@ export class Profile implements OnInit, OnDestroy {
     this.profileForm.patchValue({
       username: this.user?.username,
       email: this.user?.email,
+      password: this.user?.password,
     });
   }
 
@@ -129,45 +144,63 @@ export class Profile implements OnInit, OnDestroy {
     // debounceTime(1000);
     // console.log(this.oldpass);
 
-    setTimeout(() => {
-      this.loader.set(true);
+    // setTimeout(() => {
+    if (this.oldpass.length >= 3 || this.oldpass.length === 0) {
 
-      this.httpService.getApi(this.URL).pipe(
-        // debounceTime(3000),
-        map(res => {
-          const state: boolean = res.body.find(
-            // (u: credentials) => u.email === this.email?.value
-            (u: credentials) => {
-              if (u.password === this.oldpass) {
-                return true;
+      this.loader.set(true),
+        this.httpService.getApi(this.URL).pipe(
+          delay(600),
+          map(res => {
+            const state = res.body.some(
+              (u: credentials) => u.password === this.oldpass
+            );
+            // const state: boolean = res.body.find(
+            //   // (u: credentials) => u.email === this.email?.value
+            //   (u: credentials) => {
+            //     if (u.password === this.oldpass) {
+            //       return true;
+            //     } else {
+            //       return false;
+            //     }
+            //   }
+            // );
+            // console.log(state);
+            if (state) {
+              return true;
+            } else {
+              return false;
+            }
+          }),
+        ).subscribe({
+          next: (res) => {
+            // console.log(res);
+            if (res) {
+              this.message = "";
+            } else {
+              if(this.isRTL){
+                this.message = "غلط پاس ورڈ";
               } else {
-                return false;
+                this.message = "Wrong Password";
               }
             }
-          );
-          // console.log(state);
-          if (state) {
-            return true;
-          } else {
-            return false;
+            this.loader.set(false);
+          },
+          error: (err) => {
+            if(this.isRTL){
+              this.message = "سرور کی خرابی!";
+            } else {  
+              this.message = "Server error!";
+            }
+            this.loader.set(false);
           }
-        })
-      ).subscribe({
-        next: (res) => {
-          // console.log(res);
-          if (res) {
-            this.message = "";
-          } else {
-            this.message = "Wrong Password"
-          }
-          this.loader.set(false);
-        },
-        error: (err) => {
-          this.message = "Server error!";
-          this.loader.set(false);
-        }
-      })
-    }, 1000);
+        });
+    }
+    // }, 1000);
+  }
+
+  onPassChange() {
+    // console.log(password?.value);
+    // console.log(passwordStrengthGetter);
   }
 
   toggle(action: string) {
@@ -190,7 +223,7 @@ export class Profile implements OnInit, OnDestroy {
   onReset() {
     // this.profileForm.pas;
     this.patchValues();
-    this.password?.reset();
+    // this.password?.reset();
     this.message = '';
     this.oldpass = "";
     this.cnfrmpass = "";
@@ -209,20 +242,22 @@ export class Profile implements OnInit, OnDestroy {
       next: (res) => {
         // console.log(res);
         this.authService.login(res, true);
-        this.snackService.success("Profile edited", 2000, 'top-center');
+        this.snackService.success(this.isRTL ? "پروفائل کامیابی سے اپ ڈیٹ ہو گیا!" : "Profile edited", 2000, 'top-center');
       },
       error: (err) => {
         // console.log(err);
-        this.snackService.error("Server error", 2000, 'top-center');
+        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error", 2000, 'top-center');
       }
     }
     );
   }
 
   onDelete() {
+    const isRTL = this.isRTL;
     this.dialogService.open({
-      title: '⚠️ Delete Alert',
-      message: 'Are you sure you want to delete your account. After deletion account is not recoverable.',
+      actbtn: isRTL ? 'حذف کریں' : 'Delete',
+      title: isRTL ? '⚠️ حذف کرنے کی انتباہ' : '⚠️ Delete Alert',
+      message: isRTL ? 'کیا آپ واقعی اپنے اکاؤنٹ کو حذف کرنا چاہتے ہیں؟ حذف کرنے کے بعد اکاؤنٹ بحال نہیں ہو سکتا۔' : 'Are you sure you want to delete your account. After deletion account is not recoverable.',
       type: 'generic'
     });
   }
@@ -238,5 +273,6 @@ export class Profile implements OnInit, OnDestroy {
     this.cnfrmpass = "";
     this.user = {} as credentials | null;
     this.profileForm.reset;
+    // clearTimeout();
   }
 }

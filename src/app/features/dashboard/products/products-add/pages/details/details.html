@@ -1,6 +1,6 @@
 <div class="lg:pr-10.5 ">
-    <p class="text-white text-md font-normal font-worksans ">Product Information</p>
-    <p class="text-figma-neutral text-sm font-medium tracking-normal ">Please fill in product information</p>
+    <p class="text-white text-md font-normal font-worksans ">{{'DETAILED_INFO' | translate}}</p>
+    <p class="text-figma-neutral text-sm font-medium tracking-normal ">{{'PROD_INFO_DESC' | translate}}</p>
 
     <form [formGroup]="detailInfo" (ngSubmit)="onFormSubmit()">
 
@@ -9,7 +9,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/expiry.svg" alt="">
-                        <label for="productexpiry" class="text-gray-300 text-xs font-medium">Product Expiry
+                        <label for="productexpiry" class="text-gray-300 text-xs font-medium">{{ 'EXPIRY' | translate }}
                             <span class="text-red-600">*</span>
 
                         </label>
@@ -19,13 +19,13 @@
                                 text-figma-neutral text-sm font-light
                                 invalid:border-red-500  valid:border-green-500 focus:border-primary bg-card-bg
                                 placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_expiry"
-                            type="date" id="productexpiry" name="productexpiry" placeholder="Enter Product Expiry">
+                            type="date" id="productexpiry" name="productexpiry" placeholder="{{'SEXP' | translate}}">
                         @if(product_expiry?.hasError('required') && product_expiry?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Expiry Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'EXP' | translate}}</span>
                         } @else if(product_expiry?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Expiry</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'SEXP' | translate}}</span>
                         }
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/regno.svg" alt="">
-                        <label for="regno" class="text-gray-300 text-xs font-medium">Reg no.
+                        <label for="regno" class="text-gray-300 text-xs font-medium">{{ 'REG_NO' | translate }}
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
@@ -45,15 +45,13 @@
                                 valid:border-green-500 valid:caret-green-500
                                 focus:border-primary caret-primary
                                 placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_regno"
-                            type="text" id="regno" name="regno" placeholder="Enter Product Reg no.">
+                            type="text" id="regno" name="regno" placeholder="{{'EREG' | translate}}">
                         @if(product_regno?.hasError('required') && product_regno?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Reg no.
-                            Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'REG' | translate}}</span>
                         } @else if(product_regno?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product
-                            Reg no.</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'EREG' | translate}}</span>
                         }
                     </div>
                 </div>
@@ -62,7 +60,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1">
                         <img src="assets/icons/white/mfg.svg" alt="">
-                        <label for="mfg" class="text-gray-300 text-xs font-medium">Manufacturing Date
+                        <label for="mfg" class="text-gray-300 text-xs font-medium">{{ 'MFG' | translate }}
                             <span class="text-red-600">*</span>
 
                         </label>
@@ -74,15 +72,13 @@
                                 valid:border-green-500 valid:caret-green-500
                                 focus:border-primary caret-primary
                                 placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_mfg"
-                            type="date" id="mfg" name="mfg" placeholder="Enter Product Manufacturing Date">
+                            type="date" id="mfg" name="mfg" placeholder="{{'SMFG' | translate}}">
                         @if(product_mfg?.hasError('required') && product_mfg?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Manufacturing Date
-                            Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'MFGR' | translate}}</span>
                         } @else if(product_mfg?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Manufacturing
-                            Date</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'SMFG' | translate}}</span>
                         }
                     </div>
                 </div>
@@ -91,7 +87,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1">
                         <img src="assets/icons/white/stock.svg" alt="">
-                        <label for="stock" class="text-gray-300 text-xs font-medium">Stock
+                        <label for="stock" class="text-gray-300 text-xs font-medium">{{ 'STOCK' | translate }}
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
@@ -102,13 +98,13 @@
                                 valid:border-green-500 valid:caret-green-500
                                 focus:border-primary caret-primary
                                 placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_stock"
-                            type="number" id="stock" name="stock" placeholder="Enter Product stock">
+                            type="number" id="stock" name="stock" placeholder="{{'ESTK' | translate}}">
                         @if(product_stock?.hasError('required') && product_stock?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">Product Stock Required!</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'STK' | translate}}</span>
                         } @else if(product_stock?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">Looks Good</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">Enter Product Stock</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'ESTK' | translate}}</span>
                         }
                     </div>
                 </div>
@@ -117,7 +113,7 @@
         <div class=" flex justify-end mt-10">
             <button [disabled]="detailInfo.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer
             disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] disabled:cursor-not-allowed" type="submit">
-                {{prodcutFormService.editing() ? "Edit Product" : "Add Product"}}
+                {{prodcutFormService.editing() ? ("EDIT_PRODUCT" | translate) : ("ADD_PRODUCT" | translate)}}
             </button>
         </div>
     </form>

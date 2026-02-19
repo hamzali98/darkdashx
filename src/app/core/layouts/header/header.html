@@ -17,22 +17,20 @@
             </div>
         </div>
     </a> -->
-    <div class="py-2 flex">
-        <button type="button" [disabled]="open === 'profile'"
-            class="md:flex flex-row hidden items-center w-full justify-between cursor-pointer"
+    <div class="py-2 flex items-center">
+        <!-- <button type="button" [disabled]="open === 'profile'"
+            class="md:flex flex-row items-center w-full justify-between cursor-pointer"
             (click)="onRoute('profile')">
             <div class="flex fex-row items-center">
-                <span class="text-figma-neutral font-medium font-worksans mx-3">Welcome</span>
                 <div class="flex flex-col items-start px-2 ">
                     <span [ngClass]="open === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-neutral-100' "
                         class=" text-sm font-bold ">{{username}}</span>
-                    <!-- <span class="text-gray-500 dark:text-neutral-400 text-xs ">Account Settings</span> -->
                 </div>
                 <div class=" rounded-full overflow-hidden size-7 md:size-9 bg-contain  ">
                     <img class="-mt-1" src="assets/images/OIP.webp" alt="">
                 </div>
             </div>
-        </button>
+        </button> -->
         <app-logout-btn></app-logout-btn>
     </div>
 </div>

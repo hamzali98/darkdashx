@@ -1,7 +1,7 @@
 <div class=" flex flex-col gap-5 px-9.5 py-7 ">
     <div class="flex flex-col md:flex-row justify-start gap-13 items-center ">
         <span class="text-gray-500 dark:text-white font-medium font-worksans text-lg">
-            {{productFormService.editing() ? "Edit Product" : "Add Product"}}
+            {{productFormService.editing() ? ("EDIT_PRODUCT" | translate) : ("ADD_PRODUCT" | translate)}}
             </span>
         <app-search-bar></app-search-bar>
     </div>

@@ -1,9 +1,10 @@
 import { Component, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search-bar',
-  imports: [FormsModule],
+  imports: [FormsModule, TranslateModule],
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.css',
 })

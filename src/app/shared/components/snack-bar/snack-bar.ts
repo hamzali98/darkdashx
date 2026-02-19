@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { SnackbarData, SnackbarType } from '@app/shared/interface/snack-bar.model';
@@ -19,26 +19,27 @@ export class SnackBar implements OnInit, OnDestroy {
   private snackbarSubscription!: Subscription;
   private timerSubscription!: Subscription;
 
+
   constructor(
     private snackbarService: SnackBarService,
     private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-  this.snackbarSubscription =
-    this.snackbarService.snackbar$.subscribe(data => {
+    this.snackbarSubscription =
+      this.snackbarService.snackbar$.subscribe(data => {
 
-      this.timerSubscription?.unsubscribe();
+        this.timerSubscription?.unsubscribe();
 
-      this.currentSnackbar = data;
-      this.isVisible = true;
-      this.cdr.detectChanges();
+        this.currentSnackbar = data;
+        this.isVisible = true;
+        this.cdr.detectChanges();
 
-      this.timerSubscription = timer(data.duration!).subscribe(() => {
-        this.hide();
+        this.timerSubscription = timer(data.duration!).subscribe(() => {
+          this.hide();
+        });
       });
-    });
-}
+  }
 
 
 
