@@ -150,10 +150,10 @@ export class AuthService {
   private readonly USER_KEY = 'user';
   private readonly EXPIRY_KEY = 'session_expiry';
   private readonly LOGOUT_REASON_KEY = 'logout_reason';
-  private readonly SESSION_DURATION = 30 * 1000; // 30 seconds for testing
-  // private readonly SESSION_DURATION = 15 * 60 * 1000; // 15 minutes
-  private readonly REMEMBER_DURATION = 15 * 60 * 1000; // 15 minutes
-  // private readonly REMEMBER_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
+  // private readonly SESSION_DURATION = 30 * 1000; // 30 seconds for testing
+  private readonly SESSION_DURATION = 15 * 60 * 1000; // 15 minutes
+  // private readonly REMEMBER_DURATION = 15 * 60 * 1000; // 15 minutes
+  private readonly REMEMBER_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
 
   private routerRef = inject(Router);
   private dialogService = inject(DialogService);

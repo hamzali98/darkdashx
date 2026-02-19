@@ -13,12 +13,12 @@ import { TranslationService } from '@app/core/services/translate.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-am-charts',
+  selector: 'app-users-am-chart',
   imports: [],
-  templateUrl: './am-charts.html',
-  styleUrl: './am-charts.css',
+  templateUrl: './users-am-chart.html',
+  styleUrl: './users-am-chart.css',
 })
-export class AmCharts implements OnInit, OnChanges, OnDestroy {
+export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
 
   isRtl: boolean;
 
@@ -31,9 +31,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
   translationService = inject(TranslationService);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone) {
-
     this.isRtl = this.translationService.getCurrentLanguage() === 'ur';
-
   }
 
   ngOnInit(): void {
@@ -42,16 +40,14 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
       this.isRtl = lang === 'ur';
 
       // Redraw chart if data is available
-      if (this.productChartData && this.userChartData) {
+      if (this.userChartData) {
         this.prepareBarChart();
       }
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes && this.productChartData && this.userChartData) {
-      // console.log(this.userChartData);
-      // console.log(this.productChartData);
+    if (changes && this.userChartData) {
       this.prepareBarChart();
     }
   }
@@ -87,20 +83,17 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
   }
 
   createChart() {
-
     const data = this.getData();
     const isRTL = this.isRtl;
     const maxValue = this.getDataMax();
 
-    const productsSeriesName = isRTL ? 'مصنوعات' : 'Products';
-    const stockSeriesName = isRTL ? 'سٹاک' : 'Stock';
-    const stockAveragename = isRTL ? 'اوسط اسٹاک' : 'Average Stock';
-
+    const totalUsersSeriesName = isRTL ? 'کل صارفین' : 'Total Users';
+    const activeUsersSeriesName = isRTL ? 'فعال صارفین' : 'Active Users';
+    const inactiveUsersSeriesName = isRTL ? 'غیر فعال صارفین' : 'Inactive Users';
 
     // Chart code goes in here
     this.browserOnly(() => {
-
-      let root = am5.Root.new("chartdiv");
+      let root = am5.Root.new("amchartdiv");
       root.setThemes([am5themes_Animated.new(root)]);
       let chart = root.container.children.push(
         am5xy.XYChart.new(root, {
@@ -112,18 +105,14 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
       // Create Y-axis
       let yAxis = chart.yAxes.push(
         am5xy.ValueAxis.new(root, {
-          // maxDeviation: 0.3,
           renderer: am5xy.AxisRendererY.new(root, {}),
-          min: 0,  // Start from 0
-          max: maxValue, // Fixed maximum value
-          strictMinMax: true // Enforce these limits strictly
-
+          min: 0,
+          max: maxValue,
+          strictMinMax: true
         })
       );
 
       yAxis.get("renderer").labels.template.setAll({
-        // textAlign: "center",
-        // fontFamily: isRTL ? "JameelNoori" : "",
         rotation: 0,
         centerY: am5.p50,
         centerX: am5.p50,
@@ -133,7 +122,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
         direction: isRTL ? "rtl" : "ltr",
         oversizedBehavior: "wrap",
         maxWidth: 100
-      })
+      });
 
       // Create X-Axis with RTL support
       let xAxis = chart.xAxes.push(
@@ -143,7 +132,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
             cellStartLocation: 0.1,
             cellEndLocation: 0.9
           }),
-          categoryField: "category"
+          categoryField: "team"
         })
       );
 
@@ -162,50 +151,50 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
 
       xAxis.data.setAll(data);
 
-      // Create series
+      // Create series 1 - Total Users
       let series1 = chart.series.push(
         am5xy.ColumnSeries.new(root, {
-          name: productsSeriesName,
+          name: totalUsersSeriesName,
           xAxis: xAxis,
           yAxis: yAxis,
-          valueYField: "productCount",
-          categoryXField: "category",
+          valueYField: "totalUsers",
+          categoryXField: "team",
           fill: am5.color("#cb3cff"),
         })
       );
 
+      // Create series 2 - Active Users
       let series2 = chart.series.push(
         am5xy.ColumnSeries.new(root, {
-          name: stockSeriesName,
+          name: activeUsersSeriesName,
           xAxis: xAxis,
           yAxis: yAxis,
-          valueYField: "totalStock",
-          categoryXField: "category",
+          valueYField: "activeUsers",
+          categoryXField: "team",
           fill: am5.color("#00c2ff"),
         })
       );
 
-        let series3 = chart.series.push(
+      // Create series 3 - Inactive Users
+      let series3 = chart.series.push(
         am5xy.ColumnSeries.new(root, {
-          name: stockAveragename,
+          name: inactiveUsersSeriesName,
           xAxis: xAxis,
           yAxis: yAxis,
-          valueYField: "averageStock",
-          categoryXField: "category",
-          fill: am5.color("#32CD32"),
+          valueYField: "inactiveUsers",
+          categoryXField: "team",
+          fill: am5.color("#6C72FF"),
         })
       );
 
       series1.data.setAll(data);
       series2.data.setAll(data);
       series3.data.setAll(data);
-      // Configure series1 with dynamic tooltip positioning
-      series1 = this.createChartTooltip(series1, root, productsSeriesName, "#cb3cff");
 
-      // Same for series2
-      series2 = this.createChartTooltip(series2, root, stockSeriesName, "#00c2ff");
-
-      series3 = this.createChartTooltip(series3, root, stockAveragename, "#32CD32" );
+      // Configure tooltips for each series
+      series1 = this.createChartTooltip(series1, root, totalUsersSeriesName, "#cb3cff");
+      series2 = this.createChartTooltip(series2, root, activeUsersSeriesName, "#00c2ff");
+      series3 = this.createChartTooltip(series3, root, inactiveUsersSeriesName, "#6C72FF");
 
       // Add legend
       let legend = chart.children.push(am5.Legend.new(root, {
@@ -216,17 +205,10 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
 
       legend.labels.template.setAll({
         fontFamily: isRTL ? 'JameelNoori' : '',
-        // textAlign: isRTL ? "right" : "left",
-        // direction: isRTL ? "rtl" : "ltr",
         marginLeft: isRTL ? -25 : 5,
-        // marginRight: isRTL ? 10 : 0
       });
 
       legend.data.setAll(chart.series.values);
-
-      // Add cursor
-      // chart.set("cursor", am5xy.XYCursor.new(root, {
-      // }));
 
       root.interfaceColors.set("text", am5.color("#fff"));
       this.root = root;
@@ -235,37 +217,45 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
 
   // chart data preparation function
   getData() {
-    const categoryMap: Record<string, { count: number; stock: number }> = {};
+    const teamMap: Record<string, { total: number; active: number; inactive: number }> = {};
 
-    this.productChartData.forEach(p => {
-      const category = p.basic_info.product_category;
+    this.userChartData.forEach(user => {
+      const teamName = user.team_info.team_name;
 
-      if (!categoryMap[category]) {
-        categoryMap[category] = { count: 0, stock: 0 };
+      if (!teamMap[teamName]) {
+        teamMap[teamName] = { total: 0, active: 0, inactive: 0 };
       }
 
-      categoryMap[category].count += 1;
-      categoryMap[category].stock += p.detail_info.product_stock;
+      teamMap[teamName].total += 1;
+      
+      if (user.status === true) {
+        teamMap[teamName].active += 1;
+      } else {
+        teamMap[teamName].inactive += 1;
+      }
     });
 
-    // Translation map for categories
-    const categoryTranslations: Record<string, string> = {
-      'cosmetics': this.isRtl ? 'کاسمیٹکس' : 'Cosmetics',
-      'note book': this.isRtl ? 'نوٹ بک' : 'Note Book',
-      'accessories': this.isRtl ? 'پرزے' : 'Accessories',
-      'network': this.isRtl ? 'نیٹ ورک' : 'Network'
+    // Translation map for teams
+    const teamTranslations: Record<string, string> = {
+      'spotify': this.isRtl ? 'سپوٹیفائی' : 'Spotify',
+      'twitter': this.isRtl ? 'ٹویٹر' : 'Twitter',
+      'reddit': this.isRtl ? 'ریڈٹ' : 'Reddit',
+      'google': this.isRtl ? 'گوگل' : 'Google',
+      'pinterest': this.isRtl ? 'پنٹیرسٹ' : 'Pinterest',
+      'facebook': this.isRtl ? 'فیس بک' : 'Facebook',
+      'instagram': this.isRtl ? 'انسٹاگرام' : 'Instagram'
     };
 
-    // Helper function to translate category
-    const translateCategory = (category: string): string => {
-      return categoryTranslations[category] || category; // Fallback to original if not found
+    // Helper function to translate team
+    const translateTeam = (team: string): string => {
+      return teamTranslations[team.toLowerCase()] || team;
     };
 
-    const data = Object.keys(categoryMap).map(category => ({
-      category: translateCategory(category),
-      productCount: categoryMap[category].count,
-      totalStock: categoryMap[category].stock,
-      averageStock: categoryMap[category].stock / categoryMap[category].count
+    const data = Object.keys(teamMap).map(team => ({
+      team: translateTeam(team),
+      totalUsers: teamMap[team].total,
+      activeUsers: teamMap[team].active,
+      inactiveUsers: teamMap[team].inactive
     }));
 
     console.log('Prepared chart data:', data);
@@ -274,15 +264,13 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
 
   // function to calculate the maximum value for Y-axis scaling
   getDataMax(): number {
-
-    // Calculate the maximum value from both productCount and totalStock
     const data = this.getData();
-    const maxProductCount = Math.max(...data.map(item => item.productCount));
-    const maxStock = Math.max(...data.map(item => item.totalStock));
-    const maxValue = Math.max(maxProductCount, maxStock);
+    const maxTotal = Math.max(...data.map(item => item.totalUsers));
+    const maxActive = Math.max(...data.map(item => item.activeUsers));
+    const maxInactive = Math.max(...data.map(item => item.inactiveUsers));
+    const maxValue = Math.max(maxTotal, maxActive, maxInactive);
 
-    // Set Y-axis max with some padding
-    // Option 1: Round up to nearest 10
+    // Round up to nearest 10
     let yAxisMax = Math.ceil(maxValue / 10) * 10;
 
     // Ensure minimum of 10
@@ -301,12 +289,11 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
   }
 
   createChartTooltip(series: any, root: any, seriesName: string, color: string) {
-    // Configure series1 with dynamic tooltip positioning
     series.columns.template.setAll({
       strokeWidth: 2,
       width: 20,
       tooltip: am5.Tooltip.new(root, {
-        pointerOrientation: "vertical", // Allows tooltip to flip automatically
+        pointerOrientation: "vertical",
         getFillFromSprite: false,
         labelText: "",
         autoTextColor: false,
@@ -319,14 +306,13 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
           shadowOffsetY: 2,
         }),
       }),
-      // Custom HTML for tooltip content
       tooltipHTML: this.getToolTipHtml(seriesName),
       cornerRadiusTL: 5,
       cornerRadiusTR: 5
     });
 
     series.set("tooltip", am5.Tooltip.new(root, {
-      pointerOrientation: "vertical", // Allows tooltip to flip automatically
+      pointerOrientation: "vertical",
       getFillFromSprite: false,
       labelText: "",
       autoTextColor: false
@@ -339,10 +325,9 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
   getToolTipHtml(seriesName: string) {
     const fontSize = this.isRtl ? '16px' : '14px';
     return `
-          <div style="font-weight: bold; color: #fff; text-align: center; margin-bottom: 8px; font-size: ${fontSize};">{categoryX}</div>
-          <div style="color: #fff; font-size: 13px;">
-            <span style="color: #fff; text-align: center; font-weight: 600;">${seriesName} :</span> {valueY}
-          </div>`;
+      <div style="font-weight: bold; color: #fff; text-align: center; margin-bottom: 8px; font-size: ${fontSize};">{categoryX}</div>
+      <div style="color: #fff; font-size: 13px;">
+        <span style="color: #fff; text-align: center; font-weight: 600;">${seriesName}:</span> {valueY}
+      </div>`;
   }
-
 }

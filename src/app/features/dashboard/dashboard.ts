@@ -15,10 +15,11 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 import { DataError } from "@app/shared/components/data-error/data-error";
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslationService } from '@app/core/services/translate.service';
+import { UsersAmChart } from "./components/users-am-chart/users-am-chart";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [AnalyticsCard, AmCharts, DonutChart, BubbleChart, MapChart, DataError, TranslateModule],
+  imports: [AnalyticsCard, AmCharts, DonutChart, BubbleChart, MapChart, DataError, TranslateModule, UsersAmChart],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
