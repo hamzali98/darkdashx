@@ -57,8 +57,8 @@
                         @if(user_email?.hasError('required') && user_email?.touched){
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"EMAIL_REQUIRED" |
                             translate}}</span>
-                        } @else if (user_email?.hasError('pattern')){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"EMAIL_INVALID"|translate}}</span>
+                        } @else if (user_email?.hasError('invalidEmail')){
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"EMAIL_INVALID!"|translate}}</span>
                         } @else if(user_email?.valid) {
                         <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{"LOOKS_GOOD"|translate}}</span>
                         } @else {

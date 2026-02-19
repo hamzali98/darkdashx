@@ -92,6 +92,8 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
     const isRTL = this.isRtl;
     const maxValue = this.getDataMax();
 
+    console.log("chart max value", maxValue);
+
     const productsSeriesName = isRTL ? 'مصنوعات' : 'Products';
     const stockSeriesName = isRTL ? 'سٹاک' : 'Stock';
     const stockAveragename = isRTL ? 'اوسط اسٹاک' : 'Average Stock';
@@ -129,6 +131,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
         centerX: am5.p50,
         paddingTop: 10,
         textAlign: "center",
+        fontSize: '10px',
         fontFamily: isRTL ? "JameelNoori" : '',
         direction: isRTL ? "rtl" : "ltr",
         oversizedBehavior: "wrap",
@@ -154,6 +157,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
         centerX: am5.p50,
         paddingTop: 10,
         textAlign: "center",
+        fontSize: isRTL?  '16px' : '10px',
         fontFamily: isRTL ? "JameelNoori" : '',
         direction: isRTL ? "rtl" : "ltr",
         oversizedBehavior: "wrap",
@@ -185,7 +189,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
         })
       );
 
-        let series3 = chart.series.push(
+      let series3 = chart.series.push(
         am5xy.ColumnSeries.new(root, {
           name: stockAveragename,
           xAxis: xAxis,
@@ -205,7 +209,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
       // Same for series2
       series2 = this.createChartTooltip(series2, root, stockSeriesName, "#00c2ff");
 
-      series3 = this.createChartTooltip(series3, root, stockAveragename, "#32CD32" );
+      series3 = this.createChartTooltip(series3, root, stockAveragename, "#32CD32");
 
       // Add legend
       let legend = chart.children.push(am5.Legend.new(root, {
@@ -253,7 +257,10 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
       'cosmetics': this.isRtl ? 'کاسمیٹکس' : 'Cosmetics',
       'note book': this.isRtl ? 'نوٹ بک' : 'Note Book',
       'accessories': this.isRtl ? 'پرزے' : 'Accessories',
-      'network': this.isRtl ? 'نیٹ ورک' : 'Network'
+      'network': this.isRtl ? 'نیٹ ورک' : 'Network',
+      'digital': this.isRtl ? 'ڈیجیٹل' : 'Digital',
+      'telecomunication': this.isRtl ? 'ٹیلی کمیونیکیشن' : 'Telecomunication',
+      'light': this.isRtl ? 'روشنی' : 'Light'
     };
 
     // Helper function to translate category
@@ -265,25 +272,46 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
       category: translateCategory(category),
       productCount: categoryMap[category].count,
       totalStock: categoryMap[category].stock,
-      averageStock: categoryMap[category].stock / categoryMap[category].count
+      averageStock: Math.ceil(categoryMap[category].stock / categoryMap[category].count)
     }));
 
     console.log('Prepared chart data:', data);
     return data;
   }
 
+  // // function to calculate the maximum value for Y-axis scaling
+  // getDataMax(): number {
+
+  //   // Calculate the maximum value from both productCount and totalStock
+  //   const data = this.getData();
+  //   const maxProductCount = Math.max(...data.map(item => item.productCount));
+  //   const maxStock = Math.max(...data.map(item => item.totalStock));
+  //   const maxValue = Math.max(maxProductCount, maxStock);
+
+  //   // Set Y-axis max with some padding
+  //   // Option 1: Round up to nearest 10
+  //   let yAxisMax = Math.ceil(maxValue / 10) * 10;
+
+  //   // Ensure minimum of 10
+  //   if (yAxisMax < 10) yAxisMax = 10;
+
+  //   return yAxisMax;
+  // }
+
   // function to calculate the maximum value for Y-axis scaling
   getDataMax(): number {
-
     // Calculate the maximum value from both productCount and totalStock
     const data = this.getData();
     const maxProductCount = Math.max(...data.map(item => item.productCount));
     const maxStock = Math.max(...data.map(item => item.totalStock));
-    const maxValue = Math.max(maxProductCount, maxStock);
+    const maxAverage = Math.max(...data.map(item => item.averageStock));
+    const maxValue = Math.max(maxProductCount, maxStock, maxAverage);
 
-    // Set Y-axis max with some padding
-    // Option 1: Round up to nearest 10
-    let yAxisMax = Math.ceil(maxValue / 10) * 10;
+    // Add 15% padding for better spacing
+    const paddedValue = maxValue * 1.15;
+
+    // Round up to nearest 10
+    let yAxisMax = Math.ceil(paddedValue / 10) * 10;
 
     // Ensure minimum of 10
     if (yAxisMax < 10) yAxisMax = 10;

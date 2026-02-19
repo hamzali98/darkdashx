@@ -118,6 +118,7 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
         centerX: am5.p50,
         paddingTop: 10,
         textAlign: "center",
+        fontSize: '12px',
         fontFamily: isRTL ? "JameelNoori" : '',
         direction: isRTL ? "rtl" : "ltr",
         oversizedBehavior: "wrap",
@@ -143,6 +144,7 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
         centerX: am5.p50,
         paddingTop: 10,
         textAlign: "center",
+        fontSize: isRTL ? '16px' : '10px',
         fontFamily: isRTL ? "JameelNoori" : '',
         direction: isRTL ? "rtl" : "ltr",
         oversizedBehavior: "wrap",
@@ -183,7 +185,7 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
           yAxis: yAxis,
           valueYField: "inactiveUsers",
           categoryXField: "team",
-          fill: am5.color("#6C72FF"),
+          fill: am5.color("#32CD32"),
         })
       );
 
@@ -194,7 +196,7 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
       // Configure tooltips for each series
       series1 = this.createChartTooltip(series1, root, totalUsersSeriesName, "#cb3cff");
       series2 = this.createChartTooltip(series2, root, activeUsersSeriesName, "#00c2ff");
-      series3 = this.createChartTooltip(series3, root, inactiveUsersSeriesName, "#6C72FF");
+      series3 = this.createChartTooltip(series3, root, inactiveUsersSeriesName, "#32CD32");
 
       // Add legend
       let legend = chart.children.push(am5.Legend.new(root, {
@@ -227,7 +229,7 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
       }
 
       teamMap[teamName].total += 1;
-      
+
       if (user.status === true) {
         teamMap[teamName].active += 1;
       } else {
@@ -243,7 +245,8 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
       'google': this.isRtl ? 'گوگل' : 'Google',
       'pinterest': this.isRtl ? 'پنٹیرسٹ' : 'Pinterest',
       'facebook': this.isRtl ? 'فیس بک' : 'Facebook',
-      'instagram': this.isRtl ? 'انسٹاگرام' : 'Instagram'
+      'linkedin': this.isRtl ? 'لنکڈ' : 'Linkedin',
+      'youtube': this.isRtl ? 'یوٹیوب' : 'Youtube',
     };
 
     // Helper function to translate team
@@ -262,6 +265,28 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
     return data;
   }
 
+  //   // function to calculate the maximum value for Y-axis scaling
+  // getDataMax(): number {
+  //   const data = this.getData();
+  //   const maxTotal = Math.max(...data.map(item => item.totalUsers));
+  //   const maxActive = Math.max(...data.map(item => item.activeUsers));
+  //   const maxInactive = Math.max(...data.map(item => item.inactiveUsers));
+  //   const maxValue = Math.max(maxTotal, maxActive, maxInactive);
+
+  //   // Round up to nearest 10 and add padding
+  //   let yAxisMax = Math.ceil(maxValue / 10) * 10;
+
+  //   // If the rounded value equals max value, add more padding
+  //   if (yAxisMax <= maxValue) {
+  //     yAxisMax += 10;
+  //   }
+
+  //   // Ensure minimum of 10
+  //   if (yAxisMax < 10) yAxisMax = 10;
+
+  //   return yAxisMax;
+  // }
+
   // function to calculate the maximum value for Y-axis scaling
   getDataMax(): number {
     const data = this.getData();
@@ -270,14 +295,37 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
     const maxInactive = Math.max(...data.map(item => item.inactiveUsers));
     const maxValue = Math.max(maxTotal, maxActive, maxInactive);
 
+    // Add 10% padding to the max value
+    const paddedValue = maxValue * 1.1;
+
     // Round up to nearest 10
-    let yAxisMax = Math.ceil(maxValue / 10) * 10;
+    let yAxisMax = Math.ceil(paddedValue / 10) * 10;
 
     // Ensure minimum of 10
     if (yAxisMax < 10) yAxisMax = 10;
 
     return yAxisMax;
   }
+
+  // padding approach
+  // getDataMax(): number {
+  //   const data = this.getData();
+  //   const maxTotal = Math.max(...data.map(item => item.totalUsers));
+  //   const maxActive = Math.max(...data.map(item => item.activeUsers));
+  //   const maxInactive = Math.max(...data.map(item => item.inactiveUsers));
+  //   const maxValue = Math.max(maxTotal, maxActive, maxInactive);
+
+  //   // Add 15% padding for better spacing
+  //   const paddedValue = maxValue * 1.15;
+
+  //   // Round up to nearest 10
+  //   let yAxisMax = Math.ceil(paddedValue / 10) * 10;
+
+  //   // Ensure minimum of 10
+  //   if (yAxisMax < 10) yAxisMax = 10;
+
+  //   return yAxisMax;
+  // }
 
   // Run the function only in the browser
   browserOnly(f: () => void) {

@@ -20,7 +20,7 @@
                         text-figma-neutral text-sm font-light invalid:border-red-500  valid:border-green-500 
                         focus:border-primary bg-card-bg
                         " id="teamname" name="teamname" formControlName="team_name">
-                            <option>{{"Select Team"|translate}}</option>
+                            <option [ngValue]="null" disabled >{{"Select Team"|translate}}</option>
                             @for(items of companyList; track $index){
                             <option [value]="items.value">{{items.key}}</option>
                             }
@@ -107,7 +107,7 @@
                             id="mail" name="mail" placeholder="{{'Enter Team mail'|translate}}">
                         @if(team_mail?.hasError('required') && team_mail?.touched){
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Team Mail Required!"|translate}}</span>
-                        } @else if (team_mail?.hasError('pattern')) {
+                        } @else if (team_mail?.hasError('invalidEmail')) {
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Team Mail Not Valid!"|translate}}</span>
                         } @else if(team_mail?.valid) {
                         <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
