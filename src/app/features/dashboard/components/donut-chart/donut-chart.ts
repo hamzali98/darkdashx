@@ -5,11 +5,13 @@ import { Subscription } from 'rxjs';
 // amCharts imports
 import * as am5 from "@amcharts/amcharts5";
 import * as am5percent from "@amcharts/amcharts5/percent";
+import * as am5plugins_exporting from "@amcharts/amcharts5/plugins/exporting";
 
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import { User } from '@app/features/users/interface/user';
 import { product } from '../../products/interface/product-interface';
 import { TranslationService } from '@app/core/services/translate.service';
+import { ChartService } from '../../services/chart-service';
 
 @Component({
   selector: 'app-donut-chart',
@@ -22,12 +24,15 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
   isRtl: boolean;
 
   private root!: am5.Root;
+  // private exporting!: any;
+  private exporting!: am5plugins_exporting.Exporting;;
   private languageSubscription?: Subscription;
 
   @Input() userChartData!: User[];
   @Input() productChartData!: product[];
 
   translationService = inject(TranslationService);
+  chartService = inject(ChartService);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone) {
     this.isRtl = this.translationService.getCurrentLanguage() === 'ur';
@@ -49,6 +54,7 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
     if (changes && this.userChartData && this.productChartData) {
       this.prepareDonutChart();
     }
+
   }
 
   ngOnDestroy() {
@@ -69,6 +75,10 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
     });
   }
 
+  downloadChart() {
+    this.exporting.download("png"); // or "jpg", "svg", "pdf"
+  }
+
   prepareDonutChart() {
     // Dispose existing chart before creating new one
     if (this.root) {
@@ -82,7 +92,7 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
   }
 
   createChart() {
-    const donutdata = this.buildUserStatusDonutData(this.userChartData);
+    const donutdata = this.chartService.buildUserStatusDonutData(this.userChartData, this.isRtl);
     const isRTL = this.isRtl;
 
     const onlineSeriesName = isRTL ? 'آن لائن' : 'Online';
@@ -93,7 +103,10 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
       // Create root and chart
       let root = am5.Root.new("donutdiv");
       root.interfaceColors.set("text", am5.color("#fff"));
-      
+      this.exporting = am5plugins_exporting.Exporting.new(root, {
+        filePrefix: "Donut-Chart", // name of the downloaded file
+      });
+
       let chart = root.container.children.push(
         am5percent.PieChart.new(root, {
           layout: root.verticalLayout,
@@ -111,7 +124,7 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
           alignLabels: false
         })
       );
-      
+
       series.labels.template.set("forceHidden", true);
 
       series.get("colors")?.set("colors", [
@@ -186,23 +199,23 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  // Build chart data with translations
-  buildUserStatusDonutData(users: User[]) {
-    const online = this.userChartData.filter(u => u.status === true).length;
-    const offline = this.userChartData.filter(u => u.status === false).length;
+  // // Build chart data with translations
+  // buildUserStatusDonutData(users: User[]) {
+  //   const online = this.userChartData.filter(u => u.status === true).length;
+  //   const offline = this.userChartData.filter(u => u.status === false).length;
 
-    if (this.isRtl) {
-      return [
-        { category: 'آن لائن', value: online },
-        { category: 'آف لائن', value: offline }
-      ];
-    } else {
-      return [
-        { category: 'Online', value: online },
-        { category: 'Offline', value: offline }
-      ];
-    }
-  }
+  //   if (this.isRtl) {
+  //     return [
+  //       { category: 'آن لائن', value: online },
+  //       { category: 'آف لائن', value: offline }
+  //     ];
+  //   } else {
+  //     return [
+  //       { category: 'Online', value: online },
+  //       { category: 'Offline', value: offline }
+  //     ];
+  //   }
+  // }
 
   // Run the function only in the browser
   browserOnly(f: () => void) {
@@ -217,7 +230,7 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
   getToolTipHtml(categoryName: string) {
     const fontSize = this.isRtl ? '16px' : '14px';
     const valueLabel = this.isRtl ? 'تعداد' : 'Count';
-    
+
     return `
       <div style="font-weight: bold; color: #fff; text-align: center; margin-bottom: 8px; font-size: ${fontSize};">{category}</div>
       <div style="color: #fff; font-size: 13px; text-align: center;">
