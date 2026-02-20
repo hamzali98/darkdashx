@@ -11,13 +11,13 @@
         </div>
         <div class="flex flex-row ">
             <button type="button" class="rounded-sm text-white text-xs w-[92px] shadow drop-shadow-black font-[15px] mx-3
-                h-7 cursor-pointer bg-btn-secondary  ">
+                h-7 cursor-pointer bg-btn-secondary  " (click)="getReports()">
                 <span class="flex flex-row gap-1.5 items-center justify-center align-middle">
                     {{'EXPORT_DATA' | translate}} <img class="size-2.5" src="assets/icons/white/downarrow.svg"
                         alt="ar"></span>
             </button>
             <button type="button" class="rounded-sm text-white text-xs w-[88px] shadow drop-shadow-black font-[14px] 
-                h-7 cursor-pointer  bg-primary">
+                h-7 cursor-pointer  bg-primary" (click)="getCharts()" >
                 {{'CREATE_REPORT' | translate}}
             </button>
         </div>
@@ -64,10 +64,14 @@
 </div>
 <div class="grid grid-cols-12 grid-rows-6 px-10.5 mb-3">
     <div class=" col-span-12 row-span-6 md:row-span-6 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-lg ">
-        <app-users-am-chart [userChartData]="userData" [productChartData]="productData"></app-users-am-chart>
+        @if(userData && productData){
+            <app-users-am-chart [userChartData]="userData" [productChartData]="productData"></app-users-am-chart>
+        } @else {
+            <app-data-error></app-data-error>
+        } 
     </div>
 </div>
-<div class="grid grid-cols-12 grid-rows-6 px-10.5 mb-3 border">
+<div class="grid grid-cols-12 grid-rows-6 px-10.5 mb-3">
     <div class=" col-span-12 row-span-6 md:row-span-6 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-lg ">
         <app-map-chart></app-map-chart>
     </div>

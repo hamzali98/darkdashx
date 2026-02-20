@@ -5,12 +5,15 @@ import { isPlatformBrowser } from '@angular/common';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import * as am5plugins_exporting from "@amcharts/amcharts5/plugins/exporting";
+
 
 import { User } from '@app/features/users/interface/user';
 import { product } from '../../products/interface/product-interface';
 
 import { TranslationService } from '@app/core/services/translate.service';
 import { Subscription } from 'rxjs';
+import { ChartService } from '../../services/chart-service';
 
 @Component({
   selector: 'app-am-charts',
@@ -23,12 +26,15 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
   isRtl: boolean;
 
   private root!: am5.Root;
+  private exporting!: am5plugins_exporting.Exporting;;
+
   private languageSubscription?: Subscription;
 
   @Input() userChartData!: User[];
   @Input() productChartData!: product[];
 
   translationService = inject(TranslationService);
+  chartService = inject(ChartService);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone) {
 
@@ -74,6 +80,10 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
     });
   }
 
+  downloadChart() {
+    this.exporting.download("png"); // or "jpg", "svg", "pdf"
+  }
+
   prepareBarChart() {
     // Dispose existing chart before creating new one
     if (this.root) {
@@ -88,9 +98,11 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
 
   createChart() {
 
-    const data = this.getData();
+    const data = this.chartService.buildProductChartData(this.productChartData, this.isRtl);
     const isRTL = this.isRtl;
     const maxValue = this.getDataMax();
+
+    console.log("chart max value", maxValue);
 
     const productsSeriesName = isRTL ? 'مصنوعات' : 'Products';
     const stockSeriesName = isRTL ? 'سٹاک' : 'Stock';
@@ -102,12 +114,17 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
 
       let root = am5.Root.new("chartdiv");
       root.setThemes([am5themes_Animated.new(root)]);
+      this.exporting = am5plugins_exporting.Exporting.new(root, {
+        filePrefix: "Product-Chart", // name of the downloaded file
+      });
+
       let chart = root.container.children.push(
         am5xy.XYChart.new(root, {
           panY: false,
           layout: root.verticalLayout
         })
       );
+
 
       // Create Y-axis
       let yAxis = chart.yAxes.push(
@@ -129,6 +146,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
         centerX: am5.p50,
         paddingTop: 10,
         textAlign: "center",
+        fontSize: '10px',
         fontFamily: isRTL ? "JameelNoori" : '',
         direction: isRTL ? "rtl" : "ltr",
         oversizedBehavior: "wrap",
@@ -154,6 +172,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
         centerX: am5.p50,
         paddingTop: 10,
         textAlign: "center",
+        fontSize: isRTL ? '16px' : '10px',
         fontFamily: isRTL ? "JameelNoori" : '',
         direction: isRTL ? "rtl" : "ltr",
         oversizedBehavior: "wrap",
@@ -185,7 +204,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
         })
       );
 
-        let series3 = chart.series.push(
+      let series3 = chart.series.push(
         am5xy.ColumnSeries.new(root, {
           name: stockAveragename,
           xAxis: xAxis,
@@ -205,7 +224,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
       // Same for series2
       series2 = this.createChartTooltip(series2, root, stockSeriesName, "#00c2ff");
 
-      series3 = this.createChartTooltip(series3, root, stockAveragename, "#32CD32" );
+      series3 = this.createChartTooltip(series3, root, stockAveragename, "#32CD32");
 
       // Add legend
       let legend = chart.children.push(am5.Legend.new(root, {
@@ -233,57 +252,81 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  // chart data preparation function
-  getData() {
-    const categoryMap: Record<string, { count: number; stock: number }> = {};
+  // // chart data preparation function
+  // getData() {
+  //   const categoryMap: Record<string, { count: number; stock: number }> = {};
 
-    this.productChartData.forEach(p => {
-      const category = p.basic_info.product_category;
+  //   this.productChartData.forEach(p => {
+  //     const category = p.basic_info.product_category;
 
-      if (!categoryMap[category]) {
-        categoryMap[category] = { count: 0, stock: 0 };
-      }
+  //     if (!categoryMap[category]) {
+  //       categoryMap[category] = { count: 0, stock: 0 };
+  //     }
 
-      categoryMap[category].count += 1;
-      categoryMap[category].stock += p.detail_info.product_stock;
-    });
+  //     categoryMap[category].count += 1;
+  //     categoryMap[category].stock += p.detail_info.product_stock;
+  //   });
 
-    // Translation map for categories
-    const categoryTranslations: Record<string, string> = {
-      'cosmetics': this.isRtl ? 'کاسمیٹکس' : 'Cosmetics',
-      'note book': this.isRtl ? 'نوٹ بک' : 'Note Book',
-      'accessories': this.isRtl ? 'پرزے' : 'Accessories',
-      'network': this.isRtl ? 'نیٹ ورک' : 'Network'
-    };
+  //   // Translation map for categories
+  //   const categoryTranslations: Record<string, string> = {
+  //     'cosmetics': this.isRtl ? 'کاسمیٹکس' : 'Cosmetics',
+  //     'note book': this.isRtl ? 'نوٹ بک' : 'Note Book',
+  //     'accessories': this.isRtl ? 'پرزے' : 'Accessories',
+  //     'network': this.isRtl ? 'نیٹ ورک' : 'Network',
+  //     'digital': this.isRtl ? 'ڈیجیٹل' : 'Digital',
+  //     'telecomunication': this.isRtl ? 'ٹیلی کمیونیکیشن' : 'Telecomunication',
+  //     'light': this.isRtl ? 'روشنی' : 'Light'
+  //   };
 
-    // Helper function to translate category
-    const translateCategory = (category: string): string => {
-      return categoryTranslations[category] || category; // Fallback to original if not found
-    };
+  //   // Helper function to translate category
+  //   const translateCategory = (category: string): string => {
+  //     return categoryTranslations[category] || category; // Fallback to original if not found
+  //   };
 
-    const data = Object.keys(categoryMap).map(category => ({
-      category: translateCategory(category),
-      productCount: categoryMap[category].count,
-      totalStock: categoryMap[category].stock,
-      averageStock: categoryMap[category].stock / categoryMap[category].count
-    }));
+  //   const data = Object.keys(categoryMap).map(category => ({
+  //     category: translateCategory(category),
+  //     productCount: categoryMap[category].count,
+  //     totalStock: categoryMap[category].stock,
+  //     averageStock: Math.ceil(categoryMap[category].stock / categoryMap[category].count)
+  //   }));
 
-    console.log('Prepared chart data:', data);
-    return data;
-  }
+  //   console.log('Prepared chart data:', data);
+  //   return data;
+  // }
+
+  // // // function to calculate the maximum value for Y-axis scaling
+  // // getDataMax(): number {
+
+  // //   // Calculate the maximum value from both productCount and totalStock
+  // //   const data = this.getData();
+  // //   const maxProductCount = Math.max(...data.map(item => item.productCount));
+  // //   const maxStock = Math.max(...data.map(item => item.totalStock));
+  // //   const maxValue = Math.max(maxProductCount, maxStock);
+
+  // //   // Set Y-axis max with some padding
+  // //   // Option 1: Round up to nearest 10
+  // //   let yAxisMax = Math.ceil(maxValue / 10) * 10;
+
+  // //   // Ensure minimum of 10
+  // //   if (yAxisMax < 10) yAxisMax = 10;
+
+  // //   return yAxisMax;
+  // // }
 
   // function to calculate the maximum value for Y-axis scaling
   getDataMax(): number {
-
     // Calculate the maximum value from both productCount and totalStock
-    const data = this.getData();
+    const data = this.chartService.buildProductChartData(this.productChartData, this.isRtl);
     const maxProductCount = Math.max(...data.map(item => item.productCount));
     const maxStock = Math.max(...data.map(item => item.totalStock));
-    const maxValue = Math.max(maxProductCount, maxStock);
+    const maxAverage = Math.max(...data.map(item => item.averageStock));
+    const maxValue = Math.max(maxProductCount, maxStock, maxAverage);
 
-    // Set Y-axis max with some padding
-    // Option 1: Round up to nearest 10
-    let yAxisMax = Math.ceil(maxValue / 10) * 10;
+    // Add 15% padding for better spacing
+    const paddedValue = maxValue * 1.15;
+
+    // Round up to nearest 10
+    let yAxisMax = Math.ceil(paddedValue / 10) * 10;
 
     // Ensure minimum of 10
     if (yAxisMax < 10) yAxisMax = 10;
@@ -304,7 +347,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
     // Configure series1 with dynamic tooltip positioning
     series.columns.template.setAll({
       strokeWidth: 2,
-      width: 20,
+      width: 15,
       tooltip: am5.Tooltip.new(root, {
         pointerOrientation: "vertical", // Allows tooltip to flip automatically
         getFillFromSprite: false,

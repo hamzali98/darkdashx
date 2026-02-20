@@ -8,5 +8,5 @@ export function customEmailValidator (control: AbstractControl): ValidationError
 
   return emailRegex.test(control.value)
     ? null
-    : { customEmail: true };
+    : { invalidEmail: true };
 }

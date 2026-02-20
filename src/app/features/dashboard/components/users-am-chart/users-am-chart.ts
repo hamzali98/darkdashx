@@ -5,12 +5,15 @@ import { isPlatformBrowser } from '@angular/common';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import * as am5plugins_exporting from "@amcharts/amcharts5/plugins/exporting";
+
 
 import { User } from '@app/features/users/interface/user';
 import { product } from '../../products/interface/product-interface';
 
 import { TranslationService } from '@app/core/services/translate.service';
 import { Subscription } from 'rxjs';
+import { ChartService } from '../../services/chart-service';
 
 @Component({
   selector: 'app-users-am-chart',
@@ -23,12 +26,15 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
   isRtl: boolean;
 
   private root!: am5.Root;
+  private exporting!: am5plugins_exporting.Exporting;;
+
   private languageSubscription?: Subscription;
 
   @Input() userChartData!: User[];
   @Input() productChartData!: product[];
 
   translationService = inject(TranslationService);
+  chartService = inject(ChartService);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private zone: NgZone) {
     this.isRtl = this.translationService.getCurrentLanguage() === 'ur';
@@ -70,6 +76,10 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
     });
   }
 
+  downloadChart() {
+    this.exporting.download("png"); // or "jpg", "svg", "pdf"
+  }
+
   prepareBarChart() {
     // Dispose existing chart before creating new one
     if (this.root) {
@@ -83,7 +93,7 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
   }
 
   createChart() {
-    const data = this.getData();
+    const data = this.chartService.buildUserChartData(this.userChartData, this.isRtl);
     const isRTL = this.isRtl;
     const maxValue = this.getDataMax();
 
@@ -95,6 +105,9 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
     this.browserOnly(() => {
       let root = am5.Root.new("amchartdiv");
       root.setThemes([am5themes_Animated.new(root)]);
+      this.exporting = am5plugins_exporting.Exporting.new(root, {
+        filePrefix: "User-Chart", // name of the downloaded file
+      });
       let chart = root.container.children.push(
         am5xy.XYChart.new(root, {
           panY: false,
@@ -118,6 +131,7 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
         centerX: am5.p50,
         paddingTop: 10,
         textAlign: "center",
+        fontSize: '12px',
         fontFamily: isRTL ? "JameelNoori" : '',
         direction: isRTL ? "rtl" : "ltr",
         oversizedBehavior: "wrap",
@@ -143,6 +157,7 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
         centerX: am5.p50,
         paddingTop: 10,
         textAlign: "center",
+        fontSize: isRTL ? '16px' : '10px',
         fontFamily: isRTL ? "JameelNoori" : '',
         direction: isRTL ? "rtl" : "ltr",
         oversizedBehavior: "wrap",
@@ -183,7 +198,7 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
           yAxis: yAxis,
           valueYField: "inactiveUsers",
           categoryXField: "team",
-          fill: am5.color("#6C72FF"),
+          fill: am5.color("#32CD32"),
         })
       );
 
@@ -194,7 +209,7 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
       // Configure tooltips for each series
       series1 = this.createChartTooltip(series1, root, totalUsersSeriesName, "#cb3cff");
       series2 = this.createChartTooltip(series2, root, activeUsersSeriesName, "#00c2ff");
-      series3 = this.createChartTooltip(series3, root, inactiveUsersSeriesName, "#6C72FF");
+      series3 = this.createChartTooltip(series3, root, inactiveUsersSeriesName, "#32CD32");
 
       // Add legend
       let legend = chart.children.push(am5.Legend.new(root, {
@@ -215,69 +230,115 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  // chart data preparation function
-  getData() {
-    const teamMap: Record<string, { total: number; active: number; inactive: number }> = {};
+  // // chart data preparation function
+  // getData() {
+  //   const teamMap: Record<string, { total: number; active: number; inactive: number }> = {};
 
-    this.userChartData.forEach(user => {
-      const teamName = user.team_info.team_name;
+  //   this.userChartData.forEach(user => {
+  //     const teamName = user.team_info.team_name;
 
-      if (!teamMap[teamName]) {
-        teamMap[teamName] = { total: 0, active: 0, inactive: 0 };
-      }
+  //     if (!teamMap[teamName]) {
+  //       teamMap[teamName] = { total: 0, active: 0, inactive: 0 };
+  //     }
 
-      teamMap[teamName].total += 1;
-      
-      if (user.status === true) {
-        teamMap[teamName].active += 1;
-      } else {
-        teamMap[teamName].inactive += 1;
-      }
-    });
+  //     teamMap[teamName].total += 1;
 
-    // Translation map for teams
-    const teamTranslations: Record<string, string> = {
-      'spotify': this.isRtl ? 'سپوٹیفائی' : 'Spotify',
-      'twitter': this.isRtl ? 'ٹویٹر' : 'Twitter',
-      'reddit': this.isRtl ? 'ریڈٹ' : 'Reddit',
-      'google': this.isRtl ? 'گوگل' : 'Google',
-      'pinterest': this.isRtl ? 'پنٹیرسٹ' : 'Pinterest',
-      'facebook': this.isRtl ? 'فیس بک' : 'Facebook',
-      'instagram': this.isRtl ? 'انسٹاگرام' : 'Instagram'
-    };
+  //     if (user.status === true) {
+  //       teamMap[teamName].active += 1;
+  //     } else {
+  //       teamMap[teamName].inactive += 1;
+  //     }
+  //   });
 
-    // Helper function to translate team
-    const translateTeam = (team: string): string => {
-      return teamTranslations[team.toLowerCase()] || team;
-    };
+  //   // Translation map for teams
+  //   const teamTranslations: Record<string, string> = {
+  //     'spotify': this.isRtl ? 'سپوٹیفائی' : 'Spotify',
+  //     'twitter': this.isRtl ? 'ٹویٹر' : 'Twitter',
+  //     'reddit': this.isRtl ? 'ریڈٹ' : 'Reddit',
+  //     'google': this.isRtl ? 'گوگل' : 'Google',
+  //     'pinterest': this.isRtl ? 'پنٹیرسٹ' : 'Pinterest',
+  //     'facebook': this.isRtl ? 'فیس بک' : 'Facebook',
+  //     'linkedin': this.isRtl ? 'لنکڈ' : 'Linkedin',
+  //     'youtube': this.isRtl ? 'یوٹیوب' : 'Youtube',
+  //   };
 
-    const data = Object.keys(teamMap).map(team => ({
-      team: translateTeam(team),
-      totalUsers: teamMap[team].total,
-      activeUsers: teamMap[team].active,
-      inactiveUsers: teamMap[team].inactive
-    }));
+  //   // Helper function to translate team
+  //   const translateTeam = (team: string): string => {
+  //     return teamTranslations[team.toLowerCase()] || team;
+  //   };
 
-    console.log('Prepared chart data:', data);
-    return data;
-  }
+  //   const data = Object.keys(teamMap).map(team => ({
+  //     team: translateTeam(team),
+  //     totalUsers: teamMap[team].total,
+  //     activeUsers: teamMap[team].active,
+  //     inactiveUsers: teamMap[team].inactive
+  //   }));
+
+  //   console.log('Prepared chart data:', data);
+  //   return data;
+  // }
+
+  //   // function to calculate the maximum value for Y-axis scaling
+  // getDataMax(): number {
+  //   const data = this.getData();
+  //   const maxTotal = Math.max(...data.map(item => item.totalUsers));
+  //   const maxActive = Math.max(...data.map(item => item.activeUsers));
+  //   const maxInactive = Math.max(...data.map(item => item.inactiveUsers));
+  //   const maxValue = Math.max(maxTotal, maxActive, maxInactive);
+
+  //   // Round up to nearest 10 and add padding
+  //   let yAxisMax = Math.ceil(maxValue / 10) * 10;
+
+  //   // If the rounded value equals max value, add more padding
+  //   if (yAxisMax <= maxValue) {
+  //     yAxisMax += 10;
+  //   }
+
+  //   // Ensure minimum of 10
+  //   if (yAxisMax < 10) yAxisMax = 10;
+
+  //   return yAxisMax;
+  // }
 
   // function to calculate the maximum value for Y-axis scaling
   getDataMax(): number {
-    const data = this.getData();
+    const data = this.chartService.buildUserChartData(this.userChartData, this.isRtl);
     const maxTotal = Math.max(...data.map(item => item.totalUsers));
     const maxActive = Math.max(...data.map(item => item.activeUsers));
     const maxInactive = Math.max(...data.map(item => item.inactiveUsers));
     const maxValue = Math.max(maxTotal, maxActive, maxInactive);
 
+    // Add 10% padding to the max value
+    const paddedValue = maxValue * 1.1;
+
     // Round up to nearest 10
-    let yAxisMax = Math.ceil(maxValue / 10) * 10;
+    let yAxisMax = Math.ceil(paddedValue / 10) * 10;
 
     // Ensure minimum of 10
     if (yAxisMax < 10) yAxisMax = 10;
 
     return yAxisMax;
   }
+
+  // padding approach
+  // getDataMax(): number {
+  //   const data = this.getData();
+  //   const maxTotal = Math.max(...data.map(item => item.totalUsers));
+  //   const maxActive = Math.max(...data.map(item => item.activeUsers));
+  //   const maxInactive = Math.max(...data.map(item => item.inactiveUsers));
+  //   const maxValue = Math.max(maxTotal, maxActive, maxInactive);
+
+  //   // Add 15% padding for better spacing
+  //   const paddedValue = maxValue * 1.15;
+
+  //   // Round up to nearest 10
+  //   let yAxisMax = Math.ceil(paddedValue / 10) * 10;
+
+  //   // Ensure minimum of 10
+  //   if (yAxisMax < 10) yAxisMax = 10;
+
+  //   return yAxisMax;
+  // }
 
   // Run the function only in the browser
   browserOnly(f: () => void) {
@@ -291,7 +352,7 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
   createChartTooltip(series: any, root: any, seriesName: string, color: string) {
     series.columns.template.setAll({
       strokeWidth: 2,
-      width: 20,
+      width: 15,
       tooltip: am5.Tooltip.new(root, {
         pointerOrientation: "vertical",
         getFillFromSprite: false,

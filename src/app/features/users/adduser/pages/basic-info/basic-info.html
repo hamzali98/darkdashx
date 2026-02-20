@@ -22,7 +22,7 @@
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
-                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_phone" type="number"
+                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_phone" type="tel"
                             id="phone" name="phone" placeholder="{{'Enter Phone'|translate}}">
                         @if(user_phone?.hasError('required') && user_phone?.touched){
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Phone Required!"|translate}}</span>
