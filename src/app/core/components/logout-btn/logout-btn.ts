@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { Layout } from '@app/core/services/layout';
 import { DialogService } from '@app/shared/services/dialog-service/dialog';
 import { TranslationService } from '@app/core/services/translate.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-logout-btn',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './logout-btn.html',
   styleUrl: './logout-btn.css',
 })
