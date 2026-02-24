@@ -4,14 +4,16 @@
     <div class="flex flex-col gap-2.5 w-auto h-auto px-6.5 py-8.5 pb-0  ">
         <div class="flex flex-row justify-between align-middle items-center ">
             <app-main-logo></app-main-logo>
+            @if(!sidebar){
             <app-language-switcher></app-language-switcher>
+            }
             @if(sidebar){
             <button type="button" class="cursor-pointer" (click)="toggleSidebar()">
                 <span>
                     <img class=" shrink-0" src="assets/icons/neutral/doublearrows.svg" alt="a">
                 </span>
             </button>
-        }
+            }
         </div>
 
 
@@ -56,7 +58,8 @@
                     }
                     <span [ngClass]="open === items.routePath
                 ? 'text-primary'
-                : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-medium text-sm">{{items.tileName | translate}}</span>
+                : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-medium text-sm">{{items.tileName |
+                        translate}}</span>
                 </div>
                 <span class="transition-transform duration-300 ease-in-out mr-3 "
                     [ngClass]="open === items.routePath ? 'rotate-0' : '-rotate-90' ">
@@ -102,7 +105,8 @@
                         }
                         <span [ngClass]="open === 'settings'
                 ? 'text-primary'
-                : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-bold text-sm">{{"SETTINGS" | translate}}</span>
+                : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-bold text-sm">{{"SETTINGS" |
+                            translate}}</span>
                     </div>
                     <!-- <span class="-rotate-90 hidden md:inline">
                     <img src="assets/icons/droparrow.svg" alt="">
@@ -121,13 +125,14 @@
                             <span
                                 [ngClass]="open === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-neutral-100' "
                                 class=" text-sm font-bold ">{{username}}</span>
-                            <span class="text-gray-500 dark:text-neutral-400 text-xs ">{{"ACCOUNT_SETTINGS" | translate}}</span>
+                            <span class="text-gray-500 dark:text-neutral-400 text-xs ">{{"ACCOUNT_SETTINGS" |
+                                translate}}</span>
                         </div>
                     </div>
                 </button>
                 @if(!sidebar){
-                    <app-logout-btn></app-logout-btn>
-            }
+                <app-logout-btn></app-logout-btn>
+                }
             </div>
             <!-- <div>
                 <button class="grad w-full h-11.5 rounded-sm

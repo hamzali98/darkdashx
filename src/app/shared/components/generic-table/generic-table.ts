@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Input, Output, signal, OnChanges, SimpleChanges, computed, inject, model } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output, signal, OnChanges, SimpleChanges, computed, inject, model, viewChild, ElementRef } from '@angular/core';
 import { NgClass, TitleCasePipe, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { tableColumns } from '@app/shared/interface/generic-table-interface';
@@ -6,6 +6,11 @@ import { DataError } from "../data-error/data-error";
 import { DialogService } from '@app/shared/services/dialog-service/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslationService } from '@app/core/services/translate.service';
+
+// ─── npm install xlsx jspdf jspdf-autotable ───────────────────────────────────
+import * as XLSX from 'xlsx';
+// ─────────────────────────────────────────────────────────────────────────────
+
 
 @Component({
   selector: 'app-generic-table',
@@ -39,6 +44,9 @@ export class GenericTable<T> implements OnChanges {
 
   @Output() onDeleteClicked: EventEmitter<any> = new EventEmitter();
   @Output() onEditClicked: EventEmitter<any> = new EventEmitter();
+
+  genericTableData = viewChild<ElementRef>('genericDataTable');
+  // @viewChild('genericDataTable') genericTableData! : ElementRef;
 
   private dialogService = inject(DialogService);
   private translateService = inject(TranslationService);
@@ -356,6 +364,83 @@ export class GenericTable<T> implements OnChanges {
   //   );
   // }
 
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // EXPORT HELPERS
+  // ─────────────────────────────────────────────────────────────────────────
+
+  private getDisplayValue(row: any, col: tableColumns<T>): string {
+    if (col.func) {
+      const raw = Array.isArray(col.key)
+        ? this.getValue(row, col.key)
+        : row[col.key as string];
+      return col.func(raw) ?? '';
+    }
+    const val = Array.isArray(col.key)
+      ? this.getValue(row, col.key)
+      : row[col.key as string];
+    return val !== null && val !== undefined ? String(val) : '';
+  }
+
+  // ── Translates status values that come from func transformers ──────────────
+  // e.g.  "ONLINE" → "Online" / "آن لائن"  |  "IN_STOCK" → "In Stock" / "دستیاب"
+  private translateStatusValue(raw: string): string {
+    const key = raw.toUpperCase();
+    const map: Record<string, string> = {
+      ONLINE: this.translateService.instant('ONLINE'),
+      OFFLINE: this.translateService.instant('OFFLINE'),
+      IN_STOCK: this.translateService.instant('IN_STOCK'),
+      OUT_OF_STOCK: this.translateService.instant('OUT_OF_STOCK'),
+    };
+    return map[key] ?? raw;
+  }
+
+  private buildExportData(): { headers: string[]; rows: string[][] } {
+    // Translate column header labels
+    const headers = this.columns.map(col => {
+      const label = col.label ?? String(col.key);
+      // instant() returns the key itself when no translation found, so it's safe
+      return this.translateService.instant(label);
+    });
+
+    const rows = this.tableData.map(row =>
+      this.columns.map(col => {
+        const raw = this.getDisplayValue(row, col);
+        // Translate status values (produced by func transformers)
+        return col.func ? this.translateStatusValue(raw) : raw;
+      })
+    );
+
+    return { headers, rows };
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // XLSX EXPORT
+  // ─────────────────────────────────────────────────────────────────────────
+
+  downloadXLSX(): void {
+    const { headers, rows } = this.buildExportData();
+    const tableName = this.tableName() ?? 'Table';
+
+    // Sheet data: header row + data rows
+    const wsData = [headers, ...rows];
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+    // Auto column widths
+    ws['!cols'] = headers.map((h, i) => ({
+      wch: Math.min(
+        Math.max(h.length, ...rows.map(r => (r[i] ?? '').length)) + 4,
+        50
+      )
+    }));
+
+    // Freeze header row
+    ws['!freeze'] = { xSplit: 0, ySplit: 1 };
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, tableName.slice(0, 31)); // sheet name max 31 chars
+    XLSX.writeFile(wb, `${tableName}.xlsx`);
+  }
 
 }
 

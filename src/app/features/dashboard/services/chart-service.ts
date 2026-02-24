@@ -54,7 +54,7 @@ export class ChartService {
       'network': isRtl ? 'نیٹ ورک' : 'Network',
       'digital': isRtl ? 'ڈیجیٹل' : 'Digital',
       'telecomunication': isRtl ? 'ٹیلی کمیونیکیشن' : 'Telecomunication',
-      'light': isRtl ? 'روشنی' : 'Light'
+      'electric': isRtl ? 'بجلی' : 'Electric'
     };
 
     // Helper function to translate category

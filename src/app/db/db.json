@@ -343,7 +343,7 @@
       "status": true,
       "basic_info": {
         "product_name": "Smart LED Bulb",
-        "product_category": "light",
+        "product_category": "electric",
         "product_price": 20,
         "product_company": "google"
       },
@@ -359,7 +359,7 @@
       "status": true,
       "basic_info": {
         "product_name": "Desk Lamp",
-        "product_category": "light",
+        "product_category": "electric",
         "product_price": 40,
         "product_company": "pinterest"
       },
@@ -375,7 +375,7 @@
       "status": false,
       "basic_info": {
         "product_name": "Neon Sign",
-        "product_category": "light",
+        "product_category": "electric",
         "product_price": 55,
         "product_company": "youtube"
       },
@@ -391,7 +391,7 @@
       "status": true,
       "basic_info": {
         "product_name": "Night Light",
-        "product_category": "light",
+        "product_category": "electric",
         "product_price": 10,
         "product_company": "reddit"
       },
