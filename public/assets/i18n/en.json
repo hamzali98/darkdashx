@@ -196,5 +196,8 @@
     "Enter New Password":"Enter New Password",
     "Confirmation Password Required!":"Confirmation Password Required!",
     "Password not matched!":"Password not matched!",
-    "Enter confirmation Password":"Enter confirmation Password"
+    "Enter confirmation Password":"Enter confirmation Password",
+    "Download PDF" : "Download PDF",
+    "Download XLSX" : "Download XLSX"
 }
+  
