@@ -4,10 +4,11 @@ import { RouterLink } from '@angular/router';
 import { Layout } from '@app/core/services/layout';
 import { MainLogo } from "@app/core/components/main-logo/main-logo";
 import { LogoutBtn } from "@app/core/components/logout-btn/logout-btn";
+import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
 
 @Component({
   selector: 'app-header',
-  imports: [MainLogo, LogoutBtn],
+  imports: [MainLogo, LogoutBtn, LanguageSwitcherComponent],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
