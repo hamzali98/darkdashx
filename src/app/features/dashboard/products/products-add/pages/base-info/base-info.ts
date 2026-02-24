@@ -33,7 +33,7 @@ export class BaseInfo implements OnInit {
       { key: 'Note Book', value: 'note book' },
       { key: 'Digital', value: 'digital' }, 
       { key: 'Cosmetics', value: 'cosmetics' }, 
-      { key: 'Light', value: 'light' }, 
+      { key: 'Electric', value: 'electric' }, 
       { key: 'Network', value: 'network' },
     ];
     this.companyList = this.companyListService.getCompanyList();
