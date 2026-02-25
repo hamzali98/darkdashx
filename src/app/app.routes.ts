@@ -10,6 +10,7 @@ import { NotFound } from './features/not-found/not-found';
 import { ReportIssue } from './features/report-issue/report-issue';
 import { ForgotPassword } from './core/auth/pages/forgot-password/forgot-password';
 import { roleGuard } from './shared/guards/role-guard';
+import { UnderDevelopment } from './shared/components/under-development/under-development';
 
 export const routes: Routes = [
     // {
@@ -33,6 +34,26 @@ export const routes: Routes = [
                 path: 'users',
                 canActivate: [authGuardGuard, roleGuard],
                 loadChildren: () => import('./features/users/users.routes').then(v => v.userRoutes)
+            },
+            {
+                path: 'features',
+                canActivate: [authGuardGuard],
+                loadChildren: () => import('./features/features-module/features.routes').then(v=>v.featuresRoutes)
+            },
+            {
+                path: 'pricing',
+                canActivate: [authGuardGuard],
+                loadChildren: () => import('./features/pricing-module/pricing.routes').then(v=>v.pricingRoutes)
+            },
+            {
+                path: 'integrations',
+                canActivate: [authGuardGuard],
+                loadChildren: () => import('./features/integration-module/integration.routes').then(v=>v.integrationRoutes)
+            },
+            {
+                path: 'underdev',
+                canActivate: [authGuardGuard],
+                component: UnderDevelopment,
             },
             {
                 path: 'settings',
