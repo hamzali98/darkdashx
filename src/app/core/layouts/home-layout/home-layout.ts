@@ -49,7 +49,7 @@ export class HomeLayout implements OnInit {
         uncoloredIcon: "assets/icons/uncolored/star.svg",
         iconsAlt: "feat", topPadding: "pt-0",
         routeNames: ["VIEW_FEATURES", "ADD_FEATURES"],
-        routeLink: ["/users/view", "/users/add",]
+        routeLink: ["/features/view", "/features/add",]
       },
       {
         routePath: 'pricing', tileName: "PRICING",
@@ -57,7 +57,7 @@ export class HomeLayout implements OnInit {
         uncoloredIcon: "assets/icons/uncolored/dollar.svg",
         iconsAlt: "pricing", topPadding: "pt-0",
         routeNames: ["VIEW_PRICING", "ADD_PRICING"],
-        routeLink: ["/users/view", "/users/add",]
+        routeLink: ["/pricing/view", "/pricing/add",]
       },
       {
         routePath: 'integrations', tileName: "INTEGRATIONS",
@@ -65,7 +65,7 @@ export class HomeLayout implements OnInit {
         uncoloredIcon: "assets/icons/uncolored/puzzlepiece.svg",
         iconsAlt: "integrations", topPadding: "pt-0",
         routeNames: ["VIEW_INTEGRATIONS", "ADD_INTEGRATIONS"],
-        routeLink: ["/users/view", "/users/add",]
+        routeLink: ["/integrations/view", "/integrations/add",]
       },
     ]
   }
