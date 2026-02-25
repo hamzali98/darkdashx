@@ -17,10 +17,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslationService } from '@app/core/services/translate.service';
 import { UsersAmChart } from "./components/users-am-chart/users-am-chart";
 import { ChartService } from './services/chart-service';
+import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [AnalyticsCard, AmCharts, DonutChart, BubbleChart, MapChart, DataError, TranslateModule, UsersAmChart],
+  imports: [AnalyticsCard, AmCharts, DonutChart, BubbleChart, MapChart, DataError, TranslateModule, UsersAmChart, TooltipDirective],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

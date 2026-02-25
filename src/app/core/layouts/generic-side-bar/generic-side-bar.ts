@@ -8,10 +8,11 @@ import { Layout } from '@app/core/services/layout';
 import { LogoutBtn } from "@app/core/components/logout-btn/logout-btn";
 import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
 import { TranslateModule } from '@ngx-translate/core';
+import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 
 @Component({
   selector: 'app-generic-side-bar',
-  imports: [RouterLink, NgClass, MainLogo, LogoutBtn, LanguageSwitcherComponent, TranslateModule],
+  imports: [RouterLink, NgClass, MainLogo, LogoutBtn, LanguageSwitcherComponent, TranslateModule, TooltipDirective],
   templateUrl: './generic-side-bar.html',
   styleUrl: './generic-side-bar.css',
 })

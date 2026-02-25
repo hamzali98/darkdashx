@@ -10,28 +10,28 @@
             <span class="text-gray-500 dark:text-gray-400 font-worksans text-xs">{{'DASH_DESC' | translate}}</span>
         </div>
         <div class="flex flex-row ">
-            <button type="button" class="rounded-sm text-white text-xs w-[92px] shadow drop-shadow-black font-[15px] mx-3
+            <button type="button" class="rounded-sm text-white text-xs w-23 shadow drop-shadow-black font-[15px] mx-3
                 h-7 cursor-pointer bg-btn-secondary  " (click)="getReports()">
                 <span class="flex flex-row gap-1.5 items-center justify-center align-middle">
                     {{'EXPORT_DATA' | translate}} <img class="size-2.5" src="assets/icons/white/downarrow.svg"
                         alt="ar"></span>
             </button>
-            <button type="button" class="rounded-sm text-white text-xs w-[88px] shadow drop-shadow-black font-[14px] 
-                h-7 cursor-pointer  bg-primary" (click)="getCharts()" >
+            <button type="button" class="rounded-sm text-white text-xs w-22 shadow drop-shadow-black font-[14px] 
+                h-7 cursor-pointer  bg-primary" (click)="getCharts()">
                 {{'CREATE_REPORT' | translate}}
             </button>
         </div>
     </div>
     <!-- cards -->
     <div class="flex gap-3 lg:gap-1 flex-col lg:flex-wrap lg:flex-row justify-between mt-2.5 ">
-        <app-analytics-card title="PAGEVIEWS" icon="assets/icons/neutral/eye.svg" [value]="'50.8K'"
-            [trend]="28.4"></app-analytics-card>
-        <app-analytics-card title="MONTHLY_USERS" icon="assets/icons/neutral/usericon.svg" [value]="'23.6K'"
-            [trend]="-12.6"></app-analytics-card>
-        <app-analytics-card title="NEW_SIGNUPS" icon="assets/icons/neutral/plus.svg" [value]="'756'"
-            [trend]="3.1"></app-analytics-card>
-        <app-analytics-card title="SUBSCRIPTION" icon="assets/icons/neutral/star.svg" [value]="'2.3K'"
-            [trend]="11.3"></app-analytics-card>
+        <app-analytics-card [appTooltip]="'Pageviews' | translate" title="Pageviews" icon="assets/icons/neutral/eye.svg"
+            [value]="'50.8K'" [trend]="28.4"></app-analytics-card>
+        <app-analytics-card [appTooltip]="'Monthly Users' | translate" title="Monthly Users"
+            icon="assets/icons/neutral/usericon.svg" [value]="'23.6K'" [trend]="-12.6"></app-analytics-card>
+        <app-analytics-card [appTooltip]="'New Signups' | translate" title="New Signups"
+            icon="assets/icons/neutral/plus.svg" [value]="'756'" [trend]="3.1"></app-analytics-card>
+        <app-analytics-card [appTooltip]="'Subscription' | translate" title="Subscription"
+            icon="assets/icons/neutral/star.svg" [value]="'2.3K'" [trend]="11.3"></app-analytics-card>
     </div>
 
 </div>
@@ -65,10 +65,10 @@
 <div class="grid grid-cols-12 grid-rows-6 px-10.5 mb-3">
     <div class=" col-span-12 row-span-6 md:row-span-6 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-lg ">
         @if(userData && productData){
-            <app-users-am-chart [userChartData]="userData" [productChartData]="productData"></app-users-am-chart>
+        <app-users-am-chart [userChartData]="userData" [productChartData]="productData"></app-users-am-chart>
         } @else {
-            <app-data-error></app-data-error>
-        } 
+        <app-data-error></app-data-error>
+        }
     </div>
 </div>
 <div class="grid grid-cols-12 grid-rows-6 px-10.5 mb-3">

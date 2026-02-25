@@ -9,12 +9,13 @@ import { TranslationService } from '@app/core/services/translate.service';
 
 // ─── npm install xlsx jspdf jspdf-autotable ───────────────────────────────────
 import * as XLSX from 'xlsx';
+import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 // ─────────────────────────────────────────────────────────────────────────────
 
 
 @Component({
   selector: 'app-generic-table',
-  imports: [FormsModule, NgClass, TitleCasePipe, CurrencyPipe, DataError, TranslateModule],
+  imports: [FormsModule, NgClass, TitleCasePipe, CurrencyPipe, DataError, TranslateModule, TooltipDirective],
   templateUrl: './generic-table.html',
   styleUrl: './generic-table.css',
 })
@@ -440,6 +441,11 @@ export class GenericTable<T> implements OnChanges {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, tableName.slice(0, 31)); // sheet name max 31 chars
     XLSX.writeFile(wb, `${tableName}.xlsx`);
+  }
+
+  downloadPDF(){
+    const msg = this.translateService.instant("Service not available yet!")
+    alert(msg);
   }
 
 }

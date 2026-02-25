@@ -8,7 +8,10 @@
             <app-language-switcher></app-language-switcher>
             }
             @if(sidebar){
-            <button type="button" class="cursor-pointer" (click)="toggleSidebar()">
+            <button 
+            [appTooltip]="'close side bar' | translate"
+            tooltipPosition="top"
+            type="button" class="cursor-pointer" (click)="toggleSidebar()">
                 <span>
                     <img class=" shrink-0" src="assets/icons/neutral/doublearrows.svg" alt="a">
                 </span>
@@ -25,7 +28,8 @@
             <div class="flex flex-row relative w-auto justify-center items-center">
                 <img src="assets/icons/neutral/search.svg"
                     class="absolute left-3 top-1/2 -translate-y-1/2 size-3.5  pointer-events-none" alt="icon" />
-                <input class=" ltr:pl-8 rtl:pr-8 w-full h-10 border border-card-bg/30 dark:border-gray-800 rounded-md caret-primary outline-0
+                <input class=" ltr:pl-8 rtl:pr-8 w-full h-10 border border-card-bg/30 dark:border-gray-800 
+                rounded-md caret-primary outline-0
             placeholder:text-card-bg bg-input-bg 
             dark:placeholder:text-gray-400 placeholder:text-xs focus:border-primary dark:text-gray-400 " type="search"
                     placeholder="{{'SEARCH' | translate}}" />
