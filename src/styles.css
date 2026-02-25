@@ -88,7 +88,7 @@
   border: 1px solid #cb3cff;
   font-size: 11px;
   white-space: nowrap;
-  z-index: 9999;
+  z-index: 999;
   pointer-events: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   animation: fadeIn 0.15s ease;
