@@ -1,18 +1,21 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Layout } from '@app/core/services/layout';
 import { DialogService } from '@app/shared/services/dialog-service/dialog';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { TooltipDirective } from '@app/shared/directive/tooltip/tooltip';
+import { NgClass } from '@angular/common';
 
 
 @Component({
   selector: 'app-logout-btn',
-  imports: [TranslateModule, TooltipDirective],
+  imports: [TranslateModule, TooltipDirective, NgClass],
   templateUrl: './logout-btn.html',
   styleUrl: './logout-btn.css',
 })
 export class LogoutBtn {
+
+  size = input('size-5');
 
   private layoutService = inject(Layout);
   private dialogService = inject(DialogService);
