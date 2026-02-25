@@ -4,8 +4,6 @@ import { AmCharts } from "./components/am-charts/am-charts";
 import { User } from '../users/interface/user';
 import { product } from './products/interface/product-interface';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
-import { Loaderservice } from '@app/shared/services/loader/loaderservice';
-import { finalize } from 'rxjs';
 import { DonutChart } from "./components/donut-chart/donut-chart";
 import { BubbleChart } from "./components/bubble-chart/bubble-chart";
 import { MapChart } from "./components/map-chart/map-chart";
@@ -40,31 +38,27 @@ export class Dashboard implements OnInit {
   private productChart = viewChild(AmCharts);
   private bubbleChart = viewChild(BubbleChart);
   private userChart = viewChild(UsersAmChart);
-  
-  
+
+
   httpService = inject(Httpservice);
   authservice = inject(AuthService);
-  loaderService = inject(Loaderservice);
   snackService = inject(SnackBarService);
   translationService = inject(TranslationService);
   chartService = inject(ChartService);
 
   constructor() {
     this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
+    this.getUserData();
   }
 
   ngOnInit(): void {
-    // this.loaderService.showLoader();
-    this.getUserData();
-    // this.getProductData();
-    // this.loaderService.hideLoader();
+    // this.getUserData();
   }
 
   get username() {
     return this.authservice.getUser()?.username ?? "Guest";
   }
   getUserData() {
-    this.loaderService.showLoader();
     this.httpService.getApi(this.userURL).subscribe({
       next: (res) => {
         // console.log(res);
@@ -73,9 +67,7 @@ export class Dashboard implements OnInit {
       },
       error: (err) => {
         // console.log(err);
-        this.loaderService.hideLoader();
         this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-left');
-
       }
     });
   }
@@ -85,11 +77,9 @@ export class Dashboard implements OnInit {
       next: (res) => {
         // console.log(res);
         this.productData = res.body;
-        this.loaderService.hideLoader();
       },
       error: (err) => {
         // console.log(err);
-        this.loaderService.hideLoader();
         this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-left');
       }
     })
@@ -140,7 +130,7 @@ export class Dashboard implements OnInit {
     ]);
   }
 
-  getCharts(){
+  getCharts() {
     this.donutChart()?.downloadChart();
     this.bubbleChart()?.downloadChart();
     this.productChart()?.downloadChart();
