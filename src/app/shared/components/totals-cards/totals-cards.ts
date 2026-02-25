@@ -1,9 +1,10 @@
 import { Component, computed, input, Input, model } from '@angular/core';
 import { DataError } from "../data-error/data-error";
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-totals-cards',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './totals-cards.html',
   styleUrl: './totals-cards.css',
 })
