@@ -102,7 +102,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
     const isRTL = this.isRtl;
     const maxValue = this.getDataMax();
 
-    console.log("chart max value", maxValue);
+    // console.log("chart max value", maxValue);
 
     const productsSeriesName = isRTL ? 'مصنوعات' : 'Products';
     const stockSeriesName = isRTL ? 'سٹاک' : 'Stock';

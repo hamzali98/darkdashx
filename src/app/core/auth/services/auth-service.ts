@@ -222,7 +222,7 @@ export class AuthService {
         message: isRTL ? 'آپ کا سیشن غیر فعال ہونے کی وجہ سے ختم ہو گیا ہے۔ جاری رکھنے کے لیے براہ کرم دوبارہ لاگ ان کریں۔' : 'Your session has expired due to inactivity. Please log in again to continue.',
         type: 'session-expired'
       });
-      console.log('Session expired due to timeout');
+      // console.log('Session expired due to timeout');
       this.logout('expired'); // Mark as expired logout
       return false;
     }
@@ -284,7 +284,7 @@ export class AuthService {
     localStorage.setItem(this.EXPIRY_KEY, newExpiryTime.toString());
 
     // Debug log to verify it's being called
-    console.log('Session timer reset. New expiry:', new Date(newExpiryTime).toLocaleTimeString());
+    // console.log('Session timer reset. New expiry:', new Date(newExpiryTime).toLocaleTimeString());
   }
 
   // Manual method to reset session (useful for API calls)
