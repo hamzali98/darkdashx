@@ -198,6 +198,9 @@
     "Password not matched!":"Password not matched!",
     "Enter confirmation Password":"Enter confirmation Password",
     "Download PDF" : "Download PDF",
-    "Download XLSX" : "Download XLSX"
+    "Download XLSX" : "Download XLSX",
+    "Module Under Development" : "Module Under Development",
+    "MUD_subline" : "This feature is coming soon! Please check back later for updates",
+    "No data": "No data"
 }
   

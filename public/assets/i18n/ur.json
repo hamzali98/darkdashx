@@ -199,5 +199,8 @@
     "Password not matched!":"پاس ورڈ مماثل نہیں ہے!",
     "Enter confirmation Password":"تصدیقی پاس ورڈ درج کریں۔",
     "Download PDF" : "PDF ڈاؤن لوڈ کریں۔",
-    "Download XLSX" : "XLSX ڈاؤن لوڈ کریں۔"
+    "Download XLSX" : "XLSX ڈاؤن لوڈ کریں۔",
+    "Module Under Development": "ماڈیول زیرِ تعمیر ہے",
+    "MUD_subline" : "یہ خصوصیت جلد آرہی ہے! براہ کرم اپ ڈیٹس کے لیے بعد میں دوبارہ چیک کریں۔",
+    "No data": "کوئی ڈیٹا نہیں۔"
 }
