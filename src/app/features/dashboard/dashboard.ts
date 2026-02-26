@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, viewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
 import { AnalyticsCard } from "@app/shared/components/analytics-card/analytics-card";
 import { AmCharts } from "./components/am-charts/am-charts";
 import { User } from '../users/interface/user';
@@ -16,6 +16,8 @@ import { TranslationService } from '@app/core/services/translate.service';
 import { UsersAmChart } from "./components/users-am-chart/users-am-chart";
 import { ChartService } from './services/chart-service';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
+import { BehaviorSubject } from 'rxjs';
+import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +25,8 @@ import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnInit {
+export class Dashboard implements OnInit, OnDestroy {
+
   isRTL: boolean;
 
   productURL = environment.PRODUCTS_URL;
@@ -42,17 +45,26 @@ export class Dashboard implements OnInit {
 
   httpService = inject(Httpservice);
   authservice = inject(AuthService);
+  chartService = inject(ChartService);
+  loaderService = inject(Loaderservice);
   snackService = inject(SnackBarService);
   translationService = inject(TranslationService);
-  chartService = inject(ChartService);
 
   constructor() {
     this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
-    this.getUserData();
+    // this.getUserData();
   }
 
   ngOnInit(): void {
-    // this.getUserData();
+    if (this.loaderService.isVisible$) {
+      this.loaderService.hideLoader();
+    } else {
+      this.loaderService.showLoader();
+    }
+    this.getUserData();
+  }
+
+  ngOnDestroy(): void {
   }
 
   get username() {
@@ -77,9 +89,15 @@ export class Dashboard implements OnInit {
       next: (res) => {
         // console.log(res);
         this.productData = res.body;
+        if (this.loaderService.isVisible$) {
+          this.loaderService.hideLoader();
+        }
       },
       error: (err) => {
         // console.log(err);
+        if (this.loaderService.isVisible$) {
+          this.loaderService.hideLoader();
+        }
         this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-left');
       }
     })
