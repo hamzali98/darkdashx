@@ -18,12 +18,13 @@
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
                         <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-figma-neutral text-sm font-light
+                        rtl:text-right text-figma-neutral text-sm font-light
                         invalid:border-red-500 invalid:caret-red-500
                         valid:border-green-500 valid:caret-green-500
                         focus:border-primary caret-primary
                         placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_phone" type="tel"
-                            id="phone" name="phone" placeholder="{{'Enter Phone'|translate}}">
+                            id="phone" name="phone" placeholder="{{'Enter Phone'|translate}}"
+                            >
                         @if(user_phone?.hasError('required') && user_phone?.touched){
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Phone Required!"|translate}}</span>
                         } @else if(user_phone?.hasError('minlength') || user_phone?.hasError('maxlength')){

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, Inject, Input, NgZone, OnChanges, OnDestroy, OnInit, PLATFORM_ID, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, inject, Inject, input, Input, NgZone, OnChanges, OnDestroy, OnInit, PLATFORM_ID, SimpleChanges } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 // amCharts imports

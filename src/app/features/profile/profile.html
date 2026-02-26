@@ -139,7 +139,7 @@
                 <div class="flex flex-row bg-card-bg justify-center gap-5 px-4 pt-1 pb-4 border-b border-b-gray-800">
                     <!-- <p class="text-sm text-figma-neutral font-semibold font-worksans">Facebook</p> -->
                     @for(items of profileSocialBtnsLinks; track $index){
-                    <button class="h-7 cursor-pointer" type="button">
+                    <button [appTooltip]="(items.alt | translate)" class="h-7 cursor-pointer" type="button">
                         <img class="size-5 shrink-0" [src]="items.profile" [alt]="items.alt">
                     </button>
                     }
@@ -148,7 +148,8 @@
                 <div class="flex flex-row justify-between p-4">
                     <p class="text-sm text-figma-neutral font-semibold font-worksans">{{ 'DELETE_ACCOUNT' | translate }}
                     </p>
-                    <button class="rounded-sm hover:-translate-y-0.5 transition-all duration-300 text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 
+                    <button class="rounded-sm hover:-translate-y-0.5 
+                    transition-all duration-300 text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 
                     cursor-pointer bg-red-600" (click)="onDelete()" type="button">
                         {{"DELETE" | translate}}
                     </button>

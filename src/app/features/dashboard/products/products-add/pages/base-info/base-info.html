@@ -9,7 +9,8 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/product.svg" alt="">
-                        <label for="productname" class="text-gray-300 text-xs font-medium">{{ 'PRODUCT_NAME' | translate }}
+                        <label for="productname" class="text-gray-300 text-xs font-medium">{{ 'PRODUCT_NAME' | translate
+                            }}
                             <span class="text-red-600">*</span>
 
                         </label>
@@ -25,7 +26,8 @@
                         @if(product_name?.hasError('required') && product_name?.touched){
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'PNR' | translate}}</span>
                         } @else if(product_name?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
+                            translate}}</span>
                         } @else {
                         <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'EPN' | translate}}</span>
                         }
@@ -36,7 +38,7 @@
                 <div class="flex flex-col lg:flex-row items-start justify-between ">
                     <div class="flex gap-1 mt-1">
                         <img src="assets/icons/white/category.svg" alt="">
-                        <label for="category" class="text-gray-300 text-xs font-medium">{{  'CATEGORY' | translate }}
+                        <label for="category" class="text-gray-300 text-xs font-medium">{{ 'CATEGORY' | translate }}
                             <span class="text-red-600">*</span>
 
                         </label>
@@ -44,20 +46,22 @@
                     <div class="flex flex-col w-full lg:w-auto">
                         <select required name="category" id="category" formControlName="product_category" class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                                 text-figma-neutral text-sm font-light bg-card-bg
-                                invalid:border-red-500 valid:border-green-500 focus:border-primary
-                                placeholder:text-figma-neutral">
-                            <option value="" selected >{{'SCAT' | translate}}</option>
+                                invalid:border-red-500  focus:border-primary
+                                placeholder:text-figma-neutral"
+                            [ngClass]="product_category?.hasError('required') ? 'border-red-500' : 'border-green-500'">
+                            <option [ngValue]="null" disabled>{{'SCAT' | translate}}</option>
                             @for(items of productCategories; track $index){
-                            <option [value]="items.value">{{items.key}}</option>
+                            <option [value]="items.value">{{(items.key|translate)}}</option>
                             }
                         </select>
                         @if(product_category?.hasError('required') && product_category?.touched){
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'CATR' | translate}}</span>
                         } @else if(product_category?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
+                            translate}}</span>
                         } @else {
                         <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'SCAT' | translate}}
-                            </span>
+                        </span>
                         }
                     </div>
                 </div>
@@ -82,7 +86,8 @@
                         @if(product_price?.hasError('required') && product_price?.touched){
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'PRC' | translate}}</span>
                         } @else if(product_price?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
+                            translate}}</span>
                         } @else {
                         <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'EPRC' | translate}}</span>
                         }
@@ -100,25 +105,28 @@
                     <div class="flex flex-col w-full lg:w-auto">
                         <select required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                                 text-figma-neutral text-sm font-light selection:text-sm bg-card-bg
-                                invalid:border-red-500 valid:border-green-500 focus:border-primary 
+                                invalid:border-red-500 focus:border-primary 
                                 placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_company"
-                            type="text" id="company" name="company">
-                            <option value="" selected >{{'SCMP' | translate}}</option>
+                            type="text" id="company" name="company"
+                            [ngClass]="product_company?.hasError('required') ? 'border-red-500' : 'border-green-500'"
+                            >
+                            <option [ngValue]="null" disabled>{{'SCMP' | translate}}</option>
                             @for(items of companyList; track $index){
-                            <option [value]="items.value">{{items.key}}</option>
+                            <option [value]="items.value">{{(items.key|translate)}}</option>
                             }
                         </select>
                         @if(product_company?.hasError('required') && product_company?.touched){
                         <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'CMP' | translate}}</span>
                         } @else if(product_company?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
+                            translate}}</span>
                         } @else {
                         <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'SCMP' | translate}}</span>
                         }
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <!-- <div class=" flex justify-end mt-10">
                 <button [disabled]="baseInfo.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer

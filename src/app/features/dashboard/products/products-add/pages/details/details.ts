@@ -6,6 +6,8 @@ import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment.development';
 import { TranslateModule } from '@ngx-translate/core';
+import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
+import { TranslationService } from '@app/core/services/translate.service';
 
 @Component({
   selector: 'app-details',
@@ -15,7 +17,9 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class Details {
 
-  url : string = environment.PRODUCTS_URL;
+  isRTL: boolean;
+
+  url: string = environment.PRODUCTS_URL;
 
   detailInfo: FormGroup;
   productFormSubmit: FormGroup;
@@ -24,12 +28,17 @@ export class Details {
   routerRef = inject(Router);
   loaderService = inject(Loaderservice);
   httpService = inject(Httpservice);
+  snackService = inject(SnackBarService);
+  translationService = inject(TranslationService);
+
 
 
   constructor() {
     this.productFormSubmit = this.prodcutFormService.getForm();
     this.detailInfo = this.prodcutFormService.getForm().get('detail_info') as FormGroup;
     this.detailInfo.markAllAsTouched();
+
+    this.isRTL = this.translationService.getCurrentLanguage() === 'ur';
   }
 
   get product_expiry() {
@@ -49,38 +58,42 @@ export class Details {
   }
 
   onFormSubmit() {
-    if (this.prodcutFormService.editing()) {
-      this.loaderService.showLoader();
-      // console.log("Id for previous data", this.prodcutFormService.editingId());
-      const id = this.prodcutFormService.editingId();
-      // console.log("ID : ", id);
-      // console.log("Whole Form", this.productFormSubmit.value);
-      this.httpService.editApi(this.url, id, this.productFormSubmit.value).subscribe({
-        next: (res) => {
-          // console.log(res);
-          this.prodcutFormService.resetForm();
-          this.routerRef.navigate(['/home/products']);
-        },
-        error: (err) => {
-          // console.log(err);
-          this.loaderService.hideLoader();
-        }
-      })
+    if (this.productFormSubmit.invalid) {
+      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
     } else {
-      this.loaderService.showLoader();
-      // console.log("Whole Form", this.productFormSubmit.value);
-      this.httpService.addApi(this.url, this.productFormSubmit.value).subscribe({
-        next: (res) => {
-          // console.log(res);
-          this.prodcutFormService.resetForm();
-          this.routerRef.navigate(['/home/products']);
-        },
-        error: (err) => {
-          // console.log(err);
-          this.loaderService.hideLoader();
-        }
-      })
+
+      if (this.prodcutFormService.editing()) {
+        this.loaderService.showLoader();
+        // console.log("Id for previous data", this.prodcutFormService.editingId());
+        const id = this.prodcutFormService.editingId();
+        // console.log("ID : ", id);
+        // console.log("Whole Form", this.productFormSubmit.value);
+        this.httpService.editApi(this.url, id, this.productFormSubmit.value).subscribe({
+          next: (res) => {
+            // console.log(res);
+            this.prodcutFormService.resetForm();
+            this.routerRef.navigate(['/home/products']);
+          },
+          error: (err) => {
+            // console.log(err);
+            this.loaderService.hideLoader();
+          }
+        })
+      } else {
+        this.loaderService.showLoader();
+        // console.log("Whole Form", this.productFormSubmit.value);
+        this.httpService.addApi(this.url, this.productFormSubmit.value).subscribe({
+          next: (res) => {
+            // console.log(res);
+            this.prodcutFormService.resetForm();
+            this.routerRef.navigate(['/home/products']);
+          },
+          error: (err) => {
+            // console.log(err);
+            this.loaderService.hideLoader();
+          }
+        })
+      }
     }
   }
-
 }

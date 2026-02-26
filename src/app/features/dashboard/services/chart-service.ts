@@ -101,7 +101,7 @@ export class ChartService {
       'google': isRtl ? 'گوگل' : 'Google',
       'pinterest': isRtl ? 'پنٹیرسٹ' : 'Pinterest',
       'facebook': isRtl ? 'فیس بک' : 'Facebook',
-      'linkedin': isRtl ? 'لنکڈ' : 'Linkedin',
+      'linkedin': isRtl ? 'لنکڈ اِن' : 'Linkedin',
       'youtube': isRtl ? 'یوٹیوب' : 'Youtube',
     };
 
@@ -161,7 +161,7 @@ export class ChartService {
       'google': isRtl ? 'گوگل' : 'Google',
       'pinterest': isRtl ? 'پنٹیرسٹ' : 'Pinterest',
       'facebook': isRtl ? 'فیس بک' : 'Facebook',
-      'linkedin': isRtl ? 'لنکڈ' : 'Linkedin',
+      'linkedin': isRtl ? 'لنکڈ اِن' : 'Linkedin',
       'youtube': isRtl ? 'یوٹیوب' : 'Youtube',
     };
 

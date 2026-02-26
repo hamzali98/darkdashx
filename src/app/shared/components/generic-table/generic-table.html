@@ -4,7 +4,7 @@
         <div class="flex flex-row gap-5 items-center justify-center">
             <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{selectedItems}}
                 {{"Selected" | translate}}</span>
-            <button 
+            <button type="button"
             [appTooltip]="'Delete all' | translate" tooltipPosition="top"
             class="flex items-center cursor-pointer justify-center ">
                 <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
@@ -15,7 +15,7 @@
         }
 
         <div>
-            <button 
+            <button  type="button"
             [appTooltip]="'Get data PDF' | translate" tooltipPosition="top"
             class="mx-1 py-1 px-2 text-xs rounded-sm drop-shadow-xs drop-shadow-primary-bg bg-primary-bg
             border border-primary"
@@ -26,7 +26,7 @@
                         <!-- {{'Download PDF' | translate}}
                     </span> -->
             </button>
-            <button
+            <button type="button"
             [appTooltip]="'get data excel sheet' | translate" tooltipPosition="top"
             class="mx-1 py-1 px-2 text-xs rounded-sm drop-shadow-xs drop-shadow-primary-bg bg-primary-bg
             border border-primary"

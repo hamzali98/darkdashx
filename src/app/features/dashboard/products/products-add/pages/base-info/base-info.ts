@@ -5,10 +5,11 @@ import { productCategories } from '../../../interface/product-categories';
 import { companyInterface } from '@app/shared/interface/company';
 import { CompanyListService } from '@app/shared/services/companylist/company-list-service';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-base-info',
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule, NgClass],
   templateUrl: './base-info.html',
   styleUrl: './base-info.css',
 })

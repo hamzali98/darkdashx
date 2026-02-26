@@ -14,6 +14,7 @@ import { BehaviorSubject, debounceTime, delay, fromEvent, map, timeout } from 'r
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '@app/core/components/language-switcher/language-switcher.component';
 import { TranslationService } from '@app/core/services/translate.service';
+import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 
 export interface profilesociallinkbtns {
   alt: string,
@@ -22,7 +23,7 @@ export interface profilesociallinkbtns {
 
 @Component({
   selector: 'app-profile',
-  imports: [NgClass, ReactiveFormsModule, FormsModule, TranslateModule],
+  imports: [NgClass, ReactiveFormsModule, FormsModule, TranslateModule, TooltipDirective],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
@@ -62,14 +63,14 @@ export class Profile implements OnInit, OnDestroy {
       role: new FormControl(""),
     });
     this.profileSocialBtnsLinks = [
-      { alt: "f", profile: "assets/logos/facebook.svg" },
-      { alt: "g", profile: "assets/logos/google.svg" },
-      { alt: "l", profile: "assets/logos/linkedin.svg" },
-      { alt: "p", profile: "assets/logos/pinterest.svg" },
-      { alt: "r", profile: "assets/logos/reddit.svg" },
-      { alt: "s", profile: "assets/logos/spotify.svg" },
-      { alt: "t", profile: "assets/logos/twitter.svg" },
-      { alt: "y", profile: "assets/logos/youtube.svg" },
+      { alt: "Facebook", profile: "assets/logos/facebook.svg" },
+      { alt: "Google", profile: "assets/logos/google.svg" },
+      { alt: "Linkedin", profile: "assets/logos/linkedin.svg" },
+      { alt: "Pinterest", profile: "assets/logos/pinterest.svg" },
+      { alt: "Reddit", profile: "assets/logos/reddit.svg" },
+      { alt: "Spotify", profile: "assets/logos/spotify.svg" },
+      { alt: "Twitter", profile: "assets/logos/twitter.svg" },
+      { alt: "Youtube", profile: "assets/logos/youtube.svg" },
     ];
 
   }
@@ -177,7 +178,7 @@ export class Profile implements OnInit, OnDestroy {
             if (res) {
               this.message = "";
             } else {
-              if(this.isRTL){
+              if (this.isRTL) {
                 this.message = "غلط پاس ورڈ";
               } else {
                 this.message = "Wrong Password";
@@ -186,9 +187,9 @@ export class Profile implements OnInit, OnDestroy {
             this.loader.set(false);
           },
           error: (err) => {
-            if(this.isRTL){
+            if (this.isRTL) {
               this.message = "سرور کی خرابی!";
-            } else {  
+            } else {
               this.message = "Server error!";
             }
             this.loader.set(false);
@@ -230,26 +231,31 @@ export class Profile implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // console.log(this.profileForm.value);
-    // console.log(this.user);
-    const id = this.user!.id.toString();
-    this.profileForm.patchValue({
-      status: this.user?.status,
-      role: this.user?.role
-    });
-    // console.log(this.profileForm.value);
-    this.httpService.editApi(this.URL, id, this.profileForm.value).subscribe({
-      next: (res) => {
-        // console.log(res);
-        this.authService.login(res, true);
-        this.snackService.success(this.isRTL ? "پروفائل کامیابی سے اپ ڈیٹ ہو گیا!" : "Profile edited", 2000, 'top-center');
-      },
-      error: (err) => {
-        // console.log(err);
-        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error", 2000, 'top-center');
+    if (this.profileForm.invalid) {
+      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
+    } else {
+
+      // console.log(this.profileForm.value);
+      // console.log(this.user);
+      const id = this.user!.id.toString();
+      this.profileForm.patchValue({
+        status: this.user?.status,
+        role: this.user?.role
+      });
+      // console.log(this.profileForm.value);
+      this.httpService.editApi(this.URL, id, this.profileForm.value).subscribe({
+        next: (res) => {
+          // console.log(res);
+          this.authService.login(res, true);
+          this.snackService.success(this.isRTL ? "پروفائل کامیابی سے اپ ڈیٹ ہو گیا!" : "Profile edited", 2000, 'top-center');
+        },
+        error: (err) => {
+          // console.log(err);
+          this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error", 2000, 'top-center');
+        }
       }
+      );
     }
-    );
   }
 
   onDelete() {

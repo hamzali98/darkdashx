@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Formservice } from '../../services/formservice';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './basic-info.css',
 })
 export class BasicInfo {
+
 
   personalInfo: FormGroup;
   basicInfo: FormGroup;
