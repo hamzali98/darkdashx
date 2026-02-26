@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { Loaderservice } from './shared/services/loader/loaderservice';
@@ -9,6 +9,8 @@ import { DialogService, DialogData } from './shared/services/dialog-service/dial
 import { AuthService } from './core/auth/services/auth-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -16,18 +18,38 @@ import { Router } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('dashboard');
+export class App implements OnInit {
+  // protected readonly title = signal('dashboard');
 
   private routerRef = inject(Router);
   private loaderService = inject(Loaderservice);
   private authService = inject(AuthService);
   dialogService = inject(DialogService);
 
-  constructor() { }
-  // get loaderState() {
-  //   return this.loaderService.getLoader();
-  // }
+ constructor(
+    private title: Title,
+    private translate: TranslateService
+  ) {}
+
+  ngOnInit(): void {
+    // Set title initially
+    this.setTitle();
+
+    // Update title when language changes
+    this.translate.onLangChange.subscribe(() => {
+      this.setTitle();
+    });
+  }
+
+  private setTitle() {
+    // this.translate.get('APP_TITLE').subscribe((res: string) => {
+    //   this.title.setTitle(res);
+    // });
+    this.translate.stream('APP_TITLE')
+    .subscribe((res: string) => {
+      this.title.setTitle(res);
+    });
+  }
 
   get loaderServiceRef() {
     return this.loaderService;
