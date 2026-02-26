@@ -103,6 +103,24 @@ input[type="date"] {
     border: 6px solid transparent;
   }
 
+  .custom-tooltip {
+  position: absolute;
+  background: #0b1738;
+  color: white;
+  padding: 6px 10px;
+  font-size: 11px;
+  border-radius: 6px;
+  white-space: nowrap;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.custom-tooltip.show {
+  opacity: 1;
+}
+
   &.tooltip-top::after {
     top: 100%;
     left: 50%;
