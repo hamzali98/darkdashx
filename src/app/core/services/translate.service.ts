@@ -99,7 +99,8 @@ export class TranslationService {
   async initLanguage(): Promise<void> {
 
     this.translate.addLangs(this.availableLangs);
-    this.translate.setDefaultLang('en');
+    // this.translate.setDefaultLang('en');
+    this.translate.setFallbackLang('en');
 
     const savedLang = localStorage.getItem(this.storageKey) as Language;
     const browserLang = this.translate.getBrowserLang() as Language;
@@ -132,7 +133,8 @@ export class TranslationService {
   }
 
   getCurrentLanguage(): Language {
-    return this.translate.currentLang as Language;
+    // return this.translate.currentLang as Language;
+    return this.translate.getCurrentLang() as Language;
     // const lang = localStorage.getItem(this.storageKey) as Language || 'en';
     // return lang;
   }
