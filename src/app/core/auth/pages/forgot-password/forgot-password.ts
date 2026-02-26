@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
@@ -102,10 +102,15 @@ export class ForgotPassword implements OnDestroy {
             this.flag = true;
             this.email = '';
             this.user = res.user as credentials;
-            this.snackService.success(this.isRTL ? 'اکاؤنٹ مل گیا!' : 'Account found!', 2000, 'top-center');
+            // setTimeout(() => {
+            //   this.snackService.success(this.isRTL ? 'اکاؤنٹ مل گیا!' : 'Account found!', 2000, 'top-center');
+            // }, 2000);
           } else {
             this.snackService.error(`${res.message}`, 2000, 'top-center');
           }
+          setTimeout(() => {
+            this.snackService.success(this.isRTL ? 'اکاؤنٹ مل گیا!' : 'Account found!', 2000, 'top-center');
+          }, 2000);
           this.loaderService.hideLoader();
         },
         error: (err) => {
@@ -120,18 +125,27 @@ export class ForgotPassword implements OnDestroy {
     if (this.password.length <= 0) {
       this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
     } else {
-      this.loaderService.showLoader();
+      // this.loaderService.showLoader();
+      if (this.loaderService.isVisible$) {
+        this.loaderService.hideLoader();
+      } else {
+        this.loaderService.showLoader();
+      }
       this.user.password = this.password;
       const uId = this.user.id;
       this.httpService.editApi(this.authUrl, uId, this.user).subscribe({
         next: (res) => {
           // console.log(res);
-          this.flag = true;
-          this.email = '';
-          this.user = {} as credentials;
-          this.snackService.success(this.isRTL ? "پاس ورڈ ری سیٹ کامیاب ہو گیا!" : "Password reset successfull!", 2000, 'top-center');
-          this.loaderService.hideLoader();
-          this.routerRef.navigate(['/login']);
+          if (res) {
+            this.flag = false;
+            this.email = '';
+            this.user = {} as credentials;
+            this.snackService.success(this.isRTL ? "پاس ورڈ ری سیٹ کامیاب ہو گیا!" : "Password reset successfull!", 2000, 'top-center');
+            this.loaderService.hideLoader();
+            this.routerRef.navigate(['/login']);
+          } else {
+            this.snackService.error(this.isRTL ? "کچھ غلط ہو گیا!" : "Something went wrong!", 2000, 'top-center');
+          }
         },
         error: (err) => {
           this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error!", 2000, 'top-center');
