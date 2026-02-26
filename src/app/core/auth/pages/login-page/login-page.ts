@@ -10,10 +10,11 @@ import { credentials } from '../../interface/credentials';
 import { AuthService } from '../../services/auth-service';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, TranslateModule],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, TranslateModule, LanguageSwitcherComponent],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
@@ -54,59 +55,60 @@ export class LoginPage {
   }
 
   onLoginSubmit() {
-    this.loaderService.showLoader();
+    if (this.loginForm.invalid) {
+      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
+    } else {
 
-    this.httpService.getApi(this.authUrl).pipe(
-      map(res => {
-        const user = res.body.find(
-          (u: credentials) => {
-            if (u.email === this.email?.value && u.password === this.password?.value) {
-              return u;
-            } else {
-              return;
+      this.loaderService.showLoader();
+      this.httpService.getApi(this.authUrl).pipe(
+        map(res => {
+          const user = res.body.find(
+            (u: credentials) => {
+              if (u.email === this.email?.value && u.password === this.password?.value) {
+                return u;
+              } else {
+                return;
+              }
             }
+          );
+          // console.log(user);
+          if (user) {
+            return { success: true, user };
+          } else {
+            return { success: false, message: this.isRTL ? 'ای میل یا پاس ورڈ غلط ہے!' : 'Email or Password Incorrect!' };
           }
-        );
-        // console.log(user);
-        if (user) {
-          return { success: true, user };
-        } else {
-          return { success: false, message: this.isRTL ? 'ای میل یا پاس ورڈ غلط ہے!' : 'Email or Password Incorrect!' };
-        }
-      }),
-    ).subscribe({
-      next: (res) => {
-
-        // console.log(res);
-        if (res.success) {
+        }),
+      ).subscribe({
+        next: (res) => {
           // console.log(res);
-          this.authService.login(res.user, this.remember);
-          this.routerRef.navigate(["/"]);
-          if (this.remember) {
-
+          if (res.success) {
+            // console.log(res);
+            this.authService.login(res.user, this.remember);
+            this.routerRef.navigate(["/"]);
+            // if (this.remember) {
+            // }
+            this.snackService.success(this.isRTL ? "لاگ ان کامیاب ہو گیا!" : "Login successfull!", 2000, 'top-center');
+          } else {
+            this.snackService.error(
+              `${res.message}`,
+              2000,
+              'top-center'
+            );
           }
-          this.snackService.success(this.isRTL ? "لاگ ان کامیاب ہو گیا!" : "Login successfull!", 2000, 'top-center');
-        } else {
+          this.loaderService.hideLoader();
+        },
+        error: (err) => {
+          console.error(err);
           this.snackService.error(
-            `${res.message}`,
+            this.isRTL ? "سرور کی خرابی!" :
+              "Server Error!",
             2000,
             'top-center'
           );
+          this.loaderService.hideLoader();
         }
-        this.loaderService.hideLoader();
-      },
-      error: (err) => {
-        console.error(err);
-        this.snackService.error(
-          this.isRTL ? "سرور کی خرابی!" :
-            "Server Error!",
-          2000,
-          'top-center'
-        );
-        this.loaderService.hideLoader();
-      }
-    });
-
+      });
+    }
   }
 
 }

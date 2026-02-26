@@ -1,6 +1,8 @@
-<div class="flex justify-center items-center min-h-screen overflow-auto p-2 md:p-0
+<div class="flex flex-col justify-center items-center min-h-screen overflow-auto p-2 md:p-0
         bg-primary-bg">
-
+    <div class="w-full px-10">
+        <app-language-switcher></app-language-switcher>
+    </div>
     <div class="relative p-0">
         <!-- The glowing gradient background layer -->
         <div class="absolute inset-0 bg-linear-to-br from-primary via-purple-600 to-secondary2 rounded-lg filter blur-xl 
@@ -90,13 +92,11 @@
                     </div>
                 </div>
                 <div class=" flex justify-center my-5">
-                    <button [disabled]="loginForm.invalid" class="h-11 w-full rounded-sm text-white bg-primary 
+                    <button type="submit" [disabled]="loginForm.invalid" class="h-11 w-full rounded-sm text-white bg-primary 
                             cursor-pointer disabled:cursor-not-allowed disabled:bg-primary/50
                             disabled:text-white/50 font-worksans text-[15px]" type="submit">
                         {{'LOGIN' | translate}}
-
                     </button>
-
                 </div>
 
                 <div class="mb-3 text-white text-center ">
@@ -107,4 +107,5 @@
             </div>
         </form>
     </div>
+
 </div>

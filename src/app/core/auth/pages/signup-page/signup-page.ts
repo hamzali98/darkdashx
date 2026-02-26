@@ -10,10 +10,11 @@ import { matchPasswordValidator } from '@app/shared/validators/match-password.va
 import { environment } from '@environments/environment.development';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
 
 @Component({
   selector: 'app-signup-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule, LanguageSwitcherComponent],
   templateUrl: './signup-page.html',
   styleUrl: './signup-page.css',
 })
@@ -69,7 +70,7 @@ export class SignupPage {
     return this.signupForm.get("c_password");
   }
 
-  
+
   get passwordStrengthGetter() {
     return this.passwordService.checkPasswordStrength(this.password?.value);
   }
@@ -83,20 +84,24 @@ export class SignupPage {
   }
 
   onSignupSubmit() {
-    this.loaderService.showLoader();
-    this.httpService.addApi(this.AuthURL, this.signupForm.value).subscribe({
-      next: (res) => {
-        // console.log(res);
-        this.snackService.success(this.isRTL ? "اکاؤنٹ کامیابی سے بنایا گیا!" : "Account created successfully!", 2000, 'bottom-center');
-        this.loaderService.hideLoader();
-        this.routerRef.navigate(['/login']);
-      },
-      error: (err) => {
-        // console.log(err);
-        this.snackService.error(this.isRTL ? "سرور کی خرابی! اکاؤنٹ بنانے میں ناکام!" : "Server Error no user created!", 2000, 'bottom-center');
-        this.loaderService.hideLoader();
-      }
-    })
+    if (this.signupForm.invalid) {
+      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
+    } else {
+      this.loaderService.showLoader();
+      this.httpService.addApi(this.AuthURL, this.signupForm.value).subscribe({
+        next: (res) => {
+          // console.log(res);
+          this.snackService.success(this.isRTL ? "اکاؤنٹ کامیابی سے بنایا گیا!" : "Account created successfully!", 2000, 'bottom-center');
+          this.loaderService.hideLoader();
+          this.routerRef.navigate(['/login']);
+        },
+        error: (err) => {
+          // console.log(err);
+          this.snackService.error(this.isRTL ? "سرور کی خرابی! اکاؤنٹ بنانے میں ناکام!" : "Server Error no user created!", 2000, 'bottom-center');
+          this.loaderService.hideLoader();
+        }
+      })
+    }
   }
 
 }

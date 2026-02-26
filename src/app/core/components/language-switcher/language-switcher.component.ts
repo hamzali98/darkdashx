@@ -10,23 +10,23 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [CommonModule, TooltipDirective, TranslateModule],
   template: `
     <div class="flex gap-1">
-      <button 
+      <button type="button"
       [appTooltip]=" (currentLang$|async) === 'ur' ? ('switch language to english' | translate) : ('current language is english' | translate)" 
       tooltipPosition="bottom"
       (click)="switchLanguage('en')"
         [class.active]="(currentLang$ | async) === 'en'"
         [ngClass]="(currentLang$|async) === 'en' ? 'border border-primary rounded-lg':''"
         class="p-1 rounded bg-card-bg transition-colors duration-200 text-xs text-white">
-        EN
+        {{"EN" | translate}}
       </button>
-      <button 
+      <button type="button"
       [appTooltip]=" (currentLang$|async) === 'en' ? ('switch language to urdu' |translate) : ('current language is urdu' | translate)" 
       tooltipPosition="bottom"
       (click)="switchLanguage('ur')"
         [class.active]="(currentLang$ | async) === 'ur'"
         [ngClass]="(currentLang$|async) === 'ur' ? 'border border-primary rounded-lg': ''"
         class="p-1 rounded bg-card-bg transition-colors duration-200 text-xs text-white">
-        UR
+        {{"UR" | translate}}
       </button>
     </div>
   `

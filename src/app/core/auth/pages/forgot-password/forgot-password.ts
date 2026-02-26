@@ -11,10 +11,11 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule, LanguageSwitcherComponent],
   templateUrl: './forgot-password.html',
   styleUrl: './forgot-password.css',
 })
@@ -39,7 +40,7 @@ export class ForgotPassword implements OnDestroy {
   passwordService = inject(PasswordCheck);
   translationService = inject(TranslationService);
 
-  constructor(){
+  constructor() {
     this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
   }
 
@@ -72,64 +73,72 @@ export class ForgotPassword implements OnDestroy {
   }
 
   checkEmail() {
-    this.loaderService.showLoader();
-    this.httpService.getApi(this.authUrl).pipe(
-      map(res => {
-        const user: credentials = res.body.find(
-          (u: credentials) => {
-            if (u.email === this.email) {
-              return u;
-            } else {
-              return;
+    if (this.email.length <= 0) {
+      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
+    } else {
+      this.loaderService.showLoader();
+      this.httpService.getApi(this.authUrl).pipe(
+        map(res => {
+          const user: credentials = res.body.find(
+            (u: credentials) => {
+              if (u.email === this.email) {
+                return u;
+              } else {
+                return;
+              }
             }
+          );
+          // console.log(user);
+          if (user) {
+            return { success: true, user };
+          } else {
+            return { success: false, message: this.isRTL ? 'اس ای میل کے ساتھ کوئی اکاؤنٹ نہیں ملا!' : 'No account found with this email!' };
           }
-        );
-        // console.log(user);
-        if (user) {
-          return { success: true, user };
-        } else {
-          return { success: false, message: this.isRTL ? 'اس ای میل کے ساتھ کوئی اکاؤنٹ نہیں ملا!' : 'No account found with this email!' };
+        }),
+      ).subscribe({
+        next: (res) => {
+          // console.log(res);
+          if (res.success) {
+            this.flag = true;
+            this.email = '';
+            this.user = res.user as credentials;
+            this.snackService.success(this.isRTL ? 'اکاؤنٹ مل گیا!' : 'Account found!', 2000, 'top-center');
+          } else {
+            this.snackService.error(`${res.message}`, 2000, 'top-center');
+          }
+          this.loaderService.hideLoader();
+        },
+        error: (err) => {
+          this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error!", 2000, 'top-center');
+          this.loaderService.hideLoader();
         }
-      }),
-    ).subscribe({
-      next: (res) => {
-        // console.log(res);
-        if (res.success) {
-          this.flag = true;
-          this.email = '';
-          this.user = res.user as credentials;
-          this.snackService.success(this.isRTL ? 'اکاؤنٹ مل گیا!' : 'Account found!', 2000, 'top-center');
-        } else {
-          this.snackService.error( `${res.message}`, 2000, 'top-center');
-        }
-        this.loaderService.hideLoader();
-      },
-      error: (err) => {
-        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error!", 2000, 'top-center');
-        this.loaderService.hideLoader();
-      }
-    });
+      });
+    }
   }
 
   passReset() {
-    this.loaderService.showLoader();
-    this.user.password = this.password;
-    const uId = this.user.id;
-    this.httpService.editApi(this.authUrl, uId, this.user).subscribe({
-      next: (res) => {
-        // console.log(res);
-        this.flag = true;
-        this.email = '';
-        this.user = {} as credentials;
-        this.snackService.success(this.isRTL ? "پاس ورڈ ری سیٹ کامیاب ہو گیا!" : "Password reset successfull!", 2000, 'top-center');
-        this.loaderService.hideLoader();
-        this.routerRef.navigate(['/login']);
-      },
-      error: (err) => {
-        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error!", 2000, 'top-center');
-        this.loaderService.hideLoader();
-      }
-    });
+    if (this.password.length <= 0) {
+      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
+    } else {
+      this.loaderService.showLoader();
+      this.user.password = this.password;
+      const uId = this.user.id;
+      this.httpService.editApi(this.authUrl, uId, this.user).subscribe({
+        next: (res) => {
+          // console.log(res);
+          this.flag = true;
+          this.email = '';
+          this.user = {} as credentials;
+          this.snackService.success(this.isRTL ? "پاس ورڈ ری سیٹ کامیاب ہو گیا!" : "Password reset successfull!", 2000, 'top-center');
+          this.loaderService.hideLoader();
+          this.routerRef.navigate(['/login']);
+        },
+        error: (err) => {
+          this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error!", 2000, 'top-center');
+          this.loaderService.hideLoader();
+        }
+      });
+    }
   }
 
 
