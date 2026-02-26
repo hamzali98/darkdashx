@@ -14,7 +14,7 @@ export class AnalyticsCard {
   @Input() value!: number | string;
   @Input() trend!: number;
 
-  @Input() title: string = '';
+  @Input() cTitle: string = '';
   @Input() icon: string = '';
 
   get trendColor() {
