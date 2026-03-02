@@ -95,10 +95,10 @@ export class Products implements OnInit {
     // console.log("prod data in prod view", val);
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
-        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
         // console.log(res);
-        this.loaderService.hideLoader();
-        this.getProductData();
+          this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
+          this.getProductData();
+        // this.loaderService.hideLoader();
       },
       error: (err) => {
         this.snackService.error(this.isRTL ? "ڈیٹا حذف کرنے میں ناکام!" : "Data deletion failed!", 2000, 'bottom-right');

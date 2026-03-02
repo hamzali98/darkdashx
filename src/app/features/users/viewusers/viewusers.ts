@@ -103,15 +103,15 @@ export class Viewusers implements OnInit {
       })
   }
 
-  deleteUserData(val: any) {
+  deleteUserData(val: User) {
     this.loaderService.showLoader();
     // console.log("prod data in prod view", val);
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
         // console.log(res);
-        this.loaderService.hideLoader();
-        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
-        this.getUserData();
+          this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
+          this.getUserData();
+        // this.loaderService.hideLoader();
       },
       error: (err) => {
         // console.log(err);

@@ -35,6 +35,7 @@ export class GenericTable<T> implements OnChanges {
 
   currentPageData: T[] = [];
   checkList: any[] = [];
+  private filteredData: T[] = [];
 
   tableName = input("Generic");
   @Input() itemsPerPage: number = 5;
@@ -55,9 +56,10 @@ export class GenericTable<T> implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tableData'] && this.tableData) {
       this.checkList = []; // Clear selections on data change
+      this.filteredData = [...this.tableData];
       this.currentPage = 1;
       // paging logic
-      const pageResult = this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+      const pageResult = this.updatePagedData(this.filteredData, this.currentPage, this.itemsPerPage);
       this.currentPageData = pageResult.currentPageData;
       this.startIndex = pageResult.startIndex;
       this.endIndex = pageResult.endIndex;
@@ -76,26 +78,10 @@ export class GenericTable<T> implements OnChanges {
     return this.checkList.length > 0 && this.checkList.length < this.currentPageData.length;
   }
 
-  // get isIndeterminate() {
-  //   // if (this.checkList.length === 0 || this.checkList.length === this.tableData.length) {
-  //   if (this.checkList.length === 0 || this.checkList.length === this.currentPageData.length) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-
   // is checked and state validation
   get isChecked() {
     return this.currentPageData.length > 0 && this.checkList.length === this.currentPageData.length;
   }
-  // get isChecked() {
-  //   if (this.checkList.length === this.currentPageData.length) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
   get selectedItems() {
     return this.checkList.length;
@@ -116,20 +102,6 @@ export class GenericTable<T> implements OnChanges {
     const index = this.checkList.indexOf(data);
     index > -1 ? this.checkList.splice(index, 1) : this.checkList.push(data);
   }
-  // checkUncheckRow(data: any, event: any) {
-  //   if (this.checkList.includes(data)) {
-  //     const index = this.checkList.indexOf(data);
-  //     this.checkList.splice(index, 1);
-  //   } else {
-  //     this.checkList.push(data);
-  //   }
-  //   console.log(this.checkList);
-  // }
-
-  // onCheckboxChange(event: any) {
-  //   // console.log(event.target.id);
-  //   console.log(`checked : ${event.target.checked} , id : ${event.target.id}`);
-  // }
 
   // all rows selection
   toggleSelectallRows(event: any) {
@@ -140,22 +112,6 @@ export class GenericTable<T> implements OnChanges {
       this.checkList = this.checkList.filter(item => !this.currentPageData.includes(item));
     }
   }
-  // toggleSelectallRows(event: any) {
-  //   const checked = event.target.checked;
-  //   if (checked) {
-  //     // this.checkList = [...this.tableData];
-  //     this.checkList = [...this.currentPageData]
-  //   } else {
-  //     this.checkList = [];
-  //   }
-  //   console.log("whole check list : ", this.checkList);
-  // }
-
-  // getting table value via key
-  // getValue(obj: any, key: string | string[]): any {
-  //   const keys = Array.isArray(key) ? key : [key];
-  //   return keys.reduce((access: any, k: any) => access?.[k], obj);
-  // }
 
   getValue(obj: any, key: any) {
     return key.reduce((access: any, key: any) => access?.[key], obj);
@@ -187,24 +143,21 @@ export class GenericTable<T> implements OnChanges {
     this.onEditClicked.emit(data);
   }
 
-
   onChangePerPage() {
-    // console.log(this.itemsPerPage);
-    // this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
-    const pageResult = this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+    this.currentPage = 1;
+    this.checkList = [];
+    if (!this.filteredData || this.filteredData.length === 0) {
+      this.filteredData = [...this.tableData];
+    }
+    const sourceData = this.filteredData.length > 0 ? this.filteredData : [...this.tableData];
+    const pageResult = this.updatePagedData(sourceData, this.currentPage, this.itemsPerPage);
+    // const pageResult = this.updatePagedData(this.filteredData, this.currentPage, this.itemsPerPage);
     this.currentPageData = pageResult.currentPageData;
     this.startIndex = pageResult.startIndex;
     this.endIndex = pageResult.endIndex;
+    this.tableTotal = pageResult.tableTotal;
+    this.totalPages = pageResult.totalPages;
   }
-
-  // updatePagedData() {
-  //   this.startIndex = (this.currentPage - 1) * this.itemsPerPage;
-  //   this.endIndex = this.startIndex + this.itemsPerPage;
-  //   if (this.endIndex > this.tableTotal) {
-  //     this.endIndex = this.tableTotal;
-  //   }
-  //   this.currentPageData = this.tableData.slice(this.startIndex, this.endIndex);
-  // }
 
   updatePagedData<T>(
     data: T[],
@@ -212,53 +165,47 @@ export class GenericTable<T> implements OnChanges {
     itemsPerPage: number
   ) {
     const tableTotal = data.length;
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-
-    let endIndex = startIndex + itemsPerPage;
+    const startIndex = Number((currentPage - 1)) * Number(itemsPerPage);
+    let endIndex = Number(startIndex) + Number(itemsPerPage);
     if (endIndex > tableTotal) {
-      endIndex = tableTotal;
+      endIndex = Number(tableTotal);
     }
 
     const currentPageData = data.slice(startIndex, endIndex);
-
     return {
       currentPageData,
       startIndex,
       endIndex,
       tableTotal,
-      totalPages: Math.ceil(tableTotal / itemsPerPage),
+      totalPages: Math.ceil(Number(tableTotal) / Number(itemsPerPage)),
     };
   }
 
-
   previousPage() {
-    // console.log('prev button clicked');
     if (this.currentPage > 1) {
       this.checkList = [];
       this.currentPage--;
-      // this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
-      const pageResult = this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+      const pageResult = this.updatePagedData(this.filteredData, this.currentPage, this.itemsPerPage);
       this.currentPageData = pageResult.currentPageData;
       this.startIndex = pageResult.startIndex;
       this.endIndex = pageResult.endIndex;
+      this.tableTotal = pageResult.tableTotal;
+      this.totalPages = pageResult.totalPages;
     }
   }
 
   nextPage() {
-    // console.log('next button clicked');
-    const totalpages = this.tableData.length / this.itemsPerPage;
+    const totalpages = Math.ceil(Number(this.filteredData.length) / Number(this.itemsPerPage));
+    console.log("Total pages", totalpages);
     if (this.currentPage < totalpages) {
-      // if(this.checkList.length >= 1) {
-      // }
       this.checkList = [];
       this.currentPage++;
-      // this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
-      const pageResult = this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+      const pageResult = this.updatePagedData(this.filteredData, this.currentPage, this.itemsPerPage);
       this.currentPageData = pageResult.currentPageData;
       this.startIndex = pageResult.startIndex;
       this.endIndex = pageResult.endIndex;
-
+      this.tableTotal = pageResult.tableTotal;
+      this.totalPages = pageResult.totalPages;
     }
   }
 
@@ -274,76 +221,30 @@ export class GenericTable<T> implements OnChanges {
 
     if (this.sortdirection() === 'asc') {
       this.tableData.sort((a: any, b: any) => (this.getValue(a, column) > this.getValue(b, column) ? 1 : -1));
+      this.filteredData.sort((a: any, b: any) => (this.getValue(a, column) > this.getValue(b, column) ? 1 : -1));
     } else if (this.sortdirection() === 'dsc') {
       this.tableData.sort((a: any, b: any) => (this.getValue(b, column) > this.getValue(a, column) ? 1 : -1));
+      this.filteredData.sort((a: any, b: any) => (this.getValue(b, column) > this.getValue(a, column) ? 1 : -1));
     }
 
-    const pageResult = this.updatePagedData(this.tableData, this.currentPage, this.itemsPerPage);
+    const pageResult = this.updatePagedData(this.filteredData, this.currentPage, this.itemsPerPage);
     this.currentPageData = pageResult.currentPageData;
     this.startIndex = pageResult.startIndex;
     this.endIndex = pageResult.endIndex;
   }
-  // doSorting(column: any) {
-  //   console.log('sorting called on : ', column);
-  //   console.log('sorting column : ', this.sortcol());
-  //   console.log('sorting direction : ', this.sortdirection());
-  //   if (this.sortcol() === column) {
-  //     this.sortdirection.set(
-  //       this.sortdirection() === 'asc'
-  //         ? 'dsc'
-  //         : this.sortdirection() === 'dsc'
-  //           ? ''
-  //           : 'asc'
-  //     );
-  //   } else {
-  //     this.sortcol.set(column);
-  //     this.sortdirection.set('asc');
-  //   }
-  //   console.log('sorting column : ', this.sortcol());
-  //   console.log('sorting direction : ', this.sortdirection());
-  //   console.log("table data", this.tableData);
-
-  //   if (this.sortdirection() === 'asc') {
-  //     this.currentPageData.sort((a: any, b: any) => (this.getValue(a, column) > this.getValue(b, column) ? 1 : -1));
-  //   } else if (this.sortdirection() === 'dsc') {
-  //     this.currentPageData.sort((a: any, b: any) => (this.getValue(b, column) > this.getValue(a, column) ? 1 : -1));
-  //   } else {
-  //     this.currentPageData = this.currentPageData;
-  //   }
-  // }
 
   onDataSearch(value: string) {
-    // Explicitly check for empty/null/undefined
-    if (!value || value.trim() === '') {
-      // Reset to show all data
-      const pageResult = this.updatePagedData(this.tableData, 1, this.itemsPerPage);
-      this.currentPageData = pageResult.currentPageData;
-      this.startIndex = pageResult.startIndex;
-      this.endIndex = pageResult.endIndex;
-      this.tableTotal = pageResult.tableTotal;
-      this.totalPages = pageResult.totalPages;
-      return;
-    }
-    // console.log(value);
-    const filtereddata = this.filterData(this.tableData, value);
-    // this.updatePagedData(filtereddata, this.currentPage, this.itemsPerPage);
-    const pageResult = this.updatePagedData(filtereddata, 1, this.itemsPerPage);
+    this.currentPage = 1;
+    this.filteredData = (!value || value.trim() === '')
+      ? [...this.tableData]
+      : this.filterData(this.tableData, value);
+
+    const pageResult = this.updatePagedData(this.filteredData, 1, this.itemsPerPage);
     this.currentPageData = pageResult.currentPageData;
     this.startIndex = pageResult.startIndex;
     this.endIndex = pageResult.endIndex;
-    // Add after line 254:
     this.tableTotal = pageResult.tableTotal;
     this.totalPages = pageResult.totalPages;
-    // if (value) {
-    //   console.log("condition called");
-    //   this.currentPageData = this.currentPageData;
-    //   this.currentPageData = filtereddata;
-    // } else {
-    //   console.log("else called");
-    //   this.updatePagedData();
-    // }
-    // this.currentPageData = this.filterData(this.tableData, value);
-    // console.log(this.currentPageData);
   }
 
   filterData<T>(data: T[], searchText: string): T[] {
@@ -355,16 +256,6 @@ export class GenericTable<T> implements OnChanges {
         .includes(lowerSearch)
     );
   }
-
-  // filterUsers(users: any[], search: string) {
-  //   search = search.toLowerCase();
-  //   return users.filter(u =>
-  //     u.personal_info.user_name.toLowerCase().includes(search) ||
-  //     u.personal_info.user_email.toLowerCase().includes(search) ||
-  //     u.team_info.team_name.toLowerCase().includes(search)
-  //   );
-  // }
-
 
   // ─────────────────────────────────────────────────────────────────────────
   // EXPORT HELPERS
@@ -443,10 +334,9 @@ export class GenericTable<T> implements OnChanges {
     XLSX.writeFile(wb, `${tableName}.xlsx`);
   }
 
-  downloadPDF(){
+  downloadPDF() {
     const msg = this.translateService.instant("Service not available yet!")
     alert(msg);
   }
-
 }
 
