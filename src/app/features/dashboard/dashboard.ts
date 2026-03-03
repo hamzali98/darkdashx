@@ -1,24 +1,23 @@
-import { Component, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { AnalyticsCard } from "@app/shared/components/analytics-card/analytics-card";
 import { AmCharts } from "./components/am-charts/am-charts";
-import { User } from '../users/interface/user';
-import { product } from './products/interface/product-interface';
-import { Httpservice } from '@app/shared/services/httpservice/httpservice';
+import { UsersAmChart } from "./components/users-am-chart/users-am-chart";
 import { DonutChart } from "./components/donut-chart/donut-chart";
 import { BubbleChart } from "./components/bubble-chart/bubble-chart";
 import { MapChart } from "./components/map-chart/map-chart";
 import { environment } from '@environments/environment.development';
+import { User } from '../users/interface/user';
+import { product } from './products/interface/product-interface';
+import { DataError } from "@app/shared/components/data-error/data-error";
+import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
+import { ChartService } from './services/chart-service';
 import { AuthService } from '@app/core/auth/services/auth-service';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
-import { DataError } from "@app/shared/components/data-error/data-error";
-import { TranslateModule } from '@ngx-translate/core';
 import { TranslationService } from '@app/core/services/translate.service';
-import { UsersAmChart } from "./components/users-am-chart/users-am-chart";
-import { ChartService } from './services/chart-service';
-import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
-import { BehaviorSubject } from 'rxjs';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,98 +25,45 @@ import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnInit, OnDestroy {
+export class Dashboard {
 
-  userURL = environment.USER_URL;
-  productURL = environment.PRODUCTS_URL;
+  username = signal<string>('Guest');
 
   usersData = signal<User[]>([]);
   productsData = signal<product[]>([]);
 
+  private amCharts = viewChild(AmCharts);
   private donutChart = viewChild(DonutChart);
-  private productChart = viewChild(AmCharts);
   private bubbleChart = viewChild(BubbleChart);
-  private userChart = viewChild(UsersAmChart);
+  private usersAmChart = viewChild(UsersAmChart);
 
+  private destroyRef = inject(DestroyRef);
   private authservice = inject(AuthService);
   private chartService = inject(ChartService);
-  private loaderService = inject(Loaderservice);
-  private snackService = inject(SnackBarService);
-  private translationService = inject(TranslationService);
   private dataFetchService = inject(DataFetchService);
+  private translationService = inject(TranslationService);
 
   constructor() { }
 
   ngOnInit(): void {
-    if (this.loaderService.isVisible$) {
-      this.loaderService.hideLoader();
-    } else {
-      this.loaderService.showLoader();
-    }
-  }
+    const user = this.authservice.getUser();
+    this.username.set(user?.username ?? 'Guest');
 
-  ngAfterViewInit(): void {
-    this.getUsersDataFromService();
-  }
+    this.dataFetchService.sharedUserData()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(users => {
+        this.usersData.set(users);
+      });
 
-  ngOnDestroy(): void {
-  }
-
-  get username() {
-    return this.authservice.getUser()?.username ?? "Guest";
+    this.dataFetchService.sharedProductData()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(products => {
+        this.productsData.set(products);
+      });
   }
 
   get isRTL(): boolean {
     return this.translationService.getCurrentLanguage() === 'ur';
-  }
-
-  getUsersDataFromService() {
-    if(!this.loaderService.isVisible$){
-      this.loaderService.showLoader();
-    }
-    this.dataFetchService.sharedUserData().subscribe({
-      next: (res) => {
-        // if (!res || res.length === 0) {
-        //   this.snackService.error(this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found", 2000, 'top-right');
-        // }
-        this.usersData.set(res);
-        this.getProductsDataFromService();
-        if(this.loaderService.isVisible$){
-          this.loaderService.hideLoader();
-        }
-        // this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
-      },
-      error: (err) => {
-        if(this.loaderService.isVisible$){
-          this.loaderService.hideLoader();
-        }
-        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-right');
-      }
-    })
-  }
-
-  getProductsDataFromService() {
-    if(!this.loaderService.isVisible$){
-      this.loaderService.showLoader();
-    }
-    this.dataFetchService.sharedProductData().subscribe({
-      next: (res) => {
-        // if (!res || res.length === 0) {
-        //   this.snackService.error(this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found", 2000, 'top-right');
-        // }
-        this.productsData.set(res);
-        if(this.loaderService.isVisible$){
-          this.loaderService.hideLoader();
-        }
-        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
-      },
-      error: (err) => {
-        if(this.loaderService.isVisible$){
-          this.loaderService.hideLoader();
-        }
-        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-right');
-      }
-    })
   }
 
   getReports() {
@@ -166,10 +112,10 @@ export class Dashboard implements OnInit, OnDestroy {
   }
 
   getCharts() {
+    this.amCharts()?.downloadChart();
     this.donutChart()?.downloadChart();
     this.bubbleChart()?.downloadChart();
-    this.productChart()?.downloadChart();
-    this.userChart()?.downloadChart();
+    this.usersAmChart()?.downloadChart();
   }
 
 }

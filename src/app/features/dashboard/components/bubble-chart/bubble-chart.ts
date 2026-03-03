@@ -28,7 +28,6 @@ export class BubbleChart implements OnInit, OnChanges, OnDestroy {
 
   private languageSubscription?: Subscription;
 
-  @Input() userChartData!: User[];
   @Input() productChartData!: product[];
 
   translationService = inject(TranslationService);
@@ -44,14 +43,14 @@ export class BubbleChart implements OnInit, OnChanges, OnDestroy {
       this.isRtl = lang === 'ur';
 
       // Redraw chart if data is available
-      if (this.productChartData && this.userChartData) {
+      if (this.productChartData && this.productChartData.length > 0) {
         this.prepareBubbleChart();
       }
     });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this.userChartData && this.productChartData) {
+    if (changes && this.productChartData && this.productChartData.length > 0) {
       this.prepareBubbleChart();
     }
   }

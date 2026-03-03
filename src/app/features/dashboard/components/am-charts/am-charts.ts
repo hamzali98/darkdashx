@@ -30,7 +30,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
 
   private languageSubscription?: Subscription;
 
-  @Input() userChartData!: User[];
+  // @Input() userChartData!: User[];
   @Input() productChartData!: product[];
 
   translationService = inject(TranslationService);
@@ -48,14 +48,14 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
       this.isRtl = lang === 'ur';
 
       // Redraw chart if data is available
-      if (this.productChartData && this.userChartData) {
+      if (this.productChartData && this.productChartData.length > 0) {
         this.prepareBarChart();
       }
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes && this.productChartData && this.userChartData) {
+    if (changes && this.productChartData && this.productChartData.length > 0) {
       // console.log(this.userChartData);
       // console.log(this.productChartData);
       this.prepareBarChart();

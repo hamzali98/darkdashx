@@ -29,7 +29,6 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
   private languageSubscription?: Subscription;
 
   @Input() userChartData!: User[];
-  @Input() productChartData!: product[];
 
   translationService = inject(TranslationService);
   chartService = inject(ChartService);
@@ -44,14 +43,14 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
       this.isRtl = lang === 'ur';
 
       // Redraw chart if data is available
-      if (this.userChartData && this.productChartData) {
+      if (this.userChartData && this.userChartData.length > 0) {
         this.prepareDonutChart();
       }
     });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && this.userChartData && this.productChartData) {
+    if (changes && this.userChartData && this.userChartData.length > 0) {
       this.prepareDonutChart();
     }
 

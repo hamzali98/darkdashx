@@ -1,11 +1,8 @@
-import { inject, Injectable, OnDestroy, OnInit, signal } from '@angular/core';
-import { Loaderservice } from '../loader/loaderservice';
-import { Router } from '@angular/router';
-import { TranslationService } from '@app/core/services/translate.service';
-import { Formservice } from '@app/features/users/adduser/services/formservice';
 import { BehaviorSubject, finalize } from 'rxjs';
+import { inject, Injectable, OnDestroy, OnInit, signal } from '@angular/core';
 import { Httpservice } from '../httpservice/httpservice';
 import { SnackBarService } from '../snackbar/snack-bar-service';
+import { TranslationService } from '@app/core/services/translate.service';
 import { environment } from '@environments/environment.development';
 import { User } from '@app/features/users/interface/user';
 import { product } from '@app/features/dashboard/products/interface/product-interface';
@@ -13,10 +10,13 @@ import { product } from '@app/features/dashboard/products/interface/product-inte
 @Injectable({
   providedIn: 'root',
 })
-export class DataFetchService implements OnDestroy {
+export class DataFetchService {
 
   private readonly user_url: string = environment.USER_URL;
   private readonly product_url: string = environment.PRODUCTS_URL;
+
+  private usersLoaded = signal(false);
+  private productsLoaded = signal(false);
 
   private userData$ = new BehaviorSubject<User[]>([]);
   private productData$ = new BehaviorSubject<product[]>([]);
@@ -25,57 +25,88 @@ export class DataFetchService implements OnDestroy {
   private snackService = inject(SnackBarService);
   private translationService = inject(TranslationService);
 
-  constructor() {
-    this.getUserData();
-    this.getProductData();
-  }
-
-  ngOnDestroy(): void {
-    this.userData$.complete();
-    this.productData$.complete();
-  }
-
   // remove from constructor, change to getter:
   get isRTL(): boolean {
     return this.translationService.getCurrentLanguage() === 'ur';
   }
 
   sharedUserData() {
+    if (!this.usersLoaded()) {
+      this.fetchUsers();
+    }
     return this.userData$.asObservable();
   }
 
   sharedProductData() {
+    if (!this.productsLoaded()) {
+      this.fetchProducts();
+    }
     return this.productData$.asObservable();
   }
 
-  private getUserData() {
-    console.log("calling data fetch service to get user data");
-    this.httpService.getApi(this.user_url)
-    .subscribe({
-      next: (res) => {
-        this.userData$.next(res.body ?? []);
-        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
-      },
-      error: (err) => {
-        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-right');
-      },
-    })
+  // 🔥 Public fetch triggers (better than constructor call)
+  private fetchUsers() {
+    this.usersLoaded.set(true);
+    this.fetchData<User>(
+      this.user_url,
+      this.userData$,
+      {
+        success: this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Users fetched successfully!",
+        empty: this.isRTL ? "کوئی صارف نہیں ملا!" : "No users found!",
+        error: this.isRTL ? "سرور کی خرابی!" : "Server error!"
+      }
+    );
   }
-  
-  private getProductData() {
-    console.log("calling data fetch service to get products data");
-    this.httpService.getApi(this.product_url)
+
+  private fetchProducts() {
+    this.productsLoaded.set(true);
+    this.fetchData<product>(
+      this.product_url,
+      this.productData$,
+      {
+        success: this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Products fetched successfully!",
+        empty: this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No products found!",
+        error: this.isRTL ? "ڈیٹا لینے میں ناکام!" : "Data fetching failed!"
+      }
+    );
+  }
+
+  // 🔥 Generic reusable method
+  private fetchData<T>(
+    url: string,
+    subject: BehaviorSubject<T[]>,
+    messages: { success: string; empty: string; error: string }
+  ) {
+    this.httpService.getApi(url)
+      .pipe(
+        finalize(() => console.log('API call finished'))
+      )
       .subscribe({
         next: (res) => {
-          if (!res.body) {
-            this.snackService.error(this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found", 2000, 'top-right');
+          const data = res.body ?? [];
+
+          if (!data.length) {
+            this.snackService.error(messages.empty, 2000, 'top-right');
+          } else {
+            this.snackService.success(messages.success, 2000, 'top-right');
           }
-          this.productData$.next(res.body ?? []);
-          this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
+
+          subject.next(data);
         },
-        error: (err) => {
-          this.snackService.error(this.isRTL ? "ڈیٹا لینے میں ناکام!" : "Data fetching failed!", 2000, 'top-right');
-        },
-      })
+        error: () => {
+          this.snackService.error(messages.error, 2000, 'top-right');
+        }
+      });
+  }
+
+  // Optional manual refresh
+  refreshUsers() {
+    this.usersLoaded.set(false);
+    this.fetchUsers();
+  }
+
+  refreshProducts() {
+    this.productsLoaded.set(false);
+    this.fetchProducts();
   }
 }
