@@ -25,7 +25,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
 
   username = signal<string>('Guest');
 
@@ -68,7 +68,6 @@ export class Dashboard {
 
   getReports() {
     const isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
-    console.log("getting files")
     const pChartData = this.chartService.buildProductChartData(this.productsData(), isRTL);
     const uChartData = this.chartService.buildUserChartData(this.usersData(), isRTL);
     const donutData = this.chartService.buildUserStatusDonutData(this.usersData(), isRTL);
