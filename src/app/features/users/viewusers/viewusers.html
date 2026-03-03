@@ -20,7 +20,7 @@
     <!-- generic table -->
     <!-- @if ( !loaderService.getLoader() && userData.length ) { -->
     <app-generic-table [(searchTerm)]="parentSearchKey" (onDeleteClicked)="deleteUserData($event)"
-        (onEditClicked)="editUserData($event)" [tableName]="('ALL_USERS' | translate)" [columns]="userColumns" [tableData]="userData" />
+        (onEditClicked)="editUserData($event)" [tableName]="('ALL_USERS' | translate)" [columns]="userTableConfiggetter" [tableData]="userData()" />
     <!-- } -->
 
 </div>

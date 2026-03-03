@@ -40,22 +40,22 @@
 <div class="bg-card-bg border border-gray-800  mx-10.5 mb-3">
     <div class="grid grid-cols-12 grid-rows-12  ">
         <div class="col-span-12 md:col-span-8 row-span-4 md:row-span-12 h-full w-full p-2">
-            @if(userData && productData){
-            <app-am-charts [userChartData]="userData" [productChartData]="productData"></app-am-charts>
+            @if(usersData() && productsData()){
+            <app-am-charts [userChartData]="usersData()" [productChartData]="productsData()"></app-am-charts>
             } @else {
             <app-data-error></app-data-error>
             }
         </div>
         <div class="col-span-12 md:col-span-4 row-span-4 md:row-span-6 h-full w-full p-2">
-            @if(userData && productData){
-            <app-donut-chart [userChartData]="userData" [productChartData]="productData"></app-donut-chart>
+            @if(usersData() && productsData()){
+            <app-donut-chart [userChartData]="usersData()" [productChartData]="productsData()"></app-donut-chart>
             } @else {
             <app-data-error></app-data-error>
             }
         </div>
         <div class="col-span-12 md:col-span-4 row-span-4 md:row-span-6 h-full w-full p-2">
-            @if(userData && productData){
-            <app-bubble-chart [productChartData]="productData" [userChartData]="userData"></app-bubble-chart>
+            @if(usersData() && productsData()){
+            <app-bubble-chart [productChartData]="productsData()" [userChartData]="usersData()"></app-bubble-chart>
             } @else {
             <app-data-error></app-data-error>
             }
@@ -64,8 +64,8 @@
 </div>
 <div class="grid grid-cols-12 grid-rows-6 px-10.5 mb-3">
     <div class=" col-span-12 row-span-6 md:row-span-6 h-full w-full bg-card-bg border border-gray-800 p-2 rounded-lg ">
-        @if(userData && productData){
-        <app-users-am-chart [userChartData]="userData" [productChartData]="productData"></app-users-am-chart>
+        @if(usersData() && productsData()){
+        <app-users-am-chart [userChartData]="usersData()" [productChartData]="productsData()"></app-users-am-chart>
         } @else {
         <app-data-error></app-data-error>
         }

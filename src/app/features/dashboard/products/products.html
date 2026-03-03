@@ -20,8 +20,8 @@
     <div class="mt-4.5">
         <!-- @if( !loaderService.getLoader() && productData.length){ -->
         <app-generic-table [(searchTerm)]="parentSearchKey" (onDeleteClicked)="deleteProductData($event)"
-            (onEditClicked)="editproductData($event)" tableName="{{ 'TITLE' | translate }}" [columns]="productColumns"
-            [tableData]="productData" />
+            (onEditClicked)="editproductData($event)" tableName="{{ 'TITLE' | translate }}" [columns]="productTableConfigGetter"
+            [tableData]="productData()" />
         <!-- } -->
     </div>
 

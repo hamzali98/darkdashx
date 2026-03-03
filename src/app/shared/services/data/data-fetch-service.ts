@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, OnDestroy, OnInit, signal } from '@angular/core';
 import { Loaderservice } from '../loader/loaderservice';
 import { Router } from '@angular/router';
 import { TranslationService } from '@app/core/services/translate.service';
@@ -8,61 +8,73 @@ import { Httpservice } from '../httpservice/httpservice';
 import { SnackBarService } from '../snackbar/snack-bar-service';
 import { environment } from '@environments/environment.development';
 import { User } from '@app/features/users/interface/user';
+import { product } from '@app/features/dashboard/products/interface/product-interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DataFetchService {
+export class DataFetchService implements OnDestroy {
 
-  isRTL: boolean;
+  private readonly user_url: string = environment.USER_URL;
+  private readonly product_url: string = environment.PRODUCTS_URL;
 
-  length = signal(0)
+  private userData$ = new BehaviorSubject<User[]>([]);
+  private productData$ = new BehaviorSubject<product[]>([]);
 
-  url: string = environment.USER_URL;
-
-  // userData: User[] = [];
-  userData$ = new BehaviorSubject<User[]>([]);
-
-
-
-  loaderService = inject(Loaderservice);
   private httpService = inject(Httpservice);
-  private routerRef = inject(Router);
-  private userFormService = inject(Formservice);
   private snackService = inject(SnackBarService);
   private translationService = inject(TranslationService);
 
   constructor() {
-    this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
+    this.getUserData();
+    this.getProductData();
   }
 
-  shareUserData(){
+  ngOnDestroy(): void {
+    this.userData$.complete();
+    this.productData$.complete();
+  }
+
+  // remove from constructor, change to getter:
+  get isRTL(): boolean {
+    return this.translationService.getCurrentLanguage() === 'ur';
+  }
+
+  sharedUserData() {
     return this.userData$.asObservable();
   }
 
-  getUserData() {
-    this.loaderService.showLoader();
-    this.httpService.getApi(this.url).pipe(
-      finalize(() => {
-        this.loaderService.hideLoader();
-      })
-    )
+  sharedProductData() {
+    return this.productData$.asObservable();
+  }
+
+  private getUserData() {
+    console.log("calling data fetch service to get user data");
+    this.httpService.getApi(this.user_url)
+    .subscribe({
+      next: (res) => {
+        this.userData$.next(res.body ?? []);
+        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
+      },
+      error: (err) => {
+        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-right');
+      },
+    })
+  }
+  
+  private getProductData() {
+    console.log("calling data fetch service to get products data");
+    this.httpService.getApi(this.product_url)
       .subscribe({
         next: (res) => {
-          // console.log(res);
           if (!res.body) {
             this.snackService.error(this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found", 2000, 'top-right');
           }
-          this.userData$ = res.body;
-          this.length.set(this.userData$.value.length ?? 0);
-          // this.length = this.userData.length ?? "error";
+          this.productData$.next(res.body ?? []);
           this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
-          // this.loaderService.hideLoader();
         },
         error: (err) => {
-          // console.log(err);
-          this.loaderService.hideLoader();
-          this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-right');
+          this.snackService.error(this.isRTL ? "ڈیٹا لینے میں ناکام!" : "Data fetching failed!", 2000, 'top-right');
         },
       })
   }

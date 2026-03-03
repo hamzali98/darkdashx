@@ -18,6 +18,7 @@ import { ChartService } from './services/chart-service';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { BehaviorSubject } from 'rxjs';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
+import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,33 +28,25 @@ import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 })
 export class Dashboard implements OnInit, OnDestroy {
 
-  isRTL: boolean;
-
-  productURL = environment.PRODUCTS_URL;
   userURL = environment.USER_URL;
+  productURL = environment.PRODUCTS_URL;
 
-  userData!: User[];
-  productData!: product[];
-
-  // @viewChild(DonutChart) donut! : DonutChart;
+  usersData = signal<User[]>([]);
+  productsData = signal<product[]>([]);
 
   private donutChart = viewChild(DonutChart);
   private productChart = viewChild(AmCharts);
   private bubbleChart = viewChild(BubbleChart);
   private userChart = viewChild(UsersAmChart);
 
+  private authservice = inject(AuthService);
+  private chartService = inject(ChartService);
+  private loaderService = inject(Loaderservice);
+  private snackService = inject(SnackBarService);
+  private translationService = inject(TranslationService);
+  private dataFetchService = inject(DataFetchService);
 
-  httpService = inject(Httpservice);
-  authservice = inject(AuthService);
-  chartService = inject(ChartService);
-  loaderService = inject(Loaderservice);
-  snackService = inject(SnackBarService);
-  translationService = inject(TranslationService);
-
-  constructor() {
-    this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
-    // this.getUserData();
-  }
+  constructor() { }
 
   ngOnInit(): void {
     if (this.loaderService.isVisible$) {
@@ -61,7 +54,10 @@ export class Dashboard implements OnInit, OnDestroy {
     } else {
       this.loaderService.showLoader();
     }
-    this.getUserData();
+  }
+
+  ngAfterViewInit(): void {
+    this.getUsersDataFromService();
   }
 
   ngOnDestroy(): void {
@@ -70,35 +66,56 @@ export class Dashboard implements OnInit, OnDestroy {
   get username() {
     return this.authservice.getUser()?.username ?? "Guest";
   }
-  getUserData() {
-    this.httpService.getApi(this.userURL).subscribe({
-      next: (res) => {
-        // console.log(res);
-        this.userData = res.body;
-        this.getProductData();
-      },
-      error: (err) => {
-        // console.log(err);
-        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-left');
-      }
-    });
+
+  get isRTL(): boolean {
+    return this.translationService.getCurrentLanguage() === 'ur';
   }
 
-  getProductData() {
-    this.httpService.getApi(this.productURL).subscribe({
+  getUsersDataFromService() {
+    if(!this.loaderService.isVisible$){
+      this.loaderService.showLoader();
+    }
+    this.dataFetchService.sharedUserData().subscribe({
       next: (res) => {
-        // console.log(res);
-        this.productData = res.body;
-        if (this.loaderService.isVisible$) {
+        // if (!res || res.length === 0) {
+        //   this.snackService.error(this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found", 2000, 'top-right');
+        // }
+        this.usersData.set(res);
+        this.getProductsDataFromService();
+        if(this.loaderService.isVisible$){
           this.loaderService.hideLoader();
         }
+        // this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
       },
       error: (err) => {
-        // console.log(err);
-        if (this.loaderService.isVisible$) {
+        if(this.loaderService.isVisible$){
           this.loaderService.hideLoader();
         }
-        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-left');
+        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-right');
+      }
+    })
+  }
+
+  getProductsDataFromService() {
+    if(!this.loaderService.isVisible$){
+      this.loaderService.showLoader();
+    }
+    this.dataFetchService.sharedProductData().subscribe({
+      next: (res) => {
+        // if (!res || res.length === 0) {
+        //   this.snackService.error(this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found", 2000, 'top-right');
+        // }
+        this.productsData.set(res);
+        if(this.loaderService.isVisible$){
+          this.loaderService.hideLoader();
+        }
+        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
+      },
+      error: (err) => {
+        if(this.loaderService.isVisible$){
+          this.loaderService.hideLoader();
+        }
+        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-right');
       }
     })
   }
@@ -106,10 +123,10 @@ export class Dashboard implements OnInit, OnDestroy {
   getReports() {
     const isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     console.log("getting files")
-    const pChartData = this.chartService.buildProductChartData(this.productData, isRTL);
-    const uChartData = this.chartService.buildUserChartData(this.userData, isRTL);
-    const donutData = this.chartService.buildUserStatusDonutData(this.userData, isRTL);
-    const bubbleData = this.chartService.buildCompanyBubbleData(this.productData, isRTL);
+    const pChartData = this.chartService.buildProductChartData(this.productsData(), isRTL);
+    const uChartData = this.chartService.buildUserChartData(this.usersData(), isRTL);
+    const donutData = this.chartService.buildUserStatusDonutData(this.usersData(), isRTL);
+    const bubbleData = this.chartService.buildCompanyBubbleData(this.productsData(), isRTL);
 
     const pChartTitle = isRTL ? "زمرہ کے لحاظ سے مصنوعات" : "Products by Category";
     const uChartTitle = isRTL ? "کمپنی کے مطابق صارفین" : "Users by Company";

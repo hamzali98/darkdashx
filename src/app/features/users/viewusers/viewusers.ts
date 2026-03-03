@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, Signal, signal } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, Signal, signal } from '@angular/core';
 import { GenericTable } from '@app/shared/components/generic-table/generic-table';
 import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
 import { User } from '../interface/user';
@@ -12,6 +12,7 @@ import { environment } from '@environments/environment.development';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 
 @Component({
   selector: 'app-viewusers',
@@ -19,40 +20,29 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './viewusers.html',
   styleUrl: './viewusers.css',
 })
-export class Viewusers implements OnInit {
-  isRTL: boolean;
-
-  // length: number = 0;
-
-  length = signal(0)
-
-  parentSearchKey = signal('');
+export class Viewusers implements OnInit, AfterViewInit {
 
   url: string = environment.USER_URL;
+  
+  length = signal(0)
+  parentSearchKey = signal('');
+  
+  userData = signal<User[]>([]);
 
-  // totalUsers: number = 0;
-  userData: User[] = [];
-  userColumns: any[];
+  private userTableConfig: any[];
 
-  loaderService = inject(Loaderservice);
+  private loaderService = inject(Loaderservice);
   private httpService = inject(Httpservice);
   private routerRef = inject(Router);
   private userFormService = inject(Formservice);
   private snackService = inject(SnackBarService);
   private translationService = inject(TranslationService);
+  private dataFetchService = inject(DataFetchService);
 
   constructor() {
-    this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
-    // this.userColumns = [
-    //   { id: 'id', key: ["personal_info", "user_name"], icon: "assets/icons/neutral/usericon.svg", label: "Name" },
-    //   { id: 'id', key: ["personal_info", "user_email"], icon: "assets/icons/neutral/email.svg", label: "Email" },
-    //   { id: 'id', key: ["basic_info", "user_phone"], icon: "assets/icons/neutral/phone.svg", label: "Phone" },
-    //   { id: 'id', key: ["basic_info", "user_location"], icon: "assets/icons/neutral/location.svg", label: "Location" },
-    //   { id: 'id', key: ["team_info", "team_name"], icon: "assets/icons/neutral/bag.svg", label: "Team" },
-    //   { id: 'id', func: (v: any) => v === true ? "Online" : "Offline", key: "status", icon: "assets/icons/neutral/statustick.svg", label: "Status" },
-    // ];
+    // this.dataFetchService.ngOnInit();
 
-    this.userColumns = [
+    this.userTableConfig = [
       {
         id: 'id', key: ["personal_info", "user_name"], subkey: ["personal_info", "user_email"],
         icon: "assets/icons/neutral/usericon.svg", label: "NAME"
@@ -65,42 +55,44 @@ export class Viewusers implements OnInit {
     ];
 
     this.userFormService.resetForm();
-
   }
 
   ngOnInit(): void {
-    this.getUserData();
+  }
+
+  ngAfterViewInit(): void {
+    this.getUserfromService();
+  }
+
+  get isRTL(): boolean {
+    return this.translationService.getCurrentLanguage() === 'ur';
+  }
+
+  get userTableConfiggetter() {
+    return this.userTableConfig;
   }
 
   onAddUserClick() {
     this.routerRef.navigate(['/users/add']);
   }
 
-  getUserData() {
+  getUserfromService() {
     this.loaderService.showLoader();
-    this.httpService.getApi(this.url).pipe(
-      finalize(() => {
+    this.dataFetchService.sharedUserData().subscribe({
+      next: (res) => {
+        if (!res || res.length === 0) {
+          this.snackService.error(this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found", 2000, 'top-right');
+        }
+        this.userData.set(res);
+        this.length.set(res.length ?? 0);
         this.loaderService.hideLoader();
-      })
-    )
-      .subscribe({
-        next: (res) => {
-          // console.log(res);
-          if (res.body) {
-            this.snackService.error(this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found", 2000, 'top-right');
-          }
-          this.userData = res.body;
-          this.length.set(this.userData.length ?? 0);
-          // this.length = this.userData.length ?? "error";
-          this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
-          // this.loaderService.hideLoader();
-        },
-        error: (err) => {
-          // console.log(err);
-          this.loaderService.hideLoader();
-          this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-right');
-        },
-      })
+        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
+      },
+      error: (err) => {
+        this.loaderService.hideLoader();
+        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-right');
+      }
+    })
   }
 
   deleteUserData(val: User) {
@@ -109,8 +101,8 @@ export class Viewusers implements OnInit {
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
         // console.log(res);
-          this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
-          this.getUserData();
+        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
+        // this.getUserData();
         // this.loaderService.hideLoader();
       },
       error: (err) => {
