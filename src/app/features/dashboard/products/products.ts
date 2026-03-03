@@ -34,7 +34,7 @@ export class Products implements OnInit {
   private routerRef = inject(Router);
   private destroyRef = inject(DestroyRef);
   private httpService = inject(Httpservice);
-  private loaderService = inject(Loaderservice);
+  // private loaderService = inject(Loaderservice);
   private snackService = inject(SnackBarService);
   private productFormService = inject(FormService);
   private dataFetchService = inject(DataFetchService);
@@ -67,7 +67,7 @@ export class Products implements OnInit {
   }
 
   private loadProducts() {
-    this.loaderService.showLoader();
+    // this.loaderService.showLoader();
 
     this.dataFetchService.sharedProductData()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -77,14 +77,14 @@ export class Products implements OnInit {
           this.productData.set(res ?? []);
           this.length.set(res?.length ?? 0);
 
-          if (!res || res.length === 0) {
-            this.snackService.error(
-              this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found",
-              2000,
-              'top-right'
-            );
-          }
-          this.loaderService.hideLoader();
+          // if (!res || res.length === 0) {
+          //   this.snackService.error(
+          //     this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found",
+          //     2000,
+          //     'top-right'
+          //   );
+          // }
+          // this.loaderService.hideLoader();
         },
         error: () => {
           this.snackService.error(
@@ -92,13 +92,13 @@ export class Products implements OnInit {
             2000,
             'top-right'
           );
-          this.loaderService.hideLoader();
+          // this.loaderService.hideLoader();
         }
       });
   }
 
   deleteProductData(val: product) {
-    this.loaderService.showLoader();
+    // this.loaderService.showLoader();
     
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
@@ -109,19 +109,19 @@ export class Products implements OnInit {
 
         this.productData.set(updated); //component data update
         this.dataFetchService.refreshData("products", updated); // shared data update for other components
-        this.loaderService.hideLoader();
+        // this.loaderService.hideLoader();
       },
       error: (err) => {
         this.snackService.error(this.isRTL ? "ڈیٹا حذف کرنے میں ناکام!" : "Data deletion failed!", 2000, 'bottom-right');
-        this.loaderService.hideLoader();
+        // this.loaderService.hideLoader();
       }
     })
   }
 
   editproductData(val: product) {
-    this.loaderService.showLoader();
+    // this.loaderService.showLoader();
     this.productFormService.patchFormData(val);
-    this.loaderService.hideLoader();
+    // this.loaderService.hideLoader();
     this.routerRef.navigate(['home/products/add']);
   }
 }
