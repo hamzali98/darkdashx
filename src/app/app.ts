@@ -24,12 +24,14 @@ export class App implements OnInit {
   private routerRef = inject(Router);
   private loaderService = inject(Loaderservice);
   private authService = inject(AuthService);
-  dialogService = inject(DialogService);
+  private dialogServiceRef = inject(DialogService);
 
  constructor(
     private title: Title,
     private translate: TranslateService
   ) {}
+
+  get dialogService() { return this.dialogServiceRef;}
 
   ngOnInit(): void {
     // Set title initially
