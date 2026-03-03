@@ -35,13 +35,12 @@ export class Viewusers implements OnInit {
   private destroyRef = inject(DestroyRef);
   private httpService = inject(Httpservice);
   private userFormService = inject(Formservice);
-  private loaderService = inject(Loaderservice);
+  // private loaderService = inject(Loaderservice);
   private snackService = inject(SnackBarService);
   private dataFetchService = inject(DataFetchService);
   private translationService = inject(TranslationService);
 
   constructor() {
-    // this.dataFetchService.ngOnInit();
 
     this.userTableConfig = [
       {
@@ -75,7 +74,7 @@ export class Viewusers implements OnInit {
   }
 
   private loadUsers() {
-    this.loaderService.showLoader();
+    // this.loaderService.showLoader();
 
     this.dataFetchService.sharedUserData()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -85,14 +84,14 @@ export class Viewusers implements OnInit {
           this.userData.set(res ?? []);
           this.length.set(res?.length ?? 0);
 
-          if (!res || res.length === 0) {
-            this.snackService.error(
-              this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found",
-              2000,
-              'top-right'
-            );
-          }
-          this.loaderService.hideLoader();
+          // if (!res || res.length === 0) {
+          //   this.snackService.error(
+          //     this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found",
+          //     2000,
+          //     'top-right'
+          //   );
+          // }
+          // this.loaderService.hideLoader();
         },
         error: () => {
           this.snackService.error(
@@ -100,13 +99,13 @@ export class Viewusers implements OnInit {
             2000,
             'top-right'
           );
-          this.loaderService.hideLoader();
+          // this.loaderService.hideLoader();
         }
       });
   }
 
   deleteUserData(val: User) {
-    this.loaderService.showLoader();
+    // this.loaderService.showLoader();
 
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
@@ -118,19 +117,19 @@ export class Viewusers implements OnInit {
 
         this.userData.set(updated); //component data update
         this.dataFetchService.refreshData("users", updated); // shared data update for other components
-        this.loaderService.hideLoader();
+        // this.loaderService.hideLoader();
       },
       error: (err) => {
-        this.loaderService.hideLoader();
+        // this.loaderService.hideLoader();
         this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'bottom-right');
       }
     })
   }
 
   editUserData(val: User) {
-    this.loaderService.showLoader();
+    // this.loaderService.showLoader();
     this.userFormService.patchFormData(val);
-    this.loaderService.hideLoader();
+    // this.loaderService.hideLoader();
     this.routerRef.navigate(['users/add']);
   }
 
