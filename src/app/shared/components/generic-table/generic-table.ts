@@ -196,7 +196,6 @@ export class GenericTable<T> implements OnChanges {
 
   nextPage() {
     const totalpages = Math.ceil(Number(this.filteredData.length) / Number(this.itemsPerPage));
-    console.log("Total pages", totalpages);
     if (this.currentPage < totalpages) {
       this.checkList = [];
       this.currentPage++;

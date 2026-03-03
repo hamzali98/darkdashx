@@ -1,11 +1,12 @@
-import { BehaviorSubject, finalize } from 'rxjs';
-import { inject, Injectable, OnDestroy, OnInit, signal } from '@angular/core';
+import { BehaviorSubject, finalize, take } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
 import { Httpservice } from '../httpservice/httpservice';
 import { SnackBarService } from '../snackbar/snack-bar-service';
 import { TranslationService } from '@app/core/services/translate.service';
 import { environment } from '@environments/environment.development';
 import { User } from '@app/features/users/interface/user';
 import { product } from '@app/features/dashboard/products/interface/product-interface';
+import { Loaderservice } from '../loader/loaderservice';
 
 @Injectable({
   providedIn: 'root',
@@ -24,24 +25,37 @@ export class DataFetchService {
   private httpService = inject(Httpservice);
   private snackService = inject(SnackBarService);
   private translationService = inject(TranslationService);
+  private loaderService = inject(Loaderservice);
 
   // remove from constructor, change to getter:
   get isRTL(): boolean {
     return this.translationService.getCurrentLanguage() === 'ur';
   }
 
-  sharedUserData() {
-    if (!this.usersLoaded()) {
+  sharedUserData(noFetching: boolean = true) {
+    if (!this.usersLoaded() && noFetching) {
+      noFetching = false;
       this.fetchUsers();
     }
+    noFetching = true;
     return this.userData$.asObservable();
   }
 
-  sharedProductData() {
-    if (!this.productsLoaded()) {
+  sharedProductData(noFetching: boolean = true) {
+    if (!this.productsLoaded() && noFetching) {
+      noFetching = false;
       this.fetchProducts();
     }
+    noFetching = true;
     return this.productData$.asObservable();
+  }
+
+  getProductSnapshot(): product[] {
+    return this.productData$.getValue(); // ✅ BehaviorSubject always has a current value
+  }
+
+  getUserSnapshot(): User[] {
+    return this.userData$.getValue();
   }
 
   // 🔥 Public fetch triggers (better than constructor call)
@@ -77,9 +91,13 @@ export class DataFetchService {
     subject: BehaviorSubject<T[]>,
     messages: { success: string; empty: string; error: string }
   ) {
+    this.loaderService.showLoader();
     this.httpService.getApi(url)
       .pipe(
-        finalize(() => console.log('API call finished'))
+        finalize(() => {
+          this.loaderService.hideLoader();
+        }),
+        take(1)
       )
       .subscribe({
         next: (res) => {
@@ -94,6 +112,8 @@ export class DataFetchService {
           subject.next(data);
         },
         error: () => {
+          this.usersLoaded.set(false);
+          this.productsLoaded.set(false);
           this.snackService.error(messages.error, 2000, 'top-right');
         }
       });
@@ -103,11 +123,13 @@ export class DataFetchService {
     type: 'users' | 'products',
     data: User[] | product[],
   ) {
+    this.loaderService.showLoader();
     if (type === 'users') {
       this.userData$.next(data as User[]);
     } else {
       this.productData$.next(data as product[]);
     }
+    this.loaderService.hideLoader();
   }
 
   // Optional manual refresh
