@@ -6,7 +6,9 @@ import { Formservice } from '../../services/formservice';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { CompanyListService } from '@app/shared/services/companylist/company-list-service';
+import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 import { companyInterface } from '@app/shared/interface/company';
+import { User } from '@app/features/users/interface/user';
 import { environment } from '@environments/environment.development';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgClass } from '@angular/common';
@@ -21,21 +23,20 @@ import { TranslationService } from '@app/core/services/translate.service';
 })
 export class Team {
 
-  isRTL: boolean;
 
   url: string = environment.USER_URL;
 
-  // positions: [];
   companyList: companyInterface[];
-
   teamInfo: FormGroup;
   userFormSubmit: FormGroup;
 
-  routerRef = inject(Router);
-  userForm = inject(Formservice);
-  httpService = inject(Httpservice);
-  loaderService = inject(Loaderservice);
+  // ✅ all private
+  private routerRef = inject(Router);
+  private userForm = inject(Formservice);
+  private httpService = inject(Httpservice);
+  private loaderService = inject(Loaderservice);
   private snackService = inject(SnackBarService);
+  private dataFetchService = inject(DataFetchService);
   private companyListService = inject(CompanyListService);
   private translationService = inject(TranslationService);
 
@@ -44,62 +45,79 @@ export class Team {
     this.userFormSubmit = this.userForm.getForm();
     this.teamInfo = this.userForm.getForm().get('team_info') as FormGroup;
     this.teamInfo.markAllAsTouched();
-
-    this.isRTL = this.translationService.getCurrentLanguage() === 'ur';
   }
 
-  get team_name() {
-    return this.teamInfo.get('team_name');
-  }
-  get team_rank() {
-    return this.teamInfo.get('team_rank');
-  }
-  get team_office() {
-    return this.teamInfo.get('team_office');
-  }
-  get team_mail() {
-    return this.teamInfo.get('team_mail');
-  }
+  get userformEditing() { return this.userForm.editing(); }
+  get team_name() { return this.teamInfo.get('team_name'); }
+  get team_rank() { return this.teamInfo.get('team_rank'); }
+  get team_mail() { return this.teamInfo.get('team_mail'); }
+  get team_office() { return this.teamInfo.get('team_office'); }
+  get isRTL(): boolean { return this.translationService.getCurrentLanguage() === 'ur'; }
 
   onFormSubmit() {
     if (this.userFormSubmit.invalid) {
-      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
+      this.snackService.warning(
+        this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!",
+        5000, 'bottom-center'
+      );
+      return; // ✅ early return, no deeply nested else
+    }
+
+    this.loaderService.showLoader(); // ✅ moved out, shared by both branches
+
+    if (this.userformEditing) {
+      const id = this.userForm.editingId();
+
+      this.httpService.editApi(this.url, id, this.userFormSubmit.value).pipe(
+        finalize(() => this.loaderService.hideLoader()) // ✅ always hides, even on error
+      ).subscribe({
+        next: (res) => {
+          // ✅ update edited user in shared BehaviorSubject
+          const updatedUser = res as User;
+          const current = this.dataFetchService.getUserSnapshot();
+          const updated = current.map(u => u.id === updatedUser.id ? updatedUser : u);
+          this.dataFetchService.refreshData('users', updated);
+
+          this.snackService.success(
+            this.isRTL ? "ڈیٹا کامیابی سے اپ ڈیٹ ہو گیا!" : "User updated successfully!",
+            2000, 'bottom-right'
+          );
+          this.userForm.resetForm();
+          this.routerRef.navigate(['/users/view']);
+        },
+        error: () => { // ✅ no silent error swallowing
+          this.snackService.error(
+            this.isRTL ? "اپ ڈیٹ ناکام!" : "Update failed!",
+            2000, 'bottom-right'
+          );
+        }
+      });
+
     } else {
 
-      // console.log("form data", this.userFormSubmit.value);
-      if (this.userForm.editing()) {
-        this.loaderService.showLoader();
-        // console.log("Id for previous data", this.userForm.editingId());
-        const id = this.userForm.editingId();
-        //   console.log("ID : ", id);
-        // console.log("Whole Form", this.userFormSubmit.value);
-        this.httpService.editApi(this.url, id, this.userFormSubmit.value).subscribe({
-          next: (res) => {
-            // console.log(res);
-            this.userForm.resetForm();
-            this.routerRef.navigate(['/users/view']);
-          },
-          error: (err) => {
-            // console.log(err);
-            this.loaderService.hideLoader();
-          }
-        })
-      } else {
+      this.httpService.addApi(this.url, this.userFormSubmit.value).pipe(
+        finalize(() => this.loaderService.hideLoader()) // ✅ always hides, even on error
+      ).subscribe({
+        next: (res) => {
+          // ✅ append new user into shared BehaviorSubject
+          const newUser = res as User;
+          const current = this.dataFetchService.getUserSnapshot();
+          this.dataFetchService.refreshData('users', [...current, newUser]);
 
-        this.loaderService.showLoader();
-        // console.log("Whole Form", this.userFormSubmit.value);
-        this.httpService.addApi(this.url, this.userFormSubmit.value).subscribe({
-          next: (res) => {
-            // console.log(res);
-            this.userForm.resetForm();
-            this.routerRef.navigate(['/users/view']);
-          },
-          error: (err) => {
-            // console.log(err);
-            this.loaderService.hideLoader();
-          }
-        })
-      }
+          this.snackService.success(
+            this.isRTL ? "ڈیٹا کامیابی سے شامل ہو گیا!" : "User added successfully!",
+            2000, 'bottom-right'
+          );
+          this.userForm.resetForm();
+          this.routerRef.navigate(['/users/view']);
+        },
+        error: () => {
+          this.snackService.error(
+            this.isRTL ? "ڈیٹا شامل کرنے میں ناکام!" : "Failed to add user!",
+            2000, 'bottom-right'
+          );
+        }
+      });
     }
   }
 }
