@@ -1,17 +1,17 @@
-import { AfterViewInit, Component, inject, OnInit, Signal, signal } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, inject, OnInit, Signal, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { environment } from '@environments/environment.development';
 import { GenericTable } from '@app/shared/components/generic-table/generic-table';
 import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
 import { User } from '../interface/user';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
-import { finalize } from 'rxjs';
-import { Router } from '@angular/router';
 import { SearchBar } from "@app/shared/components/search-bar/search-bar";
 import { Formservice } from '../adduser/services/formservice';
-import { environment } from '@environments/environment.development';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { TranslationService } from '@app/core/services/translate.service';
-import { TranslateModule } from '@ngx-translate/core';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 
 @Component({
@@ -20,24 +20,25 @@ import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
   templateUrl: './viewusers.html',
   styleUrl: './viewusers.css',
 })
-export class Viewusers implements OnInit, AfterViewInit {
+export class Viewusers implements OnInit {
 
   url: string = environment.USER_URL;
-  
+
   length = signal(0)
   parentSearchKey = signal('');
-  
+
   userData = signal<User[]>([]);
 
   private userTableConfig: any[];
 
-  private loaderService = inject(Loaderservice);
-  private httpService = inject(Httpservice);
   private routerRef = inject(Router);
+  private destroyRef = inject(DestroyRef);
+  private httpService = inject(Httpservice);
   private userFormService = inject(Formservice);
+  private loaderService = inject(Loaderservice);
   private snackService = inject(SnackBarService);
-  private translationService = inject(TranslationService);
   private dataFetchService = inject(DataFetchService);
+  private translationService = inject(TranslationService);
 
   constructor() {
     // this.dataFetchService.ngOnInit();
@@ -58,10 +59,7 @@ export class Viewusers implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    this.getUserfromService();
+    this.loadUsers();
   }
 
   get isRTL(): boolean {
@@ -76,37 +74,53 @@ export class Viewusers implements OnInit, AfterViewInit {
     this.routerRef.navigate(['/users/add']);
   }
 
-  getUserfromService() {
+  private loadUsers() {
     this.loaderService.showLoader();
-    this.dataFetchService.sharedUserData().subscribe({
-      next: (res) => {
-        if (!res || res.length === 0) {
-          this.snackService.error(this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found", 2000, 'top-right');
+
+    this.dataFetchService.sharedUserData()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+
+          this.userData.set(res ?? []);
+          this.length.set(res?.length ?? 0);
+
+          if (!res || res.length === 0) {
+            this.snackService.error(
+              this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found",
+              2000,
+              'top-right'
+            );
+          }
+          this.loaderService.hideLoader();
+        },
+        error: () => {
+          this.snackService.error(
+            this.isRTL ? "سرور کی خرابی!" : "Server Error!",
+            2000,
+            'top-right'
+          );
+          this.loaderService.hideLoader();
         }
-        this.userData.set(res);
-        this.length.set(res.length ?? 0);
-        this.loaderService.hideLoader();
-        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
-      },
-      error: (err) => {
-        this.loaderService.hideLoader();
-        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-right');
-      }
-    })
+      });
   }
 
   deleteUserData(val: User) {
     this.loaderService.showLoader();
-    // console.log("prod data in prod view", val);
+
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
-        // console.log(res);
         this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
-        // this.getUserData();
-        // this.loaderService.hideLoader();
+
+        // 2️⃣ Now we update UI locally
+        const updated = this.userData()
+          .filter(p => p.id !== val.id);
+
+        this.userData.set(updated); //component data update
+        this.dataFetchService.refreshData("users", updated); // shared data update for other components
+        this.loaderService.hideLoader();
       },
       error: (err) => {
-        // console.log(err);
         this.loaderService.hideLoader();
         this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'bottom-right');
       }

@@ -1,12 +1,11 @@
-import { AfterViewInit, Component, inject, OnInit, signal } from '@angular/core';
+import { AfterViewInit, Component, inject, signal, DestroyRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SearchBar } from "@app/shared/components/search-bar/search-bar";
-import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
 import { GenericTable } from "@app/shared/components/generic-table/generic-table";
 import { product } from './interface/product-interface';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
-import { finalize } from 'rxjs';
 import { FormService } from './products-add/service/form-service';
 import { environment } from '@environments/environment.development';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
@@ -20,7 +19,7 @@ import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
-export class Products implements AfterViewInit {
+export class Products implements OnInit {
 
   url: string = environment.PRODUCTS_URL;
 
@@ -33,12 +32,13 @@ export class Products implements AfterViewInit {
   // productColumns: any[];
 
   private routerRef = inject(Router);
+  private destroyRef = inject(DestroyRef);
   private httpService = inject(Httpservice);
   private loaderService = inject(Loaderservice);
-  private productFormService = inject(FormService);
   private snackService = inject(SnackBarService);
-  private translationService = inject(TranslationService);
+  private productFormService = inject(FormService);
   private dataFetchService = inject(DataFetchService);
+  private translationService = inject(TranslationService);
 
   constructor() {
     this.productTableConfig = [
@@ -50,8 +50,8 @@ export class Products implements AfterViewInit {
     ];
   }
 
-  ngAfterViewInit(): void {
-    this.getProductData();
+  ngOnInit(): void {
+    this.loadProducts();
   }
 
   get productTableConfigGetter() {
@@ -66,65 +66,59 @@ export class Products implements AfterViewInit {
     this.routerRef.navigate(['home/products/add']);
   }
 
-  getProductData() {
+  private loadProducts() {
     this.loaderService.showLoader();
-    this.dataFetchService.sharedProductData().subscribe({
-      next: (res) => {
-        if (!res || res.length === 0) {
-          this.snackService.error(this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found", 2000, 'top-right');
+
+    this.dataFetchService.sharedProductData()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+
+          this.productData.set(res ?? []);
+          this.length.set(res?.length ?? 0);
+
+          if (!res || res.length === 0) {
+            this.snackService.error(
+              this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found",
+              2000,
+              'top-right'
+            );
+          }
+          this.loaderService.hideLoader();
+        },
+        error: () => {
+          this.snackService.error(
+            this.isRTL ? "سرور کی خرابی!" : "Server Error!",
+            2000,
+            'top-right'
+          );
+          this.loaderService.hideLoader();
         }
-        this.productData.set(res);
-        this.length.set(res.length ?? 0);
-        this.loaderService.hideLoader();
-        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
-      },
-      error: (err) => {
-        this.loaderService.hideLoader();
-        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'top-right');
-      }
-    });
-    // this.httpService.getApi(this.url).subscribe({
-    //     next: (res) => {
-    //       // console.log(res);
-    //       if (res.body) {
-    //         this.snackService.error(this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found", 2000, 'top-right');
-    //       }
-    //       setTimeout(() => {
-    //         this.productData = res.body;
-    //       }, 2000);
-    //       // this.length.set(this.productData.length ?? 0);
-    //       // this.length = this.productData.length;
-    //       this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Data fetched successfully!", 2000, 'top-right');
-    //       // this.loaderService.hideLoader();
-    //     },
-    //     error: (err) => {
-    //       // console.log(err);
-    //       this.snackService.error(this.isRTL ? "ڈیٹا لینے میں ناکام!" : "Data fetching failed!", 2000, 'top-right');
-    //       // this.loaderService.hideLoader();
-    //     },
-    //   })
+      });
   }
 
   deleteProductData(val: product) {
     this.loaderService.showLoader();
-    // console.log("prod data in prod view", val);
+    
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
-        // console.log(res);
         this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
-        this.getProductData();
-        // this.loaderService.hideLoader();
+        // 2️⃣ Now we update UI locally
+        const updated = this.productData()
+          .filter(p => p.id !== val.id);
+
+        this.productData.set(updated); //component data update
+        this.dataFetchService.refreshData("products", updated); // shared data update for other components
+        this.loaderService.hideLoader();
       },
       error: (err) => {
         this.snackService.error(this.isRTL ? "ڈیٹا حذف کرنے میں ناکام!" : "Data deletion failed!", 2000, 'bottom-right');
-        // console.log(err);
         this.loaderService.hideLoader();
       }
     })
   }
 
   editproductData(val: product) {
-    // console.log("editing data", val);
     this.loaderService.showLoader();
     this.productFormService.patchFormData(val);
     this.loaderService.hideLoader();

@@ -99,14 +99,25 @@ export class DataFetchService {
       });
   }
 
-  // Optional manual refresh
-  refreshUsers() {
-    this.usersLoaded.set(false);
-    this.fetchUsers();
+  refreshData(
+    type: 'users' | 'products',
+    data: User[] | product[],
+  ) {
+    if (type === 'users') {
+      this.userData$.next(data as User[]);
+    } else {
+      this.productData$.next(data as product[]);
+    }
   }
 
-  refreshProducts() {
-    this.productsLoaded.set(false);
-    this.fetchProducts();
-  }
+  // Optional manual refresh
+  // refreshUsers() {
+  //   this.usersLoaded.set(false);
+  //   this.fetchUsers();
+  // }
+
+  // refreshProducts() {
+  //   this.productsLoaded.set(false);
+  //   this.fetchProducts();
+  // }
 }

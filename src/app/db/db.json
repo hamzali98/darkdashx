@@ -19,22 +19,6 @@
   ],
   "products": [
     {
-      "id": "c7a1",
-      "status": true,
-      "basic_info": {
-        "product_name": "Matte Finish Kit",
-        "product_category": "cosmetics",
-        "product_price": 25,
-        "product_company": "pinterest"
-      },
-      "detail_info": {
-        "product_expiry": "2027-05-12",
-        "product_regno": "cos-882",
-        "product_mfg": "2025-11-01",
-        "product_stock": 41
-      }
-    },
-    {
       "id": "c7a2",
       "status": false,
       "basic_info": {
@@ -51,38 +35,6 @@
       }
     },
     {
-      "id": "c7a3",
-      "status": true,
-      "basic_info": {
-        "product_name": "Eye Liner Pro",
-        "product_category": "cosmetics",
-        "product_price": 12,
-        "product_company": "youtube"
-      },
-      "detail_info": {
-        "product_expiry": "2028-01-10",
-        "product_regno": "eye-55",
-        "product_mfg": "2026-01-05",
-        "product_stock": 23
-      }
-    },
-    {
-      "id": "c7a4",
-      "status": true,
-      "basic_info": {
-        "product_name": "Sunscreen V2",
-        "product_category": "cosmetics",
-        "product_price": 30,
-        "product_company": "google"
-      },
-      "detail_info": {
-        "product_expiry": "2027-10-30",
-        "product_regno": "uv-900",
-        "product_mfg": "2025-12-01",
-        "product_stock": 22
-      }
-    },
-    {
       "id": "n1b1",
       "status": true,
       "basic_info": {
@@ -96,22 +48,6 @@
         "product_regno": "nb-001",
         "product_mfg": "2025-10-10",
         "product_stock": 19
-      }
-    },
-    {
-      "id": "n1b2",
-      "status": true,
-      "basic_info": {
-        "product_name": "Leather Sketchbook",
-        "product_category": "note book",
-        "product_price": 15,
-        "product_company": "linkedin"
-      },
-      "detail_info": {
-        "product_expiry": "2029-12-12",
-        "product_regno": "nb-452",
-        "product_mfg": "2025-11-20",
-        "product_stock": 35
       }
     },
     {
@@ -513,28 +449,6 @@
       }
     },
     {
-      "id": "9d1b",
-      "status": true,
-      "personal_info": {
-        "user_name": "user 3",
-        "user_email": "user3@email.com",
-        "user_photo": "",
-        "user_desc": "hello user 3"
-      },
-      "basic_info": {
-        "user_phone": "3123456789",
-        "user_position": "user 3 position",
-        "user_location": "location",
-        "user_website": "www.website.com"
-      },
-      "team_info": {
-        "team_name": "reddit",
-        "team_rank": "rank",
-        "team_office": "office",
-        "team_mail": "user2team@email.com"
-      }
-    },
-    {
       "status": false,
       "personal_info": {
         "user_name": "user 47",
@@ -754,5 +668,6 @@
         "team_mail": "projects@masdar.ae"
       }
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
