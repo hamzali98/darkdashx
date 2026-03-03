@@ -51,22 +51,6 @@
       }
     },
     {
-      "id": "n1b3",
-      "status": false,
-      "basic_info": {
-        "product_name": "Pocket Memo",
-        "product_category": "note book",
-        "product_price": 2,
-        "product_company": "twitter"
-      },
-      "detail_info": {
-        "product_expiry": "2026-05-05",
-        "product_regno": "nb-12",
-        "product_mfg": "2025-01-15",
-        "product_stock": 13
-      }
-    },
-    {
       "id": "n1b4",
       "status": true,
       "basic_info": {
@@ -80,22 +64,6 @@
         "product_regno": "nb-88",
         "product_mfg": "2025-12-01",
         "product_stock": 15
-      }
-    },
-    {
-      "id": "n1b5",
-      "status": true,
-      "basic_info": {
-        "product_name": "Hardcover Planner",
-        "product_category": "note book",
-        "product_price": 12,
-        "product_company": "google"
-      },
-      "detail_info": {
-        "product_expiry": "2027-12-31",
-        "product_regno": "nb-plan",
-        "product_mfg": "2026-01-10",
-        "product_stock": 16
       }
     },
     {
@@ -115,7 +83,6 @@
       }
     },
     {
-      "id": "a3c2",
       "status": true,
       "basic_info": {
         "product_name": "Wireless Mouse",
@@ -128,7 +95,8 @@
         "product_regno": "acc-m1",
         "product_mfg": "2025-11-15",
         "product_stock": 33
-      }
+      },
+      "id": "a3c2"
     },
     {
       "id": "a3c3",
@@ -493,32 +461,9 @@
       }
     },
     {
-      "id": "889f",
       "status": true,
       "personal_info": {
-        "user_name": "user 55",
-        "user_email": "user55@gmail.com",
-        "user_photo": "",
-        "user_desc": "hrllo"
-      },
-      "basic_info": {
-        "user_phone": "3123456789",
-        "user_position": "pos",
-        "user_location": "loc",
-        "user_website": "www.website.com"
-      },
-      "team_info": {
-        "team_name": "pinterest",
-        "team_rank": "3",
-        "team_office": "l",
-        "team_mail": "team@email.com"
-      }
-    },
-    {
-      "id": "9e47",
-      "status": true,
-      "personal_info": {
-        "user_name": "metis user",
+        "user_name": "metis user ljk",
         "user_email": "metisuser@gmail.com",
         "user_photo": null,
         "user_desc": "hello user of metis"
@@ -534,7 +479,8 @@
         "team_rank": "top tier",
         "team_office": "lonawla",
         "team_mail": "emailteam@gmail.com"
-      }
+      },
+      "id": "9e47"
     },
     {
       "id": "2f8a",
