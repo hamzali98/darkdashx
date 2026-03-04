@@ -5,6 +5,7 @@ import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { TooltipDirective } from '@app/shared/directive/tooltip/tooltip';
 import { NgClass } from '@angular/common';
+import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class LogoutBtn {
   private layoutService = inject(Layout);
   private dialogService = inject(DialogService);
   private translateService = inject(TranslationService);
+  private loaderService = inject(Loaderservice);
 
   onLogout() {
     const isRTL = this.translateService.getCurrentLanguage() === 'ur';
@@ -30,7 +32,8 @@ export class LogoutBtn {
       type: "generic"
     }).subscribe(result => {
       if (result) {
-        this.layoutService.onLogout();
+        this.loaderService.showLoader();
+          this.layoutService.onLogout();
       } else {
         // this.dialogService.close();
 
