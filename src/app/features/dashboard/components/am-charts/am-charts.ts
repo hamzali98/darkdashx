@@ -54,6 +54,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
     });
   }
 
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes && this.productChartData && this.productChartData.length > 0) {
       // console.log(this.userChartData);

@@ -18,6 +18,7 @@ import { TranslationService } from '@app/core/services/translate.service';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -42,6 +43,7 @@ export class Dashboard implements OnInit {
   private chartService = inject(ChartService);
   private dataFetchService = inject(DataFetchService);
   private translationService = inject(TranslationService);
+  private tickAnimationService = inject(TickAnimationService);
 
   constructor() { }
 
@@ -78,43 +80,50 @@ export class Dashboard implements OnInit {
     const donutTitle = isRTL ? "صارفین کی سرگرمی" : "Users Activity";
     const bubbleTitle = isRTL ? "قیمتوں کے مطابق مصنوعات" : "Products by Pricing";
 
+    this.tickAnimationService.show(this.translationService.instant('EXPORT_SUCCESS'), 3000);
 
-    // Product chart data — keys are 'category', 'productCount', 'totalStock', 'averageStock'
-    this.chartService.exportJsonToExcel(pChartData, pChartTitle, [
-      { key: 'category', label: isRTL ? 'زمرہ' : 'Category' },
-      { key: 'productCount', label: isRTL ? 'مصنوعات' : 'Products' },
-      { key: 'totalStock', label: isRTL ? 'کل اسٹاک' : 'Total Stock' },
-      { key: 'averageStock', label: isRTL ? 'اوسط اسٹاک' : 'Average Stock' }
-    ]);
+    setTimeout(() => {
 
+      // Product chart data — keys are 'category', 'productCount', 'totalStock', 'averageStock'
+      this.chartService.exportJsonToExcel(pChartData, pChartTitle, [
+        { key: 'category', label: isRTL ? 'زمرہ' : 'Category' },
+        { key: 'productCount', label: isRTL ? 'مصنوعات' : 'Products' },
+        { key: 'totalStock', label: isRTL ? 'کل اسٹاک' : 'Total Stock' },
+        { key: 'averageStock', label: isRTL ? 'اوسط اسٹاک' : 'Average Stock' }
+      ]);
 
-    // User chart data — keys are 'team', 'totalUsers', 'activeUsers', 'inactiveUsers'
-    this.chartService.exportJsonToExcel(uChartData, uChartTitle, [
-      { key: 'team', label: isRTL ? 'ٹیم' : 'Team' },
-      { key: 'totalUsers', label: isRTL ? 'کل صارفین' : 'Total Users' },
-      { key: 'activeUsers', label: isRTL ? 'فعال صارفین' : 'Active Users' },
-      { key: 'inactiveUsers', label: isRTL ? 'غیر فعال' : 'Inactive Users' }
-    ]);
+      // User chart data — keys are 'team', 'totalUsers', 'activeUsers', 'inactiveUsers'
+      this.chartService.exportJsonToExcel(uChartData, uChartTitle, [
+        { key: 'team', label: isRTL ? 'ٹیم' : 'Team' },
+        { key: 'totalUsers', label: isRTL ? 'کل صارفین' : 'Total Users' },
+        { key: 'activeUsers', label: isRTL ? 'فعال صارفین' : 'Active Users' },
+        { key: 'inactiveUsers', label: isRTL ? 'غیر فعال' : 'Inactive Users' }
+      ]);
 
-    this.chartService.exportJsonToExcel(donutData, donutTitle, [
-      { key: 'category', label: isRTL ? 'زمرہ' : 'Category' },
-      { key: 'value', label: isRTL ? 'قدر' : 'Value' }
-    ]);
+      this.chartService.exportJsonToExcel(donutData, donutTitle, [
+        { key: 'category', label: isRTL ? 'زمرہ' : 'Category' },
+        { key: 'value', label: isRTL ? 'قدر' : 'Value' }
+      ]);
 
-    // Bubble data — keys are 'company', 'avgPrice', 'totalStock', 'productCount'
-    this.chartService.exportJsonToExcel(bubbleData, bubbleTitle, [
-      { key: 'company', label: isRTL ? 'کمپنی' : 'Company' },
-      { key: 'avgPrice', label: isRTL ? 'اوسط قیمت' : 'Avg Price' },
-      { key: 'totalStock', label: isRTL ? 'کل اسٹاک' : 'Total Stock' },
-      { key: 'productCount', label: isRTL ? 'مصنوعات' : 'Products' }
-    ]);
+      // Bubble data — keys are 'company', 'avgPrice', 'totalStock', 'productCount'
+      this.chartService.exportJsonToExcel(bubbleData, bubbleTitle, [
+        { key: 'company', label: isRTL ? 'کمپنی' : 'Company' },
+        { key: 'avgPrice', label: isRTL ? 'اوسط قیمت' : 'Avg Price' },
+        { key: 'totalStock', label: isRTL ? 'کل اسٹاک' : 'Total Stock' },
+        { key: 'productCount', label: isRTL ? 'مصنوعات' : 'Products' }
+      ]);
+    }, 1500);
   }
 
   getCharts() {
-    this.amCharts()?.downloadChart();
-    this.donutChart()?.downloadChart();
-    this.bubbleChart()?.downloadChart();
-    this.usersAmChart()?.downloadChart();
+    this.tickAnimationService.show(this.translationService.instant('EXPORT_SUCCESS'), 3000);
+
+    setTimeout(() => {
+      this.amCharts()?.downloadChart();
+      this.donutChart()?.downloadChart();
+      this.bubbleChart()?.downloadChart();
+      this.usersAmChart()?.downloadChart();
+    }, 2000);
   }
 
 }
