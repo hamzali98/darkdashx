@@ -139,6 +139,8 @@ import { fromEvent, merge, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { DialogService } from '@app/shared/services/dialog-service/dialog';
 import { TranslationService } from '@app/core/services/translate.service';
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
+import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 
 export type LogoutReason = 'manual' | 'expired' | 'none';
 
@@ -146,6 +148,11 @@ export type LogoutReason = 'manual' | 'expired' | 'none';
   providedIn: 'root',
 })
 export class AuthService {
+
+
+  // private tickAnimationService = inject(TickAnimationService);
+  private loaderService = inject(Loaderservice);
+
 
   private readonly USER_KEY = 'user';
   private readonly EXPIRY_KEY = 'session_expiry';
@@ -204,7 +211,12 @@ export class AuthService {
     localStorage.removeItem(this.EXPIRY_KEY);
     localStorage.removeItem('remember_me');
 
+    this.loaderService.hideLoader();
     this.routerRef.navigate(['/login']);
+
+    // this.tickAnimationService.show(isRTL ? "لاگ آؤٹ ہو گیا!" : "Logged out!", 2000);
+    // this.tickAnimationService.show("",2000);
+
   }
 
   isAuthenticated(): boolean {
