@@ -1,0 +1,22 @@
+<div class="tick-overlay" [class.visible]="visible">
+    <div class="tick-wrapper">
+        <div class="tick-glow"></div>
+        <div class="tick-ring"></div>
+        <svg class="tick-svg" viewBox="0 0 60 60">
+            <defs>
+                <linearGradient id="tickGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#cb3cff" />
+                    <stop offset="100%" stop-color="#00c2ff" />
+                </linearGradient>
+            </defs>
+            <polyline class="tick-path" points="10,30 24,46 50,16" />
+        </svg>
+        <div class="tick-particles">
+            @for (items of particles; track $index) {
+            <div class="tick-particle"></div>
+            }
+            <!-- <div class="tick-particle" *ngFor="let p of particles"></div> -->
+        </div>
+    </div>
+    <div class="tick-label">{{ message }}</div>
+</div>
