@@ -11,6 +11,7 @@ import { TranslationService } from '@app/core/services/translate.service';
 import { finalize } from 'rxjs';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 import { product } from '../../../interface/product-interface';
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 
 @Component({
   selector: 'app-details',
@@ -32,6 +33,7 @@ export class Details {
   private prodcutFormService = inject(FormService);
   private dataFetchService = inject(DataFetchService);
   private translationService = inject(TranslationService);
+  private tickAnimationService = inject(TickAnimationService);
 
   constructor() {
     this.productFormSubmit = this.prodcutFormService.getForm();
@@ -54,12 +56,10 @@ export class Details {
         'bottom-center');
       return;
     } else {
-      this.loaderService.showLoader();
+      
       if (this.productFormEditing) {
         const id = this.prodcutFormService.editingId();
-        this.httpService.editApi(this.url, id, this.productFormSubmit.value).pipe(
-          finalize(() => this.loaderService.hideLoader())
-        ).subscribe({
+        this.httpService.editApi(this.url, id, this.productFormSubmit.value).subscribe({
           next: (res) => {
             // ✅ Update the edited entry in the shared BehaviorSubject
             const updatedProduct = res as product;
@@ -72,8 +72,12 @@ export class Details {
               this.isRTL ? "ڈیٹا کامیابی سے اپ ڈیٹ ہو گیا!" : "Product updated successfully!",
               2000, 'bottom-right'
             );
-            this.prodcutFormService.resetForm();
-            this.routerRef.navigate(['/home/products']);
+            this.tickAnimationService.show(this.isRTL ? "اپ ڈیٹ ہو گیا!" : "Updated!", 3000);
+
+            setTimeout(() => {
+              this.prodcutFormService.resetForm();
+              this.routerRef.navigate(['/home/products']);
+            }, 2000);
           },
           error: (err) => {
             this.snackService.error(
@@ -83,9 +87,7 @@ export class Details {
           }
         })
       } else {
-        this.httpService.addApi(this.url, this.productFormSubmit.value).pipe(
-          finalize(() => this.loaderService.hideLoader())
-        ).subscribe({
+        this.httpService.addApi(this.url, this.productFormSubmit.value).subscribe({
           next: (res) => {
             // ✅ Append the new entry into the shared BehaviorSubject
             const newProduct = res as product;
@@ -96,8 +98,12 @@ export class Details {
               this.isRTL ? "ڈیٹا کامیابی سے شامل ہو گیا!" : "Product added successfully!",
               2000, 'bottom-right'
             );
-            this.prodcutFormService.resetForm();
-            this.routerRef.navigate(['/home/products']);
+            this.tickAnimationService.show(this.isRTL ? "شامل ہو گیا!" : "Added!", 3000);
+            
+            setTimeout(() => {
+              this.prodcutFormService.resetForm();
+              this.routerRef.navigate(['/home/products']);
+            }, 2000);
           },
           error: (err) => {
             this.snackService.error(

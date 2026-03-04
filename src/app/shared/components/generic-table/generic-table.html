@@ -4,7 +4,7 @@
         <div class="flex flex-row gap-5 items-center justify-center">
             <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{selectedItems}}
                 {{"Selected" | translate}}</span>
-            <button type="button"
+            <button type="button" (click)="deleteAll()"
             [appTooltip]="'Delete all' | translate" tooltipPosition="top"
             class="flex items-center cursor-pointer justify-center ">
                 <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
@@ -63,7 +63,7 @@
                         indeterminate:appearance-auto indeterminate:accent-primary
                         checked:appearance-auto checked:accent-primary border-gray-800 border size-3 rounded-xs">
                     </th>
-                    <th class="px-1.75  ">
+                    <th class="px-1.75">
                     </th>
                     @for(column of columns; track $index){
                     <th class="py-3.5 whitespace-nowrap min-w-30 " (click)="doSorting(column.key)">

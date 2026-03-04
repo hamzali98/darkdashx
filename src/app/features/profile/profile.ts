@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '@app/core/components/language-switcher/language-switcher.component';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 
 export interface profilesociallinkbtns {
   alt: string,
@@ -28,7 +29,7 @@ export interface profilesociallinkbtns {
   styleUrl: './profile.css',
 })
 export class Profile implements OnInit, OnDestroy {
-  isRTL: boolean;
+  // isRTL: boolean;
 
   smsOn = false;
   tfaOn = false;
@@ -52,9 +53,10 @@ export class Profile implements OnInit, OnDestroy {
   private passwordService = inject(PasswordCheck);
   private snackService = inject(SnackBarService);
   private translationService = inject(TranslationService);
+  private tickAnimationService = inject(TickAnimationService);
 
   constructor() {
-    this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
+    // this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.profileForm = new FormGroup({
       username: new FormControl(''),
       email: new FormControl('', [customEmailValidator]),
@@ -74,6 +76,8 @@ export class Profile implements OnInit, OnDestroy {
     ];
 
   }
+
+  get isRTL(): boolean { return this.translationService.getCurrentLanguage() === 'ur'; }
 
   get username() {
     return this.profileForm.get('username');
@@ -259,13 +263,16 @@ export class Profile implements OnInit, OnDestroy {
   }
 
   onDelete() {
-    const isRTL = this.isRTL;
     this.dialogService.open({
-      actbtn: isRTL ? 'حذف کریں' : 'Delete',
-      title: isRTL ? '⚠️ حذف کرنے کی انتباہ' : '⚠️ Delete Alert',
-      message: isRTL ? 'کیا آپ واقعی اپنے اکاؤنٹ کو حذف کرنا چاہتے ہیں؟ حذف کرنے کے بعد اکاؤنٹ بحال نہیں ہو سکتا۔' : 'Are you sure you want to delete your account. After deletion account is not recoverable.',
+      actbtn: this.isRTL ? 'حذف کریں' : 'Delete',
+      title: this.isRTL ? '⚠️ حذف کرنے کی انتباہ' : '⚠️ Delete Alert',
+      message: this.isRTL ? 'کیا آپ واقعی اپنے اکاؤنٹ کو حذف کرنا چاہتے ہیں؟ حذف کرنے کے بعد اکاؤنٹ بحال نہیں ہو سکتا۔' : 'Are you sure you want to delete your account. After deletion account is not recoverable.',
       type: 'generic'
-    });
+    }).subscribe((res) => {
+      if (res) {
+        this.tickAnimationService.show(this.isRTL ? "حذف ہو گیا!" : "Deleted!", 2000);
+      }
+    })
   }
 
   ngOnDestroy(): void {

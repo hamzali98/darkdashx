@@ -12,6 +12,7 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslationService } from '@app/core/services/translate.service';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 
 @Component({
   selector: 'app-products',
@@ -34,11 +35,11 @@ export class Products implements OnInit {
   private routerRef = inject(Router);
   private destroyRef = inject(DestroyRef);
   private httpService = inject(Httpservice);
-  // private loaderService = inject(Loaderservice);
   private snackService = inject(SnackBarService);
   private productFormService = inject(FormService);
   private dataFetchService = inject(DataFetchService);
   private translationService = inject(TranslationService);
+  private tickAnimationService = inject(TickAnimationService);
 
   constructor() {
     this.productTableConfig = [
@@ -67,7 +68,6 @@ export class Products implements OnInit {
   }
 
   private loadProducts() {
-    // this.loaderService.showLoader();
 
     this.dataFetchService.sharedProductData()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -84,7 +84,6 @@ export class Products implements OnInit {
           //     'top-right'
           //   );
           // }
-          // this.loaderService.hideLoader();
         },
         error: () => {
           this.snackService.error(
@@ -92,14 +91,12 @@ export class Products implements OnInit {
             2000,
             'top-right'
           );
-          // this.loaderService.hideLoader();
         }
       });
   }
 
   deleteProductData(val: product) {
-    // this.loaderService.showLoader();
-    
+
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
         this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
@@ -109,19 +106,73 @@ export class Products implements OnInit {
 
         this.productData.set(updated); //component data update
         this.dataFetchService.refreshData("products", updated); // shared data update for other components
-        // this.loaderService.hideLoader();
+        this.tickAnimationService.show(this.isRTL ? "حذف ہو گیا!" : "Deleted!", 3000);
+
       },
       error: (err) => {
         this.snackService.error(this.isRTL ? "ڈیٹا حذف کرنے میں ناکام!" : "Data deletion failed!", 2000, 'bottom-right');
-        // this.loaderService.hideLoader();
       }
     })
   }
 
+  deleteAllProductsData(selectedItems: product[]) {
+
+    console.log("Selected items to delete:", selectedItems);
+    if (!selectedItems.length) return;
+
+    // Create a queue of ids to delete
+    const idsToDelete = [...selectedItems.map(item => item.id)];
+    let deletedCount = 0;
+
+    const deleteNext = (index: number) => {
+      if (index >= idsToDelete.length) {
+        // ✅ All done — show tick animation once at the end
+        this.tickAnimationService.show(this.isRTL ? "حذف ہو گیا!" : "Deleted!", 3000);
+        selectedItems = []; // clear selection
+        return;
+      }
+
+      const id = idsToDelete[index];
+
+      this.httpService.delApi(this.url, id).subscribe({
+        next: (res) => {
+          deletedCount++;
+
+          // Update local data after each deletion
+          const updated = this.productData().filter(p => p.id !== id);
+          this.productData.set(updated);
+          this.dataFetchService.refreshData("products", updated);
+
+          // Show snack per item OR just once at the end — your choice
+          this.snackService.success(
+            this.isRTL
+              ? `ڈیٹا کامیابی سے حذف ہو گیا! (${deletedCount}/${idsToDelete.length})`
+              : `Deleted ${deletedCount} of ${idsToDelete.length}`,
+            2000, 'bottom-right'
+          );
+
+          // 👇 Delete next item after this one succeeds
+          deleteNext(index + 1);
+        },
+        error: (err) => {
+          this.snackService.error(
+            this.isRTL ? "سرور کی خرابی!" : `Failed to delete item ${index + 1}`,
+            2000, 'bottom-right'
+          );
+
+          // ⚠️ Decide: stop on error OR continue to next
+          // To STOP:  return;
+          // To CONTINUE anyway:
+          deleteNext(index + 1);
+        }
+      });
+    };
+
+    deleteNext(0); // kick off the chain
+  }
+
   editproductData(val: product) {
-    // this.loaderService.showLoader();
     this.productFormService.patchFormData(val);
-    // this.loaderService.hideLoader();
     this.routerRef.navigate(['home/products/add']);
   }
 }

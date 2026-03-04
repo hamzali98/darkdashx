@@ -228,6 +228,6 @@ export class ChartService {
   const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
   const workbook: XLSX.WorkBook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Chart Data');
-  XLSX.writeFile(workbook, `${fileName}.xlsx`);
+  XLSX.writeFile(workbook, `${fileName}-${new Date().toISOString().slice(0, 10)}.csv`);
 }
 }

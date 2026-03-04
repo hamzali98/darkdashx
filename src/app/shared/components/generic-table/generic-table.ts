@@ -1,4 +1,17 @@
-import { Component, EventEmitter, input, Input, Output, signal, OnChanges, SimpleChanges, computed, inject, model, viewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  input,
+  Input,
+  Output,
+  signal,
+  OnChanges,
+  SimpleChanges,
+  inject,
+  model,
+  viewChild,
+  ElementRef
+} from '@angular/core';
 import { NgClass, TitleCasePipe, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { tableColumns } from '@app/shared/interface/generic-table-interface';
@@ -10,12 +23,21 @@ import { TranslationService } from '@app/core/services/translate.service';
 // ─── npm install xlsx jspdf jspdf-autotable ───────────────────────────────────
 import * as XLSX from 'xlsx';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 // ─────────────────────────────────────────────────────────────────────────────
 
 
 @Component({
   selector: 'app-generic-table',
-  imports: [FormsModule, NgClass, TitleCasePipe, CurrencyPipe, DataError, TranslateModule, TooltipDirective],
+  imports: [
+    FormsModule,
+    NgClass,
+    TitleCasePipe,
+    CurrencyPipe,
+    DataError,
+    TranslateModule,
+    TooltipDirective
+  ],
   templateUrl: './generic-table.html',
   styleUrl: './generic-table.css',
 })
@@ -45,6 +67,7 @@ export class GenericTable<T> implements OnChanges {
   @Input() columns: tableColumns<T>[] = [];
 
   @Output() onDeleteClicked: EventEmitter<any> = new EventEmitter();
+  @Output() deleteAllClicked: EventEmitter<any> = new EventEmitter();
   @Output() onEditClicked: EventEmitter<any> = new EventEmitter();
 
   genericTableData = viewChild<ElementRef>('genericDataTable');
@@ -52,6 +75,7 @@ export class GenericTable<T> implements OnChanges {
 
   private dialogService = inject(DialogService);
   private translateService = inject(TranslationService);
+  private tickAnimationService = inject(TickAnimationService);
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tableData'] && this.tableData) {
@@ -86,7 +110,6 @@ export class GenericTable<T> implements OnChanges {
   get selectedItems() {
     return this.checkList.length;
   }
-
 
   imgSrc(src: any) {
     // console.log("src of img", src);
@@ -127,16 +150,34 @@ export class GenericTable<T> implements OnChanges {
       type: 'generic'
     }).subscribe(result => {
       if (result) {
-        // User clicked OK - proceed with delete
-        // console.log('User confirmed deletion');
         this.onDeleteClicked.emit(data);
       } else {
         // User clicked Cancel - do nothing
         // console.log('User cancelled deletion');
       }
     });
-    // console.log(data);
-    // this.onDeleteClicked.emit(data);
+  }
+
+  deleteAll() {
+    const isRTL = this.translateService.getCurrentLanguage() === 'ur';
+    this.dialogService.open({
+      actbtn: isRTL ? 'حذف کریں' : 'Delete',
+      title: isRTL ? '⚠️ حذف کرنے کی انتباہ' : '⚠️ Action Alert',
+      message: isRTL ?
+        `کیا آپ واقعی ${this.checkList.length} ${this.checkList.length === 1 ? 'اندراج' : 'اندراجات'} کو حذف کرنا چاہتے ہیں؟ `
+        : `Are you sure you want to delete ${this.checkList.length} ${this.checkList.length === 1 ? 'entry' : 'entries'}?`,
+      type: 'generic'
+    }).subscribe(result => {
+      if (result) {
+        console.log("event emitting!");
+        console.log("Deleting items:", this.checkList);
+        this.deleteAllClicked.emit(this.checkList);
+        // this.deleteAllClicked.emit("emitted!");
+      } else {
+        // User clicked Cancel - do nothing
+        // console.log('User cancelled deletion');
+      }
+    });
   }
 
   onClickedEdit(data: T) {
@@ -330,7 +371,10 @@ export class GenericTable<T> implements OnChanges {
 
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, tableName.slice(0, 31)); // sheet name max 31 chars
-    XLSX.writeFile(wb, `${tableName}.xlsx`);
+    this.tickAnimationService.show(this.translateService.instant('EXPORT_SUCCESS'), 3000);
+    setTimeout(() => {
+      XLSX.writeFile(wb, `${tableName}-${new Date().toISOString().slice(0, 10)}.csv`);
+    }, 1500);
   }
 
   downloadPDF() {

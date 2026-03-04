@@ -14,6 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgClass } from '@angular/common';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { TranslationService } from '@app/core/services/translate.service';
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 
 @Component({
   selector: 'app-team',
@@ -39,6 +40,7 @@ export class Team {
   private dataFetchService = inject(DataFetchService);
   private companyListService = inject(CompanyListService);
   private translationService = inject(TranslationService);
+  private tickAnimationService = inject(TickAnimationService);
 
   constructor() {
     this.companyList = this.companyListService.getCompanyList();
@@ -63,14 +65,10 @@ export class Team {
       return; // ✅ early return, no deeply nested else
     }
 
-    this.loaderService.showLoader(); // ✅ moved out, shared by both branches
-
     if (this.userformEditing) {
       const id = this.userForm.editingId();
 
-      this.httpService.editApi(this.url, id, this.userFormSubmit.value).pipe(
-        finalize(() => this.loaderService.hideLoader()) // ✅ always hides, even on error
-      ).subscribe({
+      this.httpService.editApi(this.url, id, this.userFormSubmit.value).subscribe({
         next: (res) => {
           // ✅ update edited user in shared BehaviorSubject
           const updatedUser = res as User;
@@ -82,8 +80,11 @@ export class Team {
             this.isRTL ? "ڈیٹا کامیابی سے اپ ڈیٹ ہو گیا!" : "User updated successfully!",
             2000, 'bottom-right'
           );
-          this.userForm.resetForm();
-          this.routerRef.navigate(['/users/view']);
+          this.tickAnimationService.show(this.isRTL ? "اپ ڈیٹ ہو گیا!" : "Updated!", 3000);
+          setTimeout(() => {
+            this.userForm.resetForm();
+            this.routerRef.navigate(['/users/view']);
+          }, 3000);
         },
         error: () => { // ✅ no silent error swallowing
           this.snackService.error(
@@ -95,9 +96,7 @@ export class Team {
 
     } else {
 
-      this.httpService.addApi(this.url, this.userFormSubmit.value).pipe(
-        finalize(() => this.loaderService.hideLoader()) // ✅ always hides, even on error
-      ).subscribe({
+      this.httpService.addApi(this.url, this.userFormSubmit.value).subscribe({
         next: (res) => {
           // ✅ append new user into shared BehaviorSubject
           const newUser = res as User;
@@ -108,8 +107,11 @@ export class Team {
             this.isRTL ? "ڈیٹا کامیابی سے شامل ہو گیا!" : "User added successfully!",
             2000, 'bottom-right'
           );
-          this.userForm.resetForm();
-          this.routerRef.navigate(['/users/view']);
+          this.tickAnimationService.show(this.isRTL ? "شامل ہو گیا!" : "Added!", 3000);
+          setTimeout(() => {
+            this.userForm.resetForm();
+            this.routerRef.navigate(['/users/view']);
+          }, 3000);
         },
         error: () => {
           this.snackService.error(

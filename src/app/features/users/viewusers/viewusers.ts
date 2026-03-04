@@ -13,6 +13,7 @@ import { Formservice } from '../adduser/services/formservice';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { TranslationService } from '@app/core/services/translate.service';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 
 @Component({
   selector: 'app-viewusers',
@@ -35,10 +36,10 @@ export class Viewusers implements OnInit {
   private destroyRef = inject(DestroyRef);
   private httpService = inject(Httpservice);
   private userFormService = inject(Formservice);
-  // private loaderService = inject(Loaderservice);
   private snackService = inject(SnackBarService);
   private dataFetchService = inject(DataFetchService);
   private translationService = inject(TranslationService);
+  private tickAnimationService = inject(TickAnimationService);
 
   constructor() {
 
@@ -74,7 +75,6 @@ export class Viewusers implements OnInit {
   }
 
   private loadUsers() {
-    // this.loaderService.showLoader();
 
     this.dataFetchService.sharedUserData()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -91,7 +91,6 @@ export class Viewusers implements OnInit {
           //     'top-right'
           //   );
           // }
-          // this.loaderService.hideLoader();
         },
         error: () => {
           this.snackService.error(
@@ -99,14 +98,11 @@ export class Viewusers implements OnInit {
             2000,
             'top-right'
           );
-          // this.loaderService.hideLoader();
         }
       });
   }
 
   deleteUserData(val: User) {
-    // this.loaderService.showLoader();
-
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
         this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
@@ -117,19 +113,72 @@ export class Viewusers implements OnInit {
 
         this.userData.set(updated); //component data update
         this.dataFetchService.refreshData("users", updated); // shared data update for other components
-        // this.loaderService.hideLoader();
+        this.tickAnimationService.show(this.isRTL ? "حذف ہو گیا!" : "Deleted!", 3000);
       },
       error: (err) => {
-        // this.loaderService.hideLoader();
         this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'bottom-right');
       }
-    })
+    });
+  }
+
+  deleteAllUserData(selectedItems: User[]) {
+
+    console.log("Selected items to delete:", selectedItems);
+    if (!selectedItems.length) return;
+
+    // Create a queue of ids to delete
+    const idsToDelete = [...selectedItems.map(item => item.id)];
+    let deletedCount = 0;
+
+    const deleteNext = (index: number) => {
+      if (index >= idsToDelete.length) {
+        // ✅ All done — show tick animation once at the end
+        this.tickAnimationService.show(this.isRTL ? "حذف ہو گیا!" : "Deleted!", 3000);
+        selectedItems = []; // clear selection
+        return;
+      }
+
+      const id = idsToDelete[index];
+
+      this.httpService.delApi(this.url, id).subscribe({
+        next: (res) => {
+          deletedCount++;
+
+          // Update local data after each deletion
+          const updated = this.userData().filter(p => p.id !== id);
+          this.userData.set(updated);
+          this.dataFetchService.refreshData("users", updated);
+
+          // Show snack per item OR just once at the end — your choice
+          this.snackService.success(
+            this.isRTL
+              ? `ڈیٹا کامیابی سے حذف ہو گیا! (${deletedCount}/${idsToDelete.length})`
+              : `Deleted ${deletedCount} of ${idsToDelete.length}`,
+            2000, 'bottom-right'
+          );
+
+          // 👇 Delete next item after this one succeeds
+          deleteNext(index + 1);
+        },
+        error: (err) => {
+          this.snackService.error(
+            this.isRTL ? "سرور کی خرابی!" : `Failed to delete item ${index + 1}`,
+            2000, 'bottom-right'
+          );
+
+          // ⚠️ Decide: stop on error OR continue to next
+          // To STOP:  return;
+          // To CONTINUE anyway:
+          deleteNext(index + 1);
+        }
+      });
+    };
+
+    deleteNext(0); // kick off the chain
   }
 
   editUserData(val: User) {
-    // this.loaderService.showLoader();
     this.userFormService.patchFormData(val);
-    // this.loaderService.hideLoader();
     this.routerRef.navigate(['users/add']);
   }
 
