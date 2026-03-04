@@ -123,13 +123,13 @@ export class DataFetchService {
     type: 'users' | 'products',
     data: User[] | product[],
   ) {
-    this.loaderService.showLoader();
+    // this.loaderService.showLoader();
     if (type === 'users') {
       this.userData$.next(data as User[]);
     } else {
       this.productData$.next(data as product[]);
     }
-    this.loaderService.hideLoader();
+    // this.loaderService.hideLoader();
   }
 
   // Optional manual refresh
