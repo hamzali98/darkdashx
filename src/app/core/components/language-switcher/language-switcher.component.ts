@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslationService, Language } from '@app/core/services/translate.service';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { TranslateModule } from '@ngx-translate/core';
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 
 @Component({
   selector: 'app-language-switcher',
@@ -33,7 +34,8 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class LanguageSwitcherComponent {
 
-  translationService = inject(TranslationService);
+  private translationService = inject(TranslationService);
+  private tickANimationService = inject(TickAnimationService);
 
   currentLang$ = this.translationService.currentLang$;
 
@@ -41,5 +43,9 @@ export class LanguageSwitcherComponent {
 
   switchLanguage(lang: Language): void {
     this.translationService.setLanguage(lang);
+    // if (lang === 'en') {
+    //   this.tickANimationService.show();
+    // }
+    this.tickANimationService.show(lang === 'en' ? 'language switched to english' : 'زبان اردو میں بدل گئی۔', 3000);
   }
 }
