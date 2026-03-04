@@ -231,5 +231,6 @@
     "Digital": "Digital",
     "Cosmetics": "Cosmetics",
     "Electric": "Electric",
-    "Network": "Network"
+    "Network": "Network",
+    "EXPORT_SUCCESS": "Data exported successfully!"
 }
