@@ -161,3 +161,11 @@ input[type="date"] {
     transform: scale(1);
   }
 }
+
+/* ✅ Hide the native browser eye icon */
+input::-ms-reveal,
+input::-ms-clear,
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+  display: none;
+}
