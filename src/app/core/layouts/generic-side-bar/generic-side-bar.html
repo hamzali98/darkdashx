@@ -8,10 +8,8 @@
             <app-language-switcher></app-language-switcher>
             }
             @if(sidebar){
-            <button 
-            [appTooltip]="'close side bar' | translate"
-            tooltipPosition="top"
-            type="button" class="cursor-pointer" (click)="toggleSidebar()">
+            <button [appTooltip]="'close side bar' | translate" tooltipPosition="top" type="button"
+                class="cursor-pointer" (click)="toggleSidebar()">
                 <span>
                     <img class=" shrink-0" src="assets/icons/neutral/doublearrows.svg" alt="a">
                 </span>
@@ -95,8 +93,8 @@
         <!-- <div class="border-b-[0.1px] text-gray-500/50 dark:border-b-gray-800"></div> -->
         <!-- settings div -->
         <div class="flex flex-col gap-5 w-auto h-auto px-5 py-7
-    border-t-[0.1px] text-gray-500/50 dark:border-t-gray-800 bg-inherit
-    ">
+            border-t-[0.1px] text-gray-500/50 dark:border-t-gray-800 bg-inherit
+            ">
             <div>
                 <button type="button" [disabled]="open === 'settings'"
                     class="flex flex-row items-center w-full justify-between cursor-pointer"
@@ -134,9 +132,9 @@
                         </div>
                     </div>
                 </button>
-                @if(!sidebar){
-                <app-logout-btn [size]="'size-7'" ></app-logout-btn>
-                }
+                <!-- @if(!sidebar){
+                    <app-logout-btn [size]="'size-7'" ></app-logout-btn>
+                } -->
             </div>
             <!-- <div>
                 <button class="grad w-full h-11.5 rounded-sm
@@ -148,6 +146,18 @@
                 </button>
             </div> -->
         </div>
+    </div>
+    <div 
+    [ngClass]="sidebar ? 'justify-center' : 'justify-between' "
+    class="flex flex-row gap-1 items-center w-auto h-auto py-2 px-5 mt-auto">
+        <div class="flex flex-col gap-1 justify-center items-center w-auto h-auto ">
+            <span class="text-white text-[8px]">Powerd by FrontEnd team</span>
+            <img class="inline h-6" src="assets/01.png" />
+            <app-footer></app-footer>
+        </div>
+        @if(!sidebar){
+        <app-logout-btn></app-logout-btn>
+        }
     </div>
 
 </div>
