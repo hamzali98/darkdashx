@@ -11,23 +11,25 @@ import { AuthService } from '../../services/auth-service';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
+import { Footer } from "@app/core/layouts/footer/footer";
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, TranslateModule, LanguageSwitcherComponent],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, TranslateModule, LanguageSwitcherComponent, Footer],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
 export class LoginPage {
 
-  data: credentials[] = [];
   isRTL: boolean;
-
+  showPass = false;
+  remember: boolean = false;
+  
+  data: credentials[];
   loginForm: FormGroup;
 
   authUrl = environment.AUTH_URL;
 
-  remember: boolean = false;
 
   private httpService = inject(Httpservice);
   private snackService = inject(SnackBarService);
@@ -38,6 +40,7 @@ export class LoginPage {
 
 
   constructor() {
+    this.data = [];
     this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.loginForm = new FormGroup({
       email: new FormControl("", Validators.required),

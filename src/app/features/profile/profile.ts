@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { FormControl, FormGroup, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { credentials } from '@app/core/auth/interface/credentials';
 import { AuthService } from '@app/core/auth/services/auth-service';
@@ -10,9 +10,8 @@ import { PasswordCheck } from '@app/shared/services/password-check/password-chec
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { customEmailValidator } from '@app/shared/validators/email-validator';
 import { environment } from '@environments/environment.development';
-import { BehaviorSubject, debounceTime, delay, fromEvent, map, timeout } from 'rxjs';
+import { delay, map } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from '@app/core/components/language-switcher/language-switcher.component';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
@@ -30,6 +29,10 @@ export interface profilesociallinkbtns {
 })
 export class Profile implements OnInit, OnDestroy {
   // isRTL: boolean;
+
+  showOldPass = false;
+  showPass = false;
+  showCPass = false;
 
   smsOn = false;
   tfaOn = false;

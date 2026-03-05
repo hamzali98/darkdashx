@@ -1,0 +1,49 @@
+<div class="flex flex-col w-full ">
+
+    <!-- Trigger -->
+    <div class="relative w-full">
+        <button type="button" (click)="toggle()" class="h-11 w-full lg:w-86 border rounded-sm px-4 text-sm font-light
+                bg-card-bg text-figma-neutral flex items-center justify-between
+                outline-0 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            [disabled]="isDisabled()" [ngClass]="{
+                'border-red-500':   hasError,
+                'border-green-500': isValid && !hasError,
+                'border-gray-600':  !hasError && !isValid
+                }">
+            <span [class.text-neutral-400]="!selectedOption()">
+                {{ selectedOption() ? (selectedOption()!.key | translate) : (placeholder | translate) }}
+            </span>
+
+            <!-- Arrow -->
+            <svg [class.rotate-180]="isOpen()" class="transition-transform duration-200 shrink-0" width="16" height="16"
+                viewBox="0 0 24 24" fill="none" stroke="#cb3cff" stroke-width="2" stroke-linecap="round">
+                <polyline points="6 9 12 15 18 9" />
+            </svg>
+        </button>
+
+        <!-- Options List -->
+        @if(isOpen()) {
+        <ul class="absolute z-50 w-full mt-1 border border-gray-600 rounded-sm
+                bg-card-bg shadow-lg max-h-52 overflow-y-auto">
+            @for(option of options; track option.value) {
+            <li (click)="select(option)"
+                class="px-4 py-2.5 text-sm font-light cursor-pointer transition-colors duration-150" [ngClass]="selectedOption()?.value === option.value
+                    ? 'bg-primary text-white'
+                    : 'text-figma-neutral hover:bg-primary/20 hover:text-primary'">
+                {{ option.key | translate }}
+            </li>
+            }
+        </ul>
+        }
+    </div>
+
+    <!-- Validation Messages -->
+    @if(hasError && errorMessage) {
+    <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{ errorMessage | translate }}</span>
+    } @else if(isValid) {
+    <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{ validMessage | translate }}</span>
+    } @else if(hintMessage) {
+    <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{ hintMessage | translate }}</span>
+    }
+
+</div>

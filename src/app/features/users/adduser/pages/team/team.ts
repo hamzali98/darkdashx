@@ -1,9 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { finalize } from 'rxjs';
 import { Formservice } from '../../services/formservice';
-import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { CompanyListService } from '@app/shared/services/companylist/company-list-service';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
@@ -15,15 +13,15 @@ import { NgClass } from '@angular/common';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
+import { CustomSelect } from "@app/shared/components/custom-select/custom-select";
 
 @Component({
   selector: 'app-team',
-  imports: [ReactiveFormsModule, FormsModule, TranslateModule, NgClass],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule, CustomSelect],
   templateUrl: './team.html',
   styleUrl: './team.css',
 })
 export class Team {
-
 
   url: string = environment.USER_URL;
 
@@ -35,7 +33,6 @@ export class Team {
   private routerRef = inject(Router);
   private userForm = inject(Formservice);
   private httpService = inject(Httpservice);
-  private loaderService = inject(Loaderservice);
   private snackService = inject(SnackBarService);
   private dataFetchService = inject(DataFetchService);
   private companyListService = inject(CompanyListService);

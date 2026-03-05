@@ -84,18 +84,19 @@ export class DataFetchService {
       }
     );
   }
-
+  
   // 🔥 Generic reusable method
   private fetchData<T>(
     url: string,
     subject: BehaviorSubject<T[]>,
     messages: { success: string; empty: string; error: string }
   ) {
-    this.loaderService.showLoader();
+    // this.loaderService.showLoader();
     this.httpService.getApi(url)
       .pipe(
         finalize(() => {
-          this.loaderService.hideLoader();
+          
+          // this.loaderService.hideLoader();
         }),
         take(1)
       )
@@ -108,7 +109,7 @@ export class DataFetchService {
           } else {
             this.snackService.success(messages.success, 2000, 'top-right');
           }
-
+          
           subject.next(data);
         },
         error: () => {

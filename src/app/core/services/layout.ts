@@ -8,7 +8,7 @@ import { AuthService } from '../auth/services/auth-service';
   providedIn: 'root',
 })
 export class Layout<T> implements OnInit {
-  
+
   private isSidebarOpenSubject = new BehaviorSubject<boolean>(false);
   isSidebarOpen$ = this.isSidebarOpenSubject.asObservable();
 
@@ -20,13 +20,13 @@ export class Layout<T> implements OnInit {
   private routerRef = inject(Router);
   private authService = inject(AuthService);
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     // console.log("ng on init");
     const route = this.routerRef.routerState.snapshot.url.toString();
     // console.log('active route', route);
-    const rout : any = route.split('/').at(1);
+    const rout: any = route.split('/').at(1);
     // console.log(rout);
     this.onOpen(rout?.toString());
     // if (route.startsWith('/users')) {
@@ -36,11 +36,11 @@ export class Layout<T> implements OnInit {
     // } else if (route.startsWith('/profile')) {
     //   this.onOpen('profile');
     // } else {
-    //   this.onOpen('dashboard');
+    //   this.onOpen('');
     // }
   }
 
-  get username(){
+  get username() {
     return this.authService.getUser()?.username ?? "Guest";
   }
 
@@ -69,23 +69,22 @@ export class Layout<T> implements OnInit {
   //   }
   // }
   async openAndNavigate(section: string, route: string) {
-  const currentSection = this.open();
-  const navigateSuccess = await this.routerRef.navigate([route]);
-  
-  if(navigateSuccess){
-    // Always open the clicked section, don't toggle if already open
-    this.open.set(section);
-  } else if (currentSection !== section) {
-    // If navigation failed but it's a different section, still open it
-    this.open.set(section);
+    const currentSection = this.open();
+    const navigateSuccess = await this.routerRef.navigate([route]);
+
+    if (navigateSuccess) {
+      // Always open the clicked section, don't toggle if already open
+      this.open.set(section);
+    } else if (currentSection !== section) {
+      // If navigation failed but it's a different section, still open it
+      this.open.set(section);
+    }
   }
-}
 
   onOpen(section: string) {
-    if (section === '') {
-      this.open.set('home');
+    if (section === '' || section === "/" || section === "reports" || section === "tasks" || section === "products") {
+      this.open.set('/');
     } else {
-
       if (section === this.open()) {
         this.open.set(null);
       } else {
@@ -107,7 +106,7 @@ export class Layout<T> implements OnInit {
     return this.routerRef.url.includes(route);
   }
 
-  onLogout(){
+  onLogout() {
     this.authService.logout('manual');
   }
 }

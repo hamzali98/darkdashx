@@ -57,9 +57,20 @@
                         class="py-1 px-4 text-red-600 rtl:text-[14px] rtl:font-bold text-[12px] font-light">{{message}}</span>
                     }
                     }
-                    <input type="password" placeholder="••••••••••••••" name="oldpass" id="oldpass"
-                        [(ngModel)]="oldpass" [ngModelOptions]="{ standalone: true }" (ngModelChange)="passcheck()"
-                        class="outline-0 caret-figma-neutral text-figma-neutral ">
+                    <div class="relative flex flex-row items-center">
+                        <input [type]="showOldPass ? 'text' : 'password'" placeholder="••••••••••••••" name="oldpass"
+                            id="oldpass" [(ngModel)]="oldpass" [ngModelOptions]="{ standalone: true }"
+                            (ngModelChange)="passcheck()" class="outline-0 caret-figma-neutral text-figma-neutral ">
+                        <button class="absolute right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
+                            (click)="showOldPass = !showOldPass">
+                            @if(!showOldPass) {
+                            <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />
+                            }
+                            @if(showOldPass) {
+                            <img class="size-5" src="assets/icons/input_icons/closeeye.svg" alt="e" />
+                            }
+                        </button>
+                    </div>
                 </div>
                 <div
                     class="flex flex-row items-center justify-between px-2 border-e border-s border-gray-700 h-10 w-full">
@@ -73,8 +84,20 @@
                             class="py-1 px-4 rtl:text-[14px] rtl:font-bold text-[12px] font-light">{{passwordStrengthGetter}}</span>
                     </div>
                     }
-                    <input (input)="onPassChange()" type="password" placeholder="••••••••••••••"
-                        formControlName="password" class="outline-0 caret-figma-neutral text-figma-neutral ">
+                    <div class="relative flex flex-row items-center">
+                        <input (input)="onPassChange()" [type]="showPass ? 'text' : 'password'"
+                            placeholder="••••••••••••••" formControlName="password"
+                            class="outline-0 caret-figma-neutral text-figma-neutral ">
+                        <button class="absolute right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
+                            (click)="showPass = !showPass">
+                            @if(!showPass) {
+                            <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />
+                            }
+                            @if(showPass) {
+                            <img class="size-5" src="assets/icons/input_icons/closeeye.svg" alt="e" />
+                            }
+                        </button>
+                    </div>
                 </div>
                 <div
                     class="flex flex-row items-center justify-between px-2 rounded-b-md border border-gray-700 h-10 w-full">
@@ -91,9 +114,20 @@
                         | translate}}</span>
                     }
                     }
-                    <input type="password" placeholder="••••••••••••••" name="cnewpass" id="cnewpass"
-                        [(ngModel)]="cnfrmpass" [ngModelOptions]="{standalone:true}"
-                        class="outline-0 caret-figma-neutral text-figma-neutral ">
+                    <div class="relative flex flex-row items-center">
+                        <input [type]="showCPass ? 'text' : 'password'" placeholder="••••••••••••••" name="cnewpass"
+                            id="cnewpass" [(ngModel)]="cnfrmpass" [ngModelOptions]="{standalone:true}"
+                            class="outline-0 caret-figma-neutral text-figma-neutral ">
+                        <button class="absolute right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
+                            (click)="showCPass = !showCPass">
+                            @if(!showCPass) {
+                            <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />
+                            }
+                            @if(showCPass) {
+                            <img class="size-5" src="assets/icons/input_icons/closeeye.svg" alt="e" />
+                            }
+                        </button>
+                    </div>
                 </div>
             </div>
 

@@ -11,16 +11,20 @@ import { environment } from '@environments/environment.development';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
+import { Footer } from "@app/core/layouts/footer/footer";
 
 @Component({
   selector: 'app-signup-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule, LanguageSwitcherComponent],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule, LanguageSwitcherComponent, Footer],
   templateUrl: './signup-page.html',
   styleUrl: './signup-page.css',
 })
 export class SignupPage {
 
   isRTL: boolean;
+  showPass = false;
+  showCPass = false;
+
   AuthURL: string = environment.AUTH_URL;
 
   private routerRef = inject(Router);

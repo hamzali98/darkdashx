@@ -1,7 +1,8 @@
 <div class="lg:pr-10.5 ">
     <!-- Team information card -->
     <p class="text-white text-md font-normal font-worksans ">{{"TEAM_INFO"|translate}}</p>
-    <p class="text-figma-neutral text-sm font-medium tracking-normal ">{{"Please fill in user information"|translate}}</p>
+    <p class="text-figma-neutral text-sm font-medium tracking-normal ">{{"Please fill in user information"|translate}}
+    </p>
 
     <form [formGroup]="teamInfo" (ngSubmit)="onFormSubmit()">
 
@@ -16,7 +17,11 @@
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <select required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                        <app-custom-select formControlName="team_name" [options]="companyList" placeholder="Select Team"
+                            hintMessage="Select Team" errorMessage="Team Name Required!"
+                            [hasError]="team_name?.hasError('required') && !!team_name?.touched"
+                            [isValid]="!!team_name?.valid" />
+                        <!-- <select required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                         text-figma-neutral text-sm font-light invalid:border-red-500 
                         focus:border-primary bg-card-bg
                         " id="teamname" name="teamname" formControlName="team_name"
@@ -24,16 +29,19 @@
                         >
                             <option [ngValue]="null" disabled >{{"Select Team"|translate}}</option>
                             @for(items of companyList; track $index){
-                            <option [value]="items.value">{{(items.key |translate)}}</option>
+                            <option  [value]="items.value">{{(items.key |translate)}}</option>
                             }
-                        </select>
-                        @if(team_name?.hasError('required') && team_name?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Team Name Required!"|translate}}</span>
+                        </select> -->
+                        <!-- @if(team_name?.hasError('required') && team_name?.touched){
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">
+                            {{"Team Name Required!"|translate}} </span>
                         } @else if(team_name?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">
+                            {{'LOOKS_GOOD' | translate}} </span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"Select Team"|translate}}</span>
-                        }
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">
+                            {{"Select Team"|translate}} </span>
+                        } -->
                     </div>
                 </div>
             </div>
@@ -55,11 +63,14 @@
                         placeholder:text-figma-neutral placeholder:text-sm " formControlName="team_rank" type="text"
                             id="rank" name="rank" placeholder="{{'Enter Team Rank'|translate}}">
                         @if(team_rank?.hasError('required') && team_rank?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Team Rank Required!"|translate}}</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">
+                            {{"Team Rank Required!"|translate}}</span>
                         } @else if(team_rank?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">
+                            {{'LOOKS_GOOD' | translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"Enter Team Rank"|translate}}</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">
+                            {{"Enter Team Rank"|translate}}</span>
                         }
                     </div>
                 </div>
@@ -82,11 +93,14 @@
                         placeholder:text-figma-neutral placeholder:text-sm " formControlName="team_office" type="text"
                             id="office" name="office" placeholder="{{'Enter Team Office'|translate}}">
                         @if(team_office?.hasError('required') && team_office?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Team Office Required!"|translate}}</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">
+                            {{"Team Office Required!"|translate}}</span>
                         } @else if(team_office?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">
+                            {{'LOOKS_GOOD' | translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"Enter Team Office"|translate}}</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">
+                            {{"Enter Team Office"|translate}}</span>
                         }
                     </div>
                 </div>
@@ -108,13 +122,17 @@
                         placeholder:text-figma-neutral placeholder:text-sm " formControlName="team_mail" type="text"
                             id="mail" name="mail" placeholder="{{'Enter Team mail'|translate}}">
                         @if(team_mail?.hasError('required') && team_mail?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Team Mail Required!"|translate}}</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">
+                            {{"Team Mail Required!"|translate}}</span>
                         } @else if (team_mail?.hasError('invalidEmail')) {
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"Team Mail Not Valid!"|translate}}</span>
+                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">
+                            {{"Team Mail Not Valid!"|translate}}</span>
                         } @else if(team_mail?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' | translate}}</span>
+                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">
+                            {{'LOOKS_GOOD' | translate}}</span>
                         } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"Enter Team Mail"|translate}}</span>
+                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">
+                            {{"Enter Team Mail"|translate}}</span>
                         }
                     </div>
                 </div>
@@ -122,7 +140,8 @@
         </div>
         <div class=" flex justify-end mt-10">
             <button [disabled]="userFormSubmit.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer
-            disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] disabled:cursor-not-allowed " type="submit">
+            disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] disabled:cursor-not-allowed "
+                type="submit">
                 {{userformEditing ? ("Edit User"|translate) : ("Add User"|translate)}}
             </button>
         </div>

@@ -19,4 +19,8 @@ export class SearchBar {
   updateSearchKey(key: string | null | undefined){
   this.searchKey.set(key || "");
 }
+
+clearText(){
+  this.searchKey.set("");
+}
 }

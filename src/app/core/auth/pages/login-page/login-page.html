@@ -1,5 +1,5 @@
 <div class="flex flex-col justify-center items-center min-h-screen overflow-auto p-2 md:p-0
-        bg-primary-bg">
+        bg-[url('/assets/lgbg.png')] bg-no-repeat bg-cover">
 
     <div class="relative p-0">
         <!-- The glowing gradient background layer -->
@@ -60,14 +60,25 @@
                             </label>
                         </div>
                         <div class="flex flex-col w-full lg:w-auto">
-                            <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                            <div class="relative flex flex-row items-center">
+                                <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                                 text-figma-neutral text-sm font-light
                                 invalid:border-red-500 invalid:caret-red-500
                                 valid:border-green-500 valid:caret-green-500
                                 focus:border-primary caret-primary
                                 placeholder:text-figma-neutral placeholder:text-sm " autocomplete="current-password"
-                                formControlName="password" type="password" id="password" name="password"
-                                placeholder="{{'ENTER_PASSWORD' | translate}}">
+                                    formControlName="password" [type]="showPass ? 'text' : 'password'" id="password"
+                                    name="password" placeholder="{{'ENTER_PASSWORD' | translate}}">
+                                <button class="absolute right-3 bg-none cursor-pointer p-0 flex align-middle" 
+                                type="button" (click)="showPass = !showPass">
+                                    @if(!showPass) {
+                                    <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />
+                                    }
+                                    @if(showPass) {
+                                    <img class="size-5" src="assets/icons/input_icons/closeeye.svg" alt="e" />
+                                    }
+                                </button>
+                            </div>
                             @if(password?.hasError('required') && password?.touched) {
                             <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'PASSWORD_REQUIRED' |
                                 translate}}</span>
@@ -111,5 +122,6 @@
             </div>
         </form>
     </div>
+    <app-footer></app-footer>
 
 </div>

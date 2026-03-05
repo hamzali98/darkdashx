@@ -2,7 +2,6 @@ import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { sidenavcols } from '@app/core/interface/generic-side-nav-interface';
-import { AuthService } from '@app/core/auth/services/auth-service';
 import { MainLogo } from "@app/core/components/main-logo/main-logo";
 import { Layout } from '@app/core/services/layout';
 import { LogoutBtn } from "@app/core/components/logout-btn/logout-btn";
@@ -10,14 +9,17 @@ import { LanguageSwitcherComponent } from "@app/core/components/language-switche
 import { TranslateModule } from '@ngx-translate/core';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { Footer } from "../footer/footer";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-generic-side-bar',
-  imports: [RouterLink, NgClass, MainLogo, LogoutBtn, LanguageSwitcherComponent, TranslateModule, TooltipDirective, Footer],
+  imports: [RouterLink, NgClass, MainLogo, LogoutBtn, LanguageSwitcherComponent, TranslateModule, TooltipDirective, Footer, FormsModule],
   templateUrl: './generic-side-bar.html',
   styleUrl: './generic-side-bar.css',
 })
 export class GenericSideBar<T> implements OnInit {
+
+  searchKey = signal("");
 
   @Input() navData: sidenavcols<T>[] = [];
 
@@ -44,6 +46,10 @@ export class GenericSideBar<T> implements OnInit {
 
   get sidebar() {
     return this.layoutService.getSidebarState();
+  }
+
+  clearText(){
+    this.searchKey.set("");
   }
 
   openAndNavigate(section: string, route: string) {

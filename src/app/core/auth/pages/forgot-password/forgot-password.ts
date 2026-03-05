@@ -12,10 +12,11 @@ import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
+import { Footer } from "@app/core/layouts/footer/footer";
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule, LanguageSwitcherComponent],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule, LanguageSwitcherComponent, Footer],
   templateUrl: './forgot-password.html',
   styleUrl: './forgot-password.css',
 })
@@ -23,6 +24,9 @@ export class ForgotPassword implements OnDestroy {
 
   flag: boolean = false;
   isRTL: boolean;
+  
+  showPass = false;
+  showCPass = false;
 
   email: string = '';
   color: string = '';

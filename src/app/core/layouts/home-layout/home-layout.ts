@@ -29,10 +29,10 @@ export class HomeLayout implements OnInit {
   constructor() {
     this.sideCols = [
       {
-        routePath: 'home', tileName: "DASHBOARD",
+        routePath: '/', tileName: "DASHBOARD",
         coloredIcon: "assets/icons/colored/homeicon.svg",
         uncoloredIcon: "assets/icons/uncolored/homeicon.svg",
-        iconsAlt: "home", topPadding: "pt-7",
+        iconsAlt: "/", topPadding: "pt-7",
         routeNames: ["HOME", "REPORTS", "TASKS", "PRODUCTS"],
         routeLink: ["/", "/reports", "/tasks", "/products"]
       },
