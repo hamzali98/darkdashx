@@ -142,7 +142,7 @@ export class ForgotPassword implements OnDestroy {
             this.user = {} as credentials;
             this.snackService.success(this.isRTL ? "پاس ورڈ ری سیٹ کامیاب ہو گیا!" : "Password reset successfull!", 2000, 'top-center');
             this.loaderService.hideLoader();
-            this.routerRef.navigate(['/login']);
+            this.routerRef.navigate(['/auth/login']);
           } else {
             this.snackService.error(this.isRTL ? "کچھ غلط ہو گیا!" : "Something went wrong!", 2000, 'top-center');
           }

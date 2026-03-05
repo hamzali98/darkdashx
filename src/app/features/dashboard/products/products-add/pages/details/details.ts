@@ -76,7 +76,7 @@ export class Details {
 
             setTimeout(() => {
               this.prodcutFormService.resetForm();
-              this.routerRef.navigate(['/home/products']);
+              this.routerRef.navigate(['/products']);
             }, 2000);
           },
           error: (err) => {
@@ -102,7 +102,7 @@ export class Details {
             
             setTimeout(() => {
               this.prodcutFormService.resetForm();
-              this.routerRef.navigate(['/home/products']);
+              this.routerRef.navigate(['/products']);
             }, 2000);
           },
           error: (err) => {

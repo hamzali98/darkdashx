@@ -93,7 +93,7 @@ export class SignupPage {
           // console.log(res);
           this.snackService.success(this.isRTL ? "اکاؤنٹ کامیابی سے بنایا گیا!" : "Account created successfully!", 2000, 'bottom-center');
           this.loaderService.hideLoader();
-          this.routerRef.navigate(['/login']);
+          this.routerRef.navigate(['/auth/login']);
         },
         error: (err) => {
           // console.log(err);

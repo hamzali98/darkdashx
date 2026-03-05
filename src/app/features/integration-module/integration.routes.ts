@@ -1,16 +1,13 @@
 import { Routes } from '@angular/router';
-import { AddIntegration } from './add-integration/add-integration';
-import { ViewIntegration } from './view-integration/view-integration';
 
 export const integrationRoutes: Routes = [
     {
         path: 'add',
-        component: AddIntegration,
+        loadComponent: () => import('./add-integration/add-integration').then(m => m.AddIntegration),
     },
     {
         path: 'view',
-        component: ViewIntegration,
-        pathMatch: 'full',
+        loadComponent: () => import('./view-integration/view-integration').then(m => m.ViewIntegration),
     },
 ];
 

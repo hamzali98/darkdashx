@@ -1,16 +1,13 @@
 import { Routes } from '@angular/router';
-import { AddFeatures } from './add-features/add-features';
-import { ViewFeatures } from './view-features/view-features';
 
 export const featuresRoutes: Routes = [
     {
         path: 'add',
-        component: AddFeatures,
+        loadComponent: () => import('./add-features/add-features').then(m => m.AddFeatures),
     },
     {
         path: 'view',
-        component: ViewFeatures,
-        pathMatch: 'full',
+        loadComponent: () => import('./view-features/view-features').then(m => m.ViewFeatures),
     },
 ];
 

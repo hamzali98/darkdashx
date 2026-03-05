@@ -1,111 +1,30 @@
 import { Routes } from '@angular/router';
 import { HomeLayout } from './core/layouts/home-layout/home-layout';
-import { Dashboard } from './features/dashboard/dashboard';
-import { Settings } from './features/settings/settings';
-import { Profile } from './features/profile/profile';
-import { LoginPage } from './core/auth/pages/login-page/login-page';
-import { SignupPage } from './core/auth/pages/signup-page/signup-page';
 import { authGuardGuard } from './core/auth/guard/auth-guard-guard';
-import { NotFound } from './features/not-found/not-found';
-import { ReportIssue } from './features/report-issue/report-issue';
-import { ForgotPassword } from './core/auth/pages/forgot-password/forgot-password';
-import { roleGuard } from './shared/guards/role-guard';
-import { UnderDevelopment } from './shared/components/under-development/under-development';
+import { authSessionGuard } from './core/auth/guard/auth-session-guard';
 
 export const routes: Routes = [
-    // {
-    //     path:'',
-    //     redirectTo: 'dashboard',
-    //     pathMatch: "full"
-    // },
     {
         path: '',
         component: HomeLayout,
         canActivate: [authGuardGuard],
-        children: [
-            {
-                path: '',
-                canActivate: [authGuardGuard],
-                // component: Dashboard,
-                loadChildren: () => import('./features/dashboard/dashboard.routes')
-                    .then(r => r.dashboardRoutes),
-            },
-            {
-                path: 'users',
-                canActivate: [authGuardGuard, roleGuard],
-                loadChildren: () => import('./features/users/users.routes').then(v => v.userRoutes)
-            },
-            {
-                path: 'features',
-                canActivate: [authGuardGuard],
-                loadChildren: () => import('./features/features-module/features.routes').then(v=>v.featuresRoutes)
-            },
-            {
-                path: 'pricing',
-                canActivate: [authGuardGuard],
-                loadChildren: () => import('./features/pricing-module/pricing.routes').then(v=>v.pricingRoutes)
-            },
-            {
-                path: 'integrations',
-                canActivate: [authGuardGuard],
-                loadChildren: () => import('./features/integration-module/integration.routes').then(v=>v.integrationRoutes)
-            },
-            {
-                path: 'underdev',
-                canActivate: [authGuardGuard],
-                component: UnderDevelopment,
-            },
-            {
-                path: 'settings',
-                canActivate: [authGuardGuard],
-                component: Settings,
-            },
-            {
-                path: 'profile',
-                canActivate: [authGuardGuard],
-                component: Profile
-            }
-        ]
+        loadChildren: () => import('./features/features.routes').then(v => v.featuresRoutes),
     },
     {
-        path: "login",
-        component: LoginPage
-    },
-    {
-        path: "forgot",
-        component: ForgotPassword,
-    },
-    {
-        path: "signup",
-        component: SignupPage,
+        path: "auth",
+        canActivate: [authSessionGuard],
+        loadChildren: () => import('./core/auth/auth.routes').then(v => v.authRoutes),
     },
     {
         path: "report-issue",
-        component: ReportIssue,
+        canActivate: [authGuardGuard],
+        loadComponent: () => import('./features/report-issue/report-issue').then(m => m.ReportIssue),
     },
     {
         path: "**",
-        component: NotFound,
+        canActivate: [authGuardGuard],
+        loadComponent: () => import('./features/not-found/not-found').then(m => m.NotFound),
     },
-    //     // Admin area using another layout
-    //   {
-    //         path: 'admin',
-    //         component: AdminLayoutComponent,
-    //         children: [
-    //             {
-    //                 path: '',
-    //                 loadChildren: () =>
-    //                     import('./features/admin/admin.module').then(m => m.AdminModule)
-    //             }
-    //         ]
-    //     },
-
-    //     // Auth pages without any layout
-    //     {
-    //         path: 'auth',
-    //         loadChildren: () =>
-    //             import('./features/auth/auth.module').then(m => m.AuthModule)
-    //     }
 ];
 
 

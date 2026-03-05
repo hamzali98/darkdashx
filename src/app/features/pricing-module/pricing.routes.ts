@@ -1,16 +1,13 @@
 import { Routes } from '@angular/router';
-import { AddPricing } from './add-pricing/add-pricing';
-import { ViewPricing } from './view-pricing/view-pricing';
 
 export const pricingRoutes: Routes = [
     {
         path: 'add',
-        component: AddPricing,
+        loadComponent: () => import('./add-pricing/add-pricing').then(m => m.AddPricing),
     },
     {
         path: 'view',
-        component: ViewPricing,
-        pathMatch: 'full',
+        loadComponent: () => import('./view-pricing/view-pricing').then(m => m.ViewPricing),
     },
 ];
 

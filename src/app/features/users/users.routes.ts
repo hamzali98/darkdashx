@@ -1,14 +1,9 @@
 import { Routes } from '@angular/router';
-import { Adduser } from './adduser/adduser';
-import { Viewusers } from './viewusers/viewusers';
-import { PersonalInformation } from './adduser/pages/personal-information/personal-information';
-import { Team } from './adduser/pages/team/team';
-import { BasicInfo } from './adduser/pages/basic-info/basic-info';
+
 export const userRoutes: Routes = [
     {
         path: 'add',
-        component: Adduser,
-        // pathMatch: 'full',
+        loadComponent: () => import('./adduser/adduser').then(m => m.Adduser),
         children:[
             {
                 path: '',
@@ -17,22 +12,21 @@ export const userRoutes: Routes = [
             },
             {
                     path: "1",
-                    component: PersonalInformation
+                    loadComponent: () => import('./adduser/pages/personal-information/personal-information').then(m => m.PersonalInformation),
                 },
                 {
                     path: "2",
-                    component: BasicInfo
+                    loadComponent: () => import('./adduser/pages/basic-info/basic-info').then(m => m.BasicInfo),
                 },
                 {
                     path: "3",
-                    component: Team
+                    loadComponent: () => import('./adduser/pages/team/team').then(m => m.Team),
                 },
         ]
     },
     {
         path: 'view',
-        component: Viewusers,
-        pathMatch: 'full',
+        loadComponent: () => import('./viewusers/viewusers').then(m => m.Viewusers),
     },
 ];
 

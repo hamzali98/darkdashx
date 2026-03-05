@@ -7,6 +7,7 @@ import { Header } from "../header/header";
 import { Subject, takeUntil } from 'rxjs';
 import { Layout } from '@app/core/services/layout';
 import { TranslationService } from '@app/core/services/translate.service';
+
 @Component({
   selector: 'app-home-layout',
   imports: [RouterOutlet, GenericSideBar, Header, NgClass],
@@ -33,7 +34,7 @@ export class HomeLayout implements OnInit {
         uncoloredIcon: "assets/icons/uncolored/homeicon.svg",
         iconsAlt: "home", topPadding: "pt-7",
         routeNames: ["HOME", "REPORTS", "TASKS", "PRODUCTS"],
-        routeLink: ["/", "/home/reports", "/home/tasks", "/home/products"]
+        routeLink: ["/", "/reports", "/tasks", "/products"]
       },
       {
         routePath: 'users', tileName: "USERS",

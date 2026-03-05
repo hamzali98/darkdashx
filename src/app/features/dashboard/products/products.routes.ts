@@ -1,11 +1,9 @@
 import { Routes } from '@angular/router';
-import { ProductsAdd } from './products-add/products-add';
-import { BaseInfo } from './products-add/pages/base-info/base-info';
-import { Details } from './products-add/pages/details/details';
+
 export const productAddRoutes: Routes = [
     {
         path: '',
-        component: ProductsAdd,
+        loadComponent: () => import('./products-add/products-add').then(m => m.ProductsAdd),
         children: [
             {
                 path: '',
@@ -14,15 +12,11 @@ export const productAddRoutes: Routes = [
             },
             {
                 path: "1",
-                component: BaseInfo,
-                pathMatch: 'full'
-
+                loadComponent: () => import('./products-add/pages/base-info/base-info').then(m => m.BaseInfo),
             },
             {
                 path: "2",
-                component: Details,
-                pathMatch: 'full'
-
+                loadComponent: () => import('./products-add/pages/details/details').then(m => m.Details),
             },
         ]
     },

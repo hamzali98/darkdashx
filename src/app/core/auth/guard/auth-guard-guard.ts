@@ -64,6 +64,6 @@ export const authGuardGuard: CanActivateFn = (route, state) => {
   //   authService.clearLogoutReason();
   // }
   
-  router.navigate(['/login']);
+  router.navigate(['/auth/login']);
   return false;
 };

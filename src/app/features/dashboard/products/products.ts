@@ -64,7 +64,7 @@ export class Products implements OnInit {
   }
 
   goToroute() {
-    this.routerRef.navigate(['home/products/add']);
+    this.routerRef.navigate(['/products/add']);
   }
 
   private loadProducts() {

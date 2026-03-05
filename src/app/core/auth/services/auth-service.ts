@@ -212,7 +212,7 @@ export class AuthService {
     localStorage.removeItem('remember_me');
 
     this.loaderService.hideLoader();
-    this.routerRef.navigate(['/login']);
+    this.routerRef.navigate(['/auth/login']);
 
     // this.tickAnimationService.show(isRTL ? "لاگ آؤٹ ہو گیا!" : "Logged out!", 2000);
     // this.tickAnimationService.show("",2000);

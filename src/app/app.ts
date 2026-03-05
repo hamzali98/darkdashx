@@ -60,6 +60,6 @@ export class App implements OnInit {
   sessionRejoin() {
     this.dialogService.close();
     // this.authService.logout();
-    this.routerRef.navigate(['/login']);
+    this.routerRef.navigate(['/auth/login']);
   }
 }
