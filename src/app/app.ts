@@ -47,7 +47,7 @@ export class App implements OnInit {
     // this.translate.get('APP_TITLE').subscribe((res: string) => {
     //   this.title.setTitle(res);
     // });
-    this.translate.stream('APP_TITLE')
+    this.translate.stream('Tab_Title')
     .subscribe((res: string) => {
       this.title.setTitle(res);
     });
