@@ -12,10 +12,11 @@ import { finalize } from 'rxjs';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 import { product } from '../../../interface/product-interface';
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
+import { CustomDate } from '@app/shared/components/custom-date/custom-date';
 
 @Component({
   selector: 'app-details',
-  imports: [ReactiveFormsModule, FormsModule, TranslateModule],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule, CustomDate],
   templateUrl: './details.html',
   styleUrl: './details.css',
 })
