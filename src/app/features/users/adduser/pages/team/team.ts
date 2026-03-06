@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Formservice } from '../../services/formservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
-import { CompanyListService } from '@app/shared/services/companylist/company-list-service';
+import { ListService } from '@app/shared/services/companylist/company-list-service';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
-import { companyInterface } from '@app/shared/interface/company';
+import { companyListInterface } from '@app/shared/interface/company-list.interface';
 import { User } from '@app/features/users/interface/user';
 import { environment } from '@environments/environment.development';
 import { TranslateModule } from '@ngx-translate/core';
@@ -24,7 +24,7 @@ export class Team {
 
   url: string = environment.USER_URL;
 
-  companyList: companyInterface[];
+  companiesList: companyListInterface[];
   teamInfo: FormGroup;
   userFormSubmit: FormGroup;
 
@@ -34,12 +34,12 @@ export class Team {
   private httpService = inject(Httpservice);
   private snackService = inject(SnackBarService);
   private dataFetchService = inject(DataFetchService);
-  private companyListService = inject(CompanyListService);
+  private listService = inject(ListService);
   private translationService = inject(TranslationService);
   private tickAnimationService = inject(TickAnimationService);
 
   constructor() {
-    this.companyList = this.companyListService.getCompanyList();
+    this.companiesList = this.listService.getCompanyList();
     this.userFormSubmit = this.userForm.getForm();
     this.teamInfo = this.userForm.getForm().get('team_info') as FormGroup;
     this.teamInfo.markAllAsTouched();

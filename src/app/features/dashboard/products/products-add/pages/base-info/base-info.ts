@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { FormService } from '../../service/form-service';
-import { productCategories } from '../../../interface/product-categories';
-import { companyInterface } from '@app/shared/interface/company';
-import { CompanyListService } from '@app/shared/services/companylist/company-list-service';
+import { companyListInterface } from '@app/shared/interface/company-list.interface';
+import { productListInterface } from '@app/shared/interface/product-list.interface';
+import { ListService } from '@app/shared/services/companylist/company-list-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomSelect } from '@app/shared/components/custom-select/custom-select';
 
@@ -16,11 +16,11 @@ import { CustomSelect } from '@app/shared/components/custom-select/custom-select
 export class BaseInfo implements OnInit {
 
   baseInfo: FormGroup;
-  productCategories: productCategories[];
-  companyList: companyInterface[];
+  productsList: productListInterface[];
+  companiesList: companyListInterface[];
 
   productForm = inject(FormService);
-  private companyListService = inject(CompanyListService);
+  private listService = inject(ListService);
 
   constructor() {
     this.productForm.getForm().valid ? this.productForm.editing.set(true) : this.productForm.editing.set(false);
@@ -28,16 +28,9 @@ export class BaseInfo implements OnInit {
     this.baseInfo = this.productForm.getForm().get('basic_info') as FormGroup;
     this.baseInfo.markAllAsTouched();
 
-    this.productCategories = [
-      { key: 'Accessories', value: 'accessories' },
-      { key: 'Telecomunication', value: 'telecomunication' },
-      { key: 'Note Book', value: 'note book' },
-      { key: 'Digital', value: 'digital' }, 
-      { key: 'Cosmetics', value: 'cosmetics' }, 
-      { key: 'Electric', value: 'electric' }, 
-      { key: 'Network', value: 'network' },
-    ];
-    this.companyList = this.companyListService.getCompanyList();
+    
+    this.companiesList = this.listService.getCompanyList();
+    this.productsList = this.listService.getProductList();
   }
   
   ngOnInit(): void {

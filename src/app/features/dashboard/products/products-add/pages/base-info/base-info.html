@@ -43,7 +43,7 @@
 
                         </label>
                     </div>
-                    <app-custom-select formControlName="product_category" [options]="productCategories" placeholder="SCAT"
+                    <app-custom-select formControlName="product_category" [options]="productsList" placeholder="SCAT"
                             hintMessage="SCAT" errorMessage="CATR"
                             [hasError]="product_category?.hasError('required') && !!product_category?.touched"
                             [isValid]="!!product_category?.valid" />
@@ -85,7 +85,7 @@
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
-                    <app-custom-select formControlName="product_company" [options]="companyList" placeholder="SCMP"
+                    <app-custom-select formControlName="product_company" [options]="companiesList" placeholder="SCMP"
                             hintMessage="SCMP" errorMessage="CMP"
                             [hasError]="product_company?.hasError('required') && !!product_company?.touched"
                             [isValid]="!!product_company?.valid" />

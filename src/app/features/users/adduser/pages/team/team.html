@@ -17,7 +17,7 @@
                         </label>
                     </div>
                     <div class="flex flex-col w-full lg:w-auto">
-                        <app-custom-select formControlName="team_name" [options]="companyList" placeholder="Select Team"
+                        <app-custom-select formControlName="team_name" [options]="companiesList" placeholder="Select Team"
                             hintMessage="Select Team" errorMessage="Team Name Required!"
                             [hasError]="team_name?.hasError('required') && !!team_name?.touched"
                             [isValid]="!!team_name?.valid" />
