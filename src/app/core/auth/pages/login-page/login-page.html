@@ -60,8 +60,8 @@
                             </label>
                         </div>
                         <div class="flex flex-col w-full lg:w-auto">
-                            <div class="relative flex flex-row items-center">
-                                <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
+                            <div class="relative flex flex-row justify-end items-center">
+                                <input required class="flex-1 h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                                 text-figma-neutral text-sm font-light
                                 invalid:border-red-500 invalid:caret-red-500
                                 valid:border-green-500 valid:caret-green-500
@@ -69,7 +69,9 @@
                                 placeholder:text-figma-neutral placeholder:text-sm " autocomplete="current-password"
                                     formControlName="password" [type]="showPass ? 'text' : 'password'" id="password"
                                     name="password" placeholder="{{'ENTER_PASSWORD' | translate}}">
-                                <button class="absolute right-3 bg-none cursor-pointer p-0 flex align-middle" 
+                                <button class="absolute bg-none cursor-pointer p-0 flex align-middle
+                                mx-2
+                                " 
                                 type="button" (click)="showPass = !showPass">
                                     @if(!showPass) {
                                     <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />

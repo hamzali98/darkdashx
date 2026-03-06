@@ -43,7 +43,11 @@
 
                         </label>
                     </div>
-                    <div class="flex flex-col w-full lg:w-auto">
+                    <app-custom-select formControlName="product_category" [options]="productCategories" placeholder="SCAT"
+                            hintMessage="SCAT" errorMessage="CATR"
+                            [hasError]="product_category?.hasError('required') && !!product_category?.touched"
+                            [isValid]="!!product_category?.valid" />
+                    <!-- <div class="flex flex-col w-full lg:w-auto">
                         <select required name="category" id="category" formControlName="product_category" class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                                 text-figma-neutral text-sm font-light bg-card-bg
                                 invalid:border-red-500  focus:border-primary
@@ -63,7 +67,7 @@
                         <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'SCAT' | translate}}
                         </span>
                         }
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
@@ -102,7 +106,11 @@
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
-                    <div class="flex flex-col w-full lg:w-auto">
+                    <app-custom-select formControlName="product_company" [options]="companyList" placeholder="SCMP"
+                            hintMessage="SCMP" errorMessage="CMP"
+                            [hasError]="product_company?.hasError('required') && !!product_company?.touched"
+                            [isValid]="!!product_company?.valid" />
+                    <!-- <div class="flex flex-col w-full lg:w-auto">
                         <select required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
                                 text-figma-neutral text-sm font-light selection:text-sm bg-card-bg
                                 invalid:border-red-500 focus:border-primary 
@@ -123,7 +131,7 @@
                         } @else {
                         <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'SCMP' | translate}}</span>
                         }
-                    </div>
+                    </div> -->
                 </div>
             </div>
 

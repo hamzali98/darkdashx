@@ -6,10 +6,11 @@ import { companyInterface } from '@app/shared/interface/company';
 import { CompanyListService } from '@app/shared/services/companylist/company-list-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgClass } from '@angular/common';
+import { CustomSelect } from '@app/shared/components/custom-select/custom-select';
 
 @Component({
   selector: 'app-base-info',
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule, NgClass],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule, NgClass, CustomSelect],
   templateUrl: './base-info.html',
   styleUrl: './base-info.css',
 })
