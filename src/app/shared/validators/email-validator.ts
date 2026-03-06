@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
-export function customEmailValidator (control: AbstractControl): ValidationErrors | null {
+export function customEmailValidator(control: AbstractControl): ValidationErrors | null {
   if (!control.value) return null;
 
   const emailRegex =

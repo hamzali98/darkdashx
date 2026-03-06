@@ -9,7 +9,7 @@ export class TickAnimationService {
   constructor(
     private appRef: ApplicationRef,
     private injector: EnvironmentInjector
-  ) {}
+  ) { }
 
   show(message = 'Success', duration = 2500): void {
     this.destroy(); // clean up any existing instance

@@ -13,13 +13,10 @@ import { TranslateModule } from '@ngx-translate/core';
 export class GenericChildNavBar {
 
   @Input() navTitle!: string;
-  @Input() navData! : childnav[];
+  @Input() navData!: childnav[];
   routerRef = inject(Router);
 
-   isActive(route: string): boolean {
-    // if (route === '') {
-    //   return this.routerRef.url === '/' || this.routerRef.url === '';
-    // }
+  isActive(route: string): boolean {
     return this.routerRef.url.includes(route);
   }
 }

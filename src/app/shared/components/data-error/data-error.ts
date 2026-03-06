@@ -6,6 +6,4 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './data-error.html',
   styleUrl: './data-error.css',
 })
-export class DataError {
-
-}
+export class DataError { }

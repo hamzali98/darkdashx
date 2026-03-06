@@ -1,4 +1,4 @@
-import { BehaviorSubject, finalize, take } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 import { inject, Injectable, signal } from '@angular/core';
 import { Httpservice } from '../httpservice/httpservice';
 import { SnackBarService } from '../snackbar/snack-bar-service';
@@ -6,7 +6,6 @@ import { TranslationService } from '@app/core/services/translate.service';
 import { environment } from '@environments/environment.development';
 import { User } from '@app/features/users/interface/user';
 import { product } from '@app/features/dashboard/products/interface/product-interface';
-import { Loaderservice } from '../loader/loaderservice';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +24,6 @@ export class DataFetchService {
   private httpService = inject(Httpservice);
   private snackService = inject(SnackBarService);
   private translationService = inject(TranslationService);
-  private loaderService = inject(Loaderservice);
 
   // remove from constructor, change to getter:
   get isRTL(): boolean {
@@ -84,32 +82,25 @@ export class DataFetchService {
       }
     );
   }
-  
+
   // 🔥 Generic reusable method
   private fetchData<T>(
     url: string,
     subject: BehaviorSubject<T[]>,
     messages: { success: string; empty: string; error: string }
   ) {
-    // this.loaderService.showLoader();
     this.httpService.getApi(url)
       .pipe(
-        finalize(() => {
-          
-          // this.loaderService.hideLoader();
-        }),
         take(1)
       )
       .subscribe({
         next: (res) => {
           const data = res.body ?? [];
-
           if (!data.length) {
             this.snackService.error(messages.empty, 2000, 'top-right');
           } else {
             this.snackService.success(messages.success, 2000, 'top-right');
           }
-          
           subject.next(data);
         },
         error: () => {
@@ -124,13 +115,11 @@ export class DataFetchService {
     type: 'users' | 'products',
     data: User[] | product[],
   ) {
-    // this.loaderService.showLoader();
     if (type === 'users') {
       this.userData$.next(data as User[]);
     } else {
       this.productData$.next(data as product[]);
     }
-    // this.loaderService.hideLoader();
   }
 
   // Optional manual refresh

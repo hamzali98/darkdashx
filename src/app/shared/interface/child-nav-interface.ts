@@ -1,4 +1,4 @@
-export interface childnav{
+export interface childnav {
   route: string;
   icon: string;
   tiletitle: string;

@@ -17,11 +17,11 @@ export class ChildNavBarService {
     { route: "/users/add/3", icon: "assets/icons/neutral/team.svg", tiletitle: "TEAM_INFO" },
   ];
 
-  getProductAddRoutes() : childnav[] {
+  getProductAddRoutes(): childnav[] {
     return this.productAddRoutes;
   }
 
-  getUserAddRoutes() : childnav[] {
+  getUserAddRoutes(): childnav[] {
     return this.userAddRoutes;
   }
 

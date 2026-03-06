@@ -36,10 +36,10 @@ export class CustomSelect implements ControlValueAccessor {
   isDisabled = signal(false);
 
   // ControlValueAccessor callbacks
-  private onChange: (val: any) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (val: any) => void = () => { };
+  private onTouched: () => void = () => { };
 
-  constructor(private elRef: ElementRef) {}
+  constructor(private elRef: ElementRef) { }
 
   // Close dropdown on outside click
   @HostListener('document:click', ['$event'])
@@ -68,7 +68,7 @@ export class CustomSelect implements ControlValueAccessor {
     this.selectedOption.set(match);
   }
 
-  registerOnChange(fn: any)    { this.onChange = fn; }
-  registerOnTouched(fn: any)   { this.onTouched = fn; }
+  registerOnChange(fn: any) { this.onChange = fn; }
+  registerOnTouched(fn: any) { this.onTouched = fn; }
   setDisabledState(disabled: boolean) { this.isDisabled.set(disabled); }
 }

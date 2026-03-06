@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
-import { SnackbarData, SnackbarType } from '@app/shared/interface/snack-bar.model';
+import { SnackbarData } from '@app/shared/interface/snack-bar.model';
 import { NgClass } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
-
 
 @Component({
   selector: 'app-snack-bar',
@@ -14,11 +13,10 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class SnackBar implements OnInit, OnDestroy {
 
-  currentSnackbar: SnackbarData | null = null;
-  isVisible: boolean = false;
+  private currentSnackbar: SnackbarData | null = null;
+  private isVisible: boolean = false;
   private snackbarSubscription!: Subscription;
   private timerSubscription!: Subscription;
-
 
   constructor(
     private snackbarService: SnackBarService,
@@ -28,31 +26,30 @@ export class SnackBar implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.snackbarSubscription =
       this.snackbarService.snackbar$.subscribe(data => {
-
         this.timerSubscription?.unsubscribe();
-
         this.currentSnackbar = data;
         this.isVisible = true;
         this.cdr.detectChanges();
-
         this.timerSubscription = timer(data.duration!).subscribe(() => {
           this.hide();
         });
       });
   }
 
+  get isVisibleValue():boolean {
+    return this.isVisible;
+  }
 
+  get currentSnackBarValue(): SnackbarData | null{
+    return this.currentSnackbar;
+  }
 
   hide(): void {
     this.isVisible = false;
     this.currentSnackbar = null;
-
     this.timerSubscription?.unsubscribe();
-
     this.cdr.detectChanges();
   }
-
-
 
   getTypeClass(): string {
     return this.currentSnackbar ? `snackbar-${this.currentSnackbar.type}` : '';
@@ -66,5 +63,4 @@ export class SnackBar implements OnInit, OnDestroy {
     this.snackbarSubscription?.unsubscribe();
     this.timerSubscription?.unsubscribe();
   }
-
 }

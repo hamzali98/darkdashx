@@ -28,7 +28,6 @@ export interface CustomInputConfig {
   inputId: string;
   inputName: string;
   errorMessage: string;
-  // validMessage: string;
   hintMessage: string;
   autocomplete?: string;
   minDate?: string;
@@ -110,9 +109,6 @@ private triggerEl: HTMLElement | null = null;
     this.onTouched();
   }
 
-  // toggleDropdown() {
-  //   if (!this.isDisabled()) this.isOpen.set(!this.isOpen());
-  // }
   toggleDropdown(event: MouseEvent) {
   if (!this.isDisabled()) {
     this.triggerEl = event.currentTarget as HTMLElement;
@@ -161,8 +157,7 @@ private calculatePosition() {
   }
 
   prevMonth() {
-    this.viewMonth() === 0 ? (this.viewMonth.set(11), this.viewYear.update(y => y-1))
-                           : this.viewMonth.update(m => m-1);
+    this.viewMonth() === 0 ? (this.viewMonth.set(11), this.viewYear.update(y => y-1)) : this.viewMonth.update(m => m-1);
   }
   nextMonth() {
     this.viewMonth() === 11 ? (this.viewMonth.set(0), this.viewYear.update(y => y+1))

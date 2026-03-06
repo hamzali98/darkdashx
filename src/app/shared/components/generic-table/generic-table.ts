@@ -138,7 +138,6 @@ export class GenericTable<T> implements OnChanges {
 
   getValue(obj: any, key: any) {
     return key.reduce((access: any, key: any) => access?.[key], obj);
-    // return key.split('.').reduce((access:any, key:any) => access?.[key], obj);
   }
 
   onClickedDelete(data: T) {
@@ -153,7 +152,6 @@ export class GenericTable<T> implements OnChanges {
         this.onDeleteClicked.emit(data);
       } else {
         // User clicked Cancel - do nothing
-        // console.log('User cancelled deletion');
       }
     });
   }
@@ -169,13 +167,9 @@ export class GenericTable<T> implements OnChanges {
       type: 'generic'
     }).subscribe(result => {
       if (result) {
-        console.log("event emitting!");
-        console.log("Deleting items:", this.checkList);
         this.deleteAllClicked.emit(this.checkList);
-        // this.deleteAllClicked.emit("emitted!");
       } else {
         // User clicked Cancel - do nothing
-        // console.log('User cancelled deletion');
       }
     });
   }
@@ -192,7 +186,6 @@ export class GenericTable<T> implements OnChanges {
     }
     const sourceData = this.filteredData.length > 0 ? this.filteredData : [...this.tableData];
     const pageResult = this.updatePagedData(sourceData, this.currentPage, this.itemsPerPage);
-    // const pageResult = this.updatePagedData(this.filteredData, this.currentPage, this.itemsPerPage);
     this.currentPageData = pageResult.currentPageData;
     this.startIndex = pageResult.startIndex;
     this.endIndex = pageResult.endIndex;
@@ -342,7 +335,6 @@ export class GenericTable<T> implements OnChanges {
         return col.func ? this.translateStatusValue(raw) : raw;
       })
     );
-
     return { headers, rows };
   }
 
@@ -368,7 +360,6 @@ export class GenericTable<T> implements OnChanges {
 
     // Freeze header row
     ws['!freeze'] = { xSplit: 0, ySplit: 1 };
-
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, tableName.slice(0, 31)); // sheet name max 31 chars
     this.tickAnimationService.show(this.translateService.instant('EXPORT_SUCCESS'), 3000);
@@ -382,4 +373,3 @@ export class GenericTable<T> implements OnChanges {
     alert(msg);
   }
 }
-

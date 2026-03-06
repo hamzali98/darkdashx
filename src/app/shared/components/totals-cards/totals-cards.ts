@@ -1,5 +1,4 @@
-import { Component, computed, input, Input, model } from '@angular/core';
-import { DataError } from "../data-error/data-error";
+import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -10,9 +9,9 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class TotalsCards {
 
-  @Input() icon! : string;
-  @Input() title : string = "No data";
-  @Input() counts : number = 0;
+  @Input() icon!: string;
+  @Input() title: string = "No data";
+  @Input() counts: number = 0;
 
 
 }

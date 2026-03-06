@@ -4,11 +4,6 @@ import { authGuardGuard } from './core/auth/guard/auth-guard-guard';
 import { authSessionGuard } from './core/auth/guard/auth-session-guard';
 
 export const routes: Routes = [
-    // {
-    //     path: '',
-    //     redirectTo: 'home',
-    //     pathMatch: 'full',
-    // },
     {
         path: '',
         component: HomeLayout,

@@ -1,12 +1,12 @@
-import { Injectable, signal } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Loaderservice {
 
-isVisible$ : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isVisible$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   showLoader() {
     this.isVisible$.next(true);

@@ -8,19 +8,16 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.css',
 })
+
 export class SearchBar {
 
   searchKey = model("");
 
-  // updateSerchKey(key: string){
-  //   this.searchKey.set(key)
-  // }
+  updateSearchKey(key: string | null | undefined) {
+    this.searchKey.set(key || "");
+  }
 
-  updateSearchKey(key: string | null | undefined){
-  this.searchKey.set(key || "");
-}
-
-clearText(){
-  this.searchKey.set("");
-}
+  clearText() {
+    this.searchKey.set("");
+  }
 }

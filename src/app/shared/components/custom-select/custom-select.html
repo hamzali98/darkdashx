@@ -27,8 +27,7 @@
                 bg-card-bg shadow-lg max-h-52 overflow-y-auto">
             @for(option of options; track option.value) {
             <li (click)="select(option)"
-                class="px-4 py-2.5 text-sm font-light cursor-pointer transition-colors duration-150" 
-                [ngClass]="selectedOption()?.value === option.value
+                class="px-4 py-2.5 text-sm font-light cursor-pointer transition-colors duration-150" [ngClass]="selectedOption()?.value === option.value
                     ? 'bg-primary text-white'
                     : 'text-figma-neutral hover:bg-secondary2/20 hover:text-primary'">
                 {{ option.key | translate }}

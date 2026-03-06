@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { SnackbarData, SnackbarType } from '@app/shared/interface/snack-bar.model';
+import { SnackbarData } from '@app/shared/interface/snack-bar.model';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,6 @@ import { SnackbarData, SnackbarType } from '@app/shared/interface/snack-bar.mode
 export class SnackBarService {
 
   private snackbarSubject = new Subject<SnackbarData>();
-
   snackbar$: Observable<SnackbarData> = this.snackbarSubject.asObservable();
 
   constructor() { }
@@ -16,7 +15,7 @@ export class SnackBarService {
   show(data: SnackbarData): void {
     data.duration = data.duration ?? 3000;
     data.position = data.position ?? 'top-center';
-    
+
     this.snackbarSubject.next(data);
   }
 
@@ -31,7 +30,7 @@ export class SnackBarService {
   warning(message: string, duration?: number, position?: SnackbarData['position']): void {
     this.show({ message, type: 'warning', duration, position });
   }
-  
+
   general(message: string, duration?: number, position?: SnackbarData['position']): void {
     this.show({ message, type: 'general', duration, position });
   }

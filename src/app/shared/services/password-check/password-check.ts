@@ -5,17 +5,16 @@ import { TranslationService } from '@app/core/services/translate.service';
   providedIn: 'root',
 })
 export class PasswordCheck {
-  isRtl: boolean;
 
-  translationService = inject(TranslationService);
+  private translationService = inject(TranslationService);
 
-  constructor() {
-    this.isRtl = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
+  constructor() { }
+
+  get isRtl(): boolean {
+    return this.translationService.getCurrentLanguage() === 'ur';
   }
 
-
   checkPasswordStrength(password: string) {
-    // console.log("password strength called");
 
     const lengthRegex = /.{8}/;
     const upperRegex = /[A-Z]/;

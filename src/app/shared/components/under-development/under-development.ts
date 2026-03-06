@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 
@@ -10,17 +10,16 @@ import { Router } from '@angular/router';
 })
 export class UnderDevelopment implements OnInit {
 
-  flag = signal<boolean>(false);
+  private flag = signal<boolean>(false);
+  flagValue = computed(() => this.flag());
 
   private routerRef = inject(Router);
 
-ngOnInit(): void {
-  this.flag.set(this.routerRef.url.includes("report-issue"));
-}
-
-
-  goHome(){
-    this.routerRef.navigate(['/']);
+  ngOnInit(): void {
+    this.flag.set(this.routerRef.url.includes("report-issue"));
   }
 
+  goHome() {
+    this.routerRef.navigate(['/']);
+  }
 }

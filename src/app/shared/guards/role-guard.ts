@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn } from '@angular/router';
 import { AuthService } from '@app/core/auth/services/auth-service';
 import { DialogService } from '../services/dialog-service/dialog';
 import { TranslationService } from '@app/core/services/translate.service';
@@ -7,7 +7,6 @@ import { TranslationService } from '@app/core/services/translate.service';
 export const roleGuard: CanActivateFn = (route, state) => {
 
   const authService = inject(AuthService);
-  const router = inject(Router);
   const dialogService = inject(DialogService);
   const translateService = inject(TranslationService);
 
@@ -26,8 +25,6 @@ export const roleGuard: CanActivateFn = (route, state) => {
     type: 'session-expired'
   });
 
-  // router.navigate(['/profile'])
   return false;
 
-  // return true;
 };

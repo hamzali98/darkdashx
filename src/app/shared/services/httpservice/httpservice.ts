@@ -1,24 +1,23 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '@environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Httpservice {
 
-  httpClient = inject(HttpClient);
+  private httpClient = inject(HttpClient);
 
-  loginApi(url: string, email : string){
-    return this.httpClient.get<any>(`${url}/${email}`, {observe: 'response' as const})
+  loginApi(url: string, email: string) {
+    return this.httpClient.get<any>(`${url}/${email}`, { observe: 'response' as const })
   }
-  
-  addApi(url : string, payload: Object){
-    return this.httpClient.post<any>(`${url}`,payload);
+
+  addApi(url: string, payload: Object) {
+    return this.httpClient.post<any>(`${url}`, payload);
   }
 
   getApi(url: string) {
-    return this.httpClient.get<any>(`${url}`, {observe: 'response' as const});
+    return this.httpClient.get<any>(`${url}`, { observe: 'response' as const });
   }
 
   delApi(url: string, valId: string) {

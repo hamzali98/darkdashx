@@ -4,9 +4,8 @@
         <div class="flex flex-row gap-5 items-center justify-center">
             <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{selectedItems}}
                 {{"Selected" | translate}}</span>
-            <button type="button" (click)="deleteAll()"
-            [appTooltip]="'Delete all' | translate" tooltipPosition="top"
-            class="flex items-center cursor-pointer justify-center ">
+            <button type="button" (click)="deleteAll()" [appTooltip]="'Delete all' | translate" tooltipPosition="top"
+                class="flex items-center cursor-pointer justify-center ">
                 <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
             </button>
         </div>
@@ -14,28 +13,15 @@
         <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{tableName()}}</span>
         }
         <div>
-            <button  type="button"
-            [appTooltip]="'Get data PDF' | translate" tooltipPosition="top"
-            class="mx-1 py-1 px-2 text-xs rounded-sm drop-shadow-xs drop-shadow-primary-bg bg-primary-bg
-            border border-primary"
-            (click)="downloadPDF()">
-                <!-- <span class="flex flex-row gap-1.5 items-center justify-center align-middle"> -->
-                    <img class="size-5" src="assets/icons/pdf.svg"
-                        alt="ar">
-                        <!-- {{'Download PDF' | translate}}
-                    </span> -->
+            <button type="button" [appTooltip]="'Get data PDF' | translate" tooltipPosition="top" class="mx-1 py-1 px-2 text-xs rounded-sm drop-shadow-xs drop-shadow-primary-bg bg-primary-bg
+            border border-primary" (click)="downloadPDF()">
+            <!-- Download PDF -->
+                <img class="size-5" src="assets/icons/pdf.svg" alt="ar">
             </button>
-            <button type="button"
-            [appTooltip]="'get data excel sheet' | translate" tooltipPosition="top"
-            class="mx-1 py-1 px-2 text-xs rounded-sm drop-shadow-xs drop-shadow-primary-bg bg-primary-bg
-            border border-primary"
-            (click)="downloadXLSX()">
+            <button type="button" [appTooltip]="'get data excel sheet' | translate" tooltipPosition="top" class="mx-1 py-1 px-2 text-xs rounded-sm drop-shadow-xs drop-shadow-primary-bg bg-primary-bg
+            border border-primary" (click)="downloadXLSX()">
                 <!-- Download XLSX -->
-                <!-- <span class="flex flex-row gap-1.5 items-center justify-center align-middle"> -->
-                    <img class="size-5" src="assets/icons/xls.svg"
-                        alt="ar">
-                        <!-- {{'Download XLSX' | translate}}
-                    </span> -->
+                <img class="size-5" src="assets/icons/xls.svg" alt="ar">
             </button>
 
             <span class="text-sm font-semibold text-gray-400 px-4.5 ">
@@ -56,8 +42,6 @@
                     <th class="px-1.75  ">
                     </th>
                     <th class="sticky left-0 bg-card-bg z-10">
-                        <!-- class="p-3" -->
-                        <!-- [indeterminate]="checkListTotal" -->
                         <input id="masterchkbox" name="masterchkbox" [indeterminate]="isIndeterminate"
                             [checked]="isChecked" (change)="toggleSelectallRows($event)" type="checkbox" class="appearance-none bg-card-bg 
                         indeterminate:appearance-auto indeterminate:accent-primary
@@ -139,24 +123,20 @@
                             <img class="size-7 rounded-full shrink-0 " src="assets/images/products/watch.svg" alt="i">
                             }
                             {{getValue(data, column.key) | titlecase}}
-
                         </span>
                         }
                     </td>
                     }
-
                     <!-- Action Buttons -->
                     <td class="py-6.5 px-0 whitespace-nowrap">
                         <div class="flex px-2 justify-around align-middle items-center   min-w-20 gap-5">
-                            <button 
-                            [appTooltip]="'Edit'|translate" tooltipPosition="top"
-                            type="button" (click)="onClickedEdit(currentPageData[$index])"
+                            <button [appTooltip]="'Edit'|translate" tooltipPosition="top" type="button"
+                                (click)="onClickedEdit(currentPageData[$index])"
                                 class="flex items-center justify-center ">
                                 <img src="assets/icons/neutral/pencil.svg" class="size-3" alt="act btn" />
                             </button>
-                            <button 
-                            [appTooltip]="'DELETE' | translate" tooltipPosition="top"
-                            type="button" (click)="onClickedDelete(currentPageData[$index])"
+                            <button [appTooltip]="'DELETE' | translate" tooltipPosition="top" type="button"
+                                (click)="onClickedDelete(currentPageData[$index])"
                                 class="flex items-center   justify-center ">
                                 <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
                             </button>
@@ -165,7 +145,6 @@
                 </tr>
                 }
             </tbody>
-
         </table>
     </div>
     } @else {
@@ -188,14 +167,13 @@
             </select>
         </div>
     </div>
-    <button 
-    [appTooltip]="'prev page' | translate" tooltipPosition="top"
-    [disabled]="startIndex + 1 === 1" (click)="previousPage()" type="button"
-    class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
-    <img class="size-3 shrink-0 rtl:rotate-180" src="assets/icons/white/leftarrow.svg" alt="arrow">
-</button>
-<button [disabled]="endIndex === tableTotal" (click)="nextPage()" type="button"
-[appTooltip]="'next page' | translate" tooltipPosition="top"
+    <button [appTooltip]="'prev page' | translate" tooltipPosition="top" [disabled]="startIndex + 1 === 1"
+        (click)="previousPage()" type="button"
+        class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
+        <img class="size-3 shrink-0 rtl:rotate-180" src="assets/icons/white/leftarrow.svg" alt="arrow">
+    </button>
+    <button [disabled]="endIndex === tableTotal" (click)="nextPage()" type="button"
+        [appTooltip]="'next page' | translate" tooltipPosition="top"
         class="bg-active-route-bg p-[5.5px] rounded-sm ml-1.5 hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
         <img class="size-3 shrink-0 rtl:rotate-180" src="assets/icons/white/rightarrow.svg" alt="arrow">
     </button>

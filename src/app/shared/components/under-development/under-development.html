@@ -3,7 +3,7 @@
     <span class="text-4xl font-bold font-sans text-white">{{"Module Under Development" | translate}}</span>
     <span class="text-md font-medium text-gray-500">{{"MUD_subline" | translate}}</span>
 
-    @if(flag()){
+    @if(flagValue()){
     <button class="rounded-sm text-white text-xs w-18 drop-shadow-md drop-shadow-black font-[15px]
         h-7 cursor-pointer bg-primary" (click)="goHome()" type="button">
         <span class="flex flex-row gap-1.5 items-center justify-center align-middle text-figma-neutral font-medium ">

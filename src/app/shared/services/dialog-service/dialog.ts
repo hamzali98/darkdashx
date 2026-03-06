@@ -35,7 +35,4 @@ export class DialogService {
     this.dialogResult = new Subject<boolean>(); // Reset for next dialog
     this.dialogData.next(null);
   }
-
-
-
 }

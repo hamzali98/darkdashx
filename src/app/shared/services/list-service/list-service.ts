@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { product } from '@app/features/dashboard/products/interface/product-interface';
 import { companyListInterface } from '@app/shared/interface/company-list.interface';
 import { productListInterface } from '@app/shared/interface/product-list.interface';
 
@@ -20,14 +19,14 @@ export class ListService {
   ];
 
   private readonly productsList: productListInterface[] = [
-      { key: 'Accessories', value: 'accessories' },
-      { key: 'Telecomunication', value: 'telecomunication' },
-      { key: 'Note Book', value: 'note book' },
-      { key: 'Digital', value: 'digital' }, 
-      { key: 'Cosmetics', value: 'cosmetics' }, 
-      { key: 'Electric', value: 'electric' }, 
-      { key: 'Network', value: 'network' },
-    ];
+    { key: 'Accessories', value: 'accessories' },
+    { key: 'Telecomunication', value: 'telecomunication' },
+    { key: 'Note Book', value: 'note book' },
+    { key: 'Digital', value: 'digital' },
+    { key: 'Cosmetics', value: 'cosmetics' },
+    { key: 'Electric', value: 'electric' },
+    { key: 'Network', value: 'network' },
+  ];
 
   getCompanyList(): companyListInterface[] {
     return this.companiesList;

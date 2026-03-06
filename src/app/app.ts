@@ -1,12 +1,11 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { Loaderservice } from './shared/services/loader/loaderservice';
 import { Loader } from "./shared/components/loader/loader";
 import { SnackBar } from "./shared/components/snack-bar/snack-bar";
 import { GenericDialog } from './shared/components/generic-dialog/generic-dialog';
-import { DialogService, DialogData } from './shared/services/dialog-service/dialog';
-import { AuthService } from './core/auth/services/auth-service';
+import { DialogService } from './shared/services/dialog-service/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -19,19 +18,17 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './app.css'
 })
 export class App implements OnInit {
-  // protected readonly title = signal('dashboard');
 
   private routerRef = inject(Router);
   private loaderService = inject(Loaderservice);
-  private authService = inject(AuthService);
   private dialogServiceRef = inject(DialogService);
 
- constructor(
+  constructor(
     private title: Title,
     private translate: TranslateService
-  ) {}
+  ) { }
 
-  get dialogService() { return this.dialogServiceRef;}
+  get dialogService() { return this.dialogServiceRef; }
 
   ngOnInit(): void {
     // Set title initially
@@ -44,13 +41,10 @@ export class App implements OnInit {
   }
 
   private setTitle() {
-    // this.translate.get('APP_TITLE').subscribe((res: string) => {
-    //   this.title.setTitle(res);
-    // });
     this.translate.stream('Tab_Title')
-    .subscribe((res: string) => {
-      this.title.setTitle(res);
-    });
+      .subscribe((res: string) => {
+        this.title.setTitle(res);
+      });
   }
 
   get loaderServiceRef() {
@@ -59,7 +53,6 @@ export class App implements OnInit {
 
   sessionRejoin() {
     this.dialogService.close();
-    // this.authService.logout();
     this.routerRef.navigate(['/auth/login']);
   }
 }
