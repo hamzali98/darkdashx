@@ -8,7 +8,6 @@ import { environment } from '@environments/environment.development';
 import { TranslateModule } from '@ngx-translate/core';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { TranslationService } from '@app/core/services/translate.service';
-import { finalize } from 'rxjs';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 import { product } from '../../../interface/product-interface';
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
@@ -59,6 +58,8 @@ export class Details {
     } else {
       
       if (this.productFormEditing) {
+        console.log(this.productFormSubmit.value);
+        return;
         const id = this.prodcutFormService.editingId();
         this.httpService.editApi(this.url, id, this.productFormSubmit.value).subscribe({
           next: (res) => {
@@ -88,6 +89,8 @@ export class Details {
           }
         })
       } else {
+        console.log(this.productFormSubmit.value);
+        return;
         this.httpService.addApi(this.url, this.productFormSubmit.value).subscribe({
           next: (res) => {
             // ✅ Append the new entry into the shared BehaviorSubject

@@ -1,0 +1,278 @@
+<div class="py-1 w-full" [ngClass]="config.ngclass">
+    <div class="flex flex-col lg:flex-row items-start justify-between">
+
+        <!-- ── Label ── -->
+        <div class="flex gap-1 mt-1 my-2 lg:mt-1">
+            @if(config.labelIcon) {
+            <img [src]="config.labelIcon" alt="icon" class="size-3" />
+            }
+            <label [for]="config.labelFor" class="text-gray-300 text-xs font-medium">
+                {{ config.label | translate }}
+                @if(config.required) { <span class="text-red-600">*</span> }
+            </label>
+        </div>
+
+        <!-- ── Input Area ── -->
+        <div class="flex flex-col w-full lg:w-auto">
+
+            <!-- ════════ TEXT / EMAIL / NUMBER / PASSWORD ════════ -->
+            @if(config.type === 'text' || config.type === 'email' || config.type === 'number' || config.type ===
+            'password') {
+            <div class="relative flex flex-row justify-end items-center">
+                @if(config.startIcon){
+                <img [src]="config.startIcon"
+                    class="absolute left-3 p-0 flex align-middle size-3.5 bg-none pointer-events-none" alt="icon" />
+                }
+                <input class="flex-1 h-11 w-full lg:w-86 border rounded-sm px-4 outline-0
+                    text-figma-neutral text-sm font-light bg-card-bg
+                    focus:border-primary caret-primary
+                    placeholder:text-figma-neutral placeholder:text-sm" [required]="config.required" [type]="inputType"
+                    [id]="config.inputId" [name]="config.inputName"
+                    [placeholder]="(config.placeholder ?? '' | translate)" [autocomplete]="config.autocomplete ?? 'off'"
+                    [disabled]="isDisabled()" [value]="value()" (input)="onInputChange($event)" (blur)="onTouched()"
+                    [ngClass]="{
+                    'border-red-500':   hasError,
+                    'border-green-500': isValid && !hasError,
+                    'border-gray-600':  !hasError && !isValid,
+                    'pr-10': config.type === 'password' || config.iconActions?.length
+            }" />
+
+                <!-- Password eye toggle -->
+                @if(config.type === 'password') {
+                <button type="button" (click)="togglePassword()"
+                    class="absolute mx-2 bg-transparent border-none cursor-pointer p-0 flex items-center">
+                    @if(!showPassword()) {
+                    <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="show" />
+                    } @else {
+                    <img class="size-5" src="assets/icons/input_icons/closeeye.svg" alt="hide" />
+                    }
+                </button>
+                }
+
+                <!-- Custom icon actions (e.g. search, clear, copy) -->
+                @if(config.iconActions?.length) {
+                @for(action of config.iconActions; track $index) {
+                <button type="button" (click)="action.action()"
+                    class="absolute mx-2 bg-transparent border-none cursor-pointer p-0 flex items-center"
+                    [style.right.px]="$index * 28">
+                    <img class="size-5"
+                        [src]="action.isActive?.() && action.activeIconPath ? action.activeIconPath : action.iconPath"
+                        alt="" />
+                </button>
+                }
+                }
+            </div>
+            }
+
+            <!-- ════════ TEXTAREA ════════ -->
+            @if(config.type === 'textarea') {
+            <textarea class="w-full lg:w-86 border rounded-sm px-4 py-2 outline-0
+                        text-figma-neutral text-sm font-light bg-card-bg
+                        focus:border-primary caret-primary resize-none
+                        placeholder:text-figma-neutral placeholder:text-sm" rows="4"
+                [placeholder]="(config.placeholder ?? '') | translate" [disabled]="isDisabled()"
+                (input)="onInputChange($event)" (blur)="onTouched()" [ngClass]="{
+            'border-red-500':   hasError,
+            'border-green-500': isValid && !hasError,
+            'border-gray-600':  !hasError && !isValid
+            }">{{ value() }}</textarea>
+            }
+
+            <!-- ════════ SELECT ════════ -->
+            @if(config.type === 'select') {
+            <div class="relative w-full lg:w-86">
+                <button type="button" (click)="toggleDropdown($event)" [disabled]="isDisabled()" class="h-11 w-full border rounded-sm px-4 text-sm font-light bg-card-bg
+                    text-figma-neutral flex items-center justify-between
+                    outline-0 transition-colors duration-200
+                    disabled:opacity-50 disabled:cursor-not-allowed" [ngClass]="{
+                    'border-red-500':   hasError,
+                    'border-green-500': isValid && !hasError,
+                    'border-gray-600':  !hasError && !isValid
+            }">
+                    <span [class.text-neutral-400]="!selectedOption()">
+                        {{ selectedOption() ? (selectedOption()!.key | translate) : ((config.placeholder ?? 'Select') |
+                        translate) }}
+                    </span>
+                    <svg [class.rotate-180]="isOpen()" class="transition-transform duration-200 shrink-0" width="16"
+                        height="16" viewBox="0 0 24 24" fill="none" stroke="#cb3cff" stroke-width="2"
+                        stroke-linecap="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+
+                @if(isOpen()) {
+                <ul class="absolute z-50 w-full mt-1 border border-gray-600 rounded-sm
+                            bg-card-bg shadow-lg max-h-52 overflow-y-auto" [ngClass]="dropdownPosition() === 'top'
+                            ? 'bottom-full mb-1'
+                            : 'top-full mt-1'">
+                    @for(option of config.selectOptions; track option.value) {
+                    <li (click)="selectOption(option)"
+                        class="px-4 py-2.5 text-sm font-light cursor-pointer transition-colors duration-150" [ngClass]="selectedOption()?.value === option.value
+                    ? 'bg-primary text-white'
+                    : 'text-figma-neutral hover:bg-primary/20 hover:text-primary'">
+                        {{ option.key | translate }}
+                    </li>
+                    }
+                </ul>
+                }
+            </div>
+            }
+
+            <!-- ════════ DATE ════════ -->
+            @if(config.type === 'date') {
+            <div class="relative w-full lg:w-86">
+                <button type="button" (click)="toggleCalendar()" [disabled]="isDisabled()" 
+                class="h-11 w-full border rounded-sm px-4 text-sm font-light bg-card-bg
+                    text-figma-neutral flex items-center justify-between
+                    outline-0 transition-colors duration-200
+                    disabled:opacity-50 disabled:cursor-not-allowed" [ngClass]="{
+                    'border-red-500':   hasError,
+                    'border-green-500': isValid && !hasError,
+                    'border-gray-600':  !hasError && !isValid
+            }">
+                    <span [class.text-neutral-400]="!selectedDate()">
+                        {{ displayDate || ((config.placeholder ?? 'Select Date') | translate) }}
+                    </span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#cb3cff" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                </button>
+
+                @if(isOpen()) {
+                <div
+                    class="absolute z-50 mt-1 w-72 border border-gray-600 rounded-sm bg-card-bg shadow-xl p-3 select-none">
+
+                    @if(viewMode() === 'days') {
+                    <div class="flex items-center justify-between mb-3">
+                        <button type="button" (click)="prevMonth()"
+                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round">
+                                <polyline points="15 18 9 12 15 6" />
+                            </svg>
+                        </button>
+                        <div class="flex gap-2">
+                            <button type="button" (click)="viewMode.set('months')"
+                                class="text-sm font-medium text-figma-neutral hover:text-primary transition-colors">{{
+                                MONTHS[viewMonth()] }}</button>
+                            <button type="button" (click)="viewMode.set('years')"
+                                class="text-sm font-medium text-figma-neutral hover:text-primary transition-colors">{{
+                                viewYear() }}</button>
+                        </div>
+                        <button type="button" (click)="nextMonth()"
+                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round">
+                                <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-7 mb-1">
+                        @for(day of DAYS; track day) {
+                        <div class="text-center text-[11px] text-gray-500 font-medium py-1">{{ day }}</div>
+                        }
+                    </div>
+
+                    <div class="grid grid-cols-7 gap-y-1">
+                        @for(date of calendarDays; track $index) {
+                        <button type="button" (click)="selectDay(date)" [disabled]="!date || isDayDisabled(date)"
+                            class="h-8 w-8 mx-auto rounded-sm text-xs transition-all duration-150 flex items-center justify-center"
+                            [ngClass]="!date ? 'invisible'
+                        : isSelected(date) ? 'bg-primary text-white font-semibold shadow-[0_0_8px_rgba(203,60,255,0.5)]'
+                        : isToday(date)    ? 'border border-primary/60 text-primary'
+                        : isDayDisabled(date) ? 'text-gray-700 cursor-not-allowed'
+                        : 'text-figma-neutral hover:bg-primary/20 hover:text-primary cursor-pointer'">
+                            {{ date ? date.getDate() : '' }}
+                        </button>
+                        }
+                    </div>
+
+                    <div class="mt-3 pt-2 border-t border-gray-600/40 flex justify-end">
+                        <button type="button" (click)="selectToday()"
+                            class="text-xs text-primary hover:underline">Today</button>
+                    </div>
+                    }
+
+                    @if(viewMode() === 'months') {
+                    <div class="flex items-center justify-between mb-3">
+                        <button type="button" (click)="prevYear()"
+                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round">
+                                <polyline points="15 18 9 12 15 6" />
+                            </svg>
+                        </button>
+                        <button type="button" (click)="viewMode.set('years')"
+                            class="text-sm font-medium text-figma-neutral hover:text-primary transition-colors">{{
+                            viewYear() }}</button>
+                        <button type="button" (click)="nextYear()"
+                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round">
+                                <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        @for(month of MONTHS; track $index) {
+                        <button type="button" (click)="selectMonth($index)"
+                            class="py-2 rounded-sm text-xs font-medium transition-all duration-150"
+                            [ngClass]="viewMonth() === $index ? 'bg-primary text-white shadow-[0_0_8px_rgba(203,60,255,0.4)]' : 'text-figma-neutral hover:bg-primary/20 hover:text-primary'">
+                            {{ month }}
+                        </button>
+                        }
+                    </div>
+                    }
+
+                    @if(viewMode() === 'years') {
+                    <div class="flex items-center justify-between mb-3">
+                        <button type="button" (click)="prevYears()"
+                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round">
+                                <polyline points="15 18 9 12 15 6" />
+                            </svg>
+                        </button>
+                        <span class="text-sm font-medium text-figma-neutral">{{ yearRange[0] }} — {{ yearRange[11]
+                            }}</span>
+                        <button type="button" (click)="nextYears()"
+                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round">
+                                <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        @for(year of yearRange; track year) {
+                        <button type="button" (click)="selectYear(year)"
+                            class="py-2 rounded-sm text-xs font-medium transition-all duration-150"
+                            [ngClass]="viewYear() === year ? 'bg-primary text-white shadow-[0_0_8px_rgba(203,60,255,0.4)]' : 'text-figma-neutral hover:bg-primary/20 hover:text-primary'">
+                            {{ year }}
+                        </button>
+                        }
+                    </div>
+                    }
+
+                </div>
+                }
+            </div>
+            }
+
+            <!-- ════════ VALIDATION MESSAGES ════════ -->
+            @if(hasError && config.errorMessage) {
+            <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{ config.errorMessage | translate }}</span>
+            } @else if(isValid) {
+            <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{ 'LOOKS_GOOD' | translate }}</span>
+            } @else if(config.hintMessage) {
+            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{ config.hintMessage | translate }}</span>
+            }
+
+        </div>
+    </div>
+</div>

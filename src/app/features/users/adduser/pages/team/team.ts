@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Formservice } from '../../services/formservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
-import { ListService } from '@app/shared/services/companylist/company-list-service';
+import { ListService } from '@app/shared/services/list-service/list-service';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 import { companyListInterface } from '@app/shared/interface/company-list.interface';
 import { User } from '@app/features/users/interface/user';
