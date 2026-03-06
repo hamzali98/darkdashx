@@ -1,16 +1,15 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { FormService } from '../../service/form-service';
 import { productCategories } from '../../../interface/product-categories';
 import { companyInterface } from '@app/shared/interface/company';
 import { CompanyListService } from '@app/shared/services/companylist/company-list-service';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgClass } from '@angular/common';
 import { CustomSelect } from '@app/shared/components/custom-select/custom-select';
 
 @Component({
   selector: 'app-base-info',
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule, NgClass, CustomSelect],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule, CustomSelect],
   templateUrl: './base-info.html',
   styleUrl: './base-info.css',
 })

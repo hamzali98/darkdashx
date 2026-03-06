@@ -9,7 +9,6 @@ import { companyInterface } from '@app/shared/interface/company';
 import { User } from '@app/features/users/interface/user';
 import { environment } from '@environments/environment.development';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgClass } from '@angular/common';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';

@@ -21,27 +21,6 @@
                             hintMessage="Select Team" errorMessage="Team Name Required!"
                             [hasError]="team_name?.hasError('required') && !!team_name?.touched"
                             [isValid]="!!team_name?.valid" />
-                        <!-- <select required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-figma-neutral text-sm font-light invalid:border-red-500 
-                        focus:border-primary bg-card-bg
-                        " id="teamname" name="teamname" formControlName="team_name"
-                        [ngClass]="team_name?.hasError('required') ? 'border-red-500' : 'border-green-500'"
-                        >
-                            <option [ngValue]="null" disabled >{{"Select Team"|translate}}</option>
-                            @for(items of companyList; track $index){
-                            <option  [value]="items.value">{{(items.key |translate)}}</option>
-                            }
-                        </select> -->
-                        <!-- @if(team_name?.hasError('required') && team_name?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">
-                            {{"Team Name Required!"|translate}} </span>
-                        } @else if(team_name?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">
-                            {{'LOOKS_GOOD' | translate}} </span>
-                        } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">
-                            {{"Select Team"|translate}} </span>
-                        } -->
                     </div>
                 </div>
             </div>
