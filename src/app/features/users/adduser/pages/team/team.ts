@@ -1,21 +1,20 @@
-import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Formservice } from '../../services/formservice';
+import { User } from '@app/features/users/interface/user';
+import { InputConfigs } from '../../config/input-configs';
+import { environment } from '@environments/environment.development';
+import { FormStyle } from "@app/shared/components/form-style/form-style";
+import { TranslationService } from '@app/core/services/translate.service';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { ListService } from '@app/shared/services/list-service/list-service';
+import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
-import { companyListInterface } from '@app/shared/interface/company-list.interface';
-import { User } from '@app/features/users/interface/user';
-import { environment } from '@environments/environment.development';
-import { TranslateModule } from '@ngx-translate/core';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
-import { TranslationService } from '@app/core/services/translate.service';
+import { companyListInterface } from '@app/shared/interface/company-list.interface';
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
-import { CustomSelect } from "@app/shared/components/custom-select/custom-select";
 import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
-import { InputConfigs } from '../../config/input-configs';
-import { FormStyle } from "@app/shared/components/form-style/form-style";
 
 @Component({
   selector: 'app-team',
@@ -40,9 +39,9 @@ export class Team {
   private routerRef = inject(Router);
   private userForm = inject(Formservice);
   private httpService = inject(Httpservice);
+  private listService = inject(ListService);
   private snackService = inject(SnackBarService);
   private dataFetchService = inject(DataFetchService);
-  private listService = inject(ListService);
   private translationService = inject(TranslationService);
   private tickAnimationService = inject(TickAnimationService);
 
