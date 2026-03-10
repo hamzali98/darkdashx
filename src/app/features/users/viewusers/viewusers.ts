@@ -1,18 +1,23 @@
-import { AfterViewInit, Component, DestroyRef, inject, OnInit, Signal, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../interface/user';
 import { TranslateModule } from '@ngx-translate/core';
+import { Formservice } from '../adduser/services/formservice';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { environment } from '@environments/environment.development';
-import { GenericTable } from '@app/shared/components/generic-table/generic-table';
-import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
-import { User } from '../interface/user';
-import { Loaderservice } from '@app/shared/services/loader/loaderservice';
-import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { SearchBar } from "@app/shared/components/search-bar/search-bar";
-import { Formservice } from '../adduser/services/formservice';
-import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { TranslationService } from '@app/core/services/translate.service';
+import { Httpservice } from '@app/shared/services/httpservice/httpservice';
+import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
+import { GenericTable } from '@app/shared/components/generic-table/generic-table';
+import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 
 @Component({
@@ -23,13 +28,13 @@ import { TickAnimationService } from '@app/shared/services/tick-animation/tick-a
 })
 export class Viewusers implements OnInit {
 
-  url: string = environment.USER_URL;
-
   length = signal(0)
+
   parentSearchKey = signal('');
+  private readonly url: string = environment.USER_URL;
+  private readonly user_form_intent: string = 'user_form_intent';
 
   userData = signal<User[]>([]);
-
   private userTableConfig: any[];
 
   private routerRef = inject(Router);
@@ -71,11 +76,17 @@ export class Viewusers implements OnInit {
   }
 
   onAddUserClick() {
+    sessionStorage.setItem(this.user_form_intent, 'add');
     this.routerRef.navigate(['/users/add']);
   }
 
-  private loadUsers() {
+  editUserData(val: User) {
+    sessionStorage.setItem(this.user_form_intent, 'edit');
+    this.userFormService.patchFormData(val);
+    this.routerRef.navigate(['users/add']);
+  }
 
+  private loadUsers() {
     this.dataFetchService.sharedUserData()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -177,9 +188,5 @@ export class Viewusers implements OnInit {
     deleteNext(0); // kick off the chain
   }
 
-  editUserData(val: User) {
-    this.userFormService.patchFormData(val);
-    this.routerRef.navigate(['users/add']);
-  }
 
 }

@@ -1,19 +1,17 @@
 // unsaved-changes.guard.ts
-import { CanDeactivateFn } from '@angular/router';
-import { inject } from '@angular/core';
-import { FormService } from '@app/features/dashboard/products/products-add/service/form-service';
-import { DialogService } from '../services/dialog-service/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { inject } from '@angular/core';
+import { CanDeactivateFn } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { DialogService } from '../services/dialog-service/dialog';
+import { HasUnsavedChanges } from '../interface/has-unsaved-changes';
 
-export const unsavedChangesGuard: CanDeactivateFn<unknown> = () => {
+export const unsavedChangesGuard: CanDeactivateFn<HasUnsavedChanges> = (component) => {
   const dialogService = inject(DialogService);
   const translateModule = inject(TranslateService);
-  const productFormService = inject(FormService);
 
-  if (!productFormService.hasUnsavedChanges() && productFormService.isInvalid()) {
-    return true; // ✅ No changes — let navigation proceed immediately
+  if (!component.hasUnsavedChanges() && !component.isValid()) {
+    return true;
   }
 
   // ✅ Return the Observable directly — Angular waits for it to emit
@@ -25,7 +23,7 @@ export const unsavedChangesGuard: CanDeactivateFn<unknown> = () => {
   }).pipe(
     map(confirmed => {
       if (confirmed) {
-        productFormService.resetForm(); // ✅ Clean up if user confirms leave
+        component.resetForm(); // ✅ calls the right reset automatically
       }
       return confirmed; // true = allow navigation, false = block it
     })

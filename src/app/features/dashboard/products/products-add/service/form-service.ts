@@ -1,11 +1,12 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { product } from '../../interface/product-interface';
+import { HasUnsavedChanges } from '@app/shared/interface/has-unsaved-changes';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FormService {
+export class FormService implements HasUnsavedChanges {
 
   editing = signal(false);
   editingId = signal('');
@@ -73,7 +74,7 @@ export class FormService {
     return this.productForm.dirty;
   }
 
-  isInvalid(){
-    return this.productForm.invalid;
+  isValid(): boolean {
+    return this.productForm.valid;
   }
 }

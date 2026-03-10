@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
+import { unsavedChangesGuard } from '@app/shared/guards/unsaved-changes-guard';
 
 export const userRoutes: Routes = [
     {
         path: 'add',
         loadComponent: () => import('./adduser/adduser').then(m => m.Adduser),
+        canDeactivate: [unsavedChangesGuard],
         children:[
             {
                 path: '',
