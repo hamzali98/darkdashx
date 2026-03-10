@@ -1,21 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormService } from '../../service/form-service';
-import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment.development';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
-import { TranslationService } from '@app/core/services/translate.service';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 import { product } from '../../../interface/product-interface';
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
-import { CustomDate } from '@app/shared/components/custom-date/custom-date';
+import { CustomInputConfig, GenericInput } from "@app/shared/components/generic-input/generic-input";
+import { InputConfigs } from '../../config/input-configs';
+import { FormStyle } from "@app/shared/components/form-style/form-style";
 
 @Component({
   selector: 'app-details',
-  imports: [ReactiveFormsModule, FormsModule, TranslateModule, CustomDate],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule, GenericInput, FormStyle],
   templateUrl: './details.html',
   styleUrl: './details.css',
 })
@@ -24,42 +24,58 @@ export class Details {
   private url: string = environment.PRODUCTS_URL;
 
   detailInfo: FormGroup;
-  private productFormSubmit: FormGroup;
+  // private productFormSubmit: FormGroup;
+  productExpiryConfig: CustomInputConfig;
+  productRegConfig: CustomInputConfig;
+  productMfgConfig: CustomInputConfig;
+  productStockConfig: CustomInputConfig;
 
   private routerRef = inject(Router);
   private httpService = inject(Httpservice);
-  private loaderService = inject(Loaderservice);
   private snackService = inject(SnackBarService);
   private prodcutFormService = inject(FormService);
   private dataFetchService = inject(DataFetchService);
-  private translationService = inject(TranslationService);
   private tickAnimationService = inject(TickAnimationService);
+  private translateModule = inject(TranslateService);
 
   constructor() {
-    this.productFormSubmit = this.prodcutFormService.getForm();
+    // this.productFormSubmit = this.prodcutFormService.getForm();
     this.detailInfo = this.prodcutFormService.getForm().get('detail_info') as FormGroup;
     this.detailInfo.markAllAsTouched();
+
+    this.productExpiryConfig = new InputConfigs().productExpiryConfig;
+    this.productRegConfig = new InputConfigs().productRegConfig;
+    this.productMfgConfig = new InputConfigs().productMfgConfig;
+    this.productStockConfig = new InputConfigs().productStockConfig;
   }
 
   get product_mfg() { return this.detailInfo.get("product_mfg"); }
   get product_regno() { return this.detailInfo.get("product_regno"); }
   get product_stock() { return this.detailInfo.get("product_stock"); }
   get product_expiry() { return this.detailInfo.get("product_expiry"); }
-  get productFormEditing() { return this.prodcutFormService.editing(); }
-  get isRTL(): boolean { return this.translationService.getCurrentLanguage() === 'ur'; }
+  get productFormEditing(): boolean { return this.prodcutFormService.editing(); }
+  get CurrentDate(): string { return new Date().toISOString().split('T')[0]; } // format: YYYY-MM-DD 
+  get productFormSubmit(): FormGroup { return this.prodcutFormService.getForm(); }
+
+  navigate(): void {
+    this.routerRef.navigate(['/products'])
+  }
+
+  onCancel() {
+    this.prodcutFormService.resetForm();
+    this.navigate();
+  }
 
   onFormSubmit() {
     if (this.productFormSubmit.invalid) {
       this.snackService.warning(
-        this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!",
+        this.translateModule.instant('req_fields_msg'),
         5000,
         'bottom-center');
       return;
     } else {
-      
+
       if (this.productFormEditing) {
-        console.log(this.productFormSubmit.value);
-        return;
         const id = this.prodcutFormService.editingId();
         this.httpService.editApi(this.url, id, this.productFormSubmit.value).subscribe({
           next: (res) => {
@@ -71,26 +87,25 @@ export class Details {
             this.dataFetchService.refreshData('products', updated);
 
             this.snackService.success(
-              this.isRTL ? "ڈیٹا کامیابی سے اپ ڈیٹ ہو گیا!" : "Product updated successfully!",
+              this.translateModule.instant('update_success'),
               2000, 'bottom-right'
             );
-            this.tickAnimationService.show(this.isRTL ? "اپ ڈیٹ ہو گیا!" : "Updated!", 3000);
+            this.tickAnimationService.show(this.translateModule.instant("Updated!"), 3000);
 
+            this.prodcutFormService.markClean(); // 👈 disables both guards before navigate
             setTimeout(() => {
               this.prodcutFormService.resetForm();
-              this.routerRef.navigate(['/products']);
+              this.navigate();
             }, 2000);
           },
           error: (err) => {
             this.snackService.error(
-              this.isRTL ? "اپ ڈیٹ ناکام!" : "Update failed!",
+              this.translateModule.instant('update_fail'),
               2000, 'bottom-right'
             );
           }
         })
       } else {
-        console.log(this.productFormSubmit.value);
-        return;
         this.httpService.addApi(this.url, this.productFormSubmit.value).subscribe({
           next: (res) => {
             // ✅ Append the new entry into the shared BehaviorSubject
@@ -99,19 +114,20 @@ export class Details {
             this.dataFetchService.refreshData('products', [...current, newProduct]);
 
             this.snackService.success(
-              this.isRTL ? "ڈیٹا کامیابی سے شامل ہو گیا!" : "Product added successfully!",
+              this.translateModule.instant('add_success'),
               2000, 'bottom-right'
             );
-            this.tickAnimationService.show(this.isRTL ? "شامل ہو گیا!" : "Added!", 3000);
-            
+            this.tickAnimationService.show(this.translateModule.instant('Added!'), 3000);
+
+            this.prodcutFormService.markClean(); // 👈 disables both guards before navigate
             setTimeout(() => {
               this.prodcutFormService.resetForm();
-              this.routerRef.navigate(['/products']);
+              this.navigate();
             }, 2000);
           },
           error: (err) => {
             this.snackService.error(
-              this.isRTL ? "ڈیٹا شامل کرنے میں ناکام!" : "Failed to add product!",
+              this.translateModule.instant('add_fail'),
               2000, 'bottom-right'
             );
           }

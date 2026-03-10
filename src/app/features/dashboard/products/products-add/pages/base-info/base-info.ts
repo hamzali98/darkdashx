@@ -4,11 +4,12 @@ import { FormService } from '../../service/form-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomSelect } from '@app/shared/components/custom-select/custom-select';
 import { CustomInputConfig, GenericInput } from "@app/shared/components/generic-input/generic-input";
-import { InputConfigs } from '../../config/input-cinfigs';
+import { InputConfigs } from '../../config/input-configs';
+import { FormStyle } from "@app/shared/components/form-style/form-style";
 
 @Component({
   selector: 'app-base-info',
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule, CustomSelect, GenericInput],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule, GenericInput, FormStyle],
   templateUrl: './base-info.html',
   styleUrl: './base-info.css',
 })
@@ -18,18 +19,19 @@ export class BaseInfo implements OnInit {
 
   productNameConfig : CustomInputConfig;
   productCategoryConfig : CustomInputConfig;
+  productPriceConfig : CustomInputConfig;
   productCompanyConfig : CustomInputConfig;
   
-  productForm = inject(FormService);
+  productFormService = inject(FormService);
   
   constructor() {
-    this.productForm.getForm().valid ? this.productForm.editing.set(true) : this.productForm.editing.set(false);
     
-    this.baseInfo = this.productForm.getForm().get('basic_info') as FormGroup;
+    this.baseInfo = this.productFormService.getForm().get('basic_info') as FormGroup;
     this.baseInfo.markAllAsTouched();
 
     this.productNameConfig = new InputConfigs().productNameConfig;
     this.productCategoryConfig = new InputConfigs().productCategoryConfig;
+    this.productPriceConfig = new InputConfigs().productPriceConfig;
     this.productCompanyConfig = new InputConfigs().productCompanyConfig;
 
   }

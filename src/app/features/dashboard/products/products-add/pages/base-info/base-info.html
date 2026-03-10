@@ -1,106 +1,24 @@
-<div class="lg:pr-10.5 ">
-    <p class="text-white text-md font-normal font-worksans ">{{'BASIC_INFO' | translate}}</p>
-    <p class="text-figma-neutral text-sm font-medium tracking-normal ">{{'PROD_INFO_DESC' | translate}}</p>
-
+<!-- products basic details form -->
+<app-form-style 
+formTitle="BASIC_INFO" 
+formSubtitle="PROD_INFO_DESC"
+>
     <form [formGroup]="baseInfo">
-
-        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
-            <app-generic-input formControlName="product_name" [config]="productNameConfig"
-                [hasError]="product_name?.hasError('required') && !!product_name?.touched"
-                [isValid]="!!product_name?.valid" />
-            <!-- <div class="py-1 pt-0 w-full border-b border-b-gray-500/20">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1 mt-1">
-                        <img src="assets/icons/white/product.svg" alt="">
-                        <label for="productname" class="text-gray-300 text-xs font-medium">{{ 'PRODUCT_NAME' | translate
-                            }}
-                            <span class="text-red-600">*</span>
-
-                        </label>
-                    </div>
-                    <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-figma-neutral text-sm font-light
-                        invalid:border-red-500 invalid:caret-red-500
-                        valid:border-green-500 valid:caret-green-500
-                        focus:border-primary caret-primary
-                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_name" type="text"
-                            id="productname" name="productname" placeholder="{{'EPN' | translate}}">
-                        @if(product_name?.hasError('required') && product_name?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'PNR' | translate}}</span>
-                        } @else if(product_name?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
-                            translate}}</span>
-                        } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'EPN' | translate}}</span>
-                        }
-                    </div>
-                </div>
-            </div> -->
-            <app-generic-input formControlName="product_category" [config]="productCategoryConfig"
-                [hasError]="product_category?.hasError('required') && !!product_category?.touched"
-                [isValid]="!!product_category?.valid" />
-            <!-- <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1 mt-1">
-                        <img src="assets/icons/white/category.svg" alt="">
-                        <label for="category" class="text-gray-300 text-xs font-medium">{{ 'CATEGORY' | translate }}
-                            <span class="text-red-600">*</span>
-
-                        </label>
-                    </div>
-                    <app-custom-select formControlName="product_category" [options]="productsList" placeholder="SCAT"
-                            hintMessage="SCAT" errorMessage="CATR"
-                            [hasError]="product_category?.hasError('required') && !!product_category?.touched"
-                            [isValid]="!!product_category?.valid" />
-                </div>
-            </div> -->
-            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
-                        <img src="assets/icons/white/dollar.svg" alt="">
-                        <label for="price" class="text-gray-300 text-xs font-medium">{{ 'PRICE' | translate }}
-                            <span class="text-red-600">*</span>
-
-                        </label>
-                    </div>
-                    <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                                text-figma-neutral text-sm font-light
-                                invalid:border-red-500 invalid:caret-red-500
-                                valid:border-green-500 valid:caret-green-500
-                                focus:border-primary caret-primary
-                                placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_price"
-                            type="number" id="price" name="price" placeholder="{{'EPRC' | translate}}">
-                        @if(product_price?.hasError('required') && product_price?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'PRC' | translate}}</span>
-                        } @else if(product_price?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
-                            translate}}</span>
-                        } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'EPRC' | translate}}</span>
-                        }
-                    </div>
-                </div>
-            </div>
-            <app-generic-input formControlName="product_company" [config]="productCompanyConfig"
-                [hasError]="product_company?.hasError('required') && !!product_company?.touched"
-                [isValid]="!!product_company?.valid" />
-            <!-- <div class="py-1 pt-6 pb-0 w-full">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
-                        <img src="assets/icons/white/bag.svg" alt="">
-                        <label for="company" class="text-gray-300 text-xs font-medium">{{ 'COMPANY' | translate }}
-                            <span class="text-red-600">*</span>
-                        </label>
-                    </div>
-                    <app-custom-select formControlName="product_company" [options]="companiesList" placeholder="SCMP"
-                            hintMessage="SCMP" errorMessage="CMP"
-                            [hasError]="product_company?.hasError('required') && !!product_company?.touched"
-                            [isValid]="!!product_company?.valid" />
-                </div>
-            </div> -->
-
-        </div>
+        <!-- product name input -->
+        <app-generic-input formControlName="product_name" [config]="productNameConfig"
+            [hasError]="product_name?.hasError('required') && !!product_name?.touched"
+            [isValid]="!!product_name?.valid" />
+        <!-- product category select -->
+        <app-generic-input formControlName="product_category" [config]="productCategoryConfig"
+            [hasError]="product_category?.hasError('required') && !!product_category?.touched"
+            [isValid]="!!product_category?.valid" />
+        <!-- product price input -->
+        <app-generic-input formControlName="product_price" [config]="productPriceConfig"
+            [hasError]="product_price?.hasError('required') && product_price?.touched"
+            [isValid]="!!product_price?.valid" />
+        <!-- product company select -->
+        <app-generic-input formControlName="product_company" [config]="productCompanyConfig"
+            [hasError]="product_company?.hasError('required') && !!product_company?.touched"
+            [isValid]="!!product_company?.valid" />
     </form>
-</div>
+</app-form-style>

@@ -1,101 +1,30 @@
-<div class="lg:pr-10.5 ">
-    <p class="text-white text-md font-normal font-worksans ">{{'DETAILED_INFO' | translate}}</p>
-    <p class="text-figma-neutral text-sm font-medium tracking-normal ">{{'PROD_INFO_DESC' | translate}}</p>
-
-    <form [formGroup]="detailInfo" (ngSubmit)="onFormSubmit()">
-
-        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
-            <div class="py-1 pt-0 w-full border-b border-b-gray-500/20">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1 mt-1">
-                        <img src="assets/icons/white/expiry.svg" alt="">
-                        <label for="productexpiry" class="text-gray-300 text-xs font-medium">{{ 'EXPIRY' | translate }}
-                            <span class="text-red-600">*</span>
-
-                        </label>
-                    </div>
-                    <app-custom-date formControlName="product_expiry" placeholder="SEXP" hintMessage="SEXP"
-                        errorMessage="EXP"
-                        [hasError]="product_expiry?.hasError('required') && !!product_expiry?.touched"
-                        [isValid]="!!product_expiry?.valid" minDate="2024-01-01" />
-                </div>
-            </div>
-            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1 mt-1">
-                        <img src="assets/icons/white/regno.svg" alt="">
-                        <label for="regno" class="text-gray-300 text-xs font-medium">{{ 'REG_NO' | translate }}
-                            <span class="text-red-600">*</span>
-                        </label>
-                    </div>
-                    <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                                text-figma-neutral text-sm font-light
-                                invalid:border-red-500 invalid:caret-red-500
-                                valid:border-green-500 valid:caret-green-500
-                                focus:border-primary caret-primary
-                                placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_regno"
-                            type="text" id="regno" name="regno" placeholder="{{'EREG' | translate}}">
-                            @if(product_regno?.hasError('required') && product_regno?.touched){
-                                <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'REG' | translate}}</span>
-                        } @else if(product_regno?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
-                            translate}}</span>
-                        } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'EREG' | translate}}</span>
-                        }
-                    </div>
-                </div>
-            </div>
-            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
-                        <img src="assets/icons/white/mfg.svg" alt="">
-                        <label for="mfg" class="text-gray-300 text-xs font-medium">{{ 'MFG' | translate }}
-                            <span class="text-red-600">*</span>
-                            
-                        </label>
-                    </div>
-                    <app-custom-date formControlName="product_mfg" placeholder="SMFG" hintMessage="SMFG"
-                        errorMessage="MFGR"
-                        [hasError]="product_mfg?.hasError('required') && !!product_mfg?.touched"
-                        [isValid]="!!product_mfg?.valid" minDate="2024-01-01" />
-                </div>
-            </div>
-            <div class="py-1 pt-6 pb-0 w-full">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1">
-                        <img src="assets/icons/white/stock.svg" alt="">
-                        <label for="stock" class="text-gray-300 text-xs font-medium">{{ 'STOCK' | translate }}
-                            <span class="text-red-600">*</span>
-                        </label>
-                    </div>
-                    <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-11 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                                text-figma-neutral text-sm font-light
-                                invalid:border-red-500 invalid:caret-red-500
-                                valid:border-green-500 valid:caret-green-500
-                                focus:border-primary caret-primary
-                                placeholder:text-figma-neutral placeholder:text-sm " formControlName="product_stock"
-                            type="number" id="stock" name="stock" placeholder="{{'ESTK' | translate}}">
-                        @if(product_stock?.hasError('required') && product_stock?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'STK' | translate}}</span>
-                        } @else if(product_stock?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
-                            translate}}</span>
-                        } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'ESTK' | translate}}</span>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class=" flex justify-end mt-10">
-            <button type="submit" [disabled]="detailInfo.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer
+<form [formGroup]="detailInfo" (ngSubmit)="onFormSubmit()">
+    <app-form-style formTitle="DETAILED_INFO" formSubtitle="PROD_INFO_DESC">
+        <!-- product expiry -->
+        <app-generic-input formControlName="product_expiry" [config]="productExpiryConfig"
+            [hasError]="product_expiry?.hasError('required') && !!product_expiry?.touched"
+            [isValid]="!!product_expiry?.valid" />
+        <!-- product reg. no -->
+        <app-generic-input formControlName="product_regno" [config]="productRegConfig"
+            [hasError]="product_regno?.hasError('required') && product_regno?.touched"
+            [isValid]="!!product_regno?.valid" />
+        <!-- product MFG -->
+        <app-generic-input formControlName="product_mfg" [config]="productMfgConfig"
+            [hasError]="product_mfg?.hasError('required') && !!product_mfg?.touched" [isValid]="!!product_mfg?.valid" />
+        <!-- product stock -->
+        <app-generic-input formControlName="product_stock" [config]="productStockConfig"
+            [hasError]="product_stock?.hasError('required') && product_stock?.touched"
+            [isValid]="!!product_stock?.valid" />
+    </app-form-style>
+    <div class="lg:pr-10.5 flex gap-2 justify-end mt-10">
+        <button type="button" class="h-11 w-45.5 rounded-sm text-primary cursor-pointer border border-primary
+            font-worksans text-[15px]" (click)="onCancel()" >
+            {{"CANCEL" | translate}}
+        </button>
+        <button type="submit" [disabled]="detailInfo.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer
             disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] disabled:cursor-not-allowed"
-                type="submit">
-                {{productFormEditing ? ("EDIT_PRODUCT" | translate) : ("ADD_PRODUCT" | translate)}}
-            </button>
-        </div>
-    </form>
-</div>
+            type="submit">
+            {{productFormEditing ? ("EDIT_PRODUCT" | translate) : ("ADD_PRODUCT" | translate)}}
+        </button>
+    </div>
+</form>
