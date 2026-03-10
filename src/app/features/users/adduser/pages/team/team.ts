@@ -19,7 +19,7 @@ import { FormStyle } from "@app/shared/components/form-style/form-style";
 
 @Component({
   selector: 'app-team',
-  imports: [ReactiveFormsModule, FormsModule, TranslateModule, CustomSelect, FormStyle, GenericInput],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule, FormStyle, GenericInput],
   templateUrl: './team.html',
   styleUrl: './team.css',
 })
