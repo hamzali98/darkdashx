@@ -235,5 +235,15 @@
     "Cosmetics": "کاسمیٹکس",
     "Electric": "بجلی",
     "Network": "نیٹ ورک",
-    "EXPORT_SUCCESS": "ڈیٹا کامیابی کے ساتھ برآمد ہو گیا!"
+    "EXPORT_SUCCESS": "ڈیٹا کامیابی کے ساتھ برآمد ہو گیا!",
+    "Confirmation Alert": "تصدیقی الرٹ",
+    "You have unsaved changes. Are you sure you want to leave?": "آپ کے پاس غیر محفوظ شدہ تبدیلیاں ہیں۔ کیا آپ واقعی چھوڑنا چاہتے ہیں؟",
+    "Added!": "شامل کر دیا گیا!",
+    "add_success" : "ڈیٹا کامیابی سے شامل کیا گیا!",
+    "add_fail": "ڈیٹا شامل کرنے میں ناکام!",
+    "Updated!": "اپ ڈیٹ ہو گیا!",
+    "update_success" : "ڈیٹا کامیابی سے اپ ڈیٹ ہو گیا!",
+    "update_fail": "اپ ڈیٹ ناکام!",
+    "req_fields_msg": "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!"
+
 }

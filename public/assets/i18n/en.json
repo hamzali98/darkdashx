@@ -234,5 +234,15 @@
     "Cosmetics": "Cosmetics",
     "Electric": "Electric",
     "Network": "Network",
-    "EXPORT_SUCCESS": "Data exported successfully!"
+    "EXPORT_SUCCESS": "Data exported successfully!",
+    "Confirmation Alert": "Confirmation Alert",
+    "You have unsaved changes. Are you sure you want to leave?": "You have unsaved changes. Are you sure you want to leave?",
+    "Added!": "Added!",
+    "add_success" : "Data Added Succesfully!",
+    "add_fail": "Failed to add data!",
+    "Updated!": "Updated!",
+    "update_success" : "Data updated successfully!",
+    "update_fail": "Update failed!",
+    "req_fields_msg": "Please fill in all required fields!"
+
 }
