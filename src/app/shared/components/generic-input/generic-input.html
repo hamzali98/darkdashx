@@ -1,5 +1,5 @@
 <div class="py-1 w-full" [ngClass]="config.ngclass">
-    <div class="flex flex-col lg:flex-row items-start justify-between">
+    <div class=" flex flex-col lg:flex-row items-start justify-between">
 
         <!-- ── Label ── -->
         <div class="flex gap-1 mt-1 my-2 lg:mt-1">
@@ -15,8 +15,8 @@
         <!-- ── Input Area ── -->
         <div class="flex flex-col w-full lg:w-auto">
 
-            <!-- ════════ TEXT / EMAIL / NUMBER / PASSWORD ════════ -->
-            @if(config.type === 'text' || config.type === 'email' || config.type === 'number' || config.type ===
+            <!-- ════════ TEXT / EMAIL / TEL / PASSWORD ════════ -->
+            @if(config.type === 'text' || config.type === 'email' || config.type === 'tel' || config.type ===
             'password') {
             <div class="relative flex flex-row justify-end items-center">
                 @if(config.startIcon){
@@ -78,6 +78,56 @@
             }">{{ value() }}</textarea>
             }
 
+            <!-- ════════ NUMBER ════════ -->
+            @if(config.type === 'number') {
+            <div class="relative flex flex-row items-center w-full lg:w-86">
+
+                <!-- Decrement Button -->
+                <button type="button" (click)="decrement()" [disabled]="isDisabled()" class="h-11 w-10 flex items-center justify-center border border-r-0
+                    border-gray-600 rounded-l-sm bg-card-bg
+                    text-gray-400 hover:text-primary hover:bg-primary/10
+                    transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed shrink-0" [ngClass]="{
+                    'border-red-500':   hasError,
+                    'border-green-500': isValid && !hasError,
+                    'border-gray-600':  !hasError && !isValid
+                        }">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                </button>
+
+                <!-- Input -->
+                <!-- replace the number input element -->
+                <input type="text" inputmode="numeric" class="flex-1 h-11 border-y outline-0 text-center
+                    text-figma-neutral text-sm font-light bg-card-bg
+                    caret-primary placeholder:text-figma-neutral placeholder:text-sm"
+                    [placeholder]="(config.placeholder ?? '0') | translate" [disabled]="isDisabled()" [value]="value()"
+                    (keydown)="onNumberKeyDown($event)" (input)="onInputChange($event)" (blur)="onNumberBlur($event)"
+                    [ngClass]="{
+                    'border-red-500':   hasError,
+                    'border-green-500': isValid && !hasError,
+                    'border-gray-600':  !hasError && !isValid
+                        }" />
+                <!-- Increment Button -->
+                <button type="button" (click)="increment()" [disabled]="isDisabled()" class="h-11 w-10 flex items-center justify-center border border-l-0
+                    border-gray-600 rounded-r-sm bg-card-bg
+                    text-gray-400 hover:text-primary hover:bg-primary/10
+                    transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed shrink-0" [ngClass]="{
+                    'border-red-500':   hasError,
+                    'border-green-500': isValid && !hasError,
+                    'border-gray-600':  !hasError && !isValid
+                        }">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                </button>
+
+            </div>
+            }
+
             <!-- ════════ SELECT ════════ -->
             @if(config.type === 'select') {
             <div class="relative w-full lg:w-86">
@@ -93,9 +143,9 @@
                         {{ selectedOption() ? (selectedOption()!.key | translate) : ((config.placeholder ?? 'Select') |
                         translate) }}
                     </span>
-                    <svg [class.rotate-180]="isOpen()" class="transition-transform duration-200 shrink-0" width="16"
-                        height="16" viewBox="0 0 24 24" fill="none" stroke="#cb3cff" stroke-width="2"
-                        stroke-linecap="round">
+                    <svg [class.rotate-180]="isOpen()" [ngClass]="isOpen() ? 'stroke-primary' : 'stroke-figma-neutral'"
+                        class="transition-transform duration-200 shrink-0 " width="16" height="16" viewBox="0 0 24 24"
+                        fill="none" stroke-width="2" stroke-linecap="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </button>
@@ -121,19 +171,25 @@
             <!-- ════════ DATE ════════ -->
             @if(config.type === 'date') {
             <div class="relative w-full lg:w-86">
-                <button type="button" (click)="toggleCalendar()" [disabled]="isDisabled()" 
+                <button type="button" (click)="toggleCalendar($event)" [disabled]="isDisabled()" 
                 class="h-11 w-full border rounded-sm px-4 text-sm font-light bg-card-bg
                     text-figma-neutral flex items-center justify-between
                     outline-0 transition-colors duration-200
+                    focus:border-primary
                     disabled:opacity-50 disabled:cursor-not-allowed" [ngClass]="{
                     'border-red-500':   hasError,
                     'border-green-500': isValid && !hasError,
-                    'border-gray-600':  !hasError && !isValid
             }">
                     <span [class.text-neutral-400]="!selectedDate()">
                         {{ displayDate || ((config.placeholder ?? 'Select Date') | translate) }}
                     </span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#cb3cff" stroke-width="2"
+                    <svg
+                    [ngClass]="isOpen()? 'stroke-primary' : ''"
+                    [ngClass]="{
+                        'stroke-red-500' : hasError,
+                        'stroke-green-500': isValid && !hasError,
+                    }"
+                    width="18" height="18" viewBox="0 0 24 24" fill="none"  stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="2" />
                         <line x1="16" y1="2" x2="16" y2="6" />
@@ -143,9 +199,8 @@
                 </button>
 
                 @if(isOpen()) {
-                <div
+                <div [ngClass]="dropdownPosition() === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'"
                     class="absolute z-50 mt-1 w-72 border border-gray-600 rounded-sm bg-card-bg shadow-xl p-3 select-none">
-
                     @if(viewMode() === 'days') {
                     <div class="flex items-center justify-between mb-3">
                         <button type="button" (click)="prevMonth()"
@@ -268,11 +323,9 @@
             @if(hasError && config.errorMessage) {
             <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{ config.errorMessage | translate }}</span>
             } @else if(isValid) {
-            <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{ 'LOOKS_GOOD' | translate }}</span>
-            } @else if(config.hintMessage) {
-            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{ config.hintMessage | translate }}</span>
+            <span class="py-1 px-4 text-transparent text-[12px] font-light">{{ 'LOOKS_GOOD' | translate }}</span>
+            <!-- <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{ 'LOOKS_GOOD' | translate }}</span> -->
             }
-
         </div>
     </div>
 </div>
