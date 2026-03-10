@@ -57,7 +57,7 @@ export class Details {
   get CurrentDate(): string { return new Date().toISOString().split('T')[0]; } // format: YYYY-MM-DD 
   get productFormSubmit(): FormGroup { return this.prodcutFormService.getForm(); }
 
-  navigate(): void {
+  private navigate(): void {
     this.routerRef.navigate(['/products'])
   }
 

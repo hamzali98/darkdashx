@@ -1,144 +1,74 @@
-<div class=" lg:pr-10.5 ">
-    <!-- personal information card -->
+<!-- <div class=" lg:pr-10.5 ">
     <p class="text-white text-md font-normal font-worksans ">{{"PERSONAL_INFO" | translate}}</p>
     <p class="text-figma-neutral text-sm font-medium tracking-normal">{{"Please fill in user information" | translate}}</p>
 
+    <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 "> -->
+<app-form-style formTitle="PERSONAL_INFO" formSubtitle="Please fill in user information">
     <form [formGroup]="personalInfo">
+        <!-- name input -->
+         <app-generic-input 
+         formControlName="user_name"
+         [config]="userNameConfig"
+         [hasError]="user_name?.hasError('required') && user_name?.touched"
+         [isValid]="!!user_name?.valid"
+         />
+        <!-- email input -->
+         <app-generic-input 
+         [config]="userEmailConfig"
+         formControlName="user_email"
+         [hasError]="user_email?.hasError('required') && user_email?.touched"
+         [isInvalid]="user_email?.hasError('invalidEmail')"
+         [isValid]="!!user_email?.valid"
+         />
+        <!-- photo input -->
+        <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
+            <div class="flex flex-col lg:flex-row items-start justify-between ">
+                <div class="flex gap-1 mt-1">
+                    <img src="assets/icons/white/photo.svg" alt="">
+                    <label class="text-gray-300 text-xs font-medium ">{{"PHOTO"| translate}}
+                        <!-- <span class="peer-invalid:text-red-600 peer-valid:text-green-600">*</span> -->
 
-        <div class="w-full h-full border border-gray-500/25 rounded-xl bg-card-bg p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
-            <!-- name input -->
-            <div class="py-1 pt-0 w-full border-b border-b-gray-500/20">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1 mt-1">
-                        <img src="assets/icons/white/usericon.svg" alt="">
-                        <label for="name" class="text-gray-300 text-xs font-medium ">{{"FULL_NAME" | translate}}
-                            <span class="text-red-600">*</span>
-                        </label>
-                    </div>
-                    <div class="flex flex-col w-full lg:w-auto">
-                        <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-figma-neutral text-sm font-light
-                        invalid:border-red-500 invalid:caret-red-500
-                        valid:border-green-500 valid:caret-green-500
-                        focus:border-primary caret-primary
-                        placeholder:text-figma-neutral placeholder:text-sm " formControlName="user_name" type="text"
-                            id="name" name="name" placeholder="{{'ENTER_FULL_NAME' | translate}}">
-                        @if(user_name?.hasError('required') && user_name?.touched) {
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"NAME_REQUIRED"|translate}}</span>
-                        } @else if(user_name?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{"LOOKS_GOOD"| translate}}</span>
-                        } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"ENTER_FULL_NAME"|
-                            translate}}</span>
-                        }
-                    </div>
+                    </label>
                 </div>
-            </div>
-            <!-- email input -->
-            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1 mt-1">
-                        <img src="assets/icons/white/email.svg" alt="">
-                        <label for="email" class="text-gray-300 text-xs font-medium">{{"EMAIL"|translate}}
-                            <span class="text-red-600">*</span>
-
-                        </label>
-                    </div>
-                    <div class="flex flex-col w-full lg:w-auto">
-
-                        <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                        text-figma-neutral text-sm font-light
-                        invalid:border-red-500 invalid:caret-red-500
-                        valid:border-green-500 valid:caret-green-500
-                        focus:border-primary caret-primary
-                        placeholder:text-figma-neutral placeholder:text-sm
-                        " type="text" id="email" name="email" formControlName="user_email"
-                            placeholder="{{'ENTER_EMAIL'|translate}}">
-                        @if(user_email?.hasError('required') && user_email?.touched){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"EMAIL_REQUIRED" |
-                            translate}}</span>
-                        } @else if (user_email?.hasError('invalidEmail')){
-                        <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"EMAIL_INVALID!"|translate}}</span>
-                        } @else if(user_email?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{"LOOKS_GOOD"|translate}}</span>
-                        } @else {
-                        <span
-                            class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{"ENTER_EMAIL"|translate}}</span>
-                        }
-                    </div>
-                </div>
-            </div>
-            <!-- photo input -->
-            <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1 mt-1">
-                        <img src="assets/icons/white/photo.svg" alt="">
-                        <label class="text-gray-300 text-xs font-medium ">{{"PHOTO"| translate}}
-                            <!-- <span class="peer-invalid:text-red-600 peer-valid:text-green-600">*</span> -->
-
-                        </label>
-                    </div>
-                    <div class="flex flex-col w-full lg:w-auto">
-                        <div class="flex w-full lg:w-86 gap-5 place-content-between items-center ">
-                            <div class="flex flex-col items-center justify-items-start ">
-                                <div class="rounded-full overflow-hidden size-11">
-                                    <img class="size-11" src="assets/images/profilepic.svg" alt="profile">
-                                </div>
-                                <Button class="text-figma-neutral text-[10px] text-light py-2 "
-                                    type="button">{{"DELETE"|translate}}</Button>
+                <div class="flex flex-col w-full lg:w-auto">
+                    <div class="flex w-full lg:w-86 gap-5 place-content-between items-center ">
+                        <div class="flex flex-col items-center justify-items-start ">
+                            <div class="rounded-full overflow-hidden size-11">
+                                <img class="size-11" src="assets/images/profilepic.svg" alt="profile">
                             </div>
-                            <input required id="photo" name="photo" type="file" class="hidden" />
-                            <label for="photo"
-                                class="flex flex-col text-figma-neutral rtl:text-[11px] text-light text-[10px] pr-13 mt-1.5 text-center items-center">
-                                <img class="size-7.5 mb-2 " src="assets/icons/colored/uploadphoto.svg" alt="upload">
-                                <p><span class="text-primary text-light text-md  "> {{"PHOTO_DESC_L1"|translate}}
-                                    </span>
-                                    {{"PHOTO_DESC_L2"|translate}} </p>
-                                {{"PHOTO_DESC_L3"|translate}}
-                            </label>
+                            <Button class="text-figma-neutral text-[10px] text-light py-2 "
+                                type="button">{{"DELETE"|translate}}</Button>
                         </div>
-                        @if(user_photo?.hasError('required') && user_photo?.touched)
-                        {
-                        <span
-                            class="py-1 px-4 text-red-500 text-[12px] font-light">{{"PHOTO_REQUIRED"|translate}}</span>
-                        } @else if(user_photo?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
-                            translate}}</span>
-                        } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light"></span>
-                        }
-                    </div>
-                </div>
-            </div>
-            <!-- description input -->
-            <div class="py-1 pt-6 pb-0 w-full">
-                <div class="flex flex-col lg:flex-row items-start justify-between ">
-                    <div class="flex gap-1 mt-1">
-                        <img src="assets/icons/white/pencil.svg" alt="">
-                        <label for="desc" class="text-gray-300 text-xs font-medium">{{"SHORT_DESC"|translate}}
-                            <span class="text-red-600">*</span>
-
+                        <input required id="photo" name="photo" type="file" class="hidden" />
+                        <label for="photo"
+                            class="flex flex-col text-figma-neutral rtl:text-[11px] text-light text-[10px] pr-13 mt-1.5 text-center items-center">
+                            <img class="size-7.5 mb-2 " src="assets/icons/colored/uploadphoto.svg" alt="upload">
+                            <p><span class="text-primary text-light text-md  "> {{"PHOTO_DESC_L1"|translate}}
+                                </span>
+                                {{"PHOTO_DESC_L2"|translate}} </p>
+                            {{"PHOTO_DESC_L3"|translate}}
                         </label>
                     </div>
-                    <div class="flex flex-col w-full lg:w-auto">
-                        <textarea required name="desc" id="desc" class=" w-full lg:w-86 border border-gray-600 rounded-sm px-4 py-2 outline-0 
-                        text-figma-neutral text-sm font-light
-                        invalid:border-red-500 invalid:caret-red-500
-                        valid:border-green-500 valid:caret-green-500
-                        focus:border-primary caret-primary
-                        placeholder:text-figma-neutral placeholder:text-sm" formControlName="user_desc"
-                            placeholder="{{'SHORT_DESC_PLACEHOLDER'|translate}}"></textarea>
-                        @if(user_desc?.hasError('required') && user_desc?.touched)
-                        { <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"DESCRIPTION_REQUIRED"|translate}}</span>
-                        } @else if(user_desc?.valid) {
-                        <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
-                            translate}}</span>
-                        } @else {
-                        <span class="py-1 px-4 text-neutral-400 text-[12px] font-light"></span>
-                        }
-                    </div>
+                    @if(user_photo?.hasError('required') && user_photo?.touched)
+                    {
+                    <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{"PHOTO_REQUIRED"|translate}}</span>
+                    } @else if(user_photo?.valid) {
+                    <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
+                        translate}}</span>
+                    } @else {
+                    <span class="py-1 px-4 text-neutral-400 text-[12px] font-light"></span>
+                    }
                 </div>
             </div>
         </div>
+        <!-- description input -->
+         <app-generic-input 
+        [config]="userDescConfig"
+        formControlName="user_desc"
+        [hasError]="user_desc?.hasError('required') && user_desc?.touched"
+        [isValid]="!!user_desc?.valid"
+        />
     </form>
-</div>
+</app-form-style>
+<!-- </div>
+</div> -->

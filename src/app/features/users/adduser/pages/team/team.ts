@@ -13,10 +13,13 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 import { TranslationService } from '@app/core/services/translate.service';
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 import { CustomSelect } from "@app/shared/components/custom-select/custom-select";
+import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
+import { InputConfigs } from '../../config/input-configs';
+import { FormStyle } from "@app/shared/components/form-style/form-style";
 
 @Component({
   selector: 'app-team',
-  imports: [ReactiveFormsModule, FormsModule, TranslateModule, CustomSelect],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule, CustomSelect, FormStyle, GenericInput],
   templateUrl: './team.html',
   styleUrl: './team.css',
 })
@@ -27,6 +30,11 @@ export class Team {
   companiesList: companyListInterface[];
   teamInfo: FormGroup;
   userFormSubmit: FormGroup;
+
+  userTeamNameConfig: CustomInputConfig;
+  userTeamRankConfig: CustomInputConfig;
+  userTeamOfficeConfig: CustomInputConfig;
+  userTeamEmailConfig: CustomInputConfig;
 
   // ✅ all private
   private routerRef = inject(Router);
@@ -43,6 +51,11 @@ export class Team {
     this.userFormSubmit = this.userForm.getForm();
     this.teamInfo = this.userForm.getForm().get('team_info') as FormGroup;
     this.teamInfo.markAllAsTouched();
+
+    this.userTeamNameConfig = new InputConfigs().userTeamNameConfig;
+    this.userTeamRankConfig = new InputConfigs().userTeamRankConfig;
+    this.userTeamOfficeConfig = new InputConfigs().userTeamOfficeConfig;
+    this.userTeamEmailConfig = new InputConfigs().userTeamEmailConfig;
   }
 
   get userformEditing() { return this.userForm.editing(); }
@@ -51,6 +64,15 @@ export class Team {
   get team_mail() { return this.teamInfo.get('team_mail'); }
   get team_office() { return this.teamInfo.get('team_office'); }
   get isRTL(): boolean { return this.translationService.getCurrentLanguage() === 'ur'; }
+
+  private navigate(): void {
+    this.routerRef.navigate(['/users/view']);
+  }
+
+  onCancel() {
+    this.userForm.resetForm();
+    this.navigate();
+  }
 
   onFormSubmit() {
     if (this.userFormSubmit.invalid) {
@@ -79,7 +101,7 @@ export class Team {
           this.tickAnimationService.show(this.isRTL ? "اپ ڈیٹ ہو گیا!" : "Updated!", 3000);
           setTimeout(() => {
             this.userForm.resetForm();
-            this.routerRef.navigate(['/users/view']);
+            this.navigate();
           }, 3000);
         },
         error: () => { // ✅ no silent error swallowing
@@ -106,7 +128,7 @@ export class Team {
           this.tickAnimationService.show(this.isRTL ? "شامل ہو گیا!" : "Added!", 3000);
           setTimeout(() => {
             this.userForm.resetForm();
-            this.routerRef.navigate(['/users/view']);
+            this.navigate();
           }, 3000);
         },
         error: () => {
