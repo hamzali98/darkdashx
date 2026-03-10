@@ -1,26 +1,19 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { product } from '../../interface/product-interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
-  
+
   editing = signal(false);
   editingId = signal('');
 
   fB = inject(FormBuilder);
 
-  productForm! : any;
-
-  constructor(){
-    this.initForm();
-  }
-
-  initForm(){
-    this.productForm = this.fB.group({
-    status : [false],
+  productForm: FormGroup = this.fB.group({
+    status: [false],
     basic_info: this.fB.group({
       product_name: [null, Validators.required],
       product_category: [null, Validators.required],
@@ -33,15 +26,16 @@ export class FormService {
       product_mfg: [null, Validators.required],
       product_stock: [null, Validators.required],
     }),
-    
   });
-  }
 
-  patchFormData(formdata : product){
+  constructor() { }
+
+  patchFormData(formdata: product) {
     this.editingId.set(formdata.id);
+    this.editing.set(true);
     this.productForm.patchValue({
-      status : formdata.status,
-      basic_info : {
+      status: formdata.status,
+      basic_info: {
         product_name: formdata.basic_info.product_name,
         product_category: formdata.basic_info.product_category,
         product_price: formdata.basic_info.product_price,
@@ -54,13 +48,32 @@ export class FormService {
         product_stock: formdata.detail_info.product_stock,
       }
     });
+    this.productForm.markAsPristine();
   }
 
-  getForm() {
+  getForm(): FormGroup {
     return this.productForm;
   }
 
-  resetForm(){
-    this.initForm();
+  // ✅ Reset by clearing values — same FormGroup instance is kept
+  resetForm() {
+    this.productForm.reset({ status: false });
+    this.productForm.markAsPristine();
+    this.productForm.markAsUntouched();
+    this.editing.set(false);
+    this.editingId.set('');
+  }
+
+  // ✅ Call this after successful submit — disables both guards
+  markClean() {
+    this.productForm.markAsPristine();
+  }
+
+  hasUnsavedChanges(): boolean {
+    return this.productForm.dirty;
+  }
+
+  isInvalid(){
+    return this.productForm.invalid;
   }
 }
