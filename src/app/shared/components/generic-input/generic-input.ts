@@ -32,6 +32,7 @@ export interface CustomInputConfig {
   inputId: string;
   inputName: string;
   errorMessage: string;
+  errorMessage2?: string;
   autocomplete?: string;
   min?: number; // for type='number'
   max?: number; // for type='number'
@@ -58,6 +59,7 @@ export interface CustomInputConfig {
 export class GenericInput implements ControlValueAccessor {
   @Input({ required: true }) config!: CustomInputConfig;
   @Input() hasError: boolean | undefined = false;
+  @Input() isInvalid: boolean | undefined = false;
   @Input() isValid = false;
 
   // Internal state

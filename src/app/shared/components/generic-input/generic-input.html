@@ -31,7 +31,7 @@
                     [placeholder]="(config.placeholder ?? '' | translate)" [autocomplete]="config.autocomplete ?? 'off'"
                     [disabled]="isDisabled()" [value]="value()" (input)="onInputChange($event)" (blur)="onTouched()"
                     [ngClass]="{
-                    'border-red-500':   hasError,
+                    'border-red-500':   hasError || isInvalid,
                     'border-green-500': isValid && !hasError,
                     'border-gray-600':  !hasError && !isValid,
                     'pr-10': config.type === 'password' || config.iconActions?.length
@@ -171,8 +171,7 @@
             <!-- ════════ DATE ════════ -->
             @if(config.type === 'date') {
             <div class="relative w-full lg:w-86">
-                <button type="button" (click)="toggleCalendar($event)" [disabled]="isDisabled()" 
-                class="h-11 w-full border rounded-sm px-4 text-sm font-light bg-card-bg
+                <button type="button" (click)="toggleCalendar($event)" [disabled]="isDisabled()" class="h-11 w-full border rounded-sm px-4 text-sm font-light bg-card-bg
                     text-figma-neutral flex items-center justify-between
                     outline-0 transition-colors duration-200
                     focus:border-primary
@@ -183,14 +182,11 @@
                     <span [class.text-neutral-400]="!selectedDate()">
                         {{ displayDate || ((config.placeholder ?? 'Select Date') | translate) }}
                     </span>
-                    <svg
-                    [ngClass]="isOpen()? 'stroke-primary' : ''"
-                    [ngClass]="{
+                    <svg [ngClass]="isOpen()? 'stroke-primary' : ''" [ngClass]="{
                         'stroke-red-500' : hasError,
                         'stroke-green-500': isValid && !hasError,
-                    }"
-                    width="18" height="18" viewBox="0 0 24 24" fill="none"  stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                    }" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="2" />
                         <line x1="16" y1="2" x2="16" y2="6" />
                         <line x1="8" y1="2" x2="8" y2="6" />
@@ -322,9 +318,10 @@
             <!-- ════════ VALIDATION MESSAGES ════════ -->
             @if(hasError && config.errorMessage) {
             <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{ config.errorMessage | translate }}</span>
-            } @else if(isValid) {
+            } @else if (isInvalid && config.errorMessage2){
+            <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{ config.errorMessage2 | translate }}</span>
+            } @else {
             <span class="py-1 px-4 text-transparent text-[12px] font-light">{{ 'LOOKS_GOOD' | translate }}</span>
-            <!-- <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{ 'LOOKS_GOOD' | translate }}</span> -->
             }
         </div>
     </div>
