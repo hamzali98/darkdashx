@@ -22,11 +22,13 @@ import { TickAnimationService } from '@app/shared/services/tick-animation/tick-a
 })
 export class Products implements OnInit {
 
-  url: string = environment.PRODUCTS_URL;
 
   length = signal(0);
   parentSearchKey = signal('');
   productData = signal<product[]>([]);
+
+  private readonly url: string = environment.PRODUCTS_URL;
+  private readonly product_form_intent: string = 'product_form_intent';
 
   private productTableConfig: any[];
   // productData: product[] = [];
@@ -64,11 +66,17 @@ export class Products implements OnInit {
   }
 
   goToroute() {
+    sessionStorage.setItem(this.product_form_intent, 'add');
+    this.routerRef.navigate(['/products/add']);
+  }
+
+  editproductData(val: product) {
+    sessionStorage.setItem(this.product_form_intent, 'edit');
+    this.productFormService.patchFormData(val);
     this.routerRef.navigate(['/products/add']);
   }
 
   private loadProducts() {
-
     this.dataFetchService.sharedProductData()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -171,8 +179,4 @@ export class Products implements OnInit {
     deleteNext(0); // kick off the chain
   }
 
-  editproductData(val: product) {
-    this.productFormService.patchFormData(val);
-    this.routerRef.navigate(['home/products/add']);
-  }
 }
