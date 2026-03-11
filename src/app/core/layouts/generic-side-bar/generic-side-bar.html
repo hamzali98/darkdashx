@@ -19,85 +19,59 @@
 
 
         <div class="mt-7">
-            <!-- <div class="flex justify-center align-middle w-full h-7 my-4 mb-0 
-            opacity-100 md:opacity-0 md:my-0 md:mb-0 md:size-0 ">
-                <img src="assets/icons/neutral/search.svg" alt="">
-            </div> -->
-            <div class="flex flex-row relative w-auto justify-center items-center">
-                <img src="assets/icons/neutral/search.svg"
-                    class="absolute left-3 p-0 flex align-middle size-3.5 bg-none pointer-events-none" alt="icon" />
-                <input class=" ltr:pl-8 rtl:pr-8 w-full h-10 border border-card-bg/30 dark:border-gray-800 
-                    rounded-md caret-primary outline-0
-                    placeholder:text-card-bg bg-input-bg 
-                    dark:placeholder:text-gray-400 placeholder:text-xs focus:border-primary dark:text-gray-400 "
-                    type='text' placeholder="{{'SEARCH' | translate}}" 
-                    [(ngModel)]="searchKey" />
-                    @if(searchKey()) {
-                        <button class="absolute right-3 bg-none cursor-pointer p-0 flex align-middle" (click)="clearText()"
-                        type="button">
-                        <img class="size-3" src="assets/icons/input_icons/cross.svg" alt="clear" />
-                    </button>
-                }
-            </div>
-            <!-- <app-search-bar></app-search-bar> -->
+            <app-generic-input [config]="searchbarConfig" [(ngModel)]="searchKey"
+                (ngModelChange)="updateSearchKey($event)" />
         </div>
     </div>
 
     <div class="overflow-y-auto scroll-container scroll-smooth pt-2">
+        <!-- No results state -->
+        @if(filteredNavItems().length === 0) {
+        <div class="px-4 py-6 text-center">
+            <p class="text-gray-500 text-xs">{{'No Result' | translate}}</p>
+            <p class="text-gray-600 text-[11px] mt-1">{{ searchKey() }}</p>
+        </div>
+        }
         <!-- Dashboard selection div -->
-        @for(items of navData; track $index){
-        <div [class]="items.topPadding" class="px-6.5">
-            <!-- <button [disabled]="open === items.routePath" class="flex justify-center align-middle w-full cursor-pointer
-                size-auto opacity-100 md:size-0 md:opacity-100
-                " (click)="openAndNavigate(items.routePath, items.routeLink[0])">
-                @if(open === items.routePath){
-                <img [src]="items.coloredIcon" [alt]="items.iconsAlt">
-                } @else {
-                <img [src]="items.uncoloredIcon" [alt]="items.iconsAlt">
-                }
-            </button> -->
-            <button type="button" [disabled]="open === items.routePath" class="flex flex-row items-end justify-between cursor-pointer
+        <!-- @for(items of navData; track $index){ -->
+        @for(items of filteredNavItems(); track items!.tileName) {
+        <div [class]="items!.topPadding" class="px-6.5">
+            <button type="button" [disabled]="open === items!.routePath" class="flex flex-row items-end justify-between cursor-pointer
                  size-auto w-full
-                " (click)="openAndNavigate(items.routePath, items.routeLink[0])">
+                " (click)="openAndNavigate(items!.routePath, items!.routeLink[0])">
                 <div class=" flex flex-row">
-                    @if(open === items.routePath){
-                    <img [src]="items.coloredIcon" [alt]="items.iconsAlt">
+                    @if(open === items!.routePath){
+                    <img [src]="items!.coloredIcon" [alt]="items!.iconsAlt">
                     } @else {
-                    <img [src]="items.uncoloredIcon" [alt]="items.iconsAlt">
+                    <img [src]="items!.uncoloredIcon" [alt]="items!.iconsAlt">
                     }
-                    <span [ngClass]="open === items.routePath
-                ? 'text-primary'
-                : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-medium text-sm">{{items.tileName |
+                    <span [innerHTML]="highlight(items!.tileName | translate)" [ngClass]="open === items!.routePath
+                        ? 'text-primary'
+                        : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-medium text-sm">{{items!.tileName |
                         translate}}</span>
                 </div>
                 <span class="transition-transform duration-300 ease-in-out mr-3 "
-                    [ngClass]="open === items.routePath ? 'rotate-0' : '-rotate-90' ">
+                    [ngClass]="open === items!.routePath ? 'rotate-0' : '-rotate-90' ">
                     <img src="assets/icons/neutral/droparrow.svg" alt="drop">
                 </span>
             </button>
 
-            <nav [ngClass]="open === items.routePath 
+            <nav [ngClass]="open === items!.routePath 
             ? 'opacity-100 max-h-auto pointer-events-auto py-4'
             : 'opacity-0 max-h-0 pointer-events-none py-3 ' "
                 class="flex flex-col transition-all duration-400 ease-in-out ">
-                @for(list of items.routeNames; track $index){
-                <a [routerLink]="[items.routeLink[$index]]" [ngClass]="isActive(items.routeLink[$index]) 
+                @for(list of items!.routeNames; track $index){
+                <a [routerLink]="[items!.routeLink[$index]]" [ngClass]="isActive(items!.routeLink[$index]) 
                     ? 'ltr:border-l-4 rtl:border-r-4 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white' 
                     : 'px-2 text-gray-500 dark:text-neutral-400'"
                     class="  ltr:text-left text-sm px-4 py-2.5 rounded-sm font-normal">
-                    <!-- <span class="md:hidden dark:fill-white "><img class="size-5" src="assets/icons/dashboard.svg"
-                            alt="dash"></span> -->
-                    <span class="">{{items.routeNames[$index] | translate}}</span>
+                    <span class="">{{items!.routeNames[$index] | translate}}</span>
                 </a>
                 }
             </nav>
         </div>
         }
-        <!-- </div> -->
 
-
-        <!-- divider div -->
-        <!-- <div class="border-b-[0.1px] text-gray-500/50 dark:border-b-gray-800"></div> -->
         <!-- settings div -->
         <div class="flex flex-col gap-5 w-auto h-auto px-5 py-7
             border-t-[0.1px] text-gray-500/50 dark:border-t-gray-800 bg-inherit
@@ -117,9 +91,6 @@
                 : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-bold text-sm">{{"SETTINGS" |
                             translate}}</span>
                     </div>
-                    <!-- <span class="-rotate-90 hidden md:inline">
-                    <img src="assets/icons/droparrow.svg" alt="">
-                </span> -->
                 </button>
             </div>
             <div class="py-2 flex items-center">
@@ -139,27 +110,11 @@
                         </div>
                     </div>
                 </button>
-                <!-- @if(!sidebar){
-                    <app-logout-btn [size]="'size-7'" ></app-logout-btn>
-                } -->
             </div>
-            <!-- <div>
-                <button class="grad w-full h-11.5 rounded-sm
-            bg-linear-to-br from-primary from-5% to-purple-900 to-95% ">
-                    <div class="flex gap-2 justify-center">
-                        <span class="text-md text-white font-light tracking-normal font-worksans">Get template</span>
-                        <img src="assets/icons/white/rightarrow.svg" alt="arr">
-                    </div>
-                </button>
-            </div> -->
         </div>
     </div>
     <div [ngClass]="sidebar ? 'justify-center' : 'justify-between' "
         class="flex flex-row gap-1 items-center w-auto h-auto py-2 px-5 mt-auto">
-        <!-- <div class="flex flex-col gap-1 justify-center items-center w-auto h-auto ">
-            <img class="inline h-10" src="assets/01.png" />
-            <app-footer></app-footer>
-        </div> -->
         <app-footer></app-footer>
         @if(!sidebar){
         <app-logout-btn></app-logout-btn>

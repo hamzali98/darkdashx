@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, Input, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { sidenavcols } from '@app/core/interface/generic-side-nav-interface';
@@ -10,10 +10,22 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { Footer } from "../footer/footer";
 import { FormsModule } from '@angular/forms';
+import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
 
 @Component({
   selector: 'app-generic-side-bar',
-  imports: [RouterLink, NgClass, MainLogo, LogoutBtn, LanguageSwitcherComponent, TranslateModule, TooltipDirective, Footer, FormsModule],
+  imports: [
+    RouterLink,
+    NgClass,
+    MainLogo,
+    LogoutBtn,
+    LanguageSwitcherComponent,
+    TranslateModule,
+    TooltipDirective,
+    Footer,
+    FormsModule,
+    GenericInput
+  ],
   templateUrl: './generic-side-bar.html',
   styleUrl: './generic-side-bar.css',
 })
@@ -21,11 +33,32 @@ export class GenericSideBar<T> implements OnInit {
 
   searchKey = signal("");
 
+  searchbarConfig: CustomInputConfig;
+
   @Input() navData: sidenavcols<T>[] = [];
 
   private routerRef = inject(Router);
   private layoutService = inject(Layout);
-  constructor() { }
+
+  constructor() {
+    this.searchbarConfig = {
+      ngclass: '',
+      autoSize: true,
+      startIcon: 'assets/icons/neutral/search.svg',
+      type: 'text',
+      inputId: 'search',
+      inputName: 'search',
+      errorMessage: '',
+      placeholder: 'SEARCH',
+      iconActions: [
+        {
+          iconPath: 'assets/icons/input_icons/cross.svg',
+          action: () => this.clearText(),
+          isActive: () => !!this.searchKey(),
+        }
+      ]
+    }
+  }
 
   ngOnInit() {
     // console.log("ng on init");
@@ -48,11 +81,11 @@ export class GenericSideBar<T> implements OnInit {
     return this.layoutService.getSidebarState();
   }
 
-  clearText(){
+  clearText() {
     this.searchKey.set("");
   }
 
-  openAndNavigate(section: string, route: string) {
+  openAndNavigate(section: string | undefined, route: string | undefined) {
     this.layoutService.openAndNavigate(section, route);
   }
 
@@ -68,5 +101,40 @@ export class GenericSideBar<T> implements OnInit {
     return this.layoutService.isActive(route);
   }
 
-  
+  // Filtered computed signal
+  filteredNavItems = computed(() => {
+    const key = this.searchKey().toLowerCase().trim();
+    if (!key) return this.navData;
+
+    return this.navData
+      .map(item => {
+        // Check if parent label matches
+        const parentMatches = item.tileName.toLowerCase().includes(key);
+
+        // Filter children that match
+        const matchedChildren = item.routeNames.filter(child =>
+          child.toLowerCase().includes(key)
+        );
+
+        // Include item if parent matches (show all children)
+        // OR if any children match (show only matched children)
+        if (parentMatches) return item;
+        if (matchedChildren.length) return { ...item, children: matchedChildren };
+        return null;
+      })
+      .filter(Boolean);
+  });
+
+  updateSearchKey(val: string) {
+    this.searchKey.set(val ?? '');
+  }
+
+  // Add this helper in sidebar TS
+  highlight(text: string): string {
+    const key = this.searchKey().trim();
+    if (!key) return text;
+    const regex = new RegExp(`(${key})`, 'gi');
+    return text.replace(regex, `<mark class="bg-primary/30 text-primary rounded-sm">$1</mark>`);
+  }
+
 }
