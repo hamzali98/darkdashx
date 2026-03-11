@@ -245,6 +245,9 @@
     "update_success" : "ڈیٹا کامیابی سے اپ ڈیٹ ہو گیا!",
     "update_fail": "اپ ڈیٹ ناکام!",
     "req_fields_msg": "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!",
-    "No Result": "کوئی نتیجہ نہیں"
+    "No Result": "کوئی نتیجہ نہیں",
+    "Yes, Restore": "ہاں، بھریں",
+    "📋 Draft Found": "📋 مسودہ ملا",
+    "You have an unsaved draft. Would you like to restore it?":"آپ کا پچھلا نامکمل فارم محفوظ ہے۔ کیا آپ اسے دوبارہ بھرنا چاہتے ہیں؟"
 
 }

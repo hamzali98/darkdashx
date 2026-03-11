@@ -244,5 +244,8 @@
     "update_success" : "Data updated successfully!",
     "update_fail": "Update failed!",
     "req_fields_msg": "Please fill in all required fields!",
-    "No Result" : "No Result"
+    "No Result" : "No Result",
+    "Yes, Restore": "Yes, Restore",
+    "📋 Draft Found" : "📋 Draft Found",
+    "You have an unsaved draft. Would you like to restore it?":"You have an unsaved draft. Would you like to restore it?"
 }
