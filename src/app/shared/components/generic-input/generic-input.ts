@@ -25,8 +25,9 @@ export interface CustomInputConfig {
   type: InputType;
   required?: boolean;
   startIcon?: string;
-  label: string;
-  labelFor: string;
+  autoSize?: boolean;
+  label?: string;
+  labelFor?: string;
   labelIcon?: string;       // asset path e.g. 'assets/icons/white/password.svg'
   placeholder?: string;
   inputId: string;

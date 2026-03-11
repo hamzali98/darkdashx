@@ -13,7 +13,7 @@ export class Layout<T> implements OnInit {
   isSidebarOpen$ = this.isSidebarOpenSubject.asObservable();
 
   // sideBarOpen = signal(true);
-  open = signal<string | null>(null);
+  open = signal<string | undefined>(undefined);
 
   // @Input() navData: sidenavcols<T>[] = [];
 
@@ -68,7 +68,7 @@ export class Layout<T> implements OnInit {
   //     this.onOpen(section);
   //   }
   // }
-  async openAndNavigate(section: string, route: string) {
+  async openAndNavigate(section: string | undefined, route: string | undefined) {
     const currentSection = this.open();
     const navigateSuccess = await this.routerRef.navigate([route]);
 
@@ -86,7 +86,7 @@ export class Layout<T> implements OnInit {
       this.open.set('/');
     } else {
       if (section === this.open()) {
-        this.open.set(null);
+        this.open.set(undefined);
       } else {
         this.open.set(section);
       }

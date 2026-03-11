@@ -2,6 +2,7 @@
     <div class=" flex flex-col lg:flex-row items-start justify-between">
 
         <!-- ── Label ── -->
+        @if(config.label){
         <div class="flex gap-1 mt-1 my-2 lg:mt-1">
             @if(config.labelIcon) {
             <img [src]="config.labelIcon" alt="icon" class="size-3" />
@@ -11,6 +12,7 @@
                 @if(config.required) { <span class="text-red-600">*</span> }
             </label>
         </div>
+        }
 
         <!-- ── Input Area ── -->
         <div class="flex flex-col w-full lg:w-auto">
@@ -21,9 +23,9 @@
             <div class="relative flex flex-row justify-end items-center">
                 @if(config.startIcon){
                 <img [src]="config.startIcon"
-                    class="absolute left-3 p-0 flex align-middle size-3.5 bg-none pointer-events-none" alt="icon" />
+                    class=" absolute left-3 p-0 flex align-middle size-3.5 bg-none pointer-events-none" alt="icon" />
                 }
-                <input class="flex-1 h-11 w-full lg:w-86 border rounded-sm px-4 outline-0
+                <input class="flex-1 h-11 border rounded-sm outline-0
                     text-figma-neutral text-sm font-light bg-card-bg
                     focus:border-primary caret-primary
                     placeholder:text-figma-neutral placeholder:text-sm" [required]="config.required" [type]="inputType"
@@ -31,11 +33,15 @@
                     [placeholder]="(config.placeholder ?? '' | translate)" [autocomplete]="config.autocomplete ?? 'off'"
                     [disabled]="isDisabled()" [value]="value()" (input)="onInputChange($event)" (blur)="onTouched()"
                     [ngClass]="{
-                    'border-red-500':   hasError || isInvalid,
-                    'border-green-500': isValid && !hasError,
-                    'border-gray-600':  !hasError && !isValid,
-                    'pr-10': config.type === 'password' || config.iconActions?.length
-            }" />
+                        'w-auto lg:w-86': !config.autoSize,
+                        'w-auto': config.autoSize,
+                        'px-4': !config.startIcon,
+                        'ltr:pl-8 pr-4': config.startIcon,
+                        'border-red-500': hasError || isInvalid,
+                        'border-green-500': isValid && !hasError,
+                        'border-gray-600': !hasError && !isValid,
+                        'pr-10': config.type === 'password' || config.iconActions?.length
+                        }" />
 
                 <!-- Password eye toggle -->
                 @if(config.type === 'password') {
@@ -52,13 +58,15 @@
                 <!-- Custom icon actions (e.g. search, clear, copy) -->
                 @if(config.iconActions?.length) {
                 @for(action of config.iconActions; track $index) {
+                @if(!action.isActive || action.isActive()) {
                 <button type="button" (click)="action.action()"
-                    class="absolute mx-2 bg-transparent border-none cursor-pointer p-0 flex items-center"
+                    class="absolute mx-2 bg-transparent border-none cursor-pointer p-0 size-3.5 flex items-center"
                     [style.right.px]="$index * 28">
                     <img class="size-5"
                         [src]="action.isActive?.() && action.activeIconPath ? action.activeIconPath : action.iconPath"
                         alt="" />
                 </button>
+                }
                 }
                 }
             </div>
@@ -139,7 +147,7 @@
                     'border-green-500': isValid && !hasError,
                     'border-gray-600':  !hasError && !isValid
             }">
-                    <span [class.text-neutral-400]="!selectedOption()">
+                    <span [class.text-figma-neutral]="!selectedOption()">
                         {{ selectedOption() ? (selectedOption()!.key | translate) : ((config.placeholder ?? 'Select') |
                         translate) }}
                     </span>
@@ -179,7 +187,7 @@
                     'border-red-500':   hasError,
                     'border-green-500': isValid && !hasError,
             }">
-                    <span [class.text-neutral-400]="!selectedDate()">
+                    <span [class.text-figma-neutral]="!selectedDate()">
                         {{ displayDate || ((config.placeholder ?? 'Select Date') | translate) }}
                     </span>
                     <svg [ngClass]="isOpen()? 'stroke-primary' : ''" [ngClass]="{
@@ -316,12 +324,14 @@
             }
 
             <!-- ════════ VALIDATION MESSAGES ════════ -->
+            @if(hasError){
             @if(hasError && config.errorMessage) {
             <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{ config.errorMessage | translate }}</span>
             } @else if (isInvalid && config.errorMessage2){
             <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{ config.errorMessage2 | translate }}</span>
             } @else {
             <span class="py-1 px-4 text-transparent text-[12px] font-light">{{ 'LOOKS_GOOD' | translate }}</span>
+            }
             }
         </div>
     </div>
