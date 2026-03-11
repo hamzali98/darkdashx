@@ -243,6 +243,6 @@
     "Updated!": "Updated!",
     "update_success" : "Data updated successfully!",
     "update_fail": "Update failed!",
-    "req_fields_msg": "Please fill in all required fields!"
-
+    "req_fields_msg": "Please fill in all required fields!",
+    "No Result" : "No Result"
 }
