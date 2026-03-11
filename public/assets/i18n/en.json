@@ -138,7 +138,7 @@
     "LOGIN_DESC": "Please fill in credentials to login",
     "ENTER_EMAIL": "Enter Email",
     "EMAIL_INVALID!": "Email is not valid!",
-    "EMAIL_REQUIRED": "Email is required!",
+    "EMAIL_REQUIRED!": "Email is required!",
     "PASSWORD": "Password",
     "ENTER_PASSWORD": "Enter Password",
     "REMEMBER_ME": "Remember Me",
