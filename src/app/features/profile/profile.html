@@ -18,6 +18,7 @@
                 <img class="size-18 my-4 rounded-full" src="assets/images/OIP.jpg" alt="p">
                 <!-- <span>{{user?.role}}</span> -->
 
+                <!-- <app-generic-input [config]="usernameInputConfig" formControlName="username" /> -->
                 <!-- inputs -->
                 <div class="flex flex-row items-center justify-between my-5 ">
                     <label for="username" class="text-figma-neutral text-sm ">{{ 'USERNAME' | translate }}</label>
@@ -29,6 +30,8 @@
                         placeholder:text-figma-neutral placeholder:text-sm " formControlName="username" id="username"
                         name="username" [placeholder]="user?.username" required type="text">
                 </div>
+                <!-- <app-generic-input [config]="emailInputConfig" formControlName="email" /> -->
+
                 <div class="flex flex-row items-center justify-between my-5 ">
                     <label for="email" class="text-figma-neutral text-sm ">{{ 'EMAIL' | translate }}</label>
                     <input class="h-10 w-96 lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
@@ -197,7 +200,7 @@
             <span class="px-4 text-red-600">{{ 'USERNAME_REQUIRED!' | translate }}</span>
             }@else if(email?.hasError('required') && email?.touched) {
             <span class="px-4 text-red-600">{{ 'EMAIL_REQUIRED!' | translate }}</span>
-            }@else if(email?.hasError('customEmail')) {
+            }@else if(email?.hasError('invalidEmail')) {
             <span class="px-4 text-red-600">{{ 'EMAIL_INVALID!' | translate }}</span>
             }@else {
             <p class="px-4 text-red-600"></p>

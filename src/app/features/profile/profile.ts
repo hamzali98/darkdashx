@@ -15,6 +15,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
+import { CustomInputConfig, GenericInput } from "@app/shared/components/generic-input/generic-input";
+import { ProfileConfig } from './config';
 
 export interface profilesociallinkbtns {
   alt: string,
@@ -45,11 +47,12 @@ export class Profile implements OnInit, OnDestroy {
   oldpass: string = "";
   cnfrmpass: string = "";
 
+  usernameInputConfig: CustomInputConfig;
+  emailInputConfig: CustomInputConfig;
   profileSocialBtnsLinks: profilesociallinkbtns[];
   user!: credentials | null;
   profileForm: FormGroup;
 
-  private routerRef = inject(Router);
   private authService = inject(AuthService);
   private httpService = inject(Httpservice);
   private dialogService = inject(DialogService);
@@ -78,6 +81,9 @@ export class Profile implements OnInit, OnDestroy {
       { alt: "Youtube", profile: "assets/logos/youtube.svg" },
     ];
 
+
+    this.usernameInputConfig = new ProfileConfig().usernameInputConfig;
+    this.emailInputConfig = new ProfileConfig().emailInputConfig;
   }
 
   get isRTL(): boolean { return this.translationService.getCurrentLanguage() === 'ur'; }
