@@ -1,18 +1,18 @@
-import { Component, inject, signal, DestroyRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { GenericTable } from "@app/shared/components/generic-table/generic-table";
+import { TranslateModule } from '@ngx-translate/core';
 import { product } from './interface/product-interface';
-import { Httpservice } from '@app/shared/services/httpservice/httpservice';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormService } from './products-add/service/form-service';
 import { environment } from '@environments/environment.development';
-import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
-import { TranslateModule } from '@ngx-translate/core';
 import { TranslationService } from '@app/core/services/translate.service';
-import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
-import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
-import { GenericViewPage } from "@app/shared/components/generic-view-page/generic-view-page";
+import { Httpservice } from '@app/shared/services/httpservice/httpservice';
+import { Component, inject, signal, DestroyRef, OnInit } from '@angular/core';
 import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
+import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
+import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
+import { GenericTable } from "@app/shared/components/generic-table/generic-table";
+import { GenericViewPage } from "@app/shared/components/generic-view-page/generic-view-page";
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 
 @Component({
   selector: 'app-products',
@@ -65,13 +65,7 @@ export class Products implements OnInit {
     return this.translationService.getCurrentLanguage() === 'ur';
   }
 
-  // goToroute() {
-  //   sessionStorage.setItem(this.product_form_intent, 'add');
-  //   this.routerRef.navigate(['/products/add']);
-  // }
-
   editproductData(val: product) {
-    sessionStorage.setItem(this.product_form_intent, 'edit');
     this.productFormService.patchFormData(val);
     this.routerRef.navigate(['/products/add']);
   }
