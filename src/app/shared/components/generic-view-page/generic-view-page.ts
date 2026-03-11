@@ -1,7 +1,7 @@
-import { Component, inject, Input, model } from '@angular/core';
+import { Router } from '@angular/router';
 import { SearchBar } from "../search-bar/search-bar";
 import { TranslateModule } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { Component, inject, Input, model } from '@angular/core';
 
 @Component({
   selector: 'app-generic-view-page',
@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class GenericViewPage {
 
   genericSearchKey = model('');
-  private readonly user_form_intent: string = 'user_form_intent';
 
 
   @Input({ required: true }) pageTitle!: string;
@@ -22,7 +21,6 @@ export class GenericViewPage {
   private routerRef = inject(Router);
 
   onClick() {
-    sessionStorage.setItem(this.user_form_intent, 'add');
     this.routerRef.navigate([this.route]);
   }
 }

@@ -1,6 +1,8 @@
 <app-form-style formTitle="BASIC_INFO" formSubtitle="Please fill in user information">
     <form [formGroup]="basicInfo">
 
+
+        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Format: 123-456-7890" />
         <app-generic-input [config]="userPhoneConfig" formControlName="user_phone"
             [hasError]="user_phone?.hasError('required') && user_phone?.touched"
             [isInvalid]="user_phone?.hasError('minlength') || user_phone?.hasError('maxlength')"

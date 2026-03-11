@@ -6,20 +6,12 @@
 <app-form-style formTitle="PERSONAL_INFO" formSubtitle="Please fill in user information">
     <form [formGroup]="personalInfo">
         <!-- name input -->
-         <app-generic-input 
-         formControlName="user_name"
-         [config]="userNameConfig"
-         [hasError]="user_name?.hasError('required') && user_name?.touched"
-         [isValid]="!!user_name?.valid"
-         />
+        <app-generic-input formControlName="user_name" [config]="userNameConfig"
+            [hasError]="user_name?.hasError('required') && user_name?.touched" [isValid]="!!user_name?.valid" />
         <!-- email input -->
-         <app-generic-input 
-         [config]="userEmailConfig"
-         formControlName="user_email"
-         [hasError]="user_email?.hasError('required') && user_email?.touched"
-         [isInvalid]="user_email?.hasError('invalidEmail')"
-         [isValid]="!!user_email?.valid"
-         />
+        <app-generic-input [config]="userEmailConfig" formControlName="user_email"
+            [hasError]="user_email?.hasError('required') && user_email?.touched"
+            [isInvalid]="user_email?.hasError('invalidEmail')" [isValid]="!!user_email?.valid" />
         <!-- photo input -->
         <div class="py-1 pt-6 w-full border-b border-b-gray-500/20">
             <div class="flex flex-col lg:flex-row items-start justify-between ">
@@ -62,12 +54,8 @@
             </div>
         </div>
         <!-- description input -->
-         <app-generic-input 
-        [config]="userDescConfig"
-        formControlName="user_desc"
-        [hasError]="user_desc?.hasError('required') && user_desc?.touched"
-        [isValid]="!!user_desc?.valid"
-        />
+        <app-generic-input [config]="userDescConfig" formControlName="user_desc"
+            [hasError]="user_desc?.hasError('required') && user_desc?.touched" [isValid]="!!user_desc?.valid" />
     </form>
 </app-form-style>
 <!-- </div>

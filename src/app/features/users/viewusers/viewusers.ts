@@ -17,8 +17,8 @@ import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 import { GenericTable } from '@app/shared/components/generic-table/generic-table';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
-import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 import { GenericViewPage } from "@app/shared/components/generic-view-page/generic-view-page";
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 
 @Component({
   selector: 'app-viewusers',
@@ -75,13 +75,7 @@ export class Viewusers implements OnInit {
     return this.userTableConfig;
   }
 
-  // onAddUserClick() {
-  //   sessionStorage.setItem(this.user_form_intent, 'add');
-  //   this.routerRef.navigate(['/users/add']);
-  // }
-
   editUserData(val: User) {
-    sessionStorage.setItem(this.user_form_intent, 'edit');
     this.userFormService.patchFormData(val);
     this.routerRef.navigate(['users/add']);
   }

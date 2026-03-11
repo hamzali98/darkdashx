@@ -324,7 +324,7 @@
             }
 
             <!-- ════════ VALIDATION MESSAGES ════════ -->
-            @if(hasError){
+            @if(config.errorMessage){
             @if(hasError && config.errorMessage) {
             <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{ config.errorMessage | translate }}</span>
             } @else if (isInvalid && config.errorMessage2){
