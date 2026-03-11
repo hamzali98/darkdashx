@@ -1,0 +1,15 @@
+<div class=" flex flex-col gap-5 px-9 py-7">
+    <div class="flex flex-col md:flex-row justify-between items-center ">
+        <div class="flex flex-col md:flex-row gap-13 items-center">
+            <span class="text-gray-500 dark:text-white font-medium font-inter text-lg ">
+                {{ pageTitle | translate}}
+            </span>
+            <app-search-bar [(searchKey)]="genericSearchKey"></app-search-bar>
+        </div>
+        <button (click)="onClick()" type="button"
+            class="rounded-sm text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 cursor-pointer bg-primary">
+            {{ buttonTitle | translate }}
+        </button>
+    </div>
+    <ng-content></ng-content>
+</div>

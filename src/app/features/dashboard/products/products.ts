@@ -1,10 +1,8 @@
-import { AfterViewInit, Component, inject, signal, DestroyRef, OnInit } from '@angular/core';
+import { Component, inject, signal, DestroyRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { SearchBar } from "@app/shared/components/search-bar/search-bar";
 import { GenericTable } from "@app/shared/components/generic-table/generic-table";
 import { product } from './interface/product-interface';
-import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { FormService } from './products-add/service/form-service';
 import { environment } from '@environments/environment.development';
@@ -13,10 +11,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslationService } from '@app/core/services/translate.service';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
+import { GenericViewPage } from "@app/shared/components/generic-view-page/generic-view-page";
+import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
 
 @Component({
   selector: 'app-products',
-  imports: [SearchBar, GenericTable, TranslateModule],
+  imports: [GenericTable, TranslateModule, GenericViewPage, TotalsCards],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
@@ -65,10 +65,10 @@ export class Products implements OnInit {
     return this.translationService.getCurrentLanguage() === 'ur';
   }
 
-  goToroute() {
-    sessionStorage.setItem(this.product_form_intent, 'add');
-    this.routerRef.navigate(['/products/add']);
-  }
+  // goToroute() {
+  //   sessionStorage.setItem(this.product_form_intent, 'add');
+  //   this.routerRef.navigate(['/products/add']);
+  // }
 
   editproductData(val: product) {
     sessionStorage.setItem(this.product_form_intent, 'edit');
