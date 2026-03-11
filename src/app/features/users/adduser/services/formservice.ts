@@ -1,8 +1,10 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { DestroyRef, Injectable, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from '../../interface/user';
 import { customEmailValidator } from '@app/shared/validators/email-validator';
 import { HasUnsavedChanges } from '@app/shared/interface/has-unsaved-changes';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { debounceTime, filter } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +14,10 @@ export class Formservice implements HasUnsavedChanges {
   editing = signal(false);
   editingId = signal('');
 
-  fB = inject(FormBuilder);
+  private readonly formKey: string = 'user_form';
+
+  private fB = inject(FormBuilder);
+  private destroyRef = inject(DestroyRef);
 
   userForm: FormGroup = this.fB.group({
     status: [false],
@@ -36,7 +41,18 @@ export class Formservice implements HasUnsavedChanges {
     }),
   })
 
-  constructor() { }
+  constructor() {
+    // Add this AFTER form initialization
+    this.userForm.valueChanges
+      .pipe(
+        debounceTime(500),              // wait 500ms after user stops typing
+        takeUntilDestroyed(this.destroyRef),  // auto cleanup on destroy
+        filter(() => this.userForm.dirty)  // 👈 only save when user actually changed something
+      )
+      .subscribe(val => {
+        this.saveFormToStorage(val);
+      });
+  }
 
   patchFormData(formdata: User) {
     this.editing.set(true);
@@ -73,6 +89,7 @@ export class Formservice implements HasUnsavedChanges {
     this.userForm.reset({ status: false });
     this.userForm.markAsPristine();
     this.userForm.markAsUntouched();
+    this.clearFormFromStorage()
     this.editing.set(false);
     this.editingId.set('');
   }
@@ -88,5 +105,32 @@ export class Formservice implements HasUnsavedChanges {
 
   isValid(): boolean {
     return this.userForm.valid;
+  }
+
+  // 1. Call this whenever form value changes (in your component after every valueChanges)
+  saveFormToStorage(formValue: any): void {
+    localStorage.setItem(this.formKey, JSON.stringify(formValue));
+  }
+
+  // 2. Call this on successful submit or cancel
+  clearFormFromStorage(): void {
+    localStorage.removeItem(this.formKey);
+  }
+
+  // 3. Call this to check if draft exists
+  hasSavedForm(): boolean {
+    return !!localStorage.getItem(this.formKey);
+  }
+
+  // 4. Call this to get the saved form value
+  getSavedForm(): any {
+    const form = localStorage.getItem(this.formKey);
+    return form ? JSON.parse(form) : null;
+  }
+
+  // Add this method to both FormService and Formservice
+  restoreDraft(formValue: any): void {
+    this.userForm.patchValue(formValue); // use productForm in FormService
+    // deliberately does NOT set editing or editingId
   }
 }

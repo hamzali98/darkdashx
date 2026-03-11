@@ -1,13 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
-import { SearchBar } from "@app/shared/components/search-bar/search-bar";
-import { GenericChildNavBar } from "@app/shared/components/generic-child-nav-bar/generic-child-nav-bar";
-import { childnav } from '@app/shared/interface/child-nav-interface';
-import { ChildNavBarService } from '@app/shared/services/child-nav-bar/child-nav-bar-service';
+import { RouterOutlet } from '@angular/router';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Formservice } from './services/formservice';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { childnav } from '@app/shared/interface/child-nav-interface';
+import { SearchBar } from "@app/shared/components/search-bar/search-bar";
+import { HasUnsavedChanges } from '@app/shared/interface/has-unsaved-changes';
+import { ChildNavBarService } from '@app/shared/services/child-nav-bar/child-nav-bar-service';
+import { GenericChildNavBar } from "@app/shared/components/generic-child-nav-bar/generic-child-nav-bar";
 import { DialogService } from '@app/shared/services/dialog-service/dialog';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-adduser',
@@ -15,15 +15,14 @@ import { map } from 'rxjs';
   templateUrl: './adduser.html',
   styleUrl: './adduser.css',
 })
-export class Adduser implements OnInit {
+export class Adduser implements OnInit, OnDestroy, HasUnsavedChanges {
 
   navTitle: string = "CREDENTIALS";
   addUserRoutesData: childnav[];
 
-  private routerRef = inject(Router);
-  private dialogService = inject(DialogService);
   private userFormService = inject(Formservice);
-  private translateModule = inject(TranslateService);
+  private dialogService = inject(DialogService);
+  private translateService = inject(TranslateService)
   private childNavBarDataService = inject(ChildNavBarService);
 
   constructor() {
@@ -31,15 +30,32 @@ export class Adduser implements OnInit {
   }
 
   ngOnInit(): void {
-    const intent = sessionStorage.getItem('user_form_intent');
-
-    if (!intent) {
-      // No intent flag means user landed here via refresh — send them back
-      this.routerRef.navigate(['/users/view']);
-    } else {
-      // Valid navigation — consume the flag so refresh now kicks them out
-      sessionStorage.removeItem('user_form_intent');
+    if (!this.isEditing) {
+      // dialog checking
+      if (this.userFormService.hasSavedForm()) {
+        this.dialogService.open({
+          actbtn: this.translateService.instant('Yes, Restore'),
+          title: this.translateService.instant('📋 Draft Found'),
+          message: this.translateService.instant('You have an unsaved draft. Would you like to restore it?'),
+          type: 'generic'
+        }).subscribe(result => {
+          if (result) {
+            // ✅ User said YES — patch saved values into form
+            this.userFormService.restoreDraft(this.userFormService.getSavedForm());
+          } else {
+            // ❌ User said NO — clear draft, init fresh form
+            this.userFormService.clearFormFromStorage();
+            this.userFormService.resetForm(); // your existing form init method
+          }
+        });
+      } else {
+        this.userFormService.resetForm(); // no draft — init fresh normally
+      }
     }
+  }
+
+  ngOnDestroy(): void {
+    // this.userFormService.clearFormFromStorage();
   }
 
   get isEditing(): boolean {

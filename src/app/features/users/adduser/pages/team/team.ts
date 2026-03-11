@@ -37,7 +37,7 @@ export class Team {
 
   // ✅ all private
   private routerRef = inject(Router);
-  private userForm = inject(Formservice);
+  private userFormService = inject(Formservice);
   private httpService = inject(Httpservice);
   private listService = inject(ListService);
   private snackService = inject(SnackBarService);
@@ -47,8 +47,8 @@ export class Team {
 
   constructor() {
     this.companiesList = this.listService.getCompanyList();
-    this.userFormSubmit = this.userForm.getForm();
-    this.teamInfo = this.userForm.getForm().get('team_info') as FormGroup;
+    this.userFormSubmit = this.userFormService.getForm();
+    this.teamInfo = this.userFormService.getForm().get('team_info') as FormGroup;
     this.teamInfo.markAllAsTouched();
 
     this.userTeamNameConfig = new InputConfigs().userTeamNameConfig;
@@ -57,7 +57,7 @@ export class Team {
     this.userTeamEmailConfig = new InputConfigs().userTeamEmailConfig;
   }
 
-  get userformEditing() { return this.userForm.editing(); }
+  get userformEditing() { return this.userFormService.editing(); }
   get team_name() { return this.teamInfo.get('team_name'); }
   get team_rank() { return this.teamInfo.get('team_rank'); }
   get team_mail() { return this.teamInfo.get('team_mail'); }
@@ -69,7 +69,7 @@ export class Team {
   }
 
   onCancel() {
-    this.userForm.resetForm();
+    this.userFormService.resetForm();
     this.navigate();
   }
 
@@ -83,7 +83,7 @@ export class Team {
     }
 
     if (this.userformEditing) {
-      const id = this.userForm.editingId();
+      const id = this.userFormService.editingId();
 
       this.httpService.editApi(this.url, id, this.userFormSubmit.value).subscribe({
         next: (res) => {
@@ -92,14 +92,15 @@ export class Team {
           const current = this.dataFetchService.getUserSnapshot();
           const updated = current.map(u => u.id === updatedUser.id ? updatedUser : u);
           this.dataFetchService.refreshData('users', updated);
-
           this.snackService.success(
             this.isRTL ? "ڈیٹا کامیابی سے اپ ڈیٹ ہو گیا!" : "User updated successfully!",
             2000, 'bottom-right'
           );
           this.tickAnimationService.show(this.isRTL ? "اپ ڈیٹ ہو گیا!" : "Updated!", 3000);
+          this.userFormService.markClean();
           setTimeout(() => {
-            this.userForm.resetForm();
+            this.userFormService.clearFormFromStorage(); // 👈 add this line
+            this.userFormService.resetForm();
             this.navigate();
           }, 3000);
         },
@@ -125,8 +126,10 @@ export class Team {
             2000, 'bottom-right'
           );
           this.tickAnimationService.show(this.isRTL ? "شامل ہو گیا!" : "Added!", 3000);
+          this.userFormService.markClean();
           setTimeout(() => {
-            this.userForm.resetForm();
+            this.userFormService.clearFormFromStorage(); // 👈 add this line
+            this.userFormService.resetForm();
             this.navigate();
           }, 3000);
         },

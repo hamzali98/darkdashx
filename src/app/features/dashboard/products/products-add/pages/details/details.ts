@@ -94,6 +94,7 @@ export class Details {
 
             this.prodcutFormService.markClean(); // 👈 disables both guards before navigate
             setTimeout(() => {
+              this.prodcutFormService.clearFormFromStorage();
               this.prodcutFormService.resetForm();
               this.navigate();
             }, 2000);
@@ -112,15 +113,16 @@ export class Details {
             const newProduct = res as product;
             const current = this.dataFetchService.getProductSnapshot();
             this.dataFetchService.refreshData('products', [...current, newProduct]);
-
+            
             this.snackService.success(
               this.translateModule.instant('add_success'),
               2000, 'bottom-right'
             );
             this.tickAnimationService.show(this.translateModule.instant('Added!'), 3000);
-
+            
             this.prodcutFormService.markClean(); // 👈 disables both guards before navigate
             setTimeout(() => {
+              this.prodcutFormService.clearFormFromStorage();
               this.prodcutFormService.resetForm();
               this.navigate();
             }, 2000);

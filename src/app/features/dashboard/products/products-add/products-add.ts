@@ -1,14 +1,13 @@
-import { map } from 'rxjs/operators';
-import { Router, RouterOutlet } from "@angular/router";
-import { Component, inject, OnInit } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { RouterOutlet } from "@angular/router";
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormService } from './service/form-service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { childnav } from '@app/shared/interface/child-nav-interface';
 import { SearchBar } from "@app/shared/components/search-bar/search-bar";
-import { DialogService } from '@app/shared/services/dialog-service/dialog';
+import { HasUnsavedChanges } from '@app/shared/interface/has-unsaved-changes';
 import { ChildNavBarService } from '@app/shared/services/child-nav-bar/child-nav-bar-service';
 import { GenericChildNavBar } from "@app/shared/components/generic-child-nav-bar/generic-child-nav-bar";
-import { HasUnsavedChanges } from '@app/shared/interface/has-unsaved-changes';
+import { DialogService } from "@app/shared/services/dialog-service/dialog";
 
 @Component({
   selector: 'app-products-add',
@@ -16,15 +15,14 @@ import { HasUnsavedChanges } from '@app/shared/interface/has-unsaved-changes';
   templateUrl: './products-add.html',
   styleUrl: './products-add.css',
 })
-export class ProductsAdd implements OnInit, HasUnsavedChanges {
+export class ProductsAdd implements OnInit, OnDestroy, HasUnsavedChanges {
 
   title: string = "DETAILS";
   addProductRoutesData: childnav[];
 
-  private routerRef = inject(Router);
-  private dialogService = inject(DialogService);
   private productFormService = inject(FormService);
-  private translateModule = inject(TranslateService);
+  private dialogService = inject(DialogService);
+  private translateService = inject(TranslateService);
   private addProductRoutesDataService = inject(ChildNavBarService);
 
   constructor() {
@@ -32,14 +30,31 @@ export class ProductsAdd implements OnInit, HasUnsavedChanges {
   }
 
   ngOnInit(): void {
-    const intent = sessionStorage.getItem('product_form_intent');
-    if (!intent) {
-      // No intent flag means user landed here via refresh — send them back
-      this.routerRef.navigate(['/products']);
-    } else {
-      // Valid navigation — consume the flag so refresh now kicks them out
-      sessionStorage.removeItem('product_form_intent');
+    if (!this.isEditing) {
+      if (this.productFormService.hasSavedForm()) {
+        this.dialogService.open({
+          actbtn: this.translateService.instant('Yes, Restore'),
+          title: this.translateService.instant('📋 Draft Found'),
+          message: this.translateService.instant('You have an unsaved draft. Would you like to restore it?'),
+          type: 'generic'
+        }).subscribe(result => {
+          if (result) {
+            // ✅ User said YES — patch saved values into form
+            this.productFormService.restoreDraft(this.productFormService.getSavedForm());
+          } else {
+            // ❌ User said NO — clear draft, init fresh form
+            this.productFormService.clearFormFromStorage();
+            this.productFormService.resetForm(); // your existing form init method
+          }
+        });
+      } else {
+        this.productFormService.resetForm(); // no draft — init fresh normally
+      }
     }
+  }
+
+  ngOnDestroy(): void {
+    // this.productFormService.clearFormFromStorage();
   }
 
   get isEditing(): boolean {
