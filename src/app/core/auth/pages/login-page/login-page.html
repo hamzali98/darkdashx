@@ -38,7 +38,7 @@
                                 formControlName="email" type="email" id="email" name="email"
                                 placeholder="{{'ENTER_EMAIL' | translate}}">
                             @if(email?.hasError('required') && email?.touched) {
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'EMAIL_REQUIRED' |
+                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'EMAIL_REQUIRED!' |
                                 translate}}</span>
                             }@else if(email?.valid) {
                             <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |

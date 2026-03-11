@@ -28,7 +28,7 @@ export class InputConfigs {
         placeholder: 'ENTER_EMAIL',
         inputId: 'email',
         inputName: 'email',
-        errorMessage: 'EMAIL_REQUIRED',
+        errorMessage: 'EMAIL_REQUIRED!',
         errorMessage2: 'EMAIL_INVALID!'
     };
     userDescConfig: CustomInputConfig = {

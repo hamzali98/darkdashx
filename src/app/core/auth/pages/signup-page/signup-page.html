@@ -74,7 +74,7 @@
                                 type="email" id="email" name="email" placeholder="{{'ENTER_EMAIL'|translate}}">
                             @if(email?.hasError('required') && email?.touched) {
                             <span
-                                class="py-1 px-4 text-red-500 text-[12px] font-light">{{"EMAIL_REQUIRED"|translate}}</span>
+                                class="py-1 px-4 text-red-500 text-[12px] font-light">{{"EMAIL_REQUIRED!"|translate}}</span>
                             } @else if (email?.hasError("email")) {
                             <span
                                 class="py-1 px-4 text-red-500 text-[12px] font-light">{{"EMAIL_INVALID!"|translate}}</span>
