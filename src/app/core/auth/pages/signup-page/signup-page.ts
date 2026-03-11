@@ -12,10 +12,12 @@ import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
 import { Footer } from "@app/core/layouts/footer/footer";
+import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
+import { SignupInputConfigs } from '../../input-configs/config';
 
 @Component({
   selector: 'app-signup-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule, LanguageSwitcherComponent, Footer],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule, LanguageSwitcherComponent, Footer, GenericInput],
   templateUrl: './signup-page.html',
   styleUrl: './signup-page.css',
 })
@@ -26,6 +28,11 @@ export class SignupPage {
   showCPass = false;
 
   AuthURL: string = environment.AUTH_URL;
+
+  userNameConfig: CustomInputConfig;
+  emailConfig: CustomInputConfig;
+  passwordConfig: CustomInputConfig;
+  confirmPasswordConfig: CustomInputConfig;
 
   private routerRef = inject(Router);
   private httpService = inject(Httpservice);
@@ -52,6 +59,11 @@ export class SignupPage {
       }
     );
     this.signupForm.markAllAsTouched();
+
+    this.userNameConfig = new SignupInputConfigs().userName;
+    this.emailConfig = new SignupInputConfigs().email;
+    this.passwordConfig = new SignupInputConfigs().password;
+    this.confirmPasswordConfig = new SignupInputConfigs().confirmPassword;
   }
 
   get f() {
