@@ -96,6 +96,7 @@ export class GenericInput implements ControlValueAccessor {
 
   // ─── Shared ───────────────────────────────────────────
   get inputType(): string {
+    if (this.config.type === 'tel') return 'number';
     if (this.config.type === 'password') return this.showPassword() ? 'text' : 'password';
     if (this.config.type === 'date' || this.config.type === 'select') return 'text';
     return this.config.type;
