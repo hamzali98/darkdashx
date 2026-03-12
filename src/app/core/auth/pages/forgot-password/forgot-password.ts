@@ -8,7 +8,6 @@ import { map } from 'rxjs';
 import { credentials } from '../../interface/credentials';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
-import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PageDesign } from "../../shared/components/auth-design/auth-design";
 import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
@@ -25,7 +24,7 @@ import { AuthFormFooter } from "../../shared/components/auth-form-footer/auth-fo
 export class ForgotPassword implements OnDestroy {
 
   flag: boolean = false;
-  isRTL: boolean;
+  // isRTL: boolean;
   showPass: boolean = false;
   showCPass: boolean = false;
 
@@ -36,15 +35,15 @@ export class ForgotPassword implements OnDestroy {
   loginLinkLabel: string;
   loginLinkRoute: string;
   loginLinkText: string;
-  findAccountBtnText:string;
-  passResetbtnText:string;
+  findAccountBtnText: string;
+  passResetbtnText: string;
 
   email: string = '';
   color: string = '';
   password: string = '';
   cnfrmPassword: string = '';
 
-  forgotEmailConfig : CustomInputConfig;
+  forgotEmailConfig: CustomInputConfig;
   forgotPasswordConfig: CustomInputConfig;
   forgotConfirmPasswordConfig: CustomInputConfig;
 
@@ -52,12 +51,11 @@ export class ForgotPassword implements OnDestroy {
 
   authUrl = environment.AUTH_URL;
 
-  routerRef = inject(Router);
-  httpService = inject(Httpservice);
-  snackService = inject(SnackBarService);
-  loaderService = inject(Loaderservice);
-  passwordService = inject(PasswordCheck);
-  translationService = inject(TranslationService);
+  private routerRef = inject(Router);
+  private httpService = inject(Httpservice);
+  private snackService = inject(SnackBarService);
+  private loaderService = inject(Loaderservice);
+  private passwordService = inject(PasswordCheck);
   private translateService = inject(TranslateService);
 
   constructor() {
@@ -70,7 +68,6 @@ export class ForgotPassword implements OnDestroy {
     this.loginLinkRoute = "/auth/login";
     this.loginLinkText = "LOGIN";
     this.passResetbtnText = "Reset Password";
-    this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
 
     this.forgotEmailConfig = new AuthInputConfigs().email;
     this.forgotPasswordConfig = new AuthInputConfigs().password;
@@ -107,7 +104,7 @@ export class ForgotPassword implements OnDestroy {
 
   checkEmail() {
     if (this.email.length <= 0) {
-      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
+      this.snackService.warning(this.translateService.instant("Please fill in all required fields!"), 5000, 'bottom-center');
     } else {
       this.loaderService.showLoader();
       this.httpService.getApi(this.authUrl).pipe(
@@ -125,7 +122,7 @@ export class ForgotPassword implements OnDestroy {
           if (user) {
             return { success: true, user };
           } else {
-            return { success: false, message: this.isRTL ? 'اس ای میل کے ساتھ کوئی اکاؤنٹ نہیں ملا!' : 'No account found with this email!' };
+            return { success: false, message: this.translateService.instant('No account found with this email!') };
           }
         }),
       ).subscribe({
@@ -135,14 +132,11 @@ export class ForgotPassword implements OnDestroy {
             this.flag = true;
             this.email = '';
             this.user = res.user as credentials;
-            // setTimeout(() => {
-            //   this.snackService.success(this.isRTL ? 'اکاؤنٹ مل گیا!' : 'Account found!', 2000, 'top-center');
-            // }, 2000);
           } else {
             this.snackService.error(`${res.message}`, 2000, 'top-center');
           }
           setTimeout(() => {
-            this.snackService.success(this.isRTL ? 'اکاؤنٹ مل گیا!' : 'Account found!', 2000, 'top-center');
+            this.snackService.success(this.translateService.instant('Account found!'), 2000, 'top-center');
           }, 2000);
           this.loaderService.hideLoader();
         },
@@ -157,7 +151,7 @@ export class ForgotPassword implements OnDestroy {
 
   passReset() {
     if (this.password.length <= 0) {
-      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
+      this.snackService.warning(this.translateService.instant("Please fill in all required fields!"), 5000, 'bottom-center');
     } else {
       // this.loaderService.showLoader();
       if (this.loaderService.isVisible$) {
@@ -174,11 +168,11 @@ export class ForgotPassword implements OnDestroy {
             this.flag = false;
             this.email = '';
             this.user = {} as credentials;
-            this.snackService.success(this.isRTL ? "پاس ورڈ ری سیٹ کامیاب ہو گیا!" : "Password reset successfull!", 2000, 'top-center');
+            this.snackService.success(this.translateService.instant("Password reset successfull!"), 2000, 'top-center');
             this.loaderService.hideLoader();
             this.routerRef.navigate(['/auth/login']);
           } else {
-            this.snackService.error(this.isRTL ? "کچھ غلط ہو گیا!" : "Something went wrong!", 2000, 'top-center');
+            this.snackService.error(this.translateService.instant("Something went wrong!"), 2000, 'top-center');
           }
         },
         error: (err) => {
