@@ -34,6 +34,7 @@ export interface CustomInputConfig {
   inputName: string;
   errorMessage: string;
   errorMessage2?: string;
+  showStrength?: boolean;
   autocomplete?: string;
   min?: number; // for type='number'
   max?: number; // for type='number'
@@ -60,6 +61,9 @@ export interface CustomInputConfig {
 export class GenericInput implements ControlValueAccessor {
   @Input({ required: true }) config!: CustomInputConfig;
   @Input() hasError: boolean | undefined = false;
+  @Input() passwordStrengthColor!: string;
+  @Input() passwordStrengthProgress!: string;
+  @Input() passwordStrength!: string;
   @Input() isInvalid: boolean | undefined = false;
   @Input() isValid = false;
 

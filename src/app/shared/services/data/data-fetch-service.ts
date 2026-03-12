@@ -6,6 +6,7 @@ import { TranslationService } from '@app/core/services/translate.service';
 import { environment } from '@environments/environment.development';
 import { User } from '@app/features/users/interface/user';
 import { product } from '@app/features/dashboard/products/interface/product-interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,7 @@ export class DataFetchService {
   private httpService = inject(Httpservice);
   private snackService = inject(SnackBarService);
   private translationService = inject(TranslationService);
+  private translateService = inject(TranslateService);
 
   // remove from constructor, change to getter:
   get isRTL(): boolean {
@@ -65,7 +67,7 @@ export class DataFetchService {
       {
         success: this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Users fetched successfully!",
         empty: this.isRTL ? "کوئی صارف نہیں ملا!" : "No users found!",
-        error: this.isRTL ? "سرور کی خرابی!" : "Server error!"
+        error: this.translateService.instant('Server Error!'),
       }
     );
   }

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../interface/user';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Formservice } from '../adduser/services/formservice';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { environment } from '@environments/environment.development';
@@ -45,6 +45,7 @@ export class Viewusers implements OnInit {
   private dataFetchService = inject(DataFetchService);
   private translationService = inject(TranslationService);
   private tickAnimationService = inject(TickAnimationService);
+  private translateService = inject(TranslateService);
 
   constructor() {
 
@@ -99,7 +100,7 @@ export class Viewusers implements OnInit {
         },
         error: () => {
           this.snackService.error(
-            this.isRTL ? "سرور کی خرابی!" : "Server Error!",
+            this.translateService.instant('Server Error!'),
             2000,
             'top-right'
           );
@@ -121,7 +122,7 @@ export class Viewusers implements OnInit {
         this.tickAnimationService.show(this.isRTL ? "حذف ہو گیا!" : "Deleted!", 3000);
       },
       error: (err) => {
-        this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server Error!", 2000, 'bottom-right');
+        this.snackService.error(this.translateService.instant('Server Error!'), 2000, 'bottom-right');
       }
     });
   }
