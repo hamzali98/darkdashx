@@ -15,10 +15,12 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 import { companyListInterface } from '@app/shared/interface/company-list.interface';
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
+import { SubmitButton } from "@app/shared/components/submit-button/submit-button";
+import { TextButton } from "@app/shared/components/text-button/text-button";
 
 @Component({
   selector: 'app-team',
-  imports: [ReactiveFormsModule, FormsModule, TranslateModule, FormStyle, GenericInput],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule, FormStyle, GenericInput, SubmitButton, TextButton],
   templateUrl: './team.html',
   styleUrl: './team.css',
 })

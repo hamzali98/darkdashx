@@ -12,10 +12,12 @@ import { TickAnimationService } from '@app/shared/services/tick-animation/tick-a
 import { CustomInputConfig, GenericInput } from "@app/shared/components/generic-input/generic-input";
 import { InputConfigs } from '../../config/input-configs';
 import { FormStyle } from "@app/shared/components/form-style/form-style";
+import { TextButton } from "@app/shared/components/text-button/text-button";
+import { SubmitButton } from "@app/shared/components/submit-button/submit-button";
 
 @Component({
   selector: 'app-details',
-  imports: [ReactiveFormsModule, FormsModule, TranslateModule, GenericInput, FormStyle],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule, GenericInput, FormStyle, TextButton, SubmitButton],
   templateUrl: './details.html',
   styleUrl: './details.css',
 })

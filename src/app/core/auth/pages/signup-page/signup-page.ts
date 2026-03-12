@@ -1,23 +1,23 @@
-import { NgClass } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { Httpservice } from '@app/shared/services/httpservice/httpservice';
-import { Loaderservice } from '@app/shared/services/loader/loaderservice';
-import { PasswordCheck } from '@app/shared/services/password-check/password-check';
-import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
-import { matchPasswordValidator } from '@app/shared/validators/match-password.validator';
-import { environment } from '@environments/environment.development';
-import { TranslationService } from '@app/core/services/translate.service';
+import { Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
-import { Footer } from "@app/core/layouts/footer/footer";
+import { environment } from '@environments/environment.development';
+import { AuthInputConfigs } from '@app/core/auth/shared/configs/config';
+import { Loaderservice } from '@app/shared/services/loader/loaderservice';
+import { TranslationService } from '@app/core/services/translate.service';
+import { Httpservice } from '@app/shared/services/httpservice/httpservice';
+import { PageDesign } from "../../shared/components/auth-design/auth-design";
+import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
+import { SubmitButton } from "@app/shared/components/submit-button/submit-button";
+import { PasswordCheck } from '@app/shared/services/password-check/password-check';
+import { matchPasswordValidator } from '@app/shared/validators/match-password.validator';
+import { AuthFormFooter } from "../../shared/components/auth-form-footer/auth-form-footer";
 import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
-import { SignupInputConfigs } from '../../input-configs/config';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule, LanguageSwitcherComponent, Footer, GenericInput],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule, GenericInput, PageDesign, SubmitButton, AuthFormFooter],
   templateUrl: './signup-page.html',
   styleUrl: './signup-page.css',
 })
@@ -26,6 +26,15 @@ export class SignupPage {
   isRTL: boolean;
   showPass = false;
   showCPass = false;
+
+  signupPageTitle: string;
+  signupPageSubtitle: string;
+  signupBtnText: string;
+
+  loginLinkLabel: string;
+  loginLinkRoute: string;
+  loginLinkText: string;
+
 
   AuthURL: string = environment.AUTH_URL;
 
@@ -45,6 +54,13 @@ export class SignupPage {
   signupForm: FormGroup;
 
   constructor() {
+    this.signupPageTitle = "Create Account";
+    this.signupPageSubtitle = "Please fill in your Details to create account";
+    this.signupBtnText = "Create Account";
+    this.loginLinkLabel = "Already have an account?";
+    this.loginLinkRoute = "/auth/login";
+    this.loginLinkText = "LOGIN";
+
     this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.signupForm = new FormGroup({
       username: new FormControl("", [Validators.required, Validators.maxLength(15), Validators.minLength(6)]),
@@ -60,14 +76,18 @@ export class SignupPage {
     );
     this.signupForm.markAllAsTouched();
 
-    this.userNameConfig = new SignupInputConfigs().userName;
-    this.emailConfig = new SignupInputConfigs().email;
-    this.passwordConfig = new SignupInputConfigs().password;
-    this.confirmPasswordConfig = new SignupInputConfigs().confirmPassword;
+    this.userNameConfig = new AuthInputConfigs().userName;
+    this.emailConfig = new AuthInputConfigs().email;
+    this.passwordConfig = new AuthInputConfigs().password;
+    this.confirmPasswordConfig = new AuthInputConfigs().confirmPassword;
   }
 
   get f() {
     return this.signupForm.controls;
+  }
+
+  get sigupBtnDisabled() {
+    return this.signupForm.invalid;
   }
 
   get username() {
@@ -87,15 +107,15 @@ export class SignupPage {
   }
 
 
-  get passwordStrengthGetter() {
+  get passwordStrengthGetter(): string {
     return this.passwordService.checkPasswordStrength(this.password?.value);
   }
 
-  get passwordStrengthColorGetter() {
+  get passwordStrengthColorGetter(): string {
     return this.passwordService.getPasswordStrengthColor(this.passwordStrengthGetter);
   }
 
-  get passwordStrengthProgressGetter() {
+  get passwordStrengthProgressGetter(): string {
     return this.passwordService.getPasswordStrengthProgress(this.passwordStrengthGetter);
   }
 

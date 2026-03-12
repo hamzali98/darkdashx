@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { product } from './interface/product-interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormService } from './products-add/service/form-service';
@@ -42,6 +42,7 @@ export class Products implements OnInit {
   private dataFetchService = inject(DataFetchService);
   private translationService = inject(TranslationService);
   private tickAnimationService = inject(TickAnimationService);
+  private translateService = inject(TranslateService);
 
   constructor() {
     this.productTableConfig = [
@@ -89,7 +90,7 @@ export class Products implements OnInit {
         },
         error: () => {
           this.snackService.error(
-            this.isRTL ? "سرور کی خرابی!" : "Server Error!",
+            this.translateService.instant('Server Error!'),
             2000,
             'top-right'
           );

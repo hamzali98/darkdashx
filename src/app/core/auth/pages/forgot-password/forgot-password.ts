@@ -1,7 +1,6 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { NgClass } from '@angular/common';
+import { Router } from '@angular/router';
 import { PasswordCheck } from '@app/shared/services/password-check/password-check';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { environment } from '@environments/environment.development';
@@ -10,13 +9,16 @@ import { credentials } from '../../interface/credentials';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { TranslationService } from '@app/core/services/translate.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
-import { Footer } from "@app/core/layouts/footer/footer";
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { PageDesign } from "../../shared/components/auth-design/auth-design";
+import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
+import { AuthInputConfigs } from '../../shared/configs/config';
+import { SubmitButton } from "@app/shared/components/submit-button/submit-button";
+import { AuthFormFooter } from "../../shared/components/auth-form-footer/auth-form-footer";
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgClass, TranslateModule, LanguageSwitcherComponent, Footer],
+  imports: [ReactiveFormsModule, FormsModule, TranslateModule, PageDesign, GenericInput, SubmitButton, AuthFormFooter],
   templateUrl: './forgot-password.html',
   styleUrl: './forgot-password.css',
 })
@@ -24,14 +26,27 @@ export class ForgotPassword implements OnDestroy {
 
   flag: boolean = false;
   isRTL: boolean;
-  
-  showPass = false;
-  showCPass = false;
+  showPass: boolean = false;
+  showCPass: boolean = false;
+
+  forgotPasswordPageTitle1: string;
+  forgotPasswordPageSubtitle1: string;
+  forgotPasswordPageTitle2: string;
+  forgotPasswordPageSubtitle2: string;
+  loginLinkLabel: string;
+  loginLinkRoute: string;
+  loginLinkText: string;
+  findAccountBtnText:string;
+  passResetbtnText:string;
 
   email: string = '';
   color: string = '';
   password: string = '';
   cnfrmPassword: string = '';
+
+  forgotEmailConfig : CustomInputConfig;
+  forgotPasswordConfig: CustomInputConfig;
+  forgotConfirmPasswordConfig: CustomInputConfig;
 
   user!: credentials;
 
@@ -43,9 +58,23 @@ export class ForgotPassword implements OnDestroy {
   loaderService = inject(Loaderservice);
   passwordService = inject(PasswordCheck);
   translationService = inject(TranslationService);
+  private translateService = inject(TranslateService);
 
   constructor() {
+    this.forgotPasswordPageTitle1 = "Find Account";
+    this.forgotPasswordPageSubtitle1 = "Please enter your account accociated email to reset password.";
+    this.forgotPasswordPageTitle2 = "Reset Password";
+    this.forgotPasswordPageSubtitle2 = "Please enter your new password for account.";
+    this.findAccountBtnText = "Find Account?";
+    this.loginLinkLabel = "Already have an account?";
+    this.loginLinkRoute = "/auth/login";
+    this.loginLinkText = "LOGIN";
+    this.passResetbtnText = "Reset Password";
     this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
+
+    this.forgotEmailConfig = new AuthInputConfigs().email;
+    this.forgotPasswordConfig = new AuthInputConfigs().password;
+    this.forgotConfirmPasswordConfig = new AuthInputConfigs().confirmPassword;
   }
 
   get emailLengthGetter() {
@@ -118,7 +147,8 @@ export class ForgotPassword implements OnDestroy {
           this.loaderService.hideLoader();
         },
         error: (err) => {
-          this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error!", 2000, 'top-center');
+          this.snackService.error(
+            this.translateService.instant('Server Error!'), 2000, 'top-center');
           this.loaderService.hideLoader();
         }
       });
@@ -152,7 +182,9 @@ export class ForgotPassword implements OnDestroy {
           }
         },
         error: (err) => {
-          this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error!", 2000, 'top-center');
+          this.snackService.error(
+            this.translateService.instant('Server Error!'),
+            2000, 'top-center');
           this.loaderService.hideLoader();
         }
       });

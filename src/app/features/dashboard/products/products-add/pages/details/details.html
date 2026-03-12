@@ -16,15 +16,9 @@
             [hasError]="product_stock?.hasError('required') && product_stock?.touched"
             [isValid]="!!product_stock?.valid" />
     </app-form-style>
-    <div class="lg:pr-10.5 flex gap-2 justify-end mt-10">
-        <button type="button" class="h-11 w-45.5 rounded-sm text-primary cursor-pointer border border-primary
-            font-worksans text-[15px]" (click)="onCancel()" >
-            {{"CANCEL" | translate}}
-        </button>
-        <button type="submit" [disabled]="detailInfo.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer
-            disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] disabled:cursor-not-allowed"
-            type="submit">
-            {{productFormEditing ? ("EDIT_PRODUCT" | translate) : ("ADD_PRODUCT" | translate)}}
-        </button>
+    <div class="lg:pr-10.5 flex gap-2 justify-end">
+        <app-text-button [btnDisable]="false" btntext="CANCEL" (btnClick)="onCancel()" />
+        <app-submit-button btnType="submit" [btnDisable]="productFormSubmit.invalid"
+            [btntext]="productFormEditing ? ('EDIT_PRODUCT'|translate) : ('ADD_PRODUCT'|translate)" />
     </div>
 </form>

@@ -5,17 +5,20 @@ import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
 import { environment } from '@environments/environment.development';
-import { finalize, map } from 'rxjs';
+import { map } from 'rxjs';
 import { credentials } from '../../interface/credentials';
 import { AuthService } from '../../services/auth-service';
 import { TranslationService } from '@app/core/services/translate.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
-import { Footer } from "@app/core/layouts/footer/footer";
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { PageDesign } from "../../shared/components/auth-design/auth-design";
+import { SubmitButton } from "@app/shared/components/submit-button/submit-button";
+import { AuthFormFooter } from "../../shared/components/auth-form-footer/auth-form-footer";
+import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
+import { AuthInputConfigs } from '../../shared/configs/config';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, TranslateModule, LanguageSwitcherComponent, Footer],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, TranslateModule, PageDesign, SubmitButton, AuthFormFooter, GenericInput],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
@@ -24,7 +27,17 @@ export class LoginPage {
   isRTL: boolean;
   showPass = false;
   remember: boolean = false;
-  
+
+  loginPageTitle: string;
+  loginPageSubtitle: string;
+  loginBtnText: string;
+  signupLinkLabel: string;
+  signupLinkRoute: string;
+  signupLinkText: string;
+
+  emailInputConfig: CustomInputConfig;
+  passwordInputConfig: CustomInputConfig;
+
   data: credentials[];
   loginForm: FormGroup;
 
@@ -37,9 +50,20 @@ export class LoginPage {
   private routerRef = inject(Router);
   private authService = inject(AuthService);
   private translationService = inject(TranslationService);
+  private translateService = inject(TranslateService);
 
 
   constructor() {
+    this.loginPageTitle = "LOGIN";
+    this.loginPageSubtitle = "LOGIN_DESC";
+    this.loginBtnText = "LOGIN";
+    this.signupLinkLabel = "NO_ACCOUNT";
+    this.signupLinkRoute = "/auth/signup";
+    this.signupLinkText = "CREATE";
+
+    this.emailInputConfig = new AuthInputConfigs().loginEmail;
+    this.passwordInputConfig = new AuthInputConfigs().loginPassword;
+
     this.data = [];
     this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.loginForm = new FormGroup({
@@ -49,12 +73,32 @@ export class LoginPage {
     this.loginForm.markAllAsTouched();
   }
 
+  get btnDisabled(){
+    return this.loginForm.invalid;
+  }
+
   get email() {
     return this.loginForm.get("email");
   }
 
   get password() {
     return this.loginForm.get("password")
+  }
+
+  get emailHasError (): boolean {
+    return !!this.email?.hasError('required') && this.email?.touched;
+  }
+
+  get emailValid(): boolean {
+    return !!this.email?.valid;
+  }
+
+  get passwordHasError () :boolean {
+    return !!this.password?.hasError('required') && this.password?.touched;
+  }
+
+  get passwordValid () : boolean {
+    return !!this.password?.valid;
   }
 
   onLoginSubmit() {
@@ -103,8 +147,7 @@ export class LoginPage {
         error: (err) => {
           console.error(err);
           this.snackService.error(
-            this.isRTL ? "سرور کی خرابی!" :
-              "Server Error!",
+            this.translateService.instant('Server Error!'),
             2000,
             'top-center'
           );

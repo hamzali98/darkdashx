@@ -1,129 +1,38 @@
-<div class="flex flex-col justify-center items-center min-h-screen overflow-auto p-2 md:p-0
-        bg-[url('/assets/lgbg.png')] bg-no-repeat bg-cover">
-
-    <div class="relative p-0">
-        <!-- The glowing gradient background layer -->
-        <div class="absolute inset-0 bg-linear-to-br from-primary via-purple-600 to-secondary2 rounded-lg filter blur-xl 
-             opacity-10 animate-pulse">
-        </div>
-        <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
-
-            <div class="w-full lg:w-150 h-auto border border-gray-500/25 rounded-xl 
-                    bg-card-bg/70 backdrop-blur-3xl p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
-                <div class="flex flex-row justify-between items-center">
-
-                    <div class="w-full">
-                        <p class="text-white text-lg font-semibold font-worksans ">{{'LOGIN' | translate}}</p>
-                        <p class="text-figma-neutral text-sm font-medium tracking-normal">{{'LOGIN_DESC' | translate}}
-                        </p>
-                    </div>
-                    <app-language-switcher></app-language-switcher>
-                </div>
-                <!-- email input -->
-                <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
-                    <div class="flex flex-col lg:flex-row items-start justify-between ">
-                        <div class="flex gap-1 my-2 lg:mt-1">
-                            <img src="assets/icons/white/email.svg" alt="">
-                            <label for="email" class="text-gray-300 text-xs font-medium ">{{'EMAIL' | translate}}
-                                <span class="text-red-600">*</span>
-                            </label>
-                        </div>
-                        <div class="flex flex-col w-full lg:w-auto">
-                            <input required class="h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                                text-figma-neutral text-sm font-light
-                                invalid:border-red-500 invalid:caret-red-500
-                                valid:border-green-500 valid:caret-green-500
-                                focus:border-primary caret-primary
-                                placeholder:text-figma-neutral placeholder:text-sm " autocomplete="username"
-                                formControlName="email" type="email" id="email" name="email"
-                                placeholder="{{'ENTER_EMAIL' | translate}}">
-                            @if(email?.hasError('required') && email?.touched) {
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'EMAIL_REQUIRED!' |
-                                translate}}</span>
-                            }@else if(email?.valid) {
-                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
-                                translate}}</span>
-                            } @else {
-                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'ENTER_EMAIL' |
-                                translate}}</span>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <!-- Password input -->
-                <div class="py-1 pt-2 lg:pt-6 w-full border-b border-b-gray-500/20">
-                    <div class="flex flex-col lg:flex-row items-start justify-between ">
-                        <div class="flex gap-1 my-2 lg:mt-1">
-                            <img src="assets/icons/white/password.svg" alt="">
-                            <label for="password" class="text-gray-300 text-xs font-medium ">{{'PASSWORD' | translate}}
-                                <span class="text-red-600">*</span>
-                            </label>
-                        </div>
-                        <div class="flex flex-col w-full lg:w-auto">
-                            <div class="relative flex flex-row justify-end items-center">
-                                <input required class="flex-1 h-10 w-full lg:w-86 border border-gray-600 rounded-sm px-4 outline-0 
-                                text-figma-neutral text-sm font-light
-                                invalid:border-red-500 invalid:caret-red-500
-                                valid:border-green-500 valid:caret-green-500
-                                focus:border-primary caret-primary
-                                placeholder:text-figma-neutral placeholder:text-sm " autocomplete="current-password"
-                                    formControlName="password" [type]="showPass ? 'text' : 'password'" id="password"
-                                    name="password" placeholder="{{'ENTER_PASSWORD' | translate}}">
-                                <button class="absolute bg-none cursor-pointer p-0 flex align-middle
-                                mx-2
-                                " 
-                                type="button" (click)="showPass = !showPass">
-                                    @if(!showPass) {
-                                    <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />
-                                    }
-                                    @if(showPass) {
-                                    <img class="size-5" src="assets/icons/input_icons/closeeye.svg" alt="e" />
-                                    }
-                                </button>
-                            </div>
-                            @if(password?.hasError('required') && password?.touched) {
-                            <span class="py-1 px-4 text-red-500 text-[12px] font-light">{{'PASSWORD_REQUIRED' |
-                                translate}}</span>
-                            } @else if(password?.valid) {
-                            <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{'LOOKS_GOOD' |
-                                translate}}</span>
-                            } @else {
-                            <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{'ENTER_PASSWORD' |
-                                translate}}</span>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <!-- remember me -->
-                <div class="py-1 pt-2 w-full">
-                    <div class="flex flex-col lg:flex-row items-center justify-between ">
-                        <div class="flex gap-1 my-2 lg:mt-1">
-                            <input class="accent-primary cursor-pointer" [(ngModel)]="remember"
-                                [ngModelOptions]="{ standalone: true }" type="checkbox" id="remember" name="remember">
-                            <label for="remember" class="text-gray-300 text-xs font-medium cursor-pointer
+<auth-page-design [authFormTitle]="loginPageTitle" [authFormSubtitle]="loginPageSubtitle">
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+        <!-- email input -->
+         <app-generic-input 
+         [config]="emailInputConfig"
+         formControlName="email"
+         [hasError]="emailHasError"
+         [isValid]="emailValid"
+         />
+        <!-- Password input -->
+         <app-generic-input 
+         [config]="passwordInputConfig"
+         formControlName="password"
+         [hasError]="passwordHasError"
+         [isValid]="passwordValid"
+         />
+        <!-- remember me -->
+        <div class="py-1 pt-2 w-full">
+            <div class="flex flex-col lg:flex-row items-center justify-between ">
+                <div class="flex gap-1 my-2 lg:mt-1">
+                    <input class="accent-primary cursor-pointer" [(ngModel)]="remember"
+                        [ngModelOptions]="{ standalone: true }" type="checkbox" id="remember" name="remember">
+                    <label for="remember" class="text-gray-300 text-xs font-medium cursor-pointer
                         ">{{'REMEMBER_ME' | translate}}
-                            </label>
-                        </div>
-                        <a routerLink="/auth/forgot"
-                            class="text-sm text-primary underline cursor-pointer ">{{'FORGOT_PASSWORD' | translate}}</a>
-                    </div>
+                    </label>
                 </div>
-                <div class=" flex justify-center my-5">
-                    <button type="submit" [disabled]="loginForm.invalid" class="h-11 w-full rounded-sm text-white bg-primary 
-                            cursor-pointer disabled:cursor-not-allowed disabled:bg-primary/50
-                            disabled:text-white/50 font-worksans text-[15px]" type="submit">
-                        {{'LOGIN' | translate}}
-                    </button>
-                </div>
-
-                <div class="mb-3 text-white text-center ">
-                    {{'NO_ACCOUNT' | translate}}
-                    <a routerLink="/auth/signup" class="text-sm text-secondary2 underline cursor-pointer ">{{'CREATE' |
-                        translate}}</a>
-                </div>
+                <a routerLink="/auth/forgot" class="text-sm text-primary underline cursor-pointer ">{{'FORGOT_PASSWORD'
+                    | translate}}</a>
             </div>
-        </form>
-    </div>
-    <app-footer></app-footer>
-
-</div>
+        </div>
+        <!-- login page button -->
+        <div class="flex justify-center my-5" >
+            <app-submit-button btnType="submit" [btnDisable]="btnDisabled" [btntext]="loginBtnText" />
+        </div>
+        <!-- signup page route -->
+        <app-auth-form-footer [linkLabel]="signupLinkLabel" [routeLink]="signupLinkRoute" [linkName]="signupLinkText" />
+    </form>
+</auth-page-design>

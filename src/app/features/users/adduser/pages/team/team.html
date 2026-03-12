@@ -15,15 +15,9 @@
             [isInvalid]="team_mail?.hasError('invalidEmail')" [isValid]="!!team_mail?.valid" />
     </app-form-style>
 
-    <div class="lg:pr-10.5 flex gap-2 justify-end mt-10">
-        <button type="button" class="h-11 w-45.5 rounded-sm text-primary cursor-pointer border border-primary
-                font-worksans text-[15px]" (click)="onCancel()">
-            {{"CANCEL" | translate}}
-        </button>
-        <button [disabled]="userFormSubmit.invalid" class="h-11 w-45.5 rounded-sm text-white bg-primary cursor-pointer
-            disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] disabled:cursor-not-allowed "
-            type="submit">
-            {{userformEditing ? ("Edit User"|translate) : ("Add User"|translate)}}
-        </button>
+    <div class="lg:pr-10.5 flex gap-2 justify-end">
+        <app-text-button [btnDisable]="false" btntext="CANCEL" (btnClick)="onCancel()" />
+        <app-submit-button btnType="submit" [btnDisable]="userFormSubmit.invalid"
+            [btntext]="userformEditing ? ('Edit User'|translate) : ('Add User'|translate)" />
     </div>
 </form>

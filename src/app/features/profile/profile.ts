@@ -11,7 +11,7 @@ import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service
 import { customEmailValidator } from '@app/shared/validators/email-validator';
 import { environment } from '@environments/environment.development';
 import { delay, map } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '@app/core/services/translate.service';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
@@ -60,6 +60,7 @@ export class Profile implements OnInit, OnDestroy {
   private snackService = inject(SnackBarService);
   private translationService = inject(TranslationService);
   private tickAnimationService = inject(TickAnimationService);
+  private translateService = inject(TranslateService);
 
   constructor() {
     // this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
@@ -200,11 +201,7 @@ export class Profile implements OnInit, OnDestroy {
             this.loader.set(false);
           },
           error: (err) => {
-            if (this.isRTL) {
-              this.message = "سرور کی خرابی!";
-            } else {
-              this.message = "Server error!";
-            }
+            this.message = this.translateService.instant('Server Error!');
             this.loader.set(false);
           }
         });
@@ -264,7 +261,7 @@ export class Profile implements OnInit, OnDestroy {
         },
         error: (err) => {
           // console.log(err);
-          this.snackService.error(this.isRTL ? "سرور کی خرابی!" : "Server error", 2000, 'top-center');
+          this.snackService.error(this.translateService.instant('Server Error!'), 2000, 'top-center');
         }
       }
       );
