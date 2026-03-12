@@ -1,10 +1,9 @@
 import { Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { environment } from '@environments/environment.development';
 import { AuthInputConfigs } from '@app/core/auth/shared/configs/config';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
-import { TranslationService } from '@app/core/services/translate.service';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { PageDesign } from "../../shared/components/auth-design/auth-design";
 import { SnackBarService } from '@app/shared/services/snackbar/snack-bar-service';
@@ -23,7 +22,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 })
 export class SignupPage {
 
-  isRTL: boolean;
   showPass = false;
   showCPass = false;
 
@@ -34,7 +32,6 @@ export class SignupPage {
   loginLinkLabel: string;
   loginLinkRoute: string;
   loginLinkText: string;
-
 
   AuthURL: string = environment.AUTH_URL;
 
@@ -48,8 +45,7 @@ export class SignupPage {
   private loaderService = inject(Loaderservice);
   private snackService = inject(SnackBarService);
   private passwordService = inject(PasswordCheck);
-  private translationService = inject(TranslationService);
-
+  private translateService = inject(TranslateService);
 
   signupForm: FormGroup;
 
@@ -61,7 +57,6 @@ export class SignupPage {
     this.loginLinkRoute = "/auth/login";
     this.loginLinkText = "LOGIN";
 
-    this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.signupForm = new FormGroup({
       username: new FormControl("", [Validators.required, Validators.maxLength(15), Validators.minLength(6)]),
       email: new FormControl("", [Validators.required, Validators.email]),
@@ -121,19 +116,19 @@ export class SignupPage {
 
   onSignupSubmit() {
     if (this.signupForm.invalid) {
-      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
+      this.snackService.warning(this.translateService.instant("Please fill in all required fields!"), 5000, 'bottom-center');
     } else {
       this.loaderService.showLoader();
       this.httpService.addApi(this.AuthURL, this.signupForm.value).subscribe({
         next: (res) => {
           // console.log(res);
-          this.snackService.success(this.isRTL ? "اکاؤنٹ کامیابی سے بنایا گیا!" : "Account created successfully!", 2000, 'bottom-center');
+          this.snackService.success(this.translateService.instant("Account created successfully!"), 2000, 'bottom-center');
           this.loaderService.hideLoader();
           this.routerRef.navigate(['/auth/login']);
         },
         error: (err) => {
           // console.log(err);
-          this.snackService.error(this.isRTL ? "سرور کی خرابی! اکاؤنٹ بنانے میں ناکام!" : "Server Error no user created!", 2000, 'bottom-center');
+          this.snackService.error(this.translateService.instant("Server Error!"), 2000, 'bottom-center');
           this.loaderService.hideLoader();
         }
       })

@@ -90,7 +90,7 @@ export class BubbleChart implements OnInit, OnChanges, OnDestroy {
   }
 
   createChart() {
-    const data = this.chartService.buildCompanyBubbleData(this.productChartData, this.isRtl);
+    const data = this.chartService.buildCompanyBubbleData(this.productChartData);
     const isRTL = this.isRtl;
 
     // Chart code goes in here
@@ -209,38 +209,6 @@ export class BubbleChart implements OnInit, OnChanges, OnDestroy {
       this.root = this.root;
     });
   }
-
-  // // Build chart data with translations
-  // buildCompanyBubbleData(products: product[]) {
-  //   const map: Record<string, {
-  //     totalPrice: number;
-  //     totalStock: number;
-  //     count: number;
-  //   }> = {};
-
-  //   products.forEach(p => {
-  //     const company = p.basic_info.product_company;
-
-  //     if (!map[company]) {
-  //       map[company] = {
-  //         totalPrice: 0,
-  //         totalStock: 0,
-  //         count: 0
-  //       };
-  //     }
-
-  //     map[company].totalPrice += Number(p.basic_info.product_price);
-  //     map[company].totalStock += Number(p.detail_info.product_stock);
-  //     map[company].count += 1;
-  //   });
-
-  //   return Object.keys(map).map(company => ({
-  //     company,
-  //     avgPrice: +(map[company].totalPrice / map[company].count).toFixed(2),
-  //     totalStock: map[company].totalStock,
-  //     productCount: map[company].count
-  //   }));
-  // }
 
   // Run the function only in the browser
   browserOnly(f: () => void) {

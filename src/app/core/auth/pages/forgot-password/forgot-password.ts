@@ -24,7 +24,6 @@ import { AuthFormFooter } from "../../shared/components/auth-form-footer/auth-fo
 export class ForgotPassword implements OnDestroy {
 
   flag: boolean = false;
-  // isRTL: boolean;
   showPass: boolean = false;
   showCPass: boolean = false;
 

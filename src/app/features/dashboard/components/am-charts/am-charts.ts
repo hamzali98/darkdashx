@@ -82,6 +82,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
   }
 
   downloadChart() {
+    // this.exporting.name
     this.exporting.download("png"); // or "jpg", "svg", "pdf"
   }
 
@@ -99,7 +100,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
 
   createChart() {
 
-    const data = this.chartService.buildProductChartData(this.productChartData, this.isRtl);
+    const data = this.chartService.buildProductChartData(this.productChartData);
     const isRTL = this.isRtl;
     const maxValue = this.getDataMax();
 
@@ -253,71 +254,10 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  // // chart data preparation function
-  // getData() {
-  //   const categoryMap: Record<string, { count: number; stock: number }> = {};
-
-  //   this.productChartData.forEach(p => {
-  //     const category = p.basic_info.product_category;
-
-  //     if (!categoryMap[category]) {
-  //       categoryMap[category] = { count: 0, stock: 0 };
-  //     }
-
-  //     categoryMap[category].count += 1;
-  //     categoryMap[category].stock += p.detail_info.product_stock;
-  //   });
-
-  //   // Translation map for categories
-  //   const categoryTranslations: Record<string, string> = {
-  //     'cosmetics': this.isRtl ? 'کاسمیٹکس' : 'Cosmetics',
-  //     'note book': this.isRtl ? 'نوٹ بک' : 'Note Book',
-  //     'accessories': this.isRtl ? 'پرزے' : 'Accessories',
-  //     'network': this.isRtl ? 'نیٹ ورک' : 'Network',
-  //     'digital': this.isRtl ? 'ڈیجیٹل' : 'Digital',
-  //     'telecomunication': this.isRtl ? 'ٹیلی کمیونیکیشن' : 'Telecomunication',
-  //     'light': this.isRtl ? 'روشنی' : 'Light'
-  //   };
-
-  //   // Helper function to translate category
-  //   const translateCategory = (category: string): string => {
-  //     return categoryTranslations[category] || category; // Fallback to original if not found
-  //   };
-
-  //   const data = Object.keys(categoryMap).map(category => ({
-  //     category: translateCategory(category),
-  //     productCount: categoryMap[category].count,
-  //     totalStock: categoryMap[category].stock,
-  //     averageStock: Math.ceil(categoryMap[category].stock / categoryMap[category].count)
-  //   }));
-
-  //   console.log('Prepared chart data:', data);
-  //   return data;
-  // }
-
-  // // // function to calculate the maximum value for Y-axis scaling
-  // // getDataMax(): number {
-
-  // //   // Calculate the maximum value from both productCount and totalStock
-  // //   const data = this.getData();
-  // //   const maxProductCount = Math.max(...data.map(item => item.productCount));
-  // //   const maxStock = Math.max(...data.map(item => item.totalStock));
-  // //   const maxValue = Math.max(maxProductCount, maxStock);
-
-  // //   // Set Y-axis max with some padding
-  // //   // Option 1: Round up to nearest 10
-  // //   let yAxisMax = Math.ceil(maxValue / 10) * 10;
-
-  // //   // Ensure minimum of 10
-  // //   if (yAxisMax < 10) yAxisMax = 10;
-
-  // //   return yAxisMax;
-  // // }
-
   // function to calculate the maximum value for Y-axis scaling
   getDataMax(): number {
     // Calculate the maximum value from both productCount and totalStock
-    const data = this.chartService.buildProductChartData(this.productChartData, this.isRtl);
+    const data = this.chartService.buildProductChartData(this.productChartData);
     const maxProductCount = Math.max(...data.map(item => item.productCount));
     const maxStock = Math.max(...data.map(item => item.totalStock));
     const maxAverage = Math.max(...data.map(item => item.averageStock));

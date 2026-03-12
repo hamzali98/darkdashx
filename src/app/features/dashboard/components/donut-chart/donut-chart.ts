@@ -91,7 +91,7 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
   }
 
   createChart() {
-    const donutdata = this.chartService.buildUserStatusDonutData(this.userChartData, this.isRtl);
+    const donutdata = this.chartService.buildUserStatusDonutData(this.userChartData);
     const isRTL = this.isRtl;
 
     const onlineSeriesName = isRTL ? 'آن لائن' : 'Online';

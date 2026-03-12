@@ -17,8 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { tableColumns } from '@app/shared/interface/generic-table-interface';
 import { DataError } from "../data-error/data-error";
 import { DialogService } from '@app/shared/services/dialog-service/dialog';
-import { TranslateModule } from '@ngx-translate/core';
-import { TranslationService } from '@app/core/services/translate.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 // ─── npm install xlsx jspdf jspdf-autotable ───────────────────────────────────
 import * as XLSX from 'xlsx';
@@ -74,8 +73,8 @@ export class GenericTable<T> implements OnChanges {
   // @viewChild('genericDataTable') genericTableData! : ElementRef;
 
   private dialogService = inject(DialogService);
-  private translateService = inject(TranslationService);
   private tickAnimationService = inject(TickAnimationService);
+  private translateService = inject(TranslateService);
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tableData'] && this.tableData) {
@@ -141,11 +140,11 @@ export class GenericTable<T> implements OnChanges {
   }
 
   onClickedDelete(data: T) {
-    const isRTL = this.translateService.getCurrentLanguage() === 'ur';
+    
     this.dialogService.open({
-      actbtn: isRTL ? 'حذف کریں' : 'Delete',
-      title: isRTL ? '⚠️ حذف کرنے کی انتباہ' : '⚠️ Action Alert',
-      message: isRTL ? 'کیا آپ واقعی اس اندراج کو حذف کرنا چاہتے ہیں؟' : 'Are you sure you want to delete this entry',
+      actbtn: this.translateService.instant('DELETE'),
+      title: this.translateService.instant('⚠️ Action Alert'),
+      message: this.translateService.instant('Are you sure you want to delete this entry'),
       type: 'generic'
     }).subscribe(result => {
       if (result) {
@@ -157,13 +156,12 @@ export class GenericTable<T> implements OnChanges {
   }
 
   deleteAll() {
-    const isRTL = this.translateService.getCurrentLanguage() === 'ur';
+    const key = this.checkList.length === 1 ? 'DELETE_CONFIRM_SINGLE' : 'DELETE_CONFIRM_MULTIPLE';
+    
     this.dialogService.open({
-      actbtn: isRTL ? 'حذف کریں' : 'Delete',
-      title: isRTL ? '⚠️ حذف کرنے کی انتباہ' : '⚠️ Action Alert',
-      message: isRTL ?
-        `کیا آپ واقعی ${this.checkList.length} ${this.checkList.length === 1 ? 'اندراج' : 'اندراجات'} کو حذف کرنا چاہتے ہیں؟ `
-        : `Are you sure you want to delete ${this.checkList.length} ${this.checkList.length === 1 ? 'entry' : 'entries'}?`,
+      actbtn: this.translateService.instant('DELETE'),
+      title: this.translateService.instant('⚠️ Action Alert'),
+      message: this.translateService.instant(key, { count: this.checkList.length }),
       type: 'generic'
     }).subscribe(result => {
       if (result) {

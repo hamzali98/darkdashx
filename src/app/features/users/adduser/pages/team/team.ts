@@ -1,12 +1,11 @@
 import { Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Formservice } from '../../services/formservice';
 import { User } from '@app/features/users/interface/user';
 import { InputConfigs } from '../../config/input-configs';
 import { environment } from '@environments/environment.development';
 import { FormStyle } from "@app/shared/components/form-style/form-style";
-import { TranslationService } from '@app/core/services/translate.service';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { ListService } from '@app/shared/services/list-service/list-service';
 import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -44,8 +43,8 @@ export class Team {
   private listService = inject(ListService);
   private snackService = inject(SnackBarService);
   private dataFetchService = inject(DataFetchService);
-  private translationService = inject(TranslationService);
   private tickAnimationService = inject(TickAnimationService);
+  private translateService = inject(TranslateService);
 
   constructor() {
     this.companiesList = this.listService.getCompanyList();
@@ -64,7 +63,6 @@ export class Team {
   get team_rank() { return this.teamInfo.get('team_rank'); }
   get team_mail() { return this.teamInfo.get('team_mail'); }
   get team_office() { return this.teamInfo.get('team_office'); }
-  get isRTL(): boolean { return this.translationService.getCurrentLanguage() === 'ur'; }
 
   private navigate(): void {
     this.routerRef.navigate(['/users/view']);
@@ -78,7 +76,7 @@ export class Team {
   onFormSubmit() {
     if (this.userFormSubmit.invalid) {
       this.snackService.warning(
-        this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!",
+        this.translateService.instant("Please fill in all required fields!"),
         5000, 'bottom-center'
       );
       return; // ✅ early return, no deeply nested else
@@ -95,10 +93,10 @@ export class Team {
           const updated = current.map(u => u.id === updatedUser.id ? updatedUser : u);
           this.dataFetchService.refreshData('users', updated);
           this.snackService.success(
-            this.isRTL ? "ڈیٹا کامیابی سے اپ ڈیٹ ہو گیا!" : "User updated successfully!",
+            this.translateService.instant("User updated successfully!"),
             2000, 'bottom-right'
           );
-          this.tickAnimationService.show(this.isRTL ? "اپ ڈیٹ ہو گیا!" : "Updated!", 3000);
+          this.tickAnimationService.show(this.translateService.instant("Updated!"), 3000);
           this.userFormService.markClean();
           setTimeout(() => {
             this.userFormService.clearFormFromStorage(); // 👈 add this line
@@ -108,7 +106,7 @@ export class Team {
         },
         error: () => { // ✅ no silent error swallowing
           this.snackService.error(
-            this.isRTL ? "اپ ڈیٹ ناکام!" : "Update failed!",
+            this.translateService.instant("Update failed!"),
             2000, 'bottom-right'
           );
         }
@@ -124,10 +122,10 @@ export class Team {
           this.dataFetchService.refreshData('users', [...current, newUser]);
 
           this.snackService.success(
-            this.isRTL ? "ڈیٹا کامیابی سے شامل ہو گیا!" : "User added successfully!",
+            this.translateService.instant("User added successfully!"),
             2000, 'bottom-right'
           );
-          this.tickAnimationService.show(this.isRTL ? "شامل ہو گیا!" : "Added!", 3000);
+          this.tickAnimationService.show(this.translateService.instant("Added!"), 3000);
           this.userFormService.markClean();
           setTimeout(() => {
             this.userFormService.clearFormFromStorage(); // 👈 add this line
@@ -137,7 +135,7 @@ export class Team {
         },
         error: () => {
           this.snackService.error(
-            this.isRTL ? "ڈیٹا شامل کرنے میں ناکام!" : "Failed to add user!",
+            this.translateService.instant("Failed to add user!"),
             2000, 'bottom-right'
           );
         }

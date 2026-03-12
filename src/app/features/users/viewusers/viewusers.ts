@@ -11,7 +11,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Formservice } from '../adduser/services/formservice';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { environment } from '@environments/environment.development';
-import { TranslationService } from '@app/core/services/translate.service';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
@@ -43,7 +42,6 @@ export class Viewusers implements OnInit {
   private userFormService = inject(Formservice);
   private snackService = inject(SnackBarService);
   private dataFetchService = inject(DataFetchService);
-  private translationService = inject(TranslationService);
   private tickAnimationService = inject(TickAnimationService);
   private translateService = inject(TranslateService);
 
@@ -68,10 +66,6 @@ export class Viewusers implements OnInit {
     this.loadUsers();
   }
 
-  get isRTL(): boolean {
-    return this.translationService.getCurrentLanguage() === 'ur';
-  }
-
   get userTableConfiggetter() {
     return this.userTableConfig;
   }
@@ -89,14 +83,6 @@ export class Viewusers implements OnInit {
 
           this.userData.set(res ?? []);
           this.length.set(res?.length ?? 0);
-
-          // if (!res || res.length === 0) {
-          //   this.snackService.error(
-          //     this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found",
-          //     2000,
-          //     'top-right'
-          //   );
-          // }
         },
         error: () => {
           this.snackService.error(
@@ -111,7 +97,7 @@ export class Viewusers implements OnInit {
   deleteUserData(val: User) {
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
-        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
+        this.snackService.success(this.translateService.instant("Data deleted successfully!"), 2000, 'bottom-right');
 
         // 2️⃣ Now we update UI locally
         const updated = this.userData()
@@ -119,7 +105,7 @@ export class Viewusers implements OnInit {
 
         this.userData.set(updated); //component data update
         this.dataFetchService.refreshData("users", updated); // shared data update for other components
-        this.tickAnimationService.show(this.isRTL ? "حذف ہو گیا!" : "Deleted!", 3000);
+        this.tickAnimationService.show(this.translateService.instant("Deleted!"), 3000);
       },
       error: (err) => {
         this.snackService.error(this.translateService.instant('Server Error!'), 2000, 'bottom-right');
@@ -139,7 +125,7 @@ export class Viewusers implements OnInit {
     const deleteNext = (index: number) => {
       if (index >= idsToDelete.length) {
         // ✅ All done — show tick animation once at the end
-        this.tickAnimationService.show(this.isRTL ? "حذف ہو گیا!" : "Deleted!", 3000);
+        this.tickAnimationService.show(this.translateService.instant("Deleted!"), 3000);
         selectedItems = []; // clear selection
         return;
       }
@@ -157,9 +143,10 @@ export class Viewusers implements OnInit {
 
           // Show snack per item OR just once at the end — your choice
           this.snackService.success(
-            this.isRTL
-              ? `ڈیٹا کامیابی سے حذف ہو گیا! (${deletedCount}/${idsToDelete.length})`
-              : `Deleted ${deletedCount} of ${idsToDelete.length}`,
+            this.translateService.instant('DELETE_PROGRESS', {
+              deleted: deletedCount,
+              total: idsToDelete.length
+            }),
             2000, 'bottom-right'
           );
 
@@ -168,7 +155,7 @@ export class Viewusers implements OnInit {
         },
         error: (err) => {
           this.snackService.error(
-            this.isRTL ? "سرور کی خرابی!" : `Failed to delete item ${index + 1}`,
+            this.translateService.instant('DELETE_ITEM_FAIL', { item: index + 1 }),
             2000, 'bottom-right'
           );
 

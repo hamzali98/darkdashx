@@ -30,7 +30,6 @@ export interface profilesociallinkbtns {
   styleUrl: './profile.css',
 })
 export class Profile implements OnInit, OnDestroy {
-  // isRTL: boolean;
 
   showOldPass = false;
   showPass = false;
@@ -58,12 +57,10 @@ export class Profile implements OnInit, OnDestroy {
   private dialogService = inject(DialogService);
   private passwordService = inject(PasswordCheck);
   private snackService = inject(SnackBarService);
-  private translationService = inject(TranslationService);
   private tickAnimationService = inject(TickAnimationService);
   private translateService = inject(TranslateService);
 
   constructor() {
-    // this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.profileForm = new FormGroup({
       username: new FormControl(''),
       email: new FormControl('', [customEmailValidator]),
@@ -87,7 +84,6 @@ export class Profile implements OnInit, OnDestroy {
     this.emailInputConfig = new ProfileConfig().emailInputConfig;
   }
 
-  get isRTL(): boolean { return this.translationService.getCurrentLanguage() === 'ur'; }
 
   get username() {
     return this.profileForm.get('username');
@@ -192,11 +188,7 @@ export class Profile implements OnInit, OnDestroy {
             if (res) {
               this.message = "";
             } else {
-              if (this.isRTL) {
-                this.message = "غلط پاس ورڈ";
-              } else {
-                this.message = "Wrong Password";
-              }
+              this.message = this.translateService.instant("Wrong Password");
             }
             this.loader.set(false);
           },
@@ -242,7 +234,7 @@ export class Profile implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.profileForm.invalid) {
-      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
+      this.snackService.warning(this.translateService.instant("Please fill in all required fields!"), 5000, 'bottom-center');
     } else {
 
       // console.log(this.profileForm.value);
@@ -257,7 +249,7 @@ export class Profile implements OnInit, OnDestroy {
         next: (res) => {
           // console.log(res);
           this.authService.login(res, true);
-          this.snackService.success(this.isRTL ? "پروفائل کامیابی سے اپ ڈیٹ ہو گیا!" : "Profile edited", 2000, 'top-center');
+          this.snackService.success(this.translateService.instant("Profile edited"), 2000, 'top-center');
         },
         error: (err) => {
           // console.log(err);
@@ -270,13 +262,13 @@ export class Profile implements OnInit, OnDestroy {
 
   onDelete() {
     this.dialogService.open({
-      actbtn: this.isRTL ? 'حذف کریں' : 'Delete',
-      title: this.isRTL ? '⚠️ حذف کرنے کی انتباہ' : '⚠️ Delete Alert',
-      message: this.isRTL ? 'کیا آپ واقعی اپنے اکاؤنٹ کو حذف کرنا چاہتے ہیں؟ حذف کرنے کے بعد اکاؤنٹ بحال نہیں ہو سکتا۔' : 'Are you sure you want to delete your account. After deletion account is not recoverable.',
+      actbtn: this.translateService.instant('DELETE'),
+      title: this.translateService.instant('⚠️ Delete Alert'),
+      message: this.translateService.instant('Delete_alert_msg'),
       type: 'generic'
     }).subscribe((res) => {
       if (res) {
-        this.tickAnimationService.show(this.isRTL ? "حذف ہو گیا!" : "Deleted!", 2000);
+        this.tickAnimationService.show(this.translateService.instant("Deleted!"), 2000);
       }
     })
   }

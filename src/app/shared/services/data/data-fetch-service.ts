@@ -2,7 +2,6 @@ import { BehaviorSubject, take } from 'rxjs';
 import { inject, Injectable, signal } from '@angular/core';
 import { Httpservice } from '../httpservice/httpservice';
 import { SnackBarService } from '../snackbar/snack-bar-service';
-import { TranslationService } from '@app/core/services/translate.service';
 import { environment } from '@environments/environment.development';
 import { User } from '@app/features/users/interface/user';
 import { product } from '@app/features/dashboard/products/interface/product-interface';
@@ -24,13 +23,7 @@ export class DataFetchService {
 
   private httpService = inject(Httpservice);
   private snackService = inject(SnackBarService);
-  private translationService = inject(TranslationService);
   private translateService = inject(TranslateService);
-
-  // remove from constructor, change to getter:
-  get isRTL(): boolean {
-    return this.translationService.getCurrentLanguage() === 'ur';
-  }
 
   sharedUserData(noFetching: boolean = true) {
     if (!this.usersLoaded() && noFetching) {
@@ -65,8 +58,8 @@ export class DataFetchService {
       this.user_url,
       this.userData$,
       {
-        success: this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Users fetched successfully!",
-        empty: this.isRTL ? "کوئی صارف نہیں ملا!" : "No users found!",
+        success: this.translateService.instant("Users fetched successfully!"),
+        empty: this.translateService.instant("No users found!"),
         error: this.translateService.instant('Server Error!'),
       }
     );
@@ -78,9 +71,9 @@ export class DataFetchService {
       this.product_url,
       this.productData$,
       {
-        success: this.isRTL ? "ڈیٹا کامیابی سے لیا گیا!" : "Products fetched successfully!",
-        empty: this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No products found!",
-        error: this.isRTL ? "ڈیٹا لینے میں ناکام!" : "Data fetching failed!"
+        success: this.translateService.instant("Products fetched successfully!"),
+        empty: this.translateService.instant("No products found!"),
+        error: this.translateService.instant("Data fetching failed!")
       }
     );
   }

@@ -8,7 +8,6 @@ import { environment } from '@environments/environment.development';
 import { map } from 'rxjs';
 import { credentials } from '../../interface/credentials';
 import { AuthService } from '../../services/auth-service';
-import { TranslationService } from '@app/core/services/translate.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PageDesign } from "../../shared/components/auth-design/auth-design";
 import { SubmitButton } from "@app/shared/components/submit-button/submit-button";
@@ -24,7 +23,6 @@ import { AuthInputConfigs } from '../../shared/configs/config';
 })
 export class LoginPage {
 
-  isRTL: boolean;
   showPass = false;
   remember: boolean = false;
 
@@ -49,7 +47,6 @@ export class LoginPage {
   private loaderService = inject(Loaderservice);
   private routerRef = inject(Router);
   private authService = inject(AuthService);
-  private translationService = inject(TranslationService);
   private translateService = inject(TranslateService);
 
 
@@ -65,7 +62,6 @@ export class LoginPage {
     this.passwordInputConfig = new AuthInputConfigs().loginPassword;
 
     this.data = [];
-    this.isRTL = this.translationService.getCurrentLanguage() === 'ur' ? true : false;
     this.loginForm = new FormGroup({
       email: new FormControl("", Validators.required),
       password: new FormControl("", Validators.required),
@@ -73,7 +69,7 @@ export class LoginPage {
     this.loginForm.markAllAsTouched();
   }
 
-  get btnDisabled(){
+  get btnDisabled() {
     return this.loginForm.invalid;
   }
 
@@ -85,7 +81,7 @@ export class LoginPage {
     return this.loginForm.get("password")
   }
 
-  get emailHasError (): boolean {
+  get emailHasError(): boolean {
     return !!this.email?.hasError('required') && this.email?.touched;
   }
 
@@ -93,17 +89,17 @@ export class LoginPage {
     return !!this.email?.valid;
   }
 
-  get passwordHasError () :boolean {
+  get passwordHasError(): boolean {
     return !!this.password?.hasError('required') && this.password?.touched;
   }
 
-  get passwordValid () : boolean {
+  get passwordValid(): boolean {
     return !!this.password?.valid;
   }
 
   onLoginSubmit() {
     if (this.loginForm.invalid) {
-      this.snackService.warning(this.isRTL ? "براہ کرم تمام مطلوبہ فیلڈز کو پُر کریں!" : "Please fill in all required fields!", 5000, 'bottom-center');
+      this.snackService.warning(this.translateService.instant("Please fill in all required fields!"), 5000, 'bottom-center');
     } else {
 
       this.loaderService.showLoader();
@@ -122,7 +118,7 @@ export class LoginPage {
           if (user) {
             return { success: true, user };
           } else {
-            return { success: false, message: this.isRTL ? 'ای میل یا پاس ورڈ غلط ہے!' : 'Email or Password Incorrect!' };
+            return { success: false, message: this.translateService.instant('Email or Password Incorrect!') };
           }
         }),
       ).subscribe({
@@ -134,7 +130,7 @@ export class LoginPage {
             this.routerRef.navigate(["/"]);
             // if (this.remember) {
             // }
-            this.snackService.success(this.isRTL ? "لاگ ان کامیاب ہو گیا!" : "Login successfull!", 2000, 'top-center');
+            this.snackService.success(this.translateService.instant("Login successfull!"), 2000, 'top-center');
           } else {
             this.snackService.error(
               `${res.message}`,
