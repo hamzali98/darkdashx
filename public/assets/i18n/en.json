@@ -247,5 +247,6 @@
     "No Result" : "No Result",
     "Yes, Restore": "Yes, Restore",
     "📋 Draft Found" : "📋 Draft Found",
-    "You have an unsaved draft. Would you like to restore it?":"You have an unsaved draft. Would you like to restore it?"
+    "You have an unsaved draft. Would you like to restore it?":"You have an unsaved draft. Would you like to restore it?",
+    "Server Error!" : "Server Error!"
 }
