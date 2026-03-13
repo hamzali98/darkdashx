@@ -140,7 +140,7 @@ export class GenericTable<T> implements OnChanges {
   }
 
   onClickedDelete(data: T) {
-    
+
     this.dialogService.open({
       actbtn: this.translateService.instant('DELETE'),
       title: this.translateService.instant('⚠️ Action Alert'),
@@ -157,7 +157,7 @@ export class GenericTable<T> implements OnChanges {
 
   deleteAll() {
     const key = this.checkList.length === 1 ? 'DELETE_CONFIRM_SINGLE' : 'DELETE_CONFIRM_MULTIPLE';
-    
+
     this.dialogService.open({
       actbtn: this.translateService.instant('DELETE'),
       title: this.translateService.instant('⚠️ Action Alert'),
@@ -282,10 +282,14 @@ export class GenericTable<T> implements OnChanges {
     if (!searchText || searchText.trim() === '') return data;
     const lowerSearch = searchText.toLowerCase();
     return data.filter(item =>
-      JSON.stringify(item)
+      this.translateService.instant(JSON.stringify(item))
         .toLowerCase()
         .includes(lowerSearch)
+      // JSON.stringify(item)
+      //   .toLowerCase()
+      //   .includes(lowerSearch)
     );
+// );
   }
 
   // ─────────────────────────────────────────────────────────────────────────
