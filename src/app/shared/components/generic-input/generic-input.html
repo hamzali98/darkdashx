@@ -23,7 +23,7 @@
             <div class="relative flex flex-row justify-end items-center">
                 @if(config.startIcon){
                 <img [src]="config.startIcon"
-                    class=" absolute left-3 p-0 flex align-middle size-3.5 bg-none pointer-events-none" alt="icon" />
+                    class="absolute rtl:right-3 left-3 p-0 flex align-middle size-3.5 bg-none pointer-events-none" alt="icon" />
                 }
                 <input class="flex-1 h-11 rounded-sm outline-0
                 border 
@@ -37,7 +37,7 @@
                         'w-auto lg:w-86': !config.autoSize,
                         'w-auto': config.autoSize,
                         'px-4': !config.startIcon,
-                        'ltr:pl-8 pr-4': config.startIcon,
+                        'pl-8': config.startIcon,
                         'border-red-500': hasError || isInvalid,
                         'border-green-500': isValid && !hasError,
                         'border-gray-600': !hasError && !isValid,
@@ -73,9 +73,9 @@
                 @for(action of config.iconActions; track $index) {
                 @if(!action.isActive || action.isActive()) {
                 <button type="button" (click)="action.action()"
-                    class="absolute mx-2 bg-transparent border-none cursor-pointer p-0 size-3.5 flex items-center"
+                    class="absolute flex justify-end items-center rtl:px-5 mx-2 bg-transparent w-full cursor-pointer h-0"
                     [style.right.px]="$index * 28">
-                    <img class="size-5"
+                    <img class="size-3.5"
                         [src]="action.isActive?.() && action.activeIconPath ? action.activeIconPath : action.iconPath"
                         alt="" />
                 </button>
