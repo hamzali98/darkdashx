@@ -4,7 +4,6 @@ import { product } from './interface/product-interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormService } from './products-add/service/form-service';
 import { environment } from '@environments/environment.development';
-import { TranslationService } from '@app/core/services/translate.service';
 import { Httpservice } from '@app/shared/services/httpservice/httpservice';
 import { Component, inject, signal, DestroyRef, OnInit } from '@angular/core';
 import { TotalsCards } from "@app/shared/components/totals-cards/totals-cards";
@@ -22,17 +21,13 @@ import { TickAnimationService } from '@app/shared/services/tick-animation/tick-a
 })
 export class Products implements OnInit {
 
-
   length = signal(0);
   parentSearchKey = signal('');
   productData = signal<product[]>([]);
 
   private readonly url: string = environment.PRODUCTS_URL;
-  private readonly product_form_intent: string = 'product_form_intent';
 
   private productTableConfig: any[];
-  // productData: product[] = [];
-  // productColumns: any[];
 
   private routerRef = inject(Router);
   private destroyRef = inject(DestroyRef);
@@ -40,7 +35,6 @@ export class Products implements OnInit {
   private snackService = inject(SnackBarService);
   private productFormService = inject(FormService);
   private dataFetchService = inject(DataFetchService);
-  private translationService = inject(TranslationService);
   private tickAnimationService = inject(TickAnimationService);
   private translateService = inject(TranslateService);
 
@@ -62,10 +56,6 @@ export class Products implements OnInit {
     return this.productTableConfig;
   }
 
-  get isRTL(): boolean {
-    return this.translationService.getCurrentLanguage() === 'ur';
-  }
-
   editproductData(val: product) {
     this.productFormService.patchFormData(val);
     this.routerRef.navigate(['/products/add']);
@@ -80,13 +70,6 @@ export class Products implements OnInit {
           this.productData.set(res ?? []);
           this.length.set(res?.length ?? 0);
 
-          // if (!res || res.length === 0) {
-          //   this.snackService.error(
-          //     this.isRTL ? "کوئی ڈیٹا نہیں ملا!" : "No data found",
-          //     2000,
-          //     'top-right'
-          //   );
-          // }
         },
         error: () => {
           this.snackService.error(
@@ -102,18 +85,18 @@ export class Products implements OnInit {
 
     this.httpService.delApi(this.url, val.id).subscribe({
       next: (res) => {
-        this.snackService.success(this.isRTL ? "ڈیٹا کامیابی سے حذف ہو گیا!" : "Data deleted successfully!", 2000, 'bottom-right');
+        this.snackService.success(this.translateService.instant("Data deleted successfully!"), 2000, 'bottom-right');
         // 2️⃣ Now we update UI locally
         const updated = this.productData()
           .filter(p => p.id !== val.id);
 
         this.productData.set(updated); //component data update
         this.dataFetchService.refreshData("products", updated); // shared data update for other components
-        this.tickAnimationService.show(this.isRTL ? "حذف ہو گیا!" : "Deleted!", 3000);
+        this.tickAnimationService.show(this.translateService.instant("Deleted!"), 3000);
 
       },
       error: (err) => {
-        this.snackService.error(this.isRTL ? "ڈیٹا حذف کرنے میں ناکام!" : "Data deletion failed!", 2000, 'bottom-right');
+        this.snackService.error(this.translateService.instant("Data deletion failed!"), 2000, 'bottom-right');
       }
     })
   }
@@ -130,7 +113,7 @@ export class Products implements OnInit {
     const deleteNext = (index: number) => {
       if (index >= idsToDelete.length) {
         // ✅ All done — show tick animation once at the end
-        this.tickAnimationService.show(this.isRTL ? "حذف ہو گیا!" : "Deleted!", 3000);
+        this.tickAnimationService.show(this.translateService.instant("Deleted!"), 3000);
         selectedItems = []; // clear selection
         return;
       }
@@ -148,9 +131,10 @@ export class Products implements OnInit {
 
           // Show snack per item OR just once at the end — your choice
           this.snackService.success(
-            this.isRTL
-              ? `ڈیٹا کامیابی سے حذف ہو گیا! (${deletedCount}/${idsToDelete.length})`
-              : `Deleted ${deletedCount} of ${idsToDelete.length}`,
+            this.translateService.instant('DELETE_PROGRESS', {
+              deleted: deletedCount,
+              total: idsToDelete.length
+            }),
             2000, 'bottom-right'
           );
 
@@ -159,7 +143,7 @@ export class Products implements OnInit {
         },
         error: (err) => {
           this.snackService.error(
-            this.isRTL ? "سرور کی خرابی!" : `Failed to delete item ${index + 1}`,
+            this.translateService.instant('DELETE_ITEM_FAIL', { item: index + 1 }),
             2000, 'bottom-right'
           );
 

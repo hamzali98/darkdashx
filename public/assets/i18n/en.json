@@ -304,5 +304,6 @@
     "Wrong Password":"Wrong Password",
     "⚠️ Delete Alert":"⚠️ Delete Alert",
     "Delete_alert_msg":"Are you sure you want to delete your account. After deletion account is not recoverable.",
-"Profile edited":"Profile edited"
+"Profile edited":"Profile edited",
+"Data deletion failed!":"Data deletion failed!"
 }
