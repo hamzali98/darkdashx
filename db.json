@@ -377,7 +377,28 @@
         "team_office": "office",
         "team_mail": "www.email@gmail.com"
       }
+    },
+    {
+      "id": "220d",
+      "status": false,
+      "personal_info": {
+        "user_name": "حمزہ علی",
+        "user_email": "email@gmail.com",
+        "user_photo": null,
+        "user_desc": "مختصر وضاحت"
+      },
+      "basic_info": {
+        "user_phone": "3205684985",
+        "user_position": "فرنٹ اینڈ",
+        "user_location": "میٹیس",
+        "user_website": "www.website.com"
+      },
+      "team_info": {
+        "team_name": "linkedin",
+        "team_rank": "سب سے اوپر ٹیم",
+        "team_office": "ہائپر نم",
+        "team_mail": "email@gmail.com"
+      }
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }
