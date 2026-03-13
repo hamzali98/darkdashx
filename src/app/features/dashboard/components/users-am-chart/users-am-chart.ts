@@ -20,7 +20,7 @@ import { TranslationService } from '@app/core/services/translate.service';
 })
 export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
 
-  private isRtl : boolean;
+  private isRtl: boolean;
   private root!: am5.Root;
   private exporting!: am5plugins_exporting.Exporting;;
 
@@ -102,8 +102,16 @@ export class UsersAmChart implements OnInit, OnChanges, OnDestroy {
       let root = am5.Root.new("amchartdiv");
       root.setThemes([am5themes_Animated.new(root)]);
       this.exporting = am5plugins_exporting.Exporting.new(root, {
-        filePrefix: "User-Chart", // name of the downloaded file
+        // filePrefix: "User-Chart", // name of the downloaded file
+        filePrefix: `${this.translationService.instant('User-Chart')}-${new Date().toISOString().slice(0, 10)}`,
+
+        // ── PNG/JPG settings ──
+        pngOptions: {
+          quality: 1,          // 0-1
+          maintainPixelRatio: true
+        },
       });
+
       let chart = root.container.children.push(
         am5xy.XYChart.new(root, {
           panY: false,

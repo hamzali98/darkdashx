@@ -103,7 +103,14 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
       let root = am5.Root.new("donutdiv");
       root.interfaceColors.set("text", am5.color("#fff"));
       this.exporting = am5plugins_exporting.Exporting.new(root, {
-        filePrefix: "Donut-Chart", // name of the downloaded file
+        // filePrefix: "Donut-Chart", // name of the downloaded file
+        filePrefix: `${this.translationService.instant('Donut-Chart')}-${new Date().toISOString().slice(0, 10)}`,
+
+        // ── PNG/JPG settings ──
+        pngOptions: {
+          quality: 1,          // 0-1
+          maintainPixelRatio: true
+        },
       });
 
       let chart = root.container.children.push(

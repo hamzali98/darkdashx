@@ -99,8 +99,16 @@ export class BubbleChart implements OnInit, OnChanges, OnDestroy {
       this.root.interfaceColors.set("text", am5.color("#FFF"));
       this.root.setThemes([am5themes_Animated.new(this.root)]);
       this.exporting = am5plugins_exporting.Exporting.new(this.root, {
-        filePrefix: "Bubble-Chart", // name of the downloaded file
+        // filePrefix: "Bubble-Chart", // name of the downloaded file
+        filePrefix: `${this.translationService.instant('Bubble-Chart')}-${new Date().toISOString().slice(0, 10)}`,
+
+        // ── PNG/JPG settings ──
+        pngOptions: {
+          quality: 1,          // 0-1
+          maintainPixelRatio: true
+        },
       });
+
       const chart = this.root.container.children.push(
         am5xy.XYChart.new(this.root, {
           panX: true,

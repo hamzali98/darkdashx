@@ -83,7 +83,7 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
 
   downloadChart() {
     // this.exporting.name
-    this.exporting.download("png"); // or "jpg", "svg", "pdf"
+    this.exporting.download("png",); // or "jpg", "svg", "pdf"
   }
 
   prepareBarChart() {
@@ -117,7 +117,14 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
       let root = am5.Root.new("chartdiv");
       root.setThemes([am5themes_Animated.new(root)]);
       this.exporting = am5plugins_exporting.Exporting.new(root, {
-        filePrefix: "Product-Chart", // name of the downloaded file
+        // filePrefix: "Product-Chart", // name of the downloaded file
+        filePrefix: `${this.translationService.instant('Product-Chart')}-${new Date().toISOString().slice(0, 10)}`,
+
+        // ── PNG/JPG settings ──
+        pngOptions: {
+          quality: 1,          // 0-1
+          maintainPixelRatio: true
+        },
       });
 
       let chart = root.container.children.push(
