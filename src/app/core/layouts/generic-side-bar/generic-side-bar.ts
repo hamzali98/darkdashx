@@ -6,7 +6,7 @@ import { MainLogo } from "@app/core/components/main-logo/main-logo";
 import { Layout } from '@app/core/services/layout';
 import { LogoutBtn } from "@app/core/components/logout-btn/logout-btn";
 import { LanguageSwitcherComponent } from "@app/core/components/language-switcher/language-switcher.component";
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { Footer } from "../footer/footer";
 import { FormsModule } from '@angular/forms';
@@ -39,6 +39,7 @@ export class GenericSideBar<T> implements OnInit {
 
   private routerRef = inject(Router);
   private layoutService = inject(Layout);
+  private translateService = inject(TranslateService);
 
   constructor() {
     this.searchbarConfig = {
@@ -106,14 +107,18 @@ export class GenericSideBar<T> implements OnInit {
     const key = this.searchKey().toLowerCase().trim();
     if (!key) return this.navData;
 
+    console.log("Nav Data", this.navData);
+
     return this.navData
       .map(item => {
         // Check if parent label matches
-        const parentMatches = item.tileName.toLowerCase().includes(key);
+        // const parentMatches = item.tileName.toLowerCase().includes(key);
+        const parentMatches = this.translateService.instant(item.tileName).toLowerCase().includes(key);
 
         // Filter children that match
         const matchedChildren = item.routeNames.filter(child =>
-          child.toLowerCase().includes(key)
+          // child.toLowerCase().includes(key)
+          this.translateService.instant(child).toLowerCase().includes(key)
         );
 
         // Include item if parent matches (show all children)
