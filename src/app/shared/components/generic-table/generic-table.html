@@ -101,7 +101,7 @@
                         <span class="flex gap-2 rtl:text-[12px] text-[10px] text-gray-400 font-worksans align-middle items-center">
                             <img class="size-7 rounded-full shrink-0" src="assets/images/OIP.jpg" alt="p">
                             <span class=" truncate max-w-37.5 flex flex-col gap-0.5">
-                                {{getValue(data, column.key) | titlecase | translate}}
+                                {{getValue(data, column.key) | titlecase }}
                                 <span>
                                     {{getValue(data, column.subkey)}}
                                 </span>
@@ -110,7 +110,7 @@
                         } @else if (column.label === "PRICE") {
                         <span
                             class=" truncate max-w-37.5 flex gap-2 rtl:text-[12px] text-[10px] text-gray-400 font-worksans align-middle items-center ">
-                            {{getValue(data, column.key) | currency | translate}}
+                            {{getValue(data, column.key) | currency}}
                         </span>
                         } @else {
                         <span
@@ -122,7 +122,7 @@
                             @if(column.label === "PRODUCT_NAME"){
                             <img class="size-7 rounded-full shrink-0 " src="assets/images/products/watch.svg" alt="i">
                             }
-                            {{getValue(data, column.key) | titlecase | translate}}
+                            {{getValue(data, column.key) | titlecase}}
                         </span>
                         }
                     </td>
