@@ -1,35 +1,23 @@
 <auth-page-design [authFormTitle]="loginPageTitle" [authFormSubtitle]="loginPageSubtitle">
     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
         <!-- email input -->
-         <app-generic-input 
-         [config]="emailInputConfig"
-         formControlName="email"
-         [hasError]="emailHasError"
-         [isValid]="emailValid"
-         />
+        <app-generic-input [config]="emailInputConfig" formControlName="email" [hasError]="emailHasError"
+            [isValid]="emailValid" />
         <!-- Password input -->
-         <app-generic-input 
-         [config]="passwordInputConfig"
-         formControlName="password"
-         [hasError]="passwordHasError"
-         [isValid]="passwordValid"
-         />
+        <app-generic-input [config]="passwordInputConfig" formControlName="password" [hasError]="passwordHasError"
+            [isValid]="passwordValid" />
+
         <!-- remember me -->
         <div class="py-1 pt-2 w-full">
             <div class="flex flex-col lg:flex-row items-center justify-between ">
-                <div class="flex gap-1 my-2 lg:mt-1">
-                    <input class="accent-primary cursor-pointer" [(ngModel)]="remember"
-                        [ngModelOptions]="{ standalone: true }" type="checkbox" id="remember" name="remember">
-                    <label for="remember" class="text-gray-300 text-xs font-medium cursor-pointer
-                        ">{{'REMEMBER_ME' | translate}}
-                    </label>
-                </div>
+                <app-generic-input [config]="rememberMe" [(ngModel)]="remember"
+                    [ngModelOptions]="{ standalone: true }" />
                 <a routerLink="/auth/forgot" class="text-sm text-primary underline cursor-pointer ">{{'FORGOT_PASSWORD'
                     | translate}}</a>
             </div>
         </div>
         <!-- login page button -->
-        <div class="flex justify-center my-5" >
+        <div class="flex justify-center my-5">
             <app-submit-button btnType="submit" [btnDisable]="btnDisabled" [btntext]="loginBtnText" />
         </div>
         <!-- signup page route -->

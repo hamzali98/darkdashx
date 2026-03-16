@@ -35,6 +35,7 @@ export class LoginPage {
 
   emailInputConfig: CustomInputConfig;
   passwordInputConfig: CustomInputConfig;
+  rememberMe: CustomInputConfig;
 
   data: credentials[];
   loginForm: FormGroup;
@@ -60,6 +61,7 @@ export class LoginPage {
 
     this.emailInputConfig = new AuthInputConfigs().loginEmail;
     this.passwordInputConfig = new AuthInputConfigs().loginPassword;
+    this.rememberMe = new AuthInputConfigs().rememberMe;
 
     this.data = [];
     this.loginForm = new FormGroup({
