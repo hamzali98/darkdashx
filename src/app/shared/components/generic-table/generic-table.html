@@ -15,7 +15,7 @@
         <div>
             <button type="button" [appTooltip]="'Get data PDF' | translate" tooltipPosition="top" class="mx-1 py-1 px-2 text-xs rounded-sm drop-shadow-xs drop-shadow-primary-bg bg-primary-bg
             border border-primary" (click)="downloadPDF()">
-            <!-- Download PDF -->
+                <!-- Download PDF -->
                 <img class="size-5" src="assets/icons/pdf.svg" alt="ar">
             </button>
             <button type="button" [appTooltip]="'get data excel sheet' | translate" tooltipPosition="top" class="mx-1 py-1 px-2 text-xs rounded-sm drop-shadow-xs drop-shadow-primary-bg bg-primary-bg
@@ -42,10 +42,10 @@
                     <th class="px-1.75  ">
                     </th>
                     <th class="sticky left-0 bg-card-bg z-10">
-                        <input id="masterchkbox" name="masterchkbox" [indeterminate]="isIndeterminate"
-                            [checked]="isChecked" (change)="toggleSelectallRows($event)" type="checkbox" class="appearance-none bg-card-bg 
-                        indeterminate:appearance-auto indeterminate:accent-primary
-                        checked:appearance-auto checked:accent-primary border-gray-800 border size-3 rounded-xs">
+                        <app-generic-input
+                            [appTooltip]="isChecked ? ('Unselect all'|translate) : ('Select all'|translate)"
+                            [config]="masterCheckboxConfig" [checkBoxIndeterminate]="isIndeterminate"
+                            [checkBoxChecked]="isChecked" (change)="toggleSelectallRows($event)" />
                     </th>
                     <th class="px-1.75">
                     </th>
@@ -82,10 +82,10 @@
                     </td>
                     <!-- Checkbox -->
                     <td class="sticky left-0 z-10">
-                        <input [id]="$index" name="childchkbox" type="checkbox" [checked]="IncludesTableData(data)"
-                            (change)="checkUncheckRow(data, $event)" class="appearance-none bg-card-bg border border-gray-800 size-3 
-                        rounded-xs checked:appearance-auto checked:accent-primary  
-                        ">
+                        <app-generic-input
+                            [appTooltip]="IncludesTableData(data)? ('Unselect'|translate):('Select'|translate)"
+                            [config]="rowCheckboxConfig" [checkBoxId]="$index"
+                            [checkBoxChecked]="IncludesTableData(data)" (change)="checkUncheckRow(data, $event)" />
                     </td>
 
                     <th class="px-1.75  ">
@@ -93,12 +93,14 @@
                     @for(column of columns; track $index){
                     <td class=" py-4.5 text-grey-300 whitespace-nowrap min-w-30">
                         @if(data[column.key] === true || data[column.key] === false) {
-                        <span class="px-1.5 py-px border rounded-xs rtl:text-[12px] text-[10px] font-extralight" [ngClass]="data[column.key] ? 'text-up-green-arrow bg-up-green-arrow/30 border-up-green-arrow/50' 
+                        <span class="px-1.5 py-px border rounded-xs rtl:text-[12px] text-[10px] font-extralight"
+                            [ngClass]="data[column.key] ? 'text-up-green-arrow bg-up-green-arrow/30 border-up-green-arrow/50' 
                             : 'text-gray-300 bg-gray-400/30 border-gray-400/50'">
                             • {{column?.func(data[column.key]) | translate}}
                         </span>
                         } @else if(column.label === "NAME") {
-                        <span class="flex gap-2 rtl:text-[12px] text-[10px] text-gray-400 font-worksans align-middle items-center">
+                        <span
+                            class="flex gap-2 rtl:text-[12px] text-[10px] text-gray-400 font-worksans align-middle items-center">
                             <img class="size-7 rounded-full shrink-0" src="assets/images/OIP.jpg" alt="p">
                             <span class=" truncate max-w-37.5 flex flex-col gap-0.5">
                                 {{getValue(data, column.key) | titlecase }}

@@ -23,6 +23,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import * as XLSX from 'xlsx';
 import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
+import { CustomInputConfig, GenericInput } from '../generic-input/generic-input';
+import { GenericTableInputConfigs } from './config';
 // ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -35,8 +37,9 @@ import { TickAnimationService } from '@app/shared/services/tick-animation/tick-a
     CurrencyPipe,
     DataError,
     TranslateModule,
-    TooltipDirective
-  ],
+    TooltipDirective,
+    GenericInput
+],
   templateUrl: './generic-table.html',
   styleUrl: './generic-table.css',
 })
@@ -58,6 +61,9 @@ export class GenericTable<T> implements OnChanges {
   checkList: any[] = [];
   private filteredData: T[] = [];
 
+  masterCheckboxConfig: CustomInputConfig;
+  rowCheckboxConfig: CustomInputConfig;
+
   tableName = input("Generic");
   @Input() itemsPerPage: number = 5;
   @Input() initialPage: number = 1;
@@ -75,6 +81,11 @@ export class GenericTable<T> implements OnChanges {
   private dialogService = inject(DialogService);
   private tickAnimationService = inject(TickAnimationService);
   private translateService = inject(TranslateService);
+
+  constructor(){
+    this.masterCheckboxConfig = new GenericTableInputConfigs().masterCheckbox;
+    this.rowCheckboxConfig = new GenericTableInputConfigs().rowCheckbox;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tableData'] && this.tableData) {
@@ -121,12 +132,14 @@ export class GenericTable<T> implements OnChanges {
 
   // rows deselecting
   checkUncheckRow(data: T, event: any) {
+    console.log("Row selection data", this.checkList);
     const index = this.checkList.indexOf(data);
     index > -1 ? this.checkList.splice(index, 1) : this.checkList.push(data);
   }
 
   // all rows selection
   toggleSelectallRows(event: any) {
+    console.log("Toggle all data", this.checkList);
     if (event.target.checked) {
       const newSelections = this.currentPageData.filter(item => !this.checkList.includes(item));
       this.checkList.push(...newSelections);

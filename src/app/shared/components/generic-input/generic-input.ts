@@ -6,7 +6,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule, NgClass } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
-export type InputType = 'text' | 'password' | 'email' | 'number' | 'tel' | 'date' | 'select' | 'textarea';
+export type InputType = 'text' | 'password' | 'checkbox' | 'email' | 'number' | 'tel' | 'date' | 'select' | 'textarea';
 
 export interface InputIconAction {
   iconPath: string;       // path to svg asset
@@ -60,6 +60,9 @@ export interface CustomInputConfig {
 })
 export class GenericInput implements ControlValueAccessor {
   @Input({ required: true }) config!: CustomInputConfig;
+  @Input() checkBoxId!: number;
+  @Input() checkBoxIndeterminate!: boolean;
+  @Input() checkBoxChecked!: boolean;
   @Input() hasError: boolean | undefined = false;
   @Input() passwordStrengthColor!: string;
   @Input() passwordStrengthProgress!: string;

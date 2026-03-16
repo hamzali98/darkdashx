@@ -86,4 +86,15 @@ export class AuthInputConfigs {
         errorMessage: 'Password for confirmation Required!',
         errorMessage2: 'Password not matched',
     }
+
+    rememberMe: CustomInputConfig = {
+        ngclass: '',
+        label:'REMEMBER_ME',
+        labelFor: 'remember',
+        type: 'checkbox',
+        inputId: 'remember',
+        inputName: 'remember',
+        errorMessage: '',
+
+    }
 }
