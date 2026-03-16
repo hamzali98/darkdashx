@@ -118,10 +118,6 @@ export class BubbleChart implements OnInit, OnChanges, OnDestroy {
         })
       );
 
-      // Translation labels for axes
-      const avgPriceLabel = isRTL ? 'اوسط قیمت' : 'Avg Price';
-      const totalStockLabel = isRTL ? 'کل اسٹاک' : 'Total Stock';
-
       // X Axis (Avg Price)
       const xAxis = chart.xAxes.push(
         am5xy.ValueAxis.new(this.root, {
@@ -230,10 +226,9 @@ export class BubbleChart implements OnInit, OnChanges, OnDestroy {
   // Function to generate custom HTML for tooltips
   getToolTipHtml() {
     const fontSize = this.isRtl ? '16px' : '14px';
-    const companyLabel = this.isRtl ? 'کمپنی' : 'Company';
-    const avgPriceLabel = this.isRtl ? 'اوسط قیمت' : 'Avg Price';
-    const stockLabel = this.isRtl ? 'اسٹاک' : 'Stock';
-    const productsLabel = this.isRtl ? 'مصنوعات' : 'Products';
+    const avgPriceLabel = this.translationService.instant('Avg Price');
+    const stockLabel = this.translationService.instant('STOCK');
+    const productsLabel = this.translationService.instant('PRODUCTS');
     const direction = this.isRtl ? 'rtl' : 'ltr';
 
     return `

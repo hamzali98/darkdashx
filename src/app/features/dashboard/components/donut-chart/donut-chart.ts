@@ -94,9 +94,6 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
     const donutdata = this.chartService.buildUserStatusDonutData(this.userChartData);
     const isRTL = this.isRtl;
 
-    const onlineSeriesName = isRTL ? 'آن لائن' : 'Online';
-    const offlineSeriesName = isRTL ? 'آف لائن' : 'Offline';
-
     // Chart code goes in here
     this.browserOnly(() => {
       // Create root and chart
@@ -159,16 +156,11 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
             shadowOffsetY: 2,
           }),
         }),
-        tooltipHTML: this.getToolTipHtml(""),
+        tooltipHTML: this.getToolTipHtml(),
       });
 
       // Use adapter to dynamically set tooltip for each slice
       series.slices.template.adapters.add("tooltipHTML", (html, target) => {
-        // const dataItem = target.dataItem;
-        // if (dataItem) {
-        //   const category = dataItem.get("category");
-        //   return this.getToolTipHtml(category);
-        // }
         return html;
       });
 
@@ -187,9 +179,6 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
 
       // Add legend with RTL support
       let legend = chart.children.push(am5.Legend.new(root, {
-        // centerX: am5.percent(50),
-        // x: am5.percent(50),
-        // layout: root.horizontalLayout
       }));
 
       legend.labels.template.setAll({
@@ -205,24 +194,6 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  // // Build chart data with translations
-  // buildUserStatusDonutData(users: User[]) {
-  //   const online = this.userChartData.filter(u => u.status === true).length;
-  //   const offline = this.userChartData.filter(u => u.status === false).length;
-
-  //   if (this.isRtl) {
-  //     return [
-  //       { category: 'آن لائن', value: online },
-  //       { category: 'آف لائن', value: offline }
-  //     ];
-  //   } else {
-  //     return [
-  //       { category: 'Online', value: online },
-  //       { category: 'Offline', value: offline }
-  //     ];
-  //   }
-  // }
-
   // Run the function only in the browser
   browserOnly(f: () => void) {
     if (isPlatformBrowser(this.platformId)) {
@@ -233,9 +204,10 @@ export class DonutChart implements OnInit, OnChanges, OnDestroy {
   }
 
   // Function to generate custom HTML for tooltips
-  getToolTipHtml(categoryName: string) {
+  getToolTipHtml() {
     const fontSize = this.isRtl ? '16px' : '14px';
-    const valueLabel = this.isRtl ? 'تعداد' : 'Count';
+    const valueLabel = this.translationService.instant('Count');
+    
 
     return `
       <div style="font-weight: bold; color: #fff; text-align: center; margin-bottom: 8px; font-size: ${fontSize};">{category}</div>

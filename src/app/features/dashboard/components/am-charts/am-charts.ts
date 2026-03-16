@@ -106,9 +106,9 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
 
     // console.log("chart max value", maxValue);
 
-    const productsSeriesName = isRTL ? 'مصنوعات' : 'Products';
-    const stockSeriesName = isRTL ? 'سٹاک' : 'Stock';
-    const stockAveragename = isRTL ? 'اوسط اسٹاک' : 'Average Stock';
+    const productsSeriesName = this.translationService.instant('PRODUCTS');
+    const stockSeriesName = this.translationService.instant('STOCK');
+    const stockAveragename = this.translationService.instant('Average Stock');
 
 
     // Chart code goes in here

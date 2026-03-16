@@ -27,9 +27,9 @@ import { TickAnimationService } from '@app/shared/services/tick-animation/tick-a
 })
 export class Viewusers implements OnInit {
 
-  length = signal(0)
+  length = signal<number>(0)
 
-  parentSearchKey = signal('');
+  parentSearchKey = signal<string>('');
   private readonly url: string = environment.USER_URL;
   private readonly user_form_intent: string = 'user_form_intent';
 
@@ -80,7 +80,6 @@ export class Viewusers implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-
           this.userData.set(res ?? []);
           this.length.set(res?.length ?? 0);
         },
