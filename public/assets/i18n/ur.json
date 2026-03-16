@@ -318,5 +318,9 @@
     "Count":"تعداد",
     "Zoom in":"زوم ان",
     "Zoom out":"زوم آؤٹ",
-    "You clicked on":"آپ نے {{countryName}} پر کلک کیا"
+    "You clicked on":"آپ نے {{countryName}} پر کلک کیا",
+    "Select":"منتخب کریں",
+    "Select all":"سب کو منتخب کریں",
+    "Unselect":"غیر منتخب کریں",
+    "Unselect all":"سب کو غیر منتخب کریں۔"
 }

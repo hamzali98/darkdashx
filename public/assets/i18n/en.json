@@ -318,5 +318,9 @@
     "Count":"Count",
     "Zoom in":"Zoom in",
     "Zoom out":"Zoom out",
-    "You clicked on" : "You clicked on {{countryName}}"
+    "You clicked on" : "You clicked on {{countryName}}",
+    "Select":"Select",
+    "Select all":"Select all",
+    "Unselect":"Unselect",
+    "Unselect all":"Unselect all"
 }
