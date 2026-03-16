@@ -313,5 +313,10 @@
     "New Products": "نئی مصنوعات",
     "Total Products": "کل مصنوعات",
     "Top Products": "سرفہرست مصنوعات",
-    "Other Products": "دیگر مصنوعات"
+    "Other Products": "دیگر مصنوعات",
+    "Country":"ملک",
+    "Count":"تعداد",
+    "Zoom in":"زوم ان",
+    "Zoom out":"زوم آؤٹ",
+    "You clicked on":"آپ نے {{countryName}} پر کلک کیا"
 }

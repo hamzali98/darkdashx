@@ -313,5 +313,10 @@
     "New Products": "New Products",
     "Total Products": "Total Products",
     "Top Products": "Top Products",
-    "Other Products": "Other Products"
+    "Other Products": "Other Products",
+    "Country":"Country",
+    "Count":"Count",
+    "Zoom in":"Zoom in",
+    "Zoom out":"Zoom out",
+    "You clicked on" : "You clicked on {{countryName}}"
 }
