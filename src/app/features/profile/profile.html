@@ -64,7 +64,7 @@
                         <input [type]="showOldPass ? 'text' : 'password'" placeholder="••••••••••••••" name="oldpass"
                             id="oldpass" [(ngModel)]="oldpass" [ngModelOptions]="{ standalone: true }"
                             (ngModelChange)="passcheck()" class="outline-0 caret-figma-neutral text-figma-neutral ">
-                        <button class="absolute right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
+                        <button class="absolute rtl:left-3 ltr:right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
                             (click)="showOldPass = !showOldPass">
                             @if(!showOldPass) {
                             <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />
@@ -91,7 +91,7 @@
                         <input (input)="onPassChange()" [type]="showPass ? 'text' : 'password'"
                             placeholder="••••••••••••••" formControlName="password"
                             class="outline-0 caret-figma-neutral text-figma-neutral ">
-                        <button class="absolute right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
+                        <button class="absolute rtl:left-3 ltr:right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
                             (click)="showPass = !showPass">
                             @if(!showPass) {
                             <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />
@@ -121,7 +121,7 @@
                         <input [type]="showCPass ? 'text' : 'password'" placeholder="••••••••••••••" name="cnewpass"
                             id="cnewpass" [(ngModel)]="cnfrmpass" [ngModelOptions]="{standalone:true}"
                             class="outline-0 caret-figma-neutral text-figma-neutral ">
-                        <button class="absolute right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
+                        <button class="absolute rtl:left-3 ltr:right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
                             (click)="showCPass = !showCPass">
                             @if(!showCPass) {
                             <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />
