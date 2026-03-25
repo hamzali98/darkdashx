@@ -14,11 +14,16 @@
         <p class="font-worksans text-lg ">
             {{ (dialogService.data$ | async)?.message }}
         </p>
-        @if((dialogService.data$ | async)?.type === 'session-expired'){
-        <ng-container *ngTemplateOutlet="sessionExpired"></ng-container>
-        } @else {
-        <ng-container *ngTemplateOutlet="defaultDialog"></ng-container>
-        }
+        <div class="flex gap-5 w-full mt-4">
+            @if((dialogService.data$ | async)?.type === 'session-expired'){
+            <ng-container *ngTemplateOutlet="sessionExpired"></ng-container>
+            } @else if ((dialogService.data$ | async)?.type === 'block'){
+            <ng-container *ngTemplateOutlet="blockDialog"></ng-container>
+            }
+            @else {
+            <ng-container *ngTemplateOutlet="defaultDialog"></ng-container>
+            }
+        </div>
     </div>
 </app-generic-dialog>
 }
@@ -31,24 +36,32 @@
 
 <!-- generic dialog session expired buttons template -->
 <ng-template #sessionExpired>
-    <div class="mt-4 text-center">
-        <button type="button" class="px-6 py-2 bg-primary text-secondary cursor-pointer rounded"
-            (click)="sessionRejoin()">
-            {{'OK' | translate}}
-        </button>
-    </div>
+    <!-- <div class="mt-4 text-center"> -->
+    <button type="button" class="px-6 py-2 w-full bg-primary text-secondary cursor-pointer rounded" (click)="sessionRejoin()">
+        {{'OK' | translate}}
+    </button>
+    <!-- </div> -->
+</ng-template>
+
+<ng-template #blockDialog>
+    <!-- <div class="mt-4 text-center"> -->
+    <button type="button" class="px-6 py-2 w-full bg-primary text-secondary cursor-pointer rounded"
+        (click)="dialogService.close(true)">
+        {{'OK' | translate}}
+    </button>
+    <!-- </div> -->
 </ng-template>
 
 <!-- generic dialog default buttons template -->
 <ng-template #defaultDialog>
-    <div class=" flex justify-around mt-4 text-right">
-        <button type="button" class="px-6 py-2 bg-primary-bg border border-white cursor-pointer text-secondary rounded"
-            (click)="dialogService.close(false)">
-            {{ 'CANCEL' | translate }}
-        </button>
-        <button type="button" class="px-8 py-2 bg-primary text-secondary cursor-pointer rounded"
-            (click)="dialogService.close(true)">
-            {{ (dialogService.data$ | async)?.actbtn }}
-        </button>
-    </div>
+    <!-- <div class=" flex justify-around mt-4 text-right"> -->
+    <button type="button" class="px-6 py-2 w-full bg-primary-bg border border-white cursor-pointer text-secondary rounded"
+        (click)="dialogService.close(false)">
+        {{ 'CANCEL' | translate }}
+    </button>
+    <button type="button" class="px-8 py-2 w-full bg-primary text-secondary cursor-pointer rounded"
+        (click)="dialogService.close(true)">
+        {{ (dialogService.data$ | async)?.actbtn }}
+    </button>
+    <!-- </div> -->
 </ng-template>
