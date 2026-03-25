@@ -5,7 +5,7 @@ export interface DialogData {
   title: string;
   message: string;
   actbtn: string;
-  type: 'session-expired' | 'generic';
+  type: 'session-expired'| 'block' | 'generic';
 }
 
 @Injectable({

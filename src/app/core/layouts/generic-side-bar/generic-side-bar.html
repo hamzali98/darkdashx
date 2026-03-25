@@ -37,7 +37,7 @@
         @for(items of filteredNavItems(); track items!.tileName) {
         <div [class]="items!.topPadding" class="px-6.5">
             <button type="button" [disabled]="open === items!.routePath" class="flex flex-row items-end justify-between cursor-pointer
-                 size-auto w-full
+                size-auto w-full
                 " (click)="openAndNavigate(items!.routePath, items!.routeLink[0])">
                 <div class=" flex flex-row">
                     @if(open === items!.routePath){

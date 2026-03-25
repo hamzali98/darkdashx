@@ -8,10 +8,11 @@ import { HasUnsavedChanges } from '@app/shared/interface/has-unsaved-changes';
 import { ChildNavBarService } from '@app/shared/services/child-nav-bar/child-nav-bar-service';
 import { GenericChildNavBar } from "@app/shared/components/generic-child-nav-bar/generic-child-nav-bar";
 import { DialogService } from '@app/shared/services/dialog-service/dialog';
+import { GenericViewPage } from "@app/shared/components/generic-view-page/generic-view-page";
 
 @Component({
   selector: 'app-adduser',
-  imports: [RouterOutlet, SearchBar, GenericChildNavBar, TranslateModule],
+  imports: [RouterOutlet, GenericChildNavBar, TranslateModule, GenericViewPage],
   templateUrl: './adduser.html',
   styleUrl: './adduser.css',
 })
@@ -35,7 +36,7 @@ export class Adduser implements OnInit, OnDestroy, HasUnsavedChanges {
       if (this.userFormService.hasSavedForm()) {
         this.dialogService.open({
           actbtn: this.translateService.instant('Yes, Restore'),
-          title: this.translateService.instant('📋 Draft Found'),
+          title: `📋 ${this.translateService.instant('Draft Found')}`,
           message: this.translateService.instant('You have an unsaved draft. Would you like to restore it?'),
           type: 'generic'
         }).subscribe(result => {
@@ -60,6 +61,10 @@ export class Adduser implements OnInit, OnDestroy, HasUnsavedChanges {
 
   get isEditing(): boolean {
     return this.userFormService.editing();
+  }
+
+  get pageTitleGetter(): string {
+    return this.isEditing ? "EDIT_USER" : "ADD_USER";
   }
 
   hasUnsavedChanges(): boolean {

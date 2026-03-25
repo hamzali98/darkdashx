@@ -263,7 +263,7 @@ export class Profile implements OnInit, OnDestroy {
   onDelete() {
     this.dialogService.open({
       actbtn: this.translateService.instant('DELETE'),
-      title: this.translateService.instant('⚠️ Delete Alert'),
+      title: `⛔ ${this.translateService.instant('Delete Alert')}`,
       message: this.translateService.instant('Delete_alert_msg'),
       type: 'generic'
     }).subscribe((res) => {

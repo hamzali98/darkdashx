@@ -1,4 +1,4 @@
-<app-generic-view-page pageTitle="TITLE" route="/products/add" buttonTitle="ADD_PRODUCT"
+<app-generic-view-page pageTitle="Products List" route="/products/add" buttonTitle="ADD_PRODUCT"
     [(genericSearchKey)]="parentSearchKey">
     <!-- upper card -->
     <div class="flex flex-col flex-wrap md:flex-row justify-between pt-6.5">
@@ -12,6 +12,6 @@
     <div class="mt-4.5">
         <app-generic-table [(searchTerm)]="parentSearchKey" (onDeleteClicked)="deleteProductData($event)"
             (deleteAllClicked)="deleteAllProductsData($event)" (onEditClicked)="editproductData($event)"
-            tableName="{{ 'TITLE' | translate }}" [columns]="productTableConfigGetter" [tableData]="productData()" />
+            tableName="{{ 'Products List' | translate }}" [columns]="productTableConfigGetter" [tableData]="productData()" />
     </div>
 </app-generic-view-page>

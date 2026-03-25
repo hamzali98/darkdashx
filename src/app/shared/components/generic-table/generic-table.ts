@@ -156,7 +156,7 @@ export class GenericTable<T> implements OnChanges {
 
     this.dialogService.open({
       actbtn: this.translateService.instant('DELETE'),
-      title: this.translateService.instant('⚠️ Action Alert'),
+      title: `⛔ ${this.translateService.instant('Delete Alert')}`,
       message: this.translateService.instant('Are you sure you want to delete this entry'),
       type: 'generic'
     }).subscribe(result => {
@@ -173,7 +173,7 @@ export class GenericTable<T> implements OnChanges {
 
     this.dialogService.open({
       actbtn: this.translateService.instant('DELETE'),
-      title: this.translateService.instant('⚠️ Action Alert'),
+      title: `⛔ ${this.translateService.instant('Delete Alert')}`,
       message: this.translateService.instant(key, { count: this.checkList.length }),
       type: 'generic'
     }).subscribe(result => {

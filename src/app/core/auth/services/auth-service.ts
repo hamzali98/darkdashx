@@ -87,7 +87,7 @@ export class AuthService {
     if (Date.now() > Number(expiry)) {
       this.dialogService.open({
         actbtn: this.translateService.instant('Login Again'),
-        title: this.translateService.instant('⚠️ Session Expired'),
+        title: `⚠️ ${this.translateService.instant('Session Expired')}`,
         message: this.translateService.instant('Session_expired_msg'),
         type: 'session-expired'
       });

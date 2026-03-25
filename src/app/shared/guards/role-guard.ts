@@ -18,9 +18,9 @@ export const roleGuard: CanActivateFn = (route, state) => {
 
   dialogService.open({
     actbtn: translateService.instant('Return'),
-    title: translateService.instant('⚠️ Access Denied'),
+    title: `🚫 ${translateService.instant('Access Denied')}`,
     message: translateService.instant('Access_Denied_msg'),
-    type: 'session-expired'
+    type: 'block'
   });
 
   return false;

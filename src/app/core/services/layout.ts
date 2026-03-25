@@ -70,15 +70,22 @@ export class Layout<T> implements OnInit {
   // }
   async openAndNavigate(section: string | undefined, route: string | undefined) {
     const currentSection = this.open();
+    console.log("Current Section", currentSection);
     const navigateSuccess = await this.routerRef.navigate([route]);
 
     if (navigateSuccess) {
       // Always open the clicked section, don't toggle if already open
       this.open.set(section);
-    } else if (currentSection !== section) {
-      // If navigation failed but it's a different section, still open it
-      this.open.set(section);
+    } else {
+      this.open.set(currentSection);
+      const route = this.routerRef.url;
+      console.log("route", route);
+      // this.onOpen(route);
     }
+    // else if (currentSection !== section) {
+    //   // If navigation failed but it's a different section, still open it
+    //   this.open.set(section);
+    // }
   }
 
   onOpen(section: string) {

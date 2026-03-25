@@ -15,8 +15,8 @@ export class GenericViewPage {
 
 
   @Input({ required: true }) pageTitle!: string;
-  @Input({ required: true }) buttonTitle!: string;
-  @Input({ required: true }) route!: string;
+  @Input() buttonTitle!: string;
+  @Input() route!: string;
 
   private routerRef = inject(Router);
 

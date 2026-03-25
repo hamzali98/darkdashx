@@ -6,10 +6,12 @@
             </span>
             <app-search-bar [(searchKey)]="genericSearchKey"></app-search-bar>
         </div>
+        @if(buttonTitle){
         <button (click)="onClick()" type="button"
             class="rounded-sm text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 cursor-pointer bg-primary">
             {{ buttonTitle | translate }}
         </button>
+        }
     </div>
     <ng-content></ng-content>
 </div>

@@ -25,7 +25,7 @@ export class LogoutBtn {
   onLogout() {
     this.dialogService.open({
       actbtn: this.translateService.instant('LOGOUT'),
-      title: "⚠️ " + (this.translateService.instant('LOGOUT')),
+      title: "🔒 " + (this.translateService.instant('LOGOUT')),
       message: this.translateService.instant('Are you sure to logout?'),
       type: "generic"
     }).subscribe(result => {

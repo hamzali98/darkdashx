@@ -8,10 +8,11 @@ import { HasUnsavedChanges } from '@app/shared/interface/has-unsaved-changes';
 import { ChildNavBarService } from '@app/shared/services/child-nav-bar/child-nav-bar-service';
 import { GenericChildNavBar } from "@app/shared/components/generic-child-nav-bar/generic-child-nav-bar";
 import { DialogService } from "@app/shared/services/dialog-service/dialog";
+import { GenericViewPage } from "@app/shared/components/generic-view-page/generic-view-page";
 
 @Component({
   selector: 'app-products-add',
-  imports: [SearchBar, RouterOutlet, GenericChildNavBar, TranslateModule],
+  imports: [RouterOutlet, GenericChildNavBar, TranslateModule, GenericViewPage],
   templateUrl: './products-add.html',
   styleUrl: './products-add.css',
 })
@@ -34,7 +35,7 @@ export class ProductsAdd implements OnInit, OnDestroy, HasUnsavedChanges {
       if (this.productFormService.hasSavedForm()) {
         this.dialogService.open({
           actbtn: this.translateService.instant('Yes, Restore'),
-          title: this.translateService.instant('📋 Draft Found'),
+          title: `📋 ${this.translateService.instant('Draft Found')}`,
           message: this.translateService.instant('You have an unsaved draft. Would you like to restore it?'),
           type: 'generic'
         }).subscribe(result => {
@@ -59,6 +60,10 @@ export class ProductsAdd implements OnInit, OnDestroy, HasUnsavedChanges {
 
   get isEditing(): boolean {
     return this.productFormService.editing();
+  }
+
+  get pageTitlegetter(): string {
+    return this.isEditing ? "EDIT_PRODUCT" : "ADD_PRODUCT";
   }
 
   hasUnsavedChanges(): boolean {
