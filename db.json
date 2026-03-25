@@ -83,22 +83,6 @@
       "id": "lit2"
     },
     {
-      "id": "lit3",
-      "status": false,
-      "basic_info": {
-        "product_name": "Neon Sign",
-        "product_category": "electric",
-        "product_price": 55,
-        "product_company": "youtube"
-      },
-      "detail_info": {
-        "product_expiry": "2027-05-05",
-        "product_regno": "lit-neo",
-        "product_mfg": "2025-10-15",
-        "product_stock": 26
-      }
-    },
-    {
       "id": "lit4",
       "status": true,
       "basic_info": {
@@ -144,22 +128,6 @@
         "product_regno": "tel-voip",
         "product_mfg": "2025-11-11",
         "product_stock": 12
-      }
-    },
-    {
-      "id": "tel3",
-      "status": true,
-      "basic_info": {
-        "product_name": "Satellite Link",
-        "product_category": "telecomunication",
-        "product_price": 1200,
-        "product_company": "google"
-      },
-      "detail_info": {
-        "product_expiry": "2035-01-01",
-        "product_regno": "tel-sat",
-        "product_mfg": "2026-02-15",
-        "product_stock": 5
       }
     },
     {
@@ -310,28 +278,6 @@
         "team_rank": "Core Contributor",
         "team_office": "Remote",
         "team_mail": "edge-team@vercel.com"
-      }
-    },
-    {
-      "id": "ea44",
-      "status": false,
-      "personal_info": {
-        "user_name": "Jordan Smith",
-        "user_email": "j.smith@startup.co",
-        "user_photo": "",
-        "user_desc": "Open for new opportunities in Product Management."
-      },
-      "basic_info": {
-        "user_phone": "61291234567",
-        "user_position": "Junior PM",
-        "user_location": "Sydney, AU",
-        "user_website": "www.jsmith-pm.com"
-      },
-      "team_info": {
-        "team_name": "youtube",
-        "team_rank": "Entry",
-        "team_office": "Surry Hills",
-        "team_mail": "growth@canva.com"
       }
     },
     {
