@@ -1,4 +1,10 @@
-<app-generic-view-page [pageTitle]="pageTitlegetter" [(genericSearchKey)]="searchKey">
+<app-generic-view-page type="product" [pageTitle]="pageTitlegetter" [(genericSearchKey)]="searchKey">
+    <!-- <app-generic-drop-menu
+    key="product"
+    [(searchTerm)]="searchKey"
+    >
+
+    </app-generic-drop-menu> -->
     <div class="flex flex-col lg:flex lg:flex-row">
         <div class="grid grid-cols-1 pr-6 w-full lg:w-70.5 h-full lg:mt-18">
             <app-generic-child-nav-bar [navTitle]="title" [navData]="addProductRoutesData"></app-generic-child-nav-bar>

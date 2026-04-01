@@ -54,6 +54,30 @@ export class Formservice implements HasUnsavedChanges {
       });
   }
 
+  patchForNewEntry(formdata: User) {
+    this.userForm.patchValue({
+      status: formdata.status,
+      personal_info: {
+        user_name: formdata.personal_info.user_name,
+        user_email: formdata.personal_info.user_email,
+        user_photo: formdata.personal_info.user_photo,
+        user_desc: formdata.personal_info.user_desc,
+      },
+      basic_info: {
+        user_phone: formdata.basic_info.user_phone,
+        user_position: formdata.basic_info.user_position,
+        user_location: formdata.basic_info.user_location,
+        user_website: formdata.basic_info.user_website,
+      },
+      team_info: {
+        team_name: formdata.team_info.team_name,
+        team_rank: formdata.team_info.team_rank,
+        team_office: formdata.team_info.team_office,
+        team_mail: formdata.team_info.team_mail,
+      },
+    });
+    this.userForm.markAsPristine();
+  }
   patchFormData(formdata: User) {
     this.editing.set(true);
     this.editingId.set(formdata.id);

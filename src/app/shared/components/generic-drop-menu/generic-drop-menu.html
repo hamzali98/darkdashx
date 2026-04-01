@@ -1,9 +1,9 @@
-@if(isOpen()) {
+<!-- @if(isOpen()) {
 <ul class="absolute z-50 w-full mt-1 border border-gray-600 rounded-sm
                             bg-card-bg shadow-lg max-h-52 overflow-y-auto" [ngClass]="dropdownPosition() === 'top'
                             ? 'bottom-full mb-1'
                             : 'top-full mt-1'">
-    @for(option of selectOptions; track option.value) {
+    @for(option of selectOptions(); track option.value) {
     <li (click)="selectOption(option)"
         class="px-4 py-2.5 text-sm font-light cursor-pointer transition-colors duration-150" [ngClass]="selectedOption()?.value === option.value
                     ? 'bg-primary text-white'
@@ -11,5 +11,42 @@
         {{ option.key }}
     </li>
     }
+</ul>
+} -->
+
+@if(isOpen()) {
+<ul class="absolute z-50 w-full mt-1 border border-gray-600/30 rounded-lg
+           bg-card-bg shadow-lg max-h-72 overflow-y-auto"
+    [ngClass]="dropdownPosition() === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'">
+
+    <li class="px-3 py-2 text-xs text-gray-400 uppercase tracking-wider border-b border-gray-600/20">
+        {{ selectOptions().length }} result{{ selectOptions().length !== 1 ? 's' : '' }} found
+    </li>
+
+    @for(option of selectOptions(); track option.value) {
+    <li (click)="selectOption(option)"
+        class="flex items-center gap-3 px-3 py-2.5 cursor-pointer transition-colors duration-150 border-b border-gray-600/10 last:border-b-0"
+        [ngClass]="selectedOption()?.value === option.value ? 'bg-blue-50 dark:bg-blue-900/20' : 'hover:bg-gray-100 dark:hover:bg-white/5'">
+
+        <!-- avatar -->
+        <div
+            class="w-9 h-9 shrink-0 flex items-center justify-center text-xs font-medium bg-primary/20 text-primary rounded-md">
+            {{ option.key | slice:0:2 | uppercase }}
+        </div>
+
+        <!-- name + sub -->
+        <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-800 dark:text-white truncate">{{ option.key }}</p>
+            <p class="text-xs text-gray-400 truncate">{{ option.meta }}</p>
+        </div>
+
+        <!-- badge -->
+        <!-- <span class="text-xs px-2 py-0.5 rounded-lg shrink-0 bg-primary/20 text-primary">
+            {{ option.active ? 'Active' : 'Inactive' }}
+        </span> -->
+
+    </li>
+    }
+
 </ul>
 }

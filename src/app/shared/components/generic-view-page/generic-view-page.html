@@ -4,7 +4,14 @@
             <span class="text-gray-500 dark:text-white font-medium font-inter text-lg ">
                 {{ pageTitle | translate}}
             </span>
-            <app-search-bar [(searchKey)]="genericSearchKey"></app-search-bar>
+            <!-- <app-search-bar [(searchKey)]="genericSearchKey"></app-search-bar> -->
+            <div class="relative">
+                <app-search-bar [(searchKey)]="genericSearchKey"></app-search-bar>
+                <app-generic-drop-menu
+                    [key]="type"
+                    [(searchTerm)]="genericSearchKey">
+                </app-generic-drop-menu>
+            </div>
         </div>
         @if(buttonTitle){
         <button (click)="onClick()" type="button"

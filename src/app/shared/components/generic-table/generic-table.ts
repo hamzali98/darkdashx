@@ -12,7 +12,7 @@ import {
   viewChild,
   ElementRef
 } from '@angular/core';
-import { NgClass, TitleCasePipe, CurrencyPipe } from '@angular/common';
+import { NgClass, TitleCasePipe, CurrencyPipe, SlicePipe, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { tableColumns } from '@app/shared/interface/generic-table-interface';
 import { DataError } from "../data-error/data-error";
@@ -31,6 +31,8 @@ import { GenericTableInputConfigs } from './config';
 @Component({
   selector: 'app-generic-table',
   imports: [
+    SlicePipe,
+    UpperCasePipe,
     FormsModule,
     NgClass,
     TitleCasePipe,
@@ -148,7 +150,7 @@ export class GenericTable<T> implements OnChanges {
     }
   }
 
-  getValue(obj: any, key: any) {
+  getValue(obj: any, key: any) : string {
     return key.reduce((access: any, key: any) => access?.[key], obj);
   }
 
