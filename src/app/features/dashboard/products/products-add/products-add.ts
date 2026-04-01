@@ -12,7 +12,7 @@ import { GenericDropMenu } from "@app/shared/components/generic-drop-menu/generi
 
 @Component({
   selector: 'app-products-add',
-  imports: [RouterOutlet, GenericChildNavBar, TranslateModule, GenericViewPage, GenericDropMenu],
+  imports: [RouterOutlet, GenericChildNavBar, TranslateModule, GenericViewPage],
   templateUrl: './products-add.html',
   styleUrl: './products-add.css',
 })
