@@ -1,22 +1,24 @@
 import { RouterOutlet } from "@angular/router";
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, model, OnChanges, OnDestroy, OnInit, signal, SimpleChanges } from '@angular/core';
 import { FormService } from './service/form-service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { childnav } from '@app/shared/interface/child-nav-interface';
-import { SearchBar } from "@app/shared/components/search-bar/search-bar";
 import { HasUnsavedChanges } from '@app/shared/interface/has-unsaved-changes';
 import { ChildNavBarService } from '@app/shared/services/child-nav-bar/child-nav-bar-service';
 import { GenericChildNavBar } from "@app/shared/components/generic-child-nav-bar/generic-child-nav-bar";
 import { DialogService } from "@app/shared/services/dialog-service/dialog";
 import { GenericViewPage } from "@app/shared/components/generic-view-page/generic-view-page";
+import { GenericDropMenu } from "@app/shared/components/generic-drop-menu/generic-drop-menu";
 
 @Component({
   selector: 'app-products-add',
-  imports: [RouterOutlet, GenericChildNavBar, TranslateModule, GenericViewPage],
+  imports: [RouterOutlet, GenericChildNavBar, TranslateModule, GenericViewPage, GenericDropMenu],
   templateUrl: './products-add.html',
   styleUrl: './products-add.css',
 })
 export class ProductsAdd implements OnInit, OnDestroy, HasUnsavedChanges {
+
+  searchKey = signal('');
 
   title: string = "DETAILS";
   addProductRoutesData: childnav[];
