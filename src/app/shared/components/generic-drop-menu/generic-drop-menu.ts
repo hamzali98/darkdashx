@@ -3,6 +3,7 @@ import { Component, effect, inject, Input, model, OnChanges, OnDestroy, OnInit, 
 import { FormService } from '@app/features/dashboard/products/products-add/service/form-service';
 import { Formservice } from '@app/features/users/adduser/services/formservice';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 // export interface SelectOption {
@@ -19,7 +20,7 @@ export interface SelectOption {
 
 @Component({
   selector: 'app-generic-drop-menu',
-  imports: [NgClass, SlicePipe, UpperCasePipe],
+  imports: [NgClass, SlicePipe, UpperCasePipe, TranslatePipe],
   templateUrl: './generic-drop-menu.html',
   styleUrl: './generic-drop-menu.css',
 })

@@ -19,8 +19,9 @@
            bg-card-bg shadow-lg max-h-72 overflow-y-auto"
     [ngClass]="dropdownPosition() === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'">
 
-    <li class="px-3 py-2 text-xs text-gray-400 uppercase tracking-wider border-b border-gray-600/20">
-        {{ selectOptions().length }} result{{ selectOptions().length !== 1 ? 's' : '' }} found
+    <li class="px-3 py-2 text-xs text-gray-400  border-b border-gray-600/20">
+        <!-- {{ selectOptions().length }} result{{ selectOptions().length !== 1 ? 's' : '' }} found -->
+          {{ 'found' | translate }} {{selectOptions().length }}
     </li>
 
     @for(option of selectOptions(); track option.value) {
