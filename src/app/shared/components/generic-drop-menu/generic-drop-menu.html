@@ -1,0 +1,15 @@
+@if(isOpen()) {
+<ul class="absolute z-50 w-full mt-1 border border-gray-600 rounded-sm
+                            bg-card-bg shadow-lg max-h-52 overflow-y-auto" [ngClass]="dropdownPosition() === 'top'
+                            ? 'bottom-full mb-1'
+                            : 'top-full mt-1'">
+    @for(option of selectOptions; track option.value) {
+    <li (click)="selectOption(option)"
+        class="px-4 py-2.5 text-sm font-light cursor-pointer transition-colors duration-150" [ngClass]="selectedOption()?.value === option.value
+                    ? 'bg-primary text-white'
+                    : 'text-figma-neutral hover:bg-primary/20 hover:text-primary'">
+        {{ option.key }}
+    </li>
+    }
+</ul>
+}
