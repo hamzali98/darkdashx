@@ -1,5 +1,6 @@
 <div class="py-1 w-full" [ngClass]="config.ngclass">
-    <div class=" flex flex-col lg:flex-row items-start justify-between">
+    <div class=" flex justify-between"
+        [ngClass]="config.type === 'checkbox'? 'flex-row items-center' :'flex-col lg:flex-row items-start'">
 
         <!-- ── Label ── -->
         @if(config.label){
@@ -7,7 +8,7 @@
             @if(config.labelIcon) {
             <img [src]="config.labelIcon" alt="icon" class="size-3" />
             }
-            <label [for]="config.labelFor" class="text-gray-300 text-xs font-medium">
+            <label [for]="config.labelFor" class="text-gray-300 text-xs font-medium text-nowrap">
                 {{ config.label | translate }}
                 @if(config.required) { <span class="text-red-600">*</span> }
             </label>
@@ -88,8 +89,7 @@
 
             <!-- ════════ CHECKBOX ════════ -->
             @if(config.type === 'checkbox') {
-            <input
-            class="
+            <input class="
                 indeterminate:appearance-auto indeterminate:accent-primary
                 appearance-none bg-inherit border border-gray-700 
                 size-3 rounded-xs checked:appearance-auto
