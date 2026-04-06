@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { SvgColour } from "@app/shared/components/svg-colour/svg-colour";
 
 @Component({
   selector: 'app-not-found',
-  imports: [TranslateModule],
+  imports: [TranslateModule, SvgColour],
   templateUrl: './not-found.html',
   styleUrl: './not-found.css',
 })

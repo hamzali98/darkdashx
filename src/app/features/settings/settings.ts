@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { UnderDevelopment } from "@app/shared/components/under-development/under-development";
+import { Component, inject } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { ThemeService, THEMES } from '@app/shared/services/theme-service/theme-service';
 
 @Component({
   selector: 'app-settings',
-  imports: [UnderDevelopment],
+  imports: [NgClass],
   templateUrl: './settings.html',
   styleUrl: './settings.css',
 })
 export class Settings {
-
+  themeService = inject(ThemeService);
+  themes = THEMES;
 }

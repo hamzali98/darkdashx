@@ -14,7 +14,7 @@
 </ul>
 } -->
 
-@if(isOpen()) {
+@if(isOpen() && isActive) {
 <ul class="absolute z-50 w-full mt-1 border border-gray-600/30 rounded-lg
            bg-card-bg shadow-lg max-h-72 overflow-y-auto"
     [ngClass]="dropdownPosition() === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'">

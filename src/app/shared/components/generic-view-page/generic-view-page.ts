@@ -14,7 +14,8 @@ export class GenericViewPage {
 
   genericSearchKey = model('');
 
-@Input({required: true}) type!: string;
+  @Input({ required: true }) type!: string;
+  @Input({ required: true }) isActive!: boolean;
   @Input({ required: true }) pageTitle!: string;
   @Input() buttonTitle!: string;
   @Input() route!: string;

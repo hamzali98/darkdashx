@@ -15,10 +15,11 @@ import { AuthService } from '@app/core/auth/services/auth-service';
 import { DataFetchService } from '@app/shared/services/data/data-fetch-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
+import { SvgColour } from "@app/shared/components/svg-colour/svg-colour";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [AnalyticsCard, AmCharts, DonutChart, BubbleChart, MapChart, DataError, TranslateModule, UsersAmChart, TooltipDirective],
+  imports: [AnalyticsCard, AmCharts, DonutChart, BubbleChart, MapChart, DataError, TranslateModule, UsersAmChart, TooltipDirective, SvgColour],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

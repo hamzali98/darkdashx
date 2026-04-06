@@ -5,10 +5,12 @@
     <!-- Header -->
     <div class="flex flex-row justify-between align-middle">
         <div class="flex gap-1 flex-row align-middle justify-center items-center">
-            <img class="size-3" [src]="icon" alt="icon">
+            <app-svg-colour svgColor="bg-figma-neutral" svgSize="size-3" svgPath="{{icon}}">
+            </app-svg-colour>
             <span class="text-figma-neutral text-[11px] font-normal font-inter ">{{ cTitle | translate }}</span>
         </div>
-        <img src="assets/icons/neutral/threedotsmenu.svg" alt="menu">
+        <app-svg-colour svgColor="bg-figma-neutral" svgSize="size-3" svgPath="assets/icons/neutral/threedotsmenu.svg">
+        </app-svg-colour>
     </div>
 
     <!-- Values -->

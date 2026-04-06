@@ -1,7 +1,7 @@
 <div class=" flex flex-col gap-5 px-9 py-7 overflow-y-auto scroll-container ">
     <div class="flex flex-row justify-between items-center ">
         <div class="flex flex-col md:flex-row gap-13 items-center ">
-            <span class="text-gray-500 dark:text-white font-medium font-inter text-lg ">{{ 'PROFILE_TITLE' | translate
+            <span class=" text-white font-medium font-inter text-lg ">{{ 'PROFILE_TITLE' | translate
                 }}</span>
         </div>
         <!-- <app-language-switcher></app-language-switcher> -->
@@ -64,13 +64,15 @@
                         <input [type]="showOldPass ? 'text' : 'password'" placeholder="••••••••••••••" name="oldpass"
                             id="oldpass" [(ngModel)]="oldpass" [ngModelOptions]="{ standalone: true }"
                             (ngModelChange)="passcheck()" class="outline-0 caret-figma-neutral text-figma-neutral ">
-                        <button class="absolute rtl:left-3 ltr:right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
-                            (click)="showOldPass = !showOldPass">
+                        <button class="absolute rtl:left-3 ltr:right-3 bg-none cursor-pointer p-0 flex align-middle"
+                            type="button" (click)="showOldPass = !showOldPass">
                             @if(!showOldPass) {
-                            <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />
+                            <app-svg-colour svgSize="size-5" svgColor="bg-primary"
+                                svgPath="assets/icons/input_icons/openeye.svg"></app-svg-colour>
                             }
                             @if(showOldPass) {
-                            <img class="size-5" src="assets/icons/input_icons/closeeye.svg" alt="e" />
+                            <app-svg-colour svgSize="size-5" svgColor="bg-secondary2"
+                                svgPath="assets/icons/input_icons/closeeye.svg"></app-svg-colour>
                             }
                         </button>
                     </div>
@@ -91,13 +93,15 @@
                         <input (input)="onPassChange()" [type]="showPass ? 'text' : 'password'"
                             placeholder="••••••••••••••" formControlName="password"
                             class="outline-0 caret-figma-neutral text-figma-neutral ">
-                        <button class="absolute rtl:left-3 ltr:right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
-                            (click)="showPass = !showPass">
+                        <button class="absolute rtl:left-3 ltr:right-3 bg-none cursor-pointer p-0 flex align-middle"
+                            type="button" (click)="showPass = !showPass">
                             @if(!showPass) {
-                            <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />
+                            <app-svg-colour svgSize="size-5" svgColor="bg-primary"
+                                svgPath="assets/icons/input_icons/openeye.svg"></app-svg-colour>
                             }
                             @if(showPass) {
-                            <img class="size-5" src="assets/icons/input_icons/closeeye.svg" alt="e" />
+                            <app-svg-colour svgSize="size-5" svgColor="bg-secondary2"
+                                svgPath="assets/icons/input_icons/closeeye.svg"></app-svg-colour>
                             }
                         </button>
                     </div>
@@ -121,13 +125,15 @@
                         <input [type]="showCPass ? 'text' : 'password'" placeholder="••••••••••••••" name="cnewpass"
                             id="cnewpass" [(ngModel)]="cnfrmpass" [ngModelOptions]="{standalone:true}"
                             class="outline-0 caret-figma-neutral text-figma-neutral ">
-                        <button class="absolute rtl:left-3 ltr:right-3 bg-none cursor-pointer p-0 flex align-middle" type="button"
-                            (click)="showCPass = !showCPass">
+                        <button class="absolute rtl:left-3 ltr:right-3 bg-none cursor-pointer p-0 flex align-middle"
+                            type="button" (click)="showCPass = !showCPass">
                             @if(!showCPass) {
-                            <img class="size-5" src="assets/icons/input_icons/openeye.svg" alt="e" />
+                            <app-svg-colour svgSize="size-5" svgColor="bg-primary"
+                                svgPath="assets/icons/input_icons/openeye.svg"></app-svg-colour>
                             }
                             @if(showCPass) {
-                            <img class="size-5" src="assets/icons/input_icons/closeeye.svg" alt="e" />
+                            <app-svg-colour svgSize="size-5" svgColor="bg-secondary2"
+                                svgPath="assets/icons/input_icons/closeeye.svg"></app-svg-colour>
                             }
                         </button>
                     </div>

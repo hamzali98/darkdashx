@@ -28,8 +28,8 @@
         <!-- No results state -->
         @if(filteredNavItems().length === 0) {
         <div class="px-4 py-6 text-center">
-            <p class="text-gray-500 text-xs">{{'No Result' | translate}}</p>
-            <p class="text-gray-600 text-[11px] mt-1">{{ searchKey() }}</p>
+            <p class="text-figma-neutral text-xs">{{'No Result' | translate}}</p>
+            <p class="text-secondary2 text-[11px] mt-1">{{ searchKey() }}</p>
         </div>
         }
         <!-- Dashboard selection div -->
@@ -41,13 +41,16 @@
                 " (click)="openAndNavigate(items!.routePath, items!.routeLink[0])">
                 <div class=" flex flex-row">
                     @if(open === items!.routePath){
-                    <img [src]="items!.coloredIcon" [alt]="items!.iconsAlt">
+                    <app-svg-colour svgSize="size-4" svgColor="bg-primary"
+                        svgPath="{{items!.coloredIcon}}"></app-svg-colour>
                     } @else {
-                    <img [src]="items!.uncoloredIcon" [alt]="items!.iconsAlt">
+                    <app-svg-colour svgSize="size-4" svgColor="bg-figma-neutral"
+                        svgPath="{{items!.uncoloredIcon}}"></app-svg-colour>
                     }
                     <span [innerHTML]="highlight(items!.tileName | translate)" [ngClass]="open === items!.routePath
                         ? 'text-primary'
-                        : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-medium text-sm">{{items!.tileName |
+                        : ' text-figma-neutral'" class=" px-1 font-medium text-sm">{{items!.tileName
+                        |
                         translate}}</span>
                 </div>
                 <span class="transition-transform duration-300 ease-in-out mr-3 "
@@ -62,9 +65,8 @@
                 class="flex flex-col transition-all duration-400 ease-in-out ">
                 @for(list of items!.routeNames; track $index){
                 <a [routerLink]="[items!.routeLink[$index]]" [ngClass]="isActive(items!.routeLink[$index]) 
-                    ? 'ltr:border-l-4 rtl:border-r-4 border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white' 
-                    : 'px-2 text-gray-500 dark:text-neutral-400'"
-                    class="  ltr:text-left text-sm px-4 py-2.5 rounded-sm font-normal">
+                    ? 'ltr:border-l-4 rtl:border-r-4 border-primary bg-active-route-bg/60 dark:bg-active-route-bg' 
+                    : 'px-2'" class=" text-figma-neutral ltr:text-left text-sm px-4 py-2.5 rounded-sm font-normal">
                     <span class="">{{items!.routeNames[$index] | translate}}</span>
                 </a>
                 }
@@ -82,13 +84,15 @@
                     (click)="onRoute('settings')">
                     <div class=" flex flex-row items-center justify-center  ">
                         @if(open === 'settings'){
-                        <img src="assets\icons\colored\settingsicon.svg" alt="si">
+                        <app-svg-colour svgSize="size-4" svgColor="bg-primary"
+                            svgPath="assets/icons/colored/settingsicon.svg"></app-svg-colour>
                         } @else {
-                        <img src="assets\icons\uncolored\settingsicon.svg" alt="si">
+                        <app-svg-colour svgSize="size-4" svgColor="bg-figma-neutral"
+                            svgPath="assets/icons/uncolored/settingsicon.svg"></app-svg-colour>
                         }
                         <span [ngClass]="open === 'settings'
                 ? 'text-primary'
-                : 'text-gray-500 dark:text-neutral-400'" class=" px-1 font-bold text-sm">{{"SETTINGS" |
+                : ' text-figma-neutral'" class=" px-1 font-bold text-sm">{{"SETTINGS" |
                             translate}}</span>
                     </div>
                 </button>
@@ -98,14 +102,18 @@
                     class="flex flex-row  items-center w-full justify-between cursor-pointer"
                     (click)="onRoute('profile')">
                     <div class="flex fex-row items-center">
-                        <div class=" rounded-full overflow-hidden size-9 bg-contain  ">
+                        <!-- <div class=" rounded-full overflow-hidden size-9 bg-contain  ">
                             <img class="-mt-1" src="assets/images/OIP.webp" alt="">
+                        </div> -->
+                        <div
+                            class="w-9 h-9 shrink-0 flex items-center justify-center text-xs font-medium bg-primary/20 text-primary rounded-full">
+                            {{ username | slice:0:2 | uppercase }}
                         </div>
                         <div class="flex flex-col items-start px-2 ">
                             <span
-                                [ngClass]="open === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-neutral-100' "
+                                [ngClass]="open === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-figma-neutral' "
                                 class=" text-sm font-bold ">{{username}}</span>
-                            <span class="text-gray-500 dark:text-neutral-400 text-xs ">{{"ACCOUNT_SETTINGS" |
+                            <span class=" text-figma-neutral text-xs ">{{"ACCOUNT_SETTINGS" |
                                 translate}}</span>
                         </div>
                     </div>

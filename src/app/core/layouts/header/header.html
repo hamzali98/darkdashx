@@ -1,37 +1,17 @@
 <div class=" flex flex-row justify-between items-center border-b border-b-card-bg p-2">
-    <!-- (click)="[onOpen('')]" -->
     <div class="flex flex-row gap-3">
         <button type="button" class="shrink-0 cursor-pointer" (click)="toggleSidebar()">
-            <img class="size-8" src="assets/icons/colored/menu.svg" alt="m">
+            <!-- <img class="size-8" src="assets/icons/colored/menu.svg" alt="m"> -->
+            <app-svg-colour
+            svgSize="size-8"
+            svgColor="bg-primary"
+            svgPath="assets/icons/colored/menu.svg"
+            ></app-svg-colour>
         </button>
         <app-main-logo></app-main-logo>
     </div>
-    <!-- <a [routerLink]="['']">
-        <div class="flex flex-row justify-between align-middle items-center ">
-            <div class="flex flex-row">
-                <img class="size-6.5 " src="assets/icons/logo.svg" alt="a">
-                <span
-                    class="opacity-0 font-inter md:opacity-100 font-medium text-card-bg dark:text-white text-lg px-2 ">
-                    Dashdark X
-                </span>
-            </div>
-        </div>
-    </a> -->
     <div class="py-2 flex items-center justify-center">
         <app-language-switcher></app-language-switcher>
-        <!-- <button type="button" [disabled]="open === 'profile'"
-            class="md:flex flex-row items-center w-full justify-between cursor-pointer"
-            (click)="onRoute('profile')">
-            <div class="flex fex-row items-center">
-                <div class="flex flex-col items-start px-2 ">
-                    <span [ngClass]="open === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-neutral-100' "
-                        class=" text-sm font-bold ">{{username}}</span>
-                </div>
-                <div class=" rounded-full overflow-hidden size-7 md:size-9 bg-contain  ">
-                    <img class="-mt-1" src="assets/images/OIP.webp" alt="">
-                </div>
-            </div>
-        </button> -->
         <app-logout-btn></app-logout-btn>
     </div>
 </div>

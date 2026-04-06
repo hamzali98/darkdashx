@@ -15,7 +15,7 @@
         'border-gray-600':  !hasError && !isValid
       }"
     >
-      <span [class.text-neutral-400]="!selectedDate()">
+      <span [class.text-figma-neutral]="!selectedDate()">
         {{ displayValue || (placeholder | translate) }}
       </span>
 
@@ -189,7 +189,7 @@
   } @else if(isValid) {
     <span class="py-1 px-4 text-green-500 text-[12px] font-light">{{ validMessage | translate }}</span>
   } @else if(hintMessage) {
-    <span class="py-1 px-4 text-neutral-400 text-[12px] font-light">{{ hintMessage | translate }}</span>
+    <span class="py-1 px-4 text-figma-neutral text-[12px] font-light">{{ hintMessage | translate }}</span>
   }
 
 <!-- </div> -->

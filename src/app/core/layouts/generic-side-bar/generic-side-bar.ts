@@ -1,6 +1,6 @@
 import { Component, computed, inject, Input, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { NgClass } from '@angular/common';
+import { NgClass, SlicePipe, UpperCasePipe } from '@angular/common';
 import { sidenavcols } from '@app/core/interface/generic-side-nav-interface';
 import { MainLogo } from "@app/core/components/main-logo/main-logo";
 import { Layout } from '@app/core/services/layout';
@@ -11,10 +11,13 @@ import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { Footer } from "../footer/footer";
 import { FormsModule } from '@angular/forms';
 import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
+import { SvgColour } from "@app/shared/components/svg-colour/svg-colour";
 
 @Component({
   selector: 'app-generic-side-bar',
   imports: [
+    SlicePipe,
+    UpperCasePipe,
     RouterLink,
     NgClass,
     MainLogo,
@@ -24,8 +27,9 @@ import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-
     TooltipDirective,
     Footer,
     FormsModule,
-    GenericInput
-  ],
+    GenericInput,
+    SvgColour
+],
   templateUrl: './generic-side-bar.html',
   styleUrl: './generic-side-bar.css',
 })

@@ -57,7 +57,7 @@
                     }
                     <span [ngClass]="open() === 'dashboard'
                 ? 'text-primary'
-                : 'text-gray-500 dark:text-neutral-400'"
+                : ' text-figma-neutral'"
                         class="opacity-0 md:opacity-100 px-1 font-medium text-sm">Dashboard</span>
                 </div>
                 <span class="transition-transform duration-300 ease-in-out mr-3 "
@@ -71,7 +71,7 @@
             : 'opacity-0 max-h-0 pointer-events-none' "
                 class="flex flex-col transition-all duration-400 ease-in-out mt-5">
                 <a [routerLink]="['']"
-                    [ngClass]="isActive('') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2  text-figma-neutral'"
                     class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden dark:fill-white "><img class="size-5" src="assets/icons/dashboard.svg"
                             alt="dash"></span>
@@ -79,21 +79,21 @@
                     <!-- Home -->
                 </a>
                 <a [routerLink]="['/reports']"
-                    [ngClass]="isActive('/reports') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/reports') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2  text-figma-neutral'"
                     class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden"><img class="size-5" src="assets/icons/reports.svg" alt="reports"></span>
                     <span class="hidden md:inline">Reports</span>
                     <!-- Reports -->
                 </a>
                 <a [routerLink]="['/tasks']"
-                    [ngClass]="isActive('/tasks') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/tasks') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2  text-figma-neutral'"
                     class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden"><img class="size-5" src="assets/icons/tasks.svg" alt="tasks"></span>
                     <span class="hidden md:inline">Tasks</span>
                     <!-- Tskas -->
                 </a>
                 <a [routerLink]="['/products']"
-                    [ngClass]="isActive('/products') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/products') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2  text-figma-neutral'"
                     class=" text-left text-sm px-1.5 md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden"><img class="size-5" src="assets/icons/cart.svg" alt="tasks"></span>
                     <span class="hidden md:inline">Products</span>
@@ -125,7 +125,7 @@
                     }
                     <span [ngClass]="open() === 'users'
                 ? 'text-primary'
-                : 'text-gray-500 dark:text-neutral-400'"
+                : ' text-figma-neutral'"
                         class="opacity-0 md:opacity-100 px-1 font-bold text-sm">Users</span>
                 </div>
                 <span class="transition-transform duration-300 ease-in-out  mr-3"
@@ -140,13 +140,13 @@
             : 'opacity-0 max-h-0 pointer-events-none' "
                 class="flex flex-col transition-all duration-400 ease-in-out mt-5">
                 <a [routerLink]="['users/view']"
-                    [ngClass]="isActive('/users/view') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/users/view') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2  text-figma-neutral'"
                     class=" text-left text-sm px-1.5  md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden  "><img class=" size-5" src="assets/icons/view.svg" alt="view"></span>
                     <span class="hidden md:inline">View Users</span>
                 </a>
                 <a [routerLink]="['/users/add']"
-                    [ngClass]="isActive('/users/add') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/users/add') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2  text-figma-neutral'"
                     class=" text-left text-sm px-1.5 md:px-4  py-2.5 rounded-sm font-normal">
                     <span class="md:hidden "><img class="   size-5" src="assets/icons/add-user.svg" alt=""></span>
                     <span class="hidden md:inline">Add User</span>
@@ -177,7 +177,7 @@
                     }
                     <span [ngClass]="open() === 'features'
                 ? 'text-primary'
-                : 'text-gray-500 dark:text-neutral-400'"
+                : ' text-figma-neutral'"
                         class="opacity-0 md:opacity-100 px-1 font-bold text-sm">Features</span>
                 </div>
                 <span class="transition-transform duration-300 ease-in-out mr-3"
@@ -192,13 +192,13 @@
             : 'opacity-0 max-h-0 pointer-events-none' "
                 class="flex flex-col transition-all duration-400 ease-in-out mt-5">
                 <a [routerLink]="['users/view']"
-                    [ngClass]="isActive('/users/view') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/users/view') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2  text-figma-neutral'"
                     class=" text-left text-sm px-1.5  md:px-4 py-2.5 rounded-sm font-normal">
                     <span class="md:hidden  "><img class=" size-5" src="assets/icons/view.svg" alt="view"></span>
                     <span class="hidden md:inline">View Users</span>
                 </a>
                 <a [routerLink]="['/users/add']"
-                    [ngClass]="isActive('/users/add') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2 text-gray-500 dark:text-neutral-400'"
+                    [ngClass]="isActive('/users/add') ? 'border-l-[3.19px] border-primary text-primary-bg bg-active-route-bg/60 dark:bg-active-route-bg dark:text-white ' : 'px-2  text-figma-neutral'"
                     class=" text-left text-sm px-1.5 md:px-4  py-2.5 rounded-sm font-normal">
                     <span class="md:hidden "><img class="   size-5" src="assets/icons/add-user.svg" alt=""></span>
                     <span class="hidden md:inline">Add User</span>
@@ -225,7 +225,7 @@
                     }
                     <span [ngClass]="open() === 'settings'
                 ? 'text-primary'
-                : 'text-gray-500 dark:text-neutral-400'"
+                : ' text-figma-neutral'"
                         class="hidden md:inline px-1 font-bold text-sm">Settings</span>
                 </div>
                 <!-- <span class="-rotate-90 hidden md:inline">
@@ -241,9 +241,9 @@
                         <img class="-mt-1" src="assets/images/OIP.webp" alt="">
                     </div>
                     <div class="md:flex flex-col items-start px-2 hidden ">
-                        <span [ngClass]="open() === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-neutral-100' "
+                        <span [ngClass]="open() === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-figma-neutral' "
                             class=" text-sm font-bold ">John Doe</span>
-                        <span class="text-gray-500 dark:text-neutral-400 text-xs ">Account Settings</span>
+                        <span class=" text-figma-neutral text-xs ">Account Settings</span>
                     </div>
                 </div>
                 <!-- <span class="-rotate-90">

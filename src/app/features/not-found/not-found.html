@@ -1,23 +1,68 @@
-<div class=" flex justify-start min-h-screen bg-primary-bg
+<div class=" flex justify-start min-h-screen bg-transparent
         ">
-    <img class="absolute bg-cover" src="assets/404.svg" alt="">
-    <!-- <app-main-logo></app-main-logo> -->
-    <div class=" relative flex flex-col justify-center pt-18 align-middle rtl:mt-18 items-center w-full">
-        <!-- <div class="">
-            <Span class="text-[200px] font-extrabold text-transparent 
-            bg-linear-to-b from-secondary2 from-40% via-indigo-400 via-50% to-primary to-75% bg-clip-text font-sans
-            text-shadow-lg
-            ">404</Span>
-        </div> -->
-        <div class="my-10">
-            <img class="h-37" src="assets/404img.png" alt="404">
+
+    <div class="absolute inset-0 -z-10 bg-primary-bg">
+
+        <svg viewBox="0 0 1536 670" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="1536" height="670" fill="var(--color-primary-bg)" />
+
+            <!-- Decorative circles and X shapes -->
+            <!-- Connection lines between circles (drawn first, behind circles) -->
+            <!-- Gray circle connections -->
+            <line x1="690" y1="160" x2="835" y2="140" stroke="var(--color-figma-neutral)" stroke-width="1"
+                opacity="0.3" />
+            <line x1="835" y1="140" x2="992" y2="140" stroke="var(--color-figma-neutral)" stroke-width="1"
+                opacity="0.3" />
+
+            <!-- Cyan circle connections -->
+            <line x1="605" y1="168" x2="560" y2="250" stroke="var(--color-secondary2)" stroke-width="1" opacity="0.3" />
+            <line x1="560" y1="250" x2="760" y2="350" stroke="var(--color-secondary2)" stroke-width="1" opacity="0.3" />
+            <line x1="760" y1="350" x2="910" y2="350" stroke="var(--color-secondary2)" stroke-width="1" opacity="0.3" />
+            <line x1="850" y1="210" x2="760" y2="350" stroke="var(--color-secondary2)" stroke-width="1" opacity="0.3" />
+
+            <!-- Purple circle connections -->
+            <line x1="518" y1="283" x2="1018" y2="383" stroke="var(--color-primary)" stroke-width="1" opacity="0.3" />
+            <line x1="518" y1="283" x2="690" y2="183" stroke="var(--color-primary)" stroke-width="1" opacity="0.3" />
+
+            <!-- Circles -->
+            <circle cx="690" cy="160" r="4" fill="var(--color-figma-neutral)" opacity="0.6" />
+            <circle cx="835" cy="140" r="4" fill="var(--color-figma-neutral)" opacity="0.6" />
+            <circle cx="605" cy="168" r="6" fill="var(--color-secondary2)" />
+            <circle cx="850" cy="210" r="6" fill="var(--color-secondary2)" />
+            <circle cx="992" cy="140" r="4" fill="var(--color-figma-neutral)" opacity="0.6" />
+            <circle cx="518" cy="283" r="6" fill="var(--color-primary)" />
+            <circle cx="690" cy="183" r="6" fill="var(--color-primary)" />
+            <circle cx="1018" cy="383" r="6" fill="var(--color-primary)" />
+            <circle cx="560" cy="250" r="4" fill="var(--color-secondary2)" />
+            <circle cx="760" cy="350" r="4" fill="var(--color-secondary2)" />
+            <circle cx="910" cy="350" r="4" fill="var(--color-secondary2)" />
+
+            <text x="425" y="185" fill="var(--color-secondary2)" font-size="20" font-family="Arial, sans-serif"
+                opacity="0.6">×</text>
+            <text x="1038" y="445" fill="var(--color-secondary2)" font-size="20" font-family="Arial, sans-serif"
+                opacity="0.6">×</text>
+
+            <!-- Large background 404 -->
+            <text x="768" y="400" fill="var(--color-figma-neutral)" font-size="280" font-family="Arial, sans-serif"
+                font-weight="bold" text-anchor="middle" opacity="0.5">404</text>
+
+        </svg>
+    </div>
+    <div class="z-10 flex flex-col justify-center items-center w-full">
+        <div class="my-10 mt-40 h-37 w-full bg-linear-to-b from-primary from-35% to-secondary2 to-75%"
+            [style.mask-image]="'url(assets/404img.png)'" [style.-webkit-mask-image]="'url(assets/404img.png)'"
+            style="mask-repeat: no-repeat; mask-size: contain; mask-position: center; -webkit-mask-repeat: no-repeat; -webkit-mask-size: contain; -webkit-mask-position: center;">
         </div>
-        <div class="text-white text-2xl font-inter font-semibold tracking-wider">{{"PAGE_NOT_FOUND"| translate}}</div>
-        <div class="text-gray-500 text-lg font-sans font-semibold tracking-wider">{{"PAGE_NOT_FOUND_DESC"| translate}}</div>
-        <div class="flex flex-row gap-5 py-15 ">
+        <div class="text-white text-2xl font-inter font-semibold ltr:tracking-wider">{{"PAGE_NOT_FOUND"| translate}}
+        </div>
+        <div class="text-figma-neutral text-lg font-sans font-semibold ltr:tracking-wider">{{"PAGE_NOT_FOUND_DESC"|
+            translate}}
+        </div>
+        <div class="flex flex-row gap-5 py-5 ">
             <div>
                 <button (click)="goToHome()" type="button" class="cursor-pointer text-white font-bond text-md font-worksans 
-                bg-linear-to-br from-primary from-35% via-indigo-400 via-60% to-secondary2 to-80% 
+                bg-linear-to-br from-primary from-35% to-secondary2 to-80% 
                 px-5 py-3 rounded-md ">
                     {{"GO_TO_DASHBOARD" | translate}}
                 </button>

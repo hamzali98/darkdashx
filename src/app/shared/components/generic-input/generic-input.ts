@@ -5,6 +5,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule, NgClass } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { SvgColour } from "../svg-colour/svg-colour";
 
 export type InputType = 'text' | 'password' | 'checkbox' | 'email' | 'number' | 'tel' | 'date' | 'select' | 'textarea';
 
@@ -47,7 +48,7 @@ export interface CustomInputConfig {
 
 @Component({
   selector: 'app-generic-input',
-  imports: [CommonModule, TranslateModule, NgClass],
+  imports: [CommonModule, TranslateModule, NgClass, SvgColour],
   templateUrl: './generic-input.html',
   styleUrl: './generic-input.css',
   providers: [

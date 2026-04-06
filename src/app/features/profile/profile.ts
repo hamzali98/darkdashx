@@ -17,6 +17,7 @@ import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 import { CustomInputConfig, GenericInput } from "@app/shared/components/generic-input/generic-input";
 import { ProfileConfig } from './config';
+import { SvgColour } from "@app/shared/components/svg-colour/svg-colour";
 
 export interface profilesociallinkbtns {
   alt: string,
@@ -25,7 +26,7 @@ export interface profilesociallinkbtns {
 
 @Component({
   selector: 'app-profile',
-  imports: [NgClass, ReactiveFormsModule, FormsModule, TranslateModule, TooltipDirective],
+  imports: [NgClass, ReactiveFormsModule, FormsModule, TranslateModule, TooltipDirective, SvgColour],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })

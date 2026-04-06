@@ -37,6 +37,7 @@ export class GenericDropMenu implements OnInit, OnDestroy, OnChanges {
   private subscription = new Subscription();
 
   @Input({ required: true }) key!: string;
+  @Input({ required: true }) isActive!: boolean;
 
   private dataService = inject(DataFetchService);
   private productFormService = inject(FormService);
@@ -45,8 +46,10 @@ export class GenericDropMenu implements OnInit, OnDestroy, OnChanges {
   constructor() {
     // effect
     effect(() => {
-      this.searchTerm(); // track the signal
-      this.fetchDataOptions();
+      if (this.isActive) {
+        this.searchTerm(); // track the signal
+        this.fetchDataOptions();
+      }
     });
   }
 
