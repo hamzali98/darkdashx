@@ -1,6 +1,23 @@
 @import "tailwindcss";
 @import "./tailwind.css";
 
+@layer utilities {
+  .text-app-primary    { color: var(--color-primary); }
+  .bg-app-primary      { background-color: var(--color-primary); }
+  .border-app-primary  { border-color: var(--color-primary); }
+
+  .text-app-secondary  { color: var(--color-secondary); }
+  .bg-app-secondary    { background-color: var(--color-secondary); }
+
+  .text-app-accent     { color: var(--color-secondary2); }
+  .bg-app-accent       { background-color: var(--color-secondary2); }
+
+  .bg-app-page         { background-color: var(--color-primary-bg); }
+  .bg-app-card         { background-color: var(--color-card-bg); }
+  .bg-app-input        { background-color: var(--color-input-bg); }
+  .border-app          { border-color: var(--color-border); }
+  .text-app-neutral    { color: var(--color-figma-neutral); }
+}
 
 @font-face {
   font-family: 'JameelNoori';
@@ -19,7 +36,7 @@
 
 
 input[type="date"] {
-  background-color: #0b1738;
+  background-color: var(--color-card-bg);
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -83,7 +100,8 @@ input[type=number] {
 }
 
 .scroll-container::-webkit-scrollbar-thumb:active {
-  background: #5a67d8;
+  /* background: #5a67d8; */
+  background: var(--color-primary) transparent;
   /* Solid color when dragging */
 }
 
@@ -92,17 +110,18 @@ input[type=number] {
   scrollbar-width: thin;
   /* Options: auto, thin, none */
   /* scrollbar-color: #AEB9E1 #081027; thumb color, track color */
-  scrollbar-color: #cb3cff #08102700;
+  scrollbar-color: var(--color-primary) transparent;
 }
 
 /* tooltip css */
 .custom-tooltip {
   position: absolute;
-  background: #0b1738;
+  /* background: #0b1738; */
+  background: var(--color-card-bg);
   color: #fff;
   padding: 4px 8px;
   border-radius: 6px;
-  border: 1px solid #cb3cff;
+  border: 1px solid var(--color-primary);
   font-size: 11px;
   white-space: nowrap;
   z-index: 999;
@@ -119,7 +138,7 @@ input[type=number] {
 
   .custom-tooltip {
   position: absolute;
-  background: #0b1738;
+  background: var(--color-card-bg);
   color: white;
   padding: 6px 10px;
   font-size: 11px;
@@ -139,28 +158,28 @@ input[type=number] {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    border-top-color: #cb3cff;
+    border-top-color: var(--color-primary);
   }
 
   &.tooltip-bottom::after {
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
-    border-bottom-color: #cb3cff;
+    border-bottom-color: var(--color-primary);
   }
 
   &.tooltip-left::after {
     left: 100%;
     top: 50%;
     transform: translateY(-50%);
-    border-left-color: #cb3cff;
+    border-left-color: var(--color-primary);
   }
 
   &.tooltip-right::after {
     right: 100%;
     top: 50%;
     transform: translateY(-50%);
-    border-right-color: #cb3cff;
+    border-right-color: var(--color-primary);
   }
 }
 
@@ -182,4 +201,19 @@ input::-ms-clear,
 input::-webkit-contacts-auto-fill-button,
 input::-webkit-credentials-auto-fill-button {
   display: none;
+}
+
+.ctext{
+    /* background-image: linear-gradient(#cb3cff,#cb3cff, #cb3cff, #00c2ff,#00c2ff,#00c2ff); */
+    background-image: linear-gradient(var(--color-primary),var(--color-primary), var(--color-primary), var(--color-secondary2),var(--color-secondary2),var(--color-secondary2));
+}
+
+.icon-mask {
+  width: 200px;
+  height: 24px;
+  background-color: var(--color-primary); /* Changes with theme */
+  mask-image: var(--icon-url);
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-image: var(--icon-url); /* For Safari/Chrome */
 }
