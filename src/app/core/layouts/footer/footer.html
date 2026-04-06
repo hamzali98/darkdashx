@@ -1,5 +1,8 @@
 <!-- <p class="text-center text-white bg-transparent relative text-[10px]">© 2026 HalTech. All rights reserved.</p> -->
 <div class="flex flex-col gap-1 justify-center items-center w-auto h-auto ">
-    <img class="inline h-10" src="assets/01.png" />
+     <div class="inline h-10 w-full bg-linear-to-r from-primary from-35% to-secondary2 to-75%"
+            [style.mask-image]="'url(assets/01.png)'" [style.-webkit-mask-image]="'url(assets/01.png)'"
+            style="mask-repeat: no-repeat; mask-size: contain; mask-position: center; -webkit-mask-repeat: no-repeat; -webkit-mask-size: contain; -webkit-mask-position: center;">
+        </div>
     <p class="text-center text-white bg-transparent relative text-[10px]">{{ 'footer_text' | translate }}</p>
 </div>
