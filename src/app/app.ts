@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
+import { ThemeService, THEMES } from './shared/services/theme-service/theme-service';
 
 @Component({
   selector: 'app-root',
@@ -19,17 +20,22 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class App implements OnInit {
 
+  // themes = App.themes
+
   private routerRef = inject(Router);
   private loaderService = inject(Loaderservice);
   private dialogServiceRef = inject(DialogService);
-
+  private themeService = inject(ThemeService);
+  themes = THEMES;
+  
   constructor(
     private title: Title,
     private translate: TranslateService
-  ) { }
-
+  ) {
+  }
+  
   get dialogService() { return this.dialogServiceRef; }
-
+  
   ngOnInit(): void {
     // Set title initially
     this.setTitle();

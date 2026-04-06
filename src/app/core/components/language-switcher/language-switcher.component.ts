@@ -17,7 +17,7 @@ import { TickAnimationService } from '@app/shared/services/tick-animation/tick-a
       (click)="switchLanguage('en')"
         [class.active]="(currentLang$ | async) === 'en'"
         [ngClass]="(currentLang$|async) === 'en' ? 'border border-primary rounded-lg':''"
-        class="p-1 rounded bg-card-bg transition-colors duration-200 text-xs text-white">
+        class="p-1 rounded bg-card-bg transition-colors duration-200 text-xs text-figma-neutral">
         {{"EN" | translate}}
       </button>
       <button type="button"
@@ -26,7 +26,7 @@ import { TickAnimationService } from '@app/shared/services/tick-animation/tick-a
       (click)="switchLanguage('ur')"
         [class.active]="(currentLang$ | async) === 'ur'"
         [ngClass]="(currentLang$|async) === 'ur' ? 'border border-primary rounded-lg': ''"
-        class="p-1 rounded bg-card-bg transition-colors duration-200 text-xs text-white">
+        class="p-1 rounded bg-card-bg transition-colors duration-200 text-xs text-figma-neutral">
         {{"UR" | translate}}
       </button>
     </div>
