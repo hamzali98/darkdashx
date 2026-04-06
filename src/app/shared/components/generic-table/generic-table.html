@@ -24,7 +24,7 @@
                 <img class="size-5" src="assets/icons/xls.svg" alt="ar">
             </button>
 
-            <span class="text-sm font-semibold text-gray-400 px-4.5 ">
+            <span class="text-sm font-semibold text-figma-neutral px-4.5 ">
                 <span class="text-sm font-semibold text-primary ">
                     {{startIndex + 1}} - {{endIndex}}
                 </span>
@@ -38,7 +38,7 @@
         <table class="w-full text-left border-collapse  ">
             <!-- Table Head -->
             <thead class="">
-                <tr class="text-gray-300 text-sm items-center">
+                <tr class="text-figma-neutral text-sm items-center">
                     <th class="px-1.75  ">
                     </th>
                     <th class="sticky left-0 bg-card-bg z-10">
@@ -95,12 +95,12 @@
                         @if(data[column.key] === true || data[column.key] === false) {
                         <span class="px-1.5 py-px border rounded-xs rtl:text-[12px] text-[10px] font-extralight"
                             [ngClass]="data[column.key] ? 'text-up-green-arrow bg-up-green-arrow/30 border-up-green-arrow/50' 
-                            : 'text-gray-300 bg-gray-400/30 border-gray-400/50'">
+                            : 'text-figma-neutral bg-gray-400/30 border-gray-400/50'">
                             • {{column?.func(data[column.key]) | translate}}
                         </span>
                         } @else if(column.label === "NAME") {
                         <span
-                            class="flex gap-2 rtl:text-[12px] text-[10px] text-gray-400 font-worksans align-middle items-center">
+                            class="flex gap-2 rtl:text-[12px] text-[10px] text-figma-neutral font-worksans align-middle items-center">
                             <!-- <img class="size-7 rounded-full shrink-0" src="assets/images/OIP.jpg" alt="p"> -->
                             <div
                                 class="w-9 h-9 shrink-0 flex items-center justify-center text-xs font-medium bg-primary/20 text-primary rounded-full">
@@ -115,12 +115,12 @@
                         </span>
                         } @else if (column.label === "PRICE") {
                         <span
-                            class=" truncate max-w-37.5 flex gap-2 rtl:text-[12px] text-[10px] text-gray-400 font-worksans align-middle items-center ">
+                            class=" truncate max-w-37.5 flex gap-2 rtl:text-[12px] text-[10px] text-figma-neutral font-worksans align-middle items-center ">
                             {{getValue(data, column.key) | currency}}
                         </span>
                         } @else {
                         <span
-                            class=" truncate max-w-37.5 flex gap-2 rtl:text-[12px] text-[10px] text-gray-400 font-worksans align-middle items-center ">
+                            class=" truncate max-w-37.5 flex gap-2 rtl:text-[12px] text-[10px] text-figma-neutral font-worksans align-middle items-center ">
                             @if(column.label === "COMPANY"){
                             <img class="size-4 rounded-full shrink-0 " [src]="imgSrc(getValue(data, column.key))"
                                 alt="">
@@ -164,7 +164,7 @@
 
 <div class="flex flex-row rtl:gap-2 items-end justify-end py-5 px-5">
     <div class="px-14 flex flex-row items-center ">
-        <label for="itemsperpage" class="text-gray-400 text-[11px] font-medium font-inter px-3">{{'ROWS_PER_PAGE' |
+        <label for="itemsperpage" class="text-figma-neutral text-[11px] font-medium font-inter px-3">{{'ROWS_PER_PAGE' |
             translate}}</label>
         <div class="flex relative ">
             <img class="absolute top-1/2 rtl:-translate-x-5 -translate-y-1/2 ltr:translate-x-5 pointer-events-none"

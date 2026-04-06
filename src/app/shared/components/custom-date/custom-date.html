@@ -39,7 +39,7 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-3">
           <button type="button" (click)="prevMonth()"
-            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <polyline points="15 18 9 12 15 6"/>
@@ -58,7 +58,7 @@
           </div>
 
           <button type="button" (click)="nextMonth()"
-            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <polyline points="9 18 15 12 9 6"/>
@@ -69,7 +69,7 @@
         <!-- Day Labels -->
         <div class="grid grid-cols-7 mb-1">
           @for(day of DAYS; track day) {
-            <div class="text-center text-[11px] text-gray-500 font-medium py-1">{{ day }}</div>
+            <div class="text-center text-[11px] text-figma-neutral font-medium py-1">{{ day }}</div>
           }
         </div>
 
@@ -88,7 +88,7 @@
                   : isToday(date)
                     ? 'border border-primary/60 text-primary'
                     : isDayDisabled(date)
-                      ? 'text-gray-700 cursor-not-allowed'
+                      ? 'text-figma-neutral cursor-not-allowed'
                       : 'text-figma-neutral hover:bg-primary/20 hover:text-primary cursor-pointer'"
             >
               {{ date ? date.getDate() : '' }}
@@ -110,7 +110,7 @@
 
         <div class="flex items-center justify-between mb-3">
           <button type="button" (click)="prevYear()"
-            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <polyline points="15 18 9 12 15 6"/>
@@ -121,7 +121,7 @@
             {{ viewYear() }}
           </button>
           <button type="button" (click)="nextYear()"
-            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <polyline points="9 18 15 12 9 6"/>
@@ -147,7 +147,7 @@
 
         <div class="flex items-center justify-between mb-3">
           <button type="button" (click)="prevYears()"
-            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <polyline points="15 18 9 12 15 6"/>
@@ -157,7 +157,7 @@
             {{ yearRange[0] }} — {{ yearRange[11] }}
           </span>
           <button type="button" (click)="nextYears()"
-            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <polyline points="9 18 15 12 9 6"/>

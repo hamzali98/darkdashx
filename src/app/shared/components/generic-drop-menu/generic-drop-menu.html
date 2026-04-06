@@ -19,7 +19,7 @@
            bg-card-bg shadow-lg max-h-72 overflow-y-auto"
     [ngClass]="dropdownPosition() === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'">
 
-    <li class="px-3 py-2 text-xs text-gray-400  border-b border-gray-600/20">
+    <li class="px-3 py-2 text-xs text-figma-neutral  border-b border-gray-600/20">
         <!-- {{ selectOptions().length }} result{{ selectOptions().length !== 1 ? 's' : '' }} found -->
           {{ 'found' | translate }} {{selectOptions().length }}
     </li>
@@ -37,8 +37,8 @@
 
         <!-- name + sub -->
         <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-gray-800 dark:text-white truncate">{{ option.key }}</p>
-            <p class="text-xs text-gray-400 truncate">{{ option.meta }}</p>
+            <p class="text-sm font-medium text-figma-neutral dark:text-white truncate">{{ option.key }}</p>
+            <p class="text-xs text-figma-neutral truncate">{{ option.meta }}</p>
         </div>
 
         <!-- badge -->

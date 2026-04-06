@@ -76,7 +76,7 @@
 
         <!-- settings div -->
         <div class="flex flex-col gap-5 w-auto h-auto px-5 py-7
-            border-t-[0.1px] text-gray-500/50 dark:border-t-gray-800 bg-inherit
+            border-t-[0.1px] text-figma-neutral/50 dark:border-t-gray-800 bg-inherit
             ">
             <div>
                 <button type="button" [disabled]="open === 'settings'"
@@ -111,7 +111,7 @@
                         </div>
                         <div class="flex flex-col items-start px-2 ">
                             <span
-                                [ngClass]="open === 'profile' ? 'text-primary' : 'text-gray-700 dark:text-figma-neutral' "
+                                [ngClass]="open === 'profile' ? 'text-primary' : 'text-figma-neutral' "
                                 class=" text-sm font-bold ">{{username}}</span>
                             <span class=" text-figma-neutral text-xs ">{{"ACCOUNT_SETTINGS" |
                                 translate}}</span>

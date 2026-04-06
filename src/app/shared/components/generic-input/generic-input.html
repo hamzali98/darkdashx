@@ -117,7 +117,7 @@
                 <button type="button" (click)="decrement()" [disabled]="isDisabled()" class="h-11 w-10 flex items-center justify-center 
                 border ltr:border-r-0 rtl:border-l-0
                     border-gray-600 ltr:rounded-l-sm rtl:rounded-r-sm bg-card-bg
-                    text-gray-400 hover:text-primary hover:bg-primary/10
+                    text-figma-neutral hover:text-primary hover:bg-primary/10
                     transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed shrink-0" [ngClass]="{
                     'border-red-500':   hasError,
                     'border-green-500': isValid && !hasError,
@@ -146,7 +146,7 @@
                 <button type="button" (click)="increment()" [disabled]="isDisabled()" class="h-11 w-10 flex items-center justify-center 
                 border rtl:border-r-0 ltr:border-l-0
                     border-gray-600 ltr:rounded-r-sm rtl:rounded-l-sm bg-card-bg
-                    text-gray-400 hover:text-primary hover:bg-primary/10
+                    text-figma-neutral hover:text-primary hover:bg-primary/10
                     transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed shrink-0" [ngClass]="{
                     'border-red-500':   hasError,
                     'border-green-500': isValid && !hasError
@@ -234,7 +234,7 @@
                     @if(viewMode() === 'days') {
                     <div class="flex items-center justify-between mb-3">
                         <button type="button" (click)="prevMonth()"
-                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round">
                                 <polyline points="15 18 9 12 15 6" />
@@ -249,7 +249,7 @@
                                 viewYear() }}</button>
                         </div>
                         <button type="button" (click)="nextMonth()"
-                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round">
                                 <polyline points="9 18 15 12 9 6" />
@@ -259,7 +259,7 @@
 
                     <div class="grid grid-cols-7 mb-1">
                         @for(day of DAYS; track day) {
-                        <div class="text-center text-[11px] text-gray-500 font-medium py-1">{{ day }}</div>
+                        <div class="text-center text-[11px] text-figma-neutral font-medium py-1">{{ day }}</div>
                         }
                     </div>
 
@@ -270,7 +270,7 @@
                             [ngClass]="!date ? 'invisible'
                         : isSelected(date) ? 'bg-primary text-white font-semibold shadow shadow-primary'
                         : isToday(date)    ? 'border border-primary/60 text-primary'
-                        : isDayDisabled(date) ? 'text-gray-700 cursor-not-allowed'
+                        : isDayDisabled(date) ? 'text-figma-neutral cursor-not-allowed'
                         : 'text-figma-neutral hover:bg-primary/20 hover:text-primary cursor-pointer'">
                             {{ date ? date.getDate() : '' }}
                         </button>
@@ -287,7 +287,7 @@
                     @if(viewMode() === 'months') {
                     <div class="flex items-center justify-between mb-3">
                         <button type="button" (click)="prevYear()"
-                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round">
                                 <polyline points="15 18 9 12 15 6" />
@@ -297,7 +297,7 @@
                             class="text-sm font-medium text-figma-neutral hover:text-primary transition-colors">{{
                             viewYear() }}</button>
                         <button type="button" (click)="nextYear()"
-                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round">
                                 <polyline points="9 18 15 12 9 6" />
@@ -318,7 +318,7 @@
                     @if(viewMode() === 'years') {
                     <div class="flex items-center justify-between mb-3">
                         <button type="button" (click)="prevYears()"
-                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round">
                                 <polyline points="15 18 9 12 15 6" />
@@ -327,7 +327,7 @@
                         <span class="text-sm font-medium text-figma-neutral">{{ yearRange[0] }} — {{ yearRange[11]
                             }}</span>
                         <button type="button" (click)="nextYears()"
-                            class="p-1 rounded hover:bg-primary/20 text-gray-400 hover:text-primary transition-colors">
+                            class="p-1 rounded hover:bg-primary/20 text-figma-neutral hover:text-primary transition-colors">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round">
                                 <polyline points="9 18 15 12 9 6" />
