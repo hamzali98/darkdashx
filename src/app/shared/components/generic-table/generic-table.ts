@@ -25,6 +25,7 @@ import { TooltipDirective } from "@app/shared/directive/tooltip/tooltip";
 import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 import { CustomInputConfig, GenericInput } from '../generic-input/generic-input';
 import { GenericTableInputConfigs } from './config';
+import { SvgColour } from "../svg-colour/svg-colour";
 // ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -40,8 +41,9 @@ import { GenericTableInputConfigs } from './config';
     DataError,
     TranslateModule,
     TooltipDirective,
-    GenericInput
-],
+    GenericInput,
+    SvgColour
+  ],
   templateUrl: './generic-table.html',
   styleUrl: './generic-table.css',
 })
@@ -49,6 +51,7 @@ export class GenericTable<T> implements OnChanges {
 
   checked = signal(true);
   status = signal(false);
+  isSelectOpen = signal(false);
 
   startIndex: number = 0;
   endIndex: number = 0;
@@ -84,7 +87,7 @@ export class GenericTable<T> implements OnChanges {
   private tickAnimationService = inject(TickAnimationService);
   private translateService = inject(TranslateService);
 
-  constructor(){
+  constructor() {
     this.masterCheckboxConfig = new GenericTableInputConfigs().masterCheckbox;
     this.rowCheckboxConfig = new GenericTableInputConfigs().rowCheckbox;
   }
@@ -150,7 +153,7 @@ export class GenericTable<T> implements OnChanges {
     }
   }
 
-  getValue(obj: any, key: any) : string {
+  getValue(obj: any, key: any): string {
     return key.reduce((access: any, key: any) => access?.[key], obj);
   }
 
@@ -304,7 +307,7 @@ export class GenericTable<T> implements OnChanges {
       //   .toLowerCase()
       //   .includes(lowerSearch)
     );
-// );
+    // );
   }
 
   // ─────────────────────────────────────────────────────────────────────────

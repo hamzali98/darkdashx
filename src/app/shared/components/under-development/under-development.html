@@ -1,10 +1,10 @@
 <div class="flex flex-col gap-5 justify-center bg-primary-bg items-center h-screen">
     <img class="size-50" src="assets\under development.png" alt="Under Development" />
-    <span class="text-4xl font-bold font-sans text-white">{{"Module Under Development" | translate}}</span>
+    <span class="text-4xl font-bold font-sans text-primary-text">{{"Module Under Development" | translate}}</span>
     <span class="text-md font-medium text-figma-neutral">{{"MUD_subline" | translate}}</span>
 
     @if(flagValue()){
-    <button class="rounded-sm text-white text-xs w-18 drop-shadow-md drop-shadow-black font-[15px]
+    <button class="rounded-sm text-primary-text text-xs w-18 drop-shadow-md drop-shadow-black font-[15px]
         h-7 cursor-pointer bg-primary" (click)="goHome()" type="button">
         <span class="flex flex-row gap-1.5 items-center justify-center align-middle text-figma-neutral font-medium ">
             {{'HOME' | translate}} <img class="size-3.5" src="assets/icons/uncolored/homeicon.svg" alt="Home"></span>

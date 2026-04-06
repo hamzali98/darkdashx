@@ -1,16 +1,17 @@
-<div class="flex flex-col w-full bg-card-bg text-white border-2 border-gray-800 rounded-xl py-2 mt-2">
-    <div class="flex flex-row justify-between items-baseline py-3.5 px-8.5 pb-5 border-b border-b-gray-800">
+<div class="flex flex-col w-full bg-card-bg text-primary-text border-2 border-border rounded-xl py-2 mt-2">
+    <div class="flex flex-row justify-between items-baseline py-3.5 px-8.5 pb-5 border-b border-b-border">
         @if(selectedItems >= 1) {
         <div class="flex flex-row gap-5 items-center justify-center">
-            <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{selectedItems}}
+            <span class="text-primary-text text-[15px] tracking-normal font-worksans font-normal">{{selectedItems}}
                 {{"Selected" | translate}}</span>
             <button type="button" (click)="deleteAll()" [appTooltip]="'Delete all' | translate" tooltipPosition="top"
                 class="flex items-center cursor-pointer justify-center ">
-                <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
+                <app-svg-colour svgColor="bg-figma-neutral" svgPath="assets/icons/neutral/bin.svg"
+                    svgSize="size-3"></app-svg-colour>
             </button>
         </div>
         } @else {
-        <span class="text-white text-[15px] tracking-normal font-worksans font-normal">{{tableName()}}</span>
+        <span class="text-primary-text text-[15px] tracking-normal font-worksans font-normal">{{tableName()}}</span>
         }
         <div>
             <button type="button" [appTooltip]="'Get data PDF' | translate" tooltipPosition="top" class="mx-1 py-1 px-2 text-xs rounded-sm drop-shadow-xs drop-shadow-primary-bg bg-primary-bg
@@ -52,20 +53,25 @@
                     @for(column of columns; track $index){
                     <th class="py-3.5 whitespace-nowrap min-w-30 " (click)="doSorting(column.key)">
                         <div class="flex items-center gap-1 ">
-                            <img class="size-2.5" [src]="column.icon" alt="i">
+                            <app-svg-colour svgColor="bg-figma-neutral" svgSize="size-2.5"
+                                svgPath="{{column.icon}}"></app-svg-colour>
                             <span class="text-[9px] rtl:text-[12px] font-medium font-worksans">
                                 {{column.label | translate}}
                             </span>
                             @if(sortcol() === column.key){
                             @if(sortdirection() === 'asc'){
-                            <img class="size-3 rotate-180" src="assets/icons/neutral/droparrow.svg" alt="i">
+                            <app-svg-colour svgColor="bg-figma-neutral" svgSize="size-3 rotate-180"
+                                svgPath="assets/icons/neutral/droparrow.svg"></app-svg-colour>
                             } @else if(sortdirection() === 'dsc'){
-                            <img class="size-3" src="assets/icons/neutral/droparrow.svg" alt="i">
+                            <app-svg-colour svgColor="bg-figma-neutral" svgSize="size-3"
+                                svgPath="assets/icons/neutral/droparrow.svg"></app-svg-colour>
                             } @else {
-                            <img class="size-3.5" src="assets/icons/neutral/sortarrows.svg" alt="i">
+                            <app-svg-colour svgColor="bg-figma-neutral" svgSize="size-3.5"
+                                svgPath="assets/icons/neutral/sortarrows.svg"></app-svg-colour>
                             }
                             } @else {
-                            <img class="size-3.5" src="assets/icons/neutral/sortarrows.svg" alt="i">
+                            <app-svg-colour svgColor="bg-figma-neutral" svgSize="size-3.5"
+                                svgPath="assets/icons/neutral/sortarrows.svg"></app-svg-colour>
                             }
                         </div>
                     </th>
@@ -95,13 +101,12 @@
                         @if(data[column.key] === true || data[column.key] === false) {
                         <span class="px-1.5 py-px border rounded-xs rtl:text-[12px] text-[10px] font-extralight"
                             [ngClass]="data[column.key] ? 'text-up-green-arrow bg-up-green-arrow/30 border-up-green-arrow/50' 
-                            : 'text-figma-neutral bg-gray-400/30 border-gray-400/50'">
+                            : 'text-figma-neutral bg-gray-400/30 border-border/50'">
                             • {{column?.func(data[column.key]) | translate}}
                         </span>
                         } @else if(column.label === "NAME") {
                         <span
                             class="flex gap-2 rtl:text-[12px] text-[10px] text-figma-neutral font-worksans align-middle items-center">
-                            <!-- <img class="size-7 rounded-full shrink-0" src="assets/images/OIP.jpg" alt="p"> -->
                             <div
                                 class="w-9 h-9 shrink-0 flex items-center justify-center text-xs font-medium bg-primary/20 text-primary rounded-full">
                                 {{ getValue(data, column.key) | slice:0:2 | uppercase }}
@@ -126,7 +131,6 @@
                                 alt="">
                             }
                             @if(column.label === "PRODUCT_NAME"){
-                            <!-- <img class="size-7 rounded-full shrink-0 " src="assets/images/products/watch.svg" alt="i"> -->
                             <div
                                 class="w-9 h-9 shrink-0 flex items-center justify-center text-xs font-medium bg-primary/20 text-primary rounded-full">
                                 {{ getValue(data, column.key) | slice:0:2 | uppercase }}
@@ -143,12 +147,14 @@
                             <button [appTooltip]="'Edit'|translate" tooltipPosition="top" type="button"
                                 (click)="onClickedEdit(currentPageData[$index])"
                                 class="flex items-center justify-center ">
-                                <img src="assets/icons/neutral/pencil.svg" class="size-3" alt="act btn" />
+                                <app-svg-colour svgColor="bg-figma-neutral" svgPath="assets/icons/neutral/pencil.svg"
+                                    svgSize="size-3"></app-svg-colour>
                             </button>
                             <button [appTooltip]="'DELETE' | translate" tooltipPosition="top" type="button"
                                 (click)="onClickedDelete(currentPageData[$index])"
                                 class="flex items-center   justify-center ">
-                                <img src="assets/icons/neutral/bin.svg" class="size-3" alt="act btn" />
+                                <app-svg-colour svgColor="bg-figma-neutral" svgPath="assets/icons/neutral/bin.svg"
+                                    svgSize="size-3"></app-svg-colour>
                             </button>
                         </div>
                     </td>
@@ -167,10 +173,14 @@
         <label for="itemsperpage" class="text-figma-neutral text-[11px] font-medium font-inter px-3">{{'ROWS_PER_PAGE' |
             translate}}</label>
         <div class="flex relative ">
-            <img class="absolute top-1/2 rtl:-translate-x-5 -translate-y-1/2 ltr:translate-x-5 pointer-events-none"
-                src="assets/icons/neutral/droparrow.svg" alt="arrow">
-            <select class=" appearance-none h-6.5 w-10.25 rounded-sm bg-active-route-bg text-white p-1 px-2 rtl:text-[12px] text-[10px] font-light
-            " [(ngModel)]="itemsPerPage" (change)="onChangePerPage()" name="select" id="itemsperpage">
+            <div [class.rotate-180]="isSelectOpen()"
+                class="absolute top-1/2 rtl:-translate-x-6 -translate-y-1/2 ltr:translate-x-6 pointer-events-none">
+                <app-svg-colour svgColor="bg-figma-neutral" svgPath="assets/icons/neutral/droparrow.svg"
+                    svgSize="size-2.5"></app-svg-colour>
+            </div>
+            <select class=" appearance-none h-6.5 w-10.25 rounded-sm bg-active-route-bg text-primary-text p-1 px-2 rtl:text-[12px] text-[10px] font-light
+            " (focus)="isSelectOpen.set(true)" (blur)="isSelectOpen.set(false)" [(ngModel)]="itemsPerPage"
+                (change)="onChangePerPage()" name="select" id="itemsperpage">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -180,11 +190,13 @@
     <button [appTooltip]="'prev page' | translate" tooltipPosition="top" [disabled]="startIndex + 1 === 1"
         (click)="previousPage()" type="button"
         class="bg-active-route-bg p-[5.5px] rounded-sm hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
-        <img class="size-3 shrink-0 rtl:rotate-180" src="assets/icons/white/leftarrow.svg" alt="arrow">
+        <app-svg-colour svgColor="bg-figma-neutral" svgPath="assets/icons/white/leftarrow.svg"
+            svgSize="size-3 shrink-0 rtl:rotate-180"></app-svg-colour>
     </button>
     <button [disabled]="endIndex === tableTotal" (click)="nextPage()" type="button"
         [appTooltip]="'next page' | translate" tooltipPosition="top"
         class="bg-active-route-bg p-[5.5px] rounded-sm ml-1.5 hover:bg-card-bg/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-25">
-        <img class="size-3 shrink-0 rtl:rotate-180" src="assets/icons/white/rightarrow.svg" alt="arrow">
+        <app-svg-colour svgColor="bg-figma-neutral" svgPath="assets/icons/white/rightarrow.svg"
+            svgSize="size-3 shrink-0 rtl:rotate-180"></app-svg-colour>
     </button>
 </div>

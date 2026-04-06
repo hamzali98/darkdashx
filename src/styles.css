@@ -118,7 +118,7 @@ input[type=number] {
   position: absolute;
   /* background: #0b1738; */
   background: var(--color-card-bg);
-  color: #fff;
+  color: var(--color-primary-text);
   padding: 4px 8px;
   border-radius: 6px;
   border: 1px solid var(--color-primary);
@@ -139,7 +139,7 @@ input[type=number] {
   .custom-tooltip {
   position: absolute;
   background: var(--color-card-bg);
-  color: white;
+  color: var(--color-primary-text);
   padding: 6px 10px;
   font-size: 11px;
   border-radius: 6px;

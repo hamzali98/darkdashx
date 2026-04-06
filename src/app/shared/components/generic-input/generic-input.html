@@ -7,7 +7,6 @@
         <div class="flex gap-1 mt-1 my-2 lg:mt-1">
             @if(config.labelIcon) {
             <app-svg-colour svgColor="bg-figma-neutral" svgSize="size-3" [svgPath]="config.labelIcon"></app-svg-colour>
-            <!-- <img [src]="config.labelIcon" alt="icon" class="size-3" /> -->
             }
             <label [for]="config.labelFor" class="text-figma-neutral text-xs font-medium text-nowrap">
                 {{ config.label | translate }}
@@ -24,9 +23,11 @@
             'password') {
             <div class="relative flex flex-row justify-end items-center">
                 @if(config.startIcon){
-                <img [src]="config.startIcon"
+                <app-svg-colour svgPath="{{config.startIcon}}" svgColor="bg-primary"
+                    svgSize="absolute rtl:right-3 top-4 left-3 p-0 flex align-middle size-3.5 bg-none pointer-events-none"></app-svg-colour>
+                <!-- <img [src]="config.startIcon"
                     class="absolute rtl:right-3 left-3 p-0 flex align-middle size-3.5 bg-none pointer-events-none"
-                    alt="icon" />
+                    alt="icon" /> -->
                 }
                 <input class="flex-1 h-11 rounded-sm outline-0
                 border 
@@ -43,7 +44,7 @@
                         'pl-8': config.startIcon,
                         'border-red-500': hasError || isInvalid,
                         'border-green-500': isValid && !hasError,
-                        'border-gray-600': !hasError && !isValid,
+                        'border-border': !hasError && !isValid,
                         'pr-10': config.type === 'password' || config.iconActions?.length
                         }" />
 
@@ -75,9 +76,10 @@
                 <button type="button" (click)="action.action()"
                     class="absolute flex justify-end items-center rtl:px-5 mx-2 bg-transparent w-full cursor-pointer h-0"
                     [style.right.px]="$index * 28">
-                    <img class="size-3.5"
-                        [src]="action.isActive?.() && action.activeIconPath ? action.activeIconPath : action.iconPath"
-                        alt="" />
+                    <app-svg-colour svgColor="bg-primary" svgSize="size-3.5"
+                        svgPath="{{ action.isActive?.() && action.activeIconPath ? action.activeIconPath : action.iconPath }}"
+                        >
+                    </app-svg-colour>
                 </button>
                 }
                 }
@@ -89,7 +91,7 @@
             @if(config.type === 'checkbox') {
             <input class="
                 indeterminate:appearance-auto indeterminate:accent-primary
-                appearance-none bg-inherit border border-gray-700 
+                appearance-none bg-inherit border border-border
                 size-3 rounded-xs checked:appearance-auto
                 accent-primary my-2 mx-2 cursor-pointer" [type]="config.type" [indeterminate]="checkBoxIndeterminate"
                 [checked]="checkBoxChecked" [name]="config.inputName" [id]="checkBoxId? checkBoxId : config.inputId ">
@@ -105,7 +107,7 @@
                 (input)="onInputChange($event)" (blur)="onTouched()" [ngClass]="{
             'border-red-500':   hasError,
             'border-green-500': isValid && !hasError,
-            'border-gray-600':  !hasError && !isValid
+            'border-border':  !hasError && !isValid
             }">{{ value() }}</textarea>
             }
 
@@ -116,13 +118,12 @@
                 <!-- Decrement Button -->
                 <button type="button" (click)="decrement()" [disabled]="isDisabled()" class="h-11 w-10 flex items-center justify-center 
                 border ltr:border-r-0 rtl:border-l-0
-                    border-gray-600 ltr:rounded-l-sm rtl:rounded-r-sm bg-card-bg
+                    border-border ltr:rounded-l-sm rtl:rounded-r-sm bg-card-bg
                     text-figma-neutral hover:text-primary hover:bg-primary/10
                     transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed shrink-0" [ngClass]="{
                     'border-red-500':   hasError,
                     'border-green-500': isValid && !hasError,
                 }">
-                    <!-- 'border-gray-600':  !hasError && !isValid -->
                     <svg [ngClass]="{
                     'stroke-red-500':   hasError,
                     'stroke-green-500': isValid && !hasError,
@@ -145,7 +146,7 @@
                 <!-- Increment Button -->
                 <button type="button" (click)="increment()" [disabled]="isDisabled()" class="h-11 w-10 flex items-center justify-center 
                 border rtl:border-r-0 ltr:border-l-0
-                    border-gray-600 ltr:rounded-r-sm rtl:rounded-l-sm bg-card-bg
+                    border-border ltr:rounded-r-sm rtl:rounded-l-sm bg-card-bg
                     text-figma-neutral hover:text-primary hover:bg-primary/10
                     transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed shrink-0" [ngClass]="{
                     'border-red-500':   hasError,
@@ -172,7 +173,7 @@
                     disabled:opacity-50 disabled:cursor-not-allowed" [ngClass]="{
                     'border-red-500':   hasError,
                     'border-green-500': isValid && !hasError,
-                    'border-gray-600':  !hasError && !isValid
+                    'border-border':  !hasError && !isValid
             }">
                     <span [class.text-figma-neutral]="!selectedOption()">
                         {{ selectedOption() ? (selectedOption()!.key | translate) : ((config.placeholder ?? 'Select') |
@@ -186,7 +187,7 @@
                 </button>
 
                 @if(isOpen()) {
-                <ul class="absolute z-50 w-full mt-1 border border-gray-600 rounded-sm
+                <ul class="absolute z-50 w-full mt-1 border border-border rounded-sm
                             bg-card-bg shadow-lg max-h-52 overflow-y-auto" [ngClass]="dropdownPosition() === 'top'
                             ? 'bottom-full mb-1'
                             : 'top-full mt-1'">
@@ -230,7 +231,7 @@
 
                 @if(isOpen()) {
                 <div [ngClass]="dropdownPosition() === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'"
-                    class="absolute z-50 mt-1 w-72 border border-gray-600 rounded-sm bg-card-bg shadow-xl p-3 select-none">
+                    class="absolute z-50 mt-1 w-72 border border-border rounded-sm bg-card-bg shadow-xl p-3 select-none">
                     @if(viewMode() === 'days') {
                     <div class="flex items-center justify-between mb-3">
                         <button type="button" (click)="prevMonth()"
@@ -268,7 +269,7 @@
                         <button type="button" (click)="selectDay(date)" [disabled]="!date || isDayDisabled(date)"
                             class="h-8 w-8 mx-auto rounded-sm text-xs transition-all duration-150 flex items-center justify-center"
                             [ngClass]="!date ? 'invisible'
-                        : isSelected(date) ? 'bg-primary text-white font-semibold shadow shadow-primary'
+                        : isSelected(date) ? 'bg-primary text-primary-text font-semibold shadow shadow-primary'
                         : isToday(date)    ? 'border border-primary/60 text-primary'
                         : isDayDisabled(date) ? 'text-figma-neutral cursor-not-allowed'
                         : 'text-figma-neutral hover:bg-primary/20 hover:text-primary cursor-pointer'">
@@ -278,7 +279,7 @@
                     </div>
                     <!-- shadow-[0_0_8px_rgba(203,60,255,0.5)] -->
 
-                    <div class="mt-3 pt-2 border-t border-gray-600/40 flex justify-end">
+                    <div class="mt-3 pt-2 border-t border-border/40 flex justify-end">
                         <button type="button" (click)="selectToday()"
                             class="text-xs text-primary hover:underline">Today</button>
                     </div>
@@ -307,7 +308,7 @@
                     <div class="grid grid-cols-3 gap-2">
                         @for(month of MONTHS; track $index) {
                         <button type="button" (click)="selectMonth($index)"
-                            class="py-2 rounded-sm text-xs font-medium transition-all duration-150" [ngClass]="viewMonth() === $index ? 'bg-primary text-white shadow shadow-primary' 
+                            class="py-2 rounded-sm text-xs font-medium transition-all duration-150" [ngClass]="viewMonth() === $index ? 'bg-primary text-primary-text shadow shadow-primary' 
                             : 'text-figma-neutral hover:bg-primary/20 hover:text-primary'">
                             {{ month }}
                         </button>
@@ -337,7 +338,7 @@
                     <div class="grid grid-cols-3 gap-2">
                         @for(year of yearRange; track year) {
                         <button type="button" (click)="selectYear(year)"
-                            class="py-2 rounded-sm text-xs font-medium transition-all duration-150" [ngClass]="viewYear() === year ? 'bg-primary text-white shadow shadow-primary' 
+                            class="py-2 rounded-sm text-xs font-medium transition-all duration-150" [ngClass]="viewYear() === year ? 'bg-primary text-primary-text shadow shadow-primary' 
                             : 'text-figma-neutral hover:bg-primary/20 hover:text-primary'">
                             {{ year }}
                         </button>

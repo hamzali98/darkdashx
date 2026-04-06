@@ -1,32 +1,16 @@
-<!-- @if(isOpen()) {
-<ul class="absolute z-50 w-full mt-1 border border-gray-600 rounded-sm
-                            bg-card-bg shadow-lg max-h-52 overflow-y-auto" [ngClass]="dropdownPosition() === 'top'
-                            ? 'bottom-full mb-1'
-                            : 'top-full mt-1'">
-    @for(option of selectOptions(); track option.value) {
-    <li (click)="selectOption(option)"
-        class="px-4 py-2.5 text-sm font-light cursor-pointer transition-colors duration-150" [ngClass]="selectedOption()?.value === option.value
-                    ? 'bg-primary text-white'
-                    : 'text-figma-neutral hover:bg-primary/20 hover:text-primary'">
-        {{ option.key }}
-    </li>
-    }
-</ul>
-} -->
-
 @if(isOpen() && isActive) {
-<ul class="absolute z-50 w-full mt-1 border border-gray-600/30 rounded-lg
+<ul class="absolute z-50 w-full mt-1 border border-border/30 rounded-lg
            bg-card-bg shadow-lg max-h-72 overflow-y-auto"
     [ngClass]="dropdownPosition() === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'">
 
-    <li class="px-3 py-2 text-xs text-figma-neutral  border-b border-gray-600/20">
+    <li class="px-3 py-2 text-xs text-figma-neutral  border-b border-border/20">
         <!-- {{ selectOptions().length }} result{{ selectOptions().length !== 1 ? 's' : '' }} found -->
           {{ 'found' | translate }} {{selectOptions().length }}
     </li>
 
     @for(option of selectOptions(); track option.value) {
     <li (click)="selectOption(option)"
-        class="flex items-center gap-3 px-3 py-2.5 cursor-pointer transition-colors duration-150 border-b border-gray-600/10 last:border-b-0"
+        class="flex items-center gap-3 px-3 py-2.5 cursor-pointer transition-colors duration-150 border-b border-border/10 last:border-b-0"
         [ngClass]="selectedOption()?.value === option.value ? 'bg-blue-50 dark:bg-blue-900/20' : 'hover:bg-gray-100 dark:hover:bg-white/5'">
 
         <!-- avatar -->
@@ -37,7 +21,7 @@
 
         <!-- name + sub -->
         <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-figma-neutral dark:text-white truncate">{{ option.key }}</p>
+            <p class="text-sm font-medium text-figma-neutral dark:text-primary-text truncate">{{ option.key }}</p>
             <p class="text-xs text-figma-neutral truncate">{{ option.meta }}</p>
         </div>
 

@@ -3,7 +3,7 @@ import { CustomInputConfig } from "@app/shared/components/generic-input/generic-
 export class AuthInputConfigs {
 
     loginEmail: CustomInputConfig = {
-        ngclass: 'py-1 pt-2 lg:pt-6 border-b border-b-gray-500/20',
+        ngclass: 'py-1 pt-2 lg:pt-6 border-b border-border/20',
         type: 'email',
         required: true,
         autocomplete: 'username',
@@ -17,7 +17,7 @@ export class AuthInputConfigs {
     }
 
     loginPassword: CustomInputConfig = {
-        ngclass: 'py-1 pt-2 lg:pt-6 border-b border-b-gray-500/20',
+        ngclass: 'py-1 pt-2 lg:pt-6 border-b border-border/20',
         type: 'password',
         required: true,
         autocomplete: 'current-password',
@@ -30,7 +30,7 @@ export class AuthInputConfigs {
         errorMessage: 'Password Required!',
     }
     userName: CustomInputConfig = {
-        ngclass: 'py-1 pt-2 lg:pt-6 border-b border-b-gray-500/20',
+        ngclass: 'py-1 pt-2 lg:pt-6 border-b border-border/20',
         type: 'text',
         required: true,
         autocomplete: 'username',
@@ -45,7 +45,7 @@ export class AuthInputConfigs {
     }
 
     email: CustomInputConfig = {
-        ngclass: 'py-1 pt-2 lg:pt-6 border-b border-b-gray-500/20',
+        ngclass: 'py-1 pt-2 lg:pt-6 border-b border-border/20',
         type: 'email',
         required: true,
         autocomplete: 'email',
@@ -59,7 +59,7 @@ export class AuthInputConfigs {
         errorMessage2: 'EMAIL_INVALID!',
     }
     password: CustomInputConfig = {
-        ngclass: 'py-1 pt-2 lg:pt-6 border-b border-b-gray-500/20',
+        ngclass: 'py-1 pt-2 lg:pt-6 border-b border-border/20',
         type: 'password',
         required: true,
         showStrength: true,

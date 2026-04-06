@@ -7,8 +7,8 @@ import { TranslateModule } from '@ngx-translate/core';
   template: `
             <button [type]="btnType" [disabled]="btnDisable"
             (click)="handleClick()"
-            class="h-11 w-45.5 rounded-sm text-white bg-primary 
-            cursor-pointer disabled:bg-primary/50 disabled:text-white/50 font-worksans text-[15px] disabled:cursor-not-allowed">
+            class="h-11 w-45.5 rounded-sm text-primary-text bg-primary 
+            cursor-pointer disabled:bg-primary/50 disabled:text-primary-text/50 font-worksans text-[15px] disabled:cursor-not-allowed">
             {{ btntext |translate}}
           </button>`,
   // templateUrl: './submit-button.html',

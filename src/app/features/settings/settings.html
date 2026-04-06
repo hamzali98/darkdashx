@@ -1,11 +1,11 @@
 <!-- <app-under-development></app-under-development> -->
  <!-- settings.html -->
 <div class="p-8">
-  <h2 class="text-white font-medium text-lg mb-1">Settings</h2>
+  <h2 class="text-primary-text font-medium text-lg mb-1">Settings</h2>
   <p class="text-secondary text-sm mb-8">Manage your app preferences</p>
 
   <div class="bg-card-bg border border-border rounded-lg p-6">
-    <h3 class="text-white font-medium mb-1">Theme</h3>
+    <h3 class="text-primary-text font-medium mb-1">Theme</h3>
     <p class="text-secondary text-sm mb-5">Choose a color theme for the interface</p>
 
     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -41,7 +41,7 @@
           <div class="h-3 rounded w-1/2" [style.background]="theme.vars['--color-secondary2'] + '55'"></div>
         </div>
 
-        <p class="text-xs font-medium text-white">{{ theme.name }}</p>
+        <p class="text-xs font-medium text-primary-text">{{ theme.name }}</p>
         <p class="text-xs text-secondary">{{ theme.desc }}</p>
       </div>
       }

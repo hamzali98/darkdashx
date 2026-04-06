@@ -54,14 +54,16 @@
             [style.mask-image]="'url(assets/404img.png)'" [style.-webkit-mask-image]="'url(assets/404img.png)'"
             style="mask-repeat: no-repeat; mask-size: contain; mask-position: center; -webkit-mask-repeat: no-repeat; -webkit-mask-size: contain; -webkit-mask-position: center;">
         </div>
-        <div class="text-white text-2xl font-inter font-semibold ltr:tracking-wider">{{"PAGE_NOT_FOUND"| translate}}
+
+        <div class="text-primary-text text-2xl font-inter font-semibold ltr:tracking-wider">{{"PAGE_NOT_FOUND"|
+            translate}}
         </div>
         <div class="text-figma-neutral text-lg font-sans font-semibold ltr:tracking-wider">{{"PAGE_NOT_FOUND_DESC"|
             translate}}
         </div>
         <div class="flex flex-row gap-5 py-5 ">
             <div>
-                <button (click)="goToHome()" type="button" class="cursor-pointer text-white font-bond text-md font-worksans 
+                <button (click)="goToHome()" type="button" class="cursor-pointer text-primary-text font-bond text-md font-worksans 
                 bg-linear-to-br from-primary from-35% to-secondary2 to-80% 
                 px-5 py-3 rounded-md ">
                     {{"GO_TO_DASHBOARD" | translate}}

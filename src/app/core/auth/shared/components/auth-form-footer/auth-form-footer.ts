@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-auth-form-footer',
   imports: [TranslateModule, RouterLink],
-  template: `<div class="mb-3 text-white text-center ">
+  template: `<div class="mb-3 text-primary-text text-center ">
             {{linkLabel | translate}}
             <a [routerLink]="routeLink" class="text-sm text-secondary2 underline cursor-pointer ">
               {{linkName | translate}}</a>

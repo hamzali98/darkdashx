@@ -8,7 +8,7 @@ export class InputConfigs {
     private listService = inject(ListService);
 
     productNameConfig: CustomInputConfig = {
-        ngclass: 'pt-0 border-b border-b-gray-500/20',
+        ngclass: 'pt-0 border-b border-border/20',
         type: 'text',
         required: true,
         label: 'PRODUCT_NAME',
@@ -21,7 +21,7 @@ export class InputConfigs {
     };
 
     productCategoryConfig: CustomInputConfig = {
-        ngclass: 'pt-6 border-b border-b-gray-500/20',
+        ngclass: 'pt-6 border-b border-border/20',
         type: 'select',
         required: true,
         label: 'CATEGORY',
@@ -35,7 +35,7 @@ export class InputConfigs {
     };
 
     productPriceConfig: CustomInputConfig = {
-        ngclass: 'pt-6 border-b border-b-gray-500/20',
+        ngclass: 'pt-6 border-b border-border/20',
         type: 'number',
         required: true,
         label: 'PRICE',
@@ -65,7 +65,7 @@ export class InputConfigs {
     };
 
     productExpiryConfig: CustomInputConfig = {
-        ngclass: 'pt-0 border-b border-b-gray-500/20',
+        ngclass: 'pt-0 border-b border-border/20',
         type: 'date',
         required: true,
         label: 'EXPIRY',
@@ -79,7 +79,7 @@ export class InputConfigs {
     };
 
     productRegConfig: CustomInputConfig = {
-        ngclass: 'pt-6 border-b border-b-gray-500/20',
+        ngclass: 'pt-6 border-b border-border/20',
         type: 'text',
         required: true,
         label: 'REG_NO',
@@ -92,7 +92,7 @@ export class InputConfigs {
     };
 
     productMfgConfig: CustomInputConfig = {
-        ngclass: 'pt-6 border-b border-b-gray-500/20',
+        ngclass: 'pt-6 border-b border-border/20',
         type: 'date',
         required: true,
         label: 'MFG',

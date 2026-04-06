@@ -1,7 +1,7 @@
 <div class=" flex flex-col gap-5 px-9 py-7">
     <div class="flex flex-col md:flex-row justify-between items-center ">
         <div class="flex flex-col md:flex-row gap-13 items-center">
-            <span class=" text-white font-medium font-inter text-lg ">
+            <span class=" text-primary-text font-medium font-inter text-lg ">
                 {{ pageTitle | translate}}
             </span>
             <!-- <app-search-bar [(searchKey)]="genericSearchKey"></app-search-bar> -->
@@ -13,7 +13,7 @@
         </div>
         @if(buttonTitle){
         <button (click)="onClick()" type="button"
-            class="rounded-sm text-white text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 cursor-pointer bg-primary">
+            class="rounded-sm text-primary-text text-xs w-32.5 shadow drop-shadow-black font-[14px] h-7 cursor-pointer bg-primary">
             {{ buttonTitle | translate }}
         </button>
         }

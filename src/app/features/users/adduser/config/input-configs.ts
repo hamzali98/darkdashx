@@ -7,7 +7,7 @@ export class InputConfigs {
     private listService = inject(ListService);
 
     userNameConfig: CustomInputConfig = {
-        ngclass: 'pt-0 border-b border-b-gray-500/20',
+        ngclass: 'pt-0 border-b border-border/20',
         type: 'text',
         required: true,
         label: 'FULL_NAME',
@@ -19,7 +19,7 @@ export class InputConfigs {
         errorMessage: 'NAME_REQUIRED',
     };
     userEmailConfig: CustomInputConfig = {
-        ngclass: 'pt-6 border-b border-b-gray-500/20',
+        ngclass: 'pt-6 border-b border-border/20',
         type: 'email',
         required: true,
         label: 'EMAIL',
@@ -44,7 +44,7 @@ export class InputConfigs {
         errorMessage: 'DESCRIPTION_REQUIRED',
     };
     userPhoneConfig: CustomInputConfig = {
-        ngclass: 'pt-0 border-b border-b-gray-500/20',
+        ngclass: 'pt-0 border-b border-border/20',
         type: 'tel',
         required: true,
         label: 'Phone',
@@ -57,7 +57,7 @@ export class InputConfigs {
         errorMessage2: 'Phone Invalid!',
     };
     userPositionConfig: CustomInputConfig = {
-        ngclass: 'pt-6 border-b border-b-gray-500/20',
+        ngclass: 'pt-6 border-b border-border/20',
         type: 'text',
         required: true,
         label: 'Position',
@@ -69,7 +69,7 @@ export class InputConfigs {
         errorMessage: 'Position Required!',
     };
     userLocationConfig: CustomInputConfig = {
-        ngclass: 'pt-6 border-b border-b-gray-500/20',
+        ngclass: 'pt-6 border-b border-border/20',
         type: 'text',
         required: true,
         label: 'Location',
@@ -94,7 +94,7 @@ export class InputConfigs {
         errorMessage2: 'Website Invalid!'
     };
     userTeamNameConfig: CustomInputConfig = {
-        ngclass: 'pt-0 border-b border-b-gray-500/20',
+        ngclass: 'pt-0 border-b border-border/20',
         type: 'select',
         required: true,
         label: 'Team Name',
@@ -107,7 +107,7 @@ export class InputConfigs {
         selectOptions: this.listService.getCompanyList(),
     };
     userTeamRankConfig: CustomInputConfig = {
-        ngclass: 'pt-6 border-b border-b-gray-500/20',
+        ngclass: 'pt-6 border-b border-border/20',
         type: 'text',
         required: true,
         label: 'Rank',
@@ -119,7 +119,7 @@ export class InputConfigs {
         errorMessage: 'Team Rank Required!',
     };
     userTeamOfficeConfig: CustomInputConfig = {
-        ngclass: 'pt-6 border-b border-b-gray-500/20',
+        ngclass: 'pt-6 border-b border-border/20',
         type: 'text',
         required: true,
         label: 'Office',

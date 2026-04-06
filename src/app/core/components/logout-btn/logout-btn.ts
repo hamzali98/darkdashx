@@ -3,13 +3,13 @@ import { Layout } from '@app/core/services/layout';
 import { DialogService } from '@app/shared/services/dialog-service/dialog';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TooltipDirective } from '@app/shared/directive/tooltip/tooltip';
-import { NgClass } from '@angular/common';
 import { Loaderservice } from '@app/shared/services/loader/loaderservice';
+import { SvgColour } from "@app/shared/components/svg-colour/svg-colour";
 
 
 @Component({
   selector: 'app-logout-btn',
-  imports: [TranslateModule, TooltipDirective, NgClass],
+  imports: [TranslateModule, TooltipDirective, SvgColour],
   templateUrl: './logout-btn.html',
   styleUrl: './logout-btn.css',
 })
