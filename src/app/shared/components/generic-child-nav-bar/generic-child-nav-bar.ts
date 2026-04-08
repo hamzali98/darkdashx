@@ -3,10 +3,11 @@ import { Component, inject, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { childnav } from '@app/shared/interface/child-nav-interface';
 import { TranslateModule } from '@ngx-translate/core';
+import { SvgColour } from "../svg-colour/svg-colour";
 
 @Component({
   selector: 'app-generic-child-nav-bar',
-  imports: [RouterLink, NgClass, TranslateModule],
+  imports: [RouterLink, NgClass, TranslateModule, SvgColour],
   templateUrl: './generic-child-nav-bar.html',
   styleUrl: './generic-child-nav-bar.css',
 })

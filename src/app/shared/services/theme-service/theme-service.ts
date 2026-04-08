@@ -30,6 +30,7 @@ export const THEMES: AppTheme[] = [
       '--color-lim-green': '#32CD32',
       '--color-purple': '#6C72FF',
       '--color-primary-text': '#e2e8f0',
+      '--img-filter': 'none',
     }
   },
   {
@@ -52,6 +53,8 @@ export const THEMES: AppTheme[] = [
       '--color-lim-green': '#32CD32',
       '--color-purple': '#6C72FF',
       '--color-primary-text': '#dbeafe',
+      // '--img-filter': 'hue-rotate(200deg) saturate(130%)',
+      '--img-filter': 'hue-rotate(160deg) saturate(1.2)',
     }
   },
   {
@@ -74,6 +77,7 @@ export const THEMES: AppTheme[] = [
       '--color-lim-green': '#32CD32',
       '--color-purple': '#6C72FF',
       '--color-primary-text': '#dcfce7',
+      '--img-filter': 'hue-rotate(220deg) saturate(1.3) brightness(0.9)',
     }
   },
   {
@@ -96,6 +100,7 @@ export const THEMES: AppTheme[] = [
       '--color-lim-green': '#32CD32',
       '--color-purple': '#6C72FF',
       '--color-primary-text': '#fef3c7',
+      '--img-filter': 'hue-rotate(280deg) saturate(1.4) brightness(0.95)',
     }
   },
   {
@@ -118,6 +123,7 @@ export const THEMES: AppTheme[] = [
       '--color-lim-green': '#32CD32',
       '--color-purple': '#6C72FF',
       '--color-primary-text': '#e2e8f0',
+      '--img-filter': 'hue-rotate(140deg) saturate(0.6) brightness(1.1)',
     },
   },
   {
@@ -140,6 +146,7 @@ export const THEMES: AppTheme[] = [
       '--color-lim-green': '#32CD32',
       '--color-purple': '#6C72FF',
       '--color-primary-text': '#fef3c7',
+      '--img-filter': 'hue-rotate(260deg) saturate(1.5) brightness(0.9)',
     }
   },
 
@@ -164,6 +171,7 @@ export const THEMES: AppTheme[] = [
       '--color-lim-green': '#16a34a',
       '--color-purple': '#7c3aed',
       '--color-primary-text': '#0f172a',
+      '--img-filter': 'saturate(0.3) brightness(1.8) opacity(0.4)',
     }
   },
   {
@@ -186,6 +194,7 @@ export const THEMES: AppTheme[] = [
       '--color-lim-green': '#16a34a',
       '--color-purple': '#9333ea',
       '--color-primary-text': '#1c0a0d',
+      '--img-filter': 'saturate(0.3) brightness(1.8) opacity(0.4)',
     }
   },
   {
@@ -208,6 +217,7 @@ export const THEMES: AppTheme[] = [
       '--color-lim-green': '#16a34a',
       '--color-purple': '#6C72FF',
       '--color-primary-text': '#0c2a3d',
+      '--img-filter': 'saturate(0.3) brightness(1.8) opacity(0.4)',
     }
   },
   {
@@ -230,6 +240,7 @@ export const THEMES: AppTheme[] = [
       '--color-lim-green': '#16a34a',
       '--color-purple': '#6C72FF',
       '--color-primary-text': '#052e16',
+      '--img-filter': 'saturate(0.3) brightness(1.8) opacity(0.4)',
     }
   },
   {
@@ -251,7 +262,8 @@ export const THEMES: AppTheme[] = [
       '--color-down-red-arrow': '#dc2626',
       '--color-lim-green': '#16a34a',
       '--color-purple': '#6C72FF',
-      '--color-primary-text': '#1c1008'
+      '--color-primary-text': '#1c1008',
+      '--img-filter': 'saturate(0.3) brightness(1.8) opacity(0.4)',
     },
   },
   {
@@ -273,7 +285,8 @@ export const THEMES: AppTheme[] = [
       '--color-down-red-arrow': '#dc2626',
       '--color-lim-green': '#16a34a',
       '--color-purple': '#9333ea',
-      '--color-primary-text': '#2e1065'
+      '--color-primary-text': '#2e1065',
+      '--img-filter': 'saturate(0.3) brightness(1.8) opacity(0.4)',
     }
   }
 ];

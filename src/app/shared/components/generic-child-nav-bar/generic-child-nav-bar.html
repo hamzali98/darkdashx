@@ -2,10 +2,17 @@
     <p class="text-sm tracking-wide text-primary-text font-medium font-worksans">{{navTitle | translate}}</p>
     <nav class="flex flex-col gap-2 mt-6.5">
         @for(items of navData; track $index){
-        <a [routerLink]="[items.route]" [ngClass]="isActive(items.route) ? 'bg-active-route-bg text-primary-text ' :  ''"
+        <a [routerLink]="[items.route]" [ngClass]="isActive(items.route) ? 'bg-active-route-bg' :  ''"
             class=" text-figma-neutral text-[13px] tracking-wide font-medium font-worksans py-2.5 rounded-md mr-6 px-3 ">
             <div class="flex flex-row items-center gap-2 ">
-                <span><img class="size-3" [src]="items.icon" alt="i"></span>
+                <span>
+                    <app-svg-colour
+                    svgColor="bg-figma-neutral"
+                    svgPath="{{items.icon}}"
+                    svgSize="size-3"
+                    ></app-svg-colour>
+                    <!-- <img class="size-3" [src]="items.icon" alt="i"> -->
+                </span>
                 <span>{{items.tiletitle | translate}}</span>
             </div>
         </a>

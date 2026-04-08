@@ -148,8 +148,9 @@ export class MapChart implements OnInit, AfterViewInit, OnDestroy {
         const dataItem: any = ev.target.dataItem;
         if (dataItem) {
           const countryName = dataItem.dataContext.name;
-          const message =  this.translationService.instant('You clicked on', {
-            countryName: countryName})
+          const message = this.translationService.instant('You clicked on', {
+            countryName: countryName
+          })
           alert(message);
         }
       });
@@ -159,10 +160,10 @@ export class MapChart implements OnInit, AfterViewInit, OnDestroy {
       chart.set("zoomControl", zoomControl);
 
       // Translate zoom control buttons (if needed)
-        zoomControl.plusButton.setAll({
-          interactive: true,
-          tooltipHTML: this.getToolTipHtml('Zoom in'),
-          tooltip: am5.Tooltip.new(this.root, {
+      zoomControl.plusButton.setAll({
+        interactive: true,
+        tooltipHTML: this.getToolTipHtml('Zoom in'),
+        tooltip: am5.Tooltip.new(this.root, {
           pointerOrientation: "vertical",
           getFillFromSprite: false,
           labelText: "",
@@ -176,11 +177,11 @@ export class MapChart implements OnInit, AfterViewInit, OnDestroy {
             shadowOffsetY: 2,
           }),
         })
-        });
-        zoomControl.minusButton.setAll({
-          interactive: true,
-          tooltipHTML: this.getToolTipHtml('Zoom out'),
-          tooltip: am5.Tooltip.new(this.root, {
+      });
+      zoomControl.minusButton.setAll({
+        interactive: true,
+        tooltipHTML: this.getToolTipHtml('Zoom out'),
+        tooltip: am5.Tooltip.new(this.root, {
           pointerOrientation: "vertical",
           getFillFromSprite: false,
           labelText: "",
@@ -194,20 +195,21 @@ export class MapChart implements OnInit, AfterViewInit, OnDestroy {
             shadowOffsetY: 2,
           }),
         })
-        });
+      });
     });
   }
 
   // Function to generate custom HTML for tooltips
-  getToolTipHtml(label : string) {
+  getToolTipHtml(label: string) {
     const fontSize = this.isRtl ? '16px' : '14px';
     const Label = this.translationService.instant(label);
     const direction = this.isRtl ? 'rtl' : 'ltr';
-    
+
     return `
-      <div style="direction: ${direction}; padding: 8px;">
-        <div style="font-weight: bold; color: #fff; text-align: center; font-size: ${fontSize};">
-          ${Label} {name}
+    <div style="direction: ${direction}; padding: 8px;">
+    <div style="font-weight: bold; color: #fff; text-align: center; font-size: ${fontSize};">
+    ${Label} 
+        {name}
         </div>
       </div>
     `;

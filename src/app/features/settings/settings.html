@@ -1,12 +1,12 @@
 <!-- <app-under-development></app-under-development> -->
  <!-- settings.html -->
 <div class="p-8">
-  <h2 class="text-primary-text font-medium text-lg mb-1">Settings</h2>
-  <p class="text-secondary text-sm mb-8">Manage your app preferences</p>
+  <h2 class="text-primary-text font-medium text-lg mb-1">{{'SETTINGS' |translate}}</h2>
+  <p class="text-secondary text-sm mb-8">{{'Manage your app preferences'|translate}}</p>
 
   <div class="bg-card-bg border border-border rounded-lg p-6">
-    <h3 class="text-primary-text font-medium mb-1">Theme</h3>
-    <p class="text-secondary text-sm mb-5">Choose a color theme for the interface</p>
+    <h3 class="text-primary-text font-medium mb-1">{{'Theme'|translate}}</h3>
+    <p class="text-secondary text-sm mb-5">{{'Choose a color theme for the interface'|translate}}</p>
 
     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
       @for(theme of themes; track theme.id) {
@@ -37,12 +37,12 @@
         <div class="rounded p-2 mb-2" [style.background]="theme.vars['--color-primary-bg']">
           <div class="h-1.5 rounded mb-1.5 w-3/4" [style.background]="theme.vars['--color-primary']"></div>
           <div class="h-5 rounded mb-1" [style.background]="theme.vars['--color-card-bg']"
-               [style.border]="'1px solid ' + theme.vars['--color-border']"></div>
+              [style.border]="'1px solid ' + theme.vars['--color-border']"></div>
           <div class="h-3 rounded w-1/2" [style.background]="theme.vars['--color-secondary2'] + '55'"></div>
         </div>
 
-        <p class="text-xs font-medium text-primary-text">{{ theme.name }}</p>
-        <p class="text-xs text-secondary">{{ theme.desc }}</p>
+        <p class="text-xs font-medium text-primary-text">{{ theme.name |translate}}</p>
+        <p class="text-xs text-secondary">{{ theme.desc |translate}}</p>
       </div>
       }
     </div>

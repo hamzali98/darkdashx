@@ -1,0 +1,23 @@
+/* .hero-bg-image {
+  filter: var(--img-filter);
+  transition: filter 0.4s ease;
+} */
+
+/* In your global styles.css */
+
+.hero-bg-image {
+  position: relative;
+}
+
+.hero-bg-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url('/assets/lgbg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: var(--img-filter, none);
+  transition: filter 0.4s ease;
+}

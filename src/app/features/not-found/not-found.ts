@@ -5,7 +5,7 @@ import { SvgColour } from "@app/shared/components/svg-colour/svg-colour";
 
 @Component({
   selector: 'app-not-found',
-  imports: [TranslateModule, SvgColour],
+  imports: [TranslateModule],
   templateUrl: './not-found.html',
   styleUrl: './not-found.css',
 })
