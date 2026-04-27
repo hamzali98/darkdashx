@@ -110,8 +110,7 @@
                             {{ username | slice:0:2 | uppercase }}
                         </div>
                         <div class="flex flex-col items-start px-2 ">
-                            <span
-                                [ngClass]="open === 'profile' ? 'text-primary' : 'text-figma-neutral' "
+                            <span [ngClass]="open === 'profile' ? 'text-primary' : 'text-figma-neutral' "
                                 class=" text-sm font-bold ">{{username}}</span>
                             <span class=" text-figma-neutral text-xs ">{{"ACCOUNT_SETTINGS" |
                                 translate}}</span>
@@ -121,8 +120,9 @@
             </div>
         </div>
     </div>
+
     <div [ngClass]="sidebar ? 'justify-center' : 'justify-between' "
-        class="flex flex-row gap-1 items-center w-auto h-auto py-2 px-5 mt-auto">
+        class="flex flex-row gap-1 items-center w-auto h-auto py-1 px-5 mt-auto">
         <app-footer></app-footer>
         @if(!sidebar){
         <app-logout-btn></app-logout-btn>
