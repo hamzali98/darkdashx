@@ -137,14 +137,14 @@ export class GenericTable<T> implements OnChanges {
 
   // rows deselecting
   checkUncheckRow(data: T, event: any) {
-    console.log("Row selection data", this.checkList);
+    // console.log("Row selection data", this.checkList);
     const index = this.checkList.indexOf(data);
     index > -1 ? this.checkList.splice(index, 1) : this.checkList.push(data);
   }
 
   // all rows selection
   toggleSelectallRows(event: any) {
-    console.log("Toggle all data", this.checkList);
+    // console.log("Toggle all data", this.checkList);
     if (event.target.checked) {
       const newSelections = this.currentPageData.filter(item => !this.checkList.includes(item));
       this.checkList.push(...newSelections);

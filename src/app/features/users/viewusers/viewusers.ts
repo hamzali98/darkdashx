@@ -114,7 +114,7 @@ export class Viewusers implements OnInit {
 
   deleteAllUserData(selectedItems: User[]) {
 
-    console.log("Selected items to delete:", selectedItems);
+    // console.log("Selected items to delete:", selectedItems);
     if (!selectedItems.length) return;
 
     // Create a queue of ids to delete

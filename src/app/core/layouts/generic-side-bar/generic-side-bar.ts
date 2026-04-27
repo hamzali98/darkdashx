@@ -111,7 +111,7 @@ export class GenericSideBar<T> implements OnInit {
     const key = this.searchKey().toLowerCase().trim();
     if (!key) return this.navData;
 
-    console.log("Nav Data", this.navData);
+    // console.log("Nav Data", this.navData);
 
     return this.navData
       .map(item => {
