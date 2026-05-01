@@ -12,13 +12,14 @@ import { Footer } from "../footer/footer";
 import { FormsModule } from '@angular/forms';
 import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
 import { SvgColour } from "@app/shared/components/svg-colour/svg-colour";
+import { AuthDesignStyleElements1 } from "@app/core/auth/shared/components/auth-design-style-elements1/auth-design-style-elements1";
+import { AuthDesignStyleElements2 } from "@app/core/auth/shared/components/auth-design-style-elements2/auth-design-style-elements2";
 
 @Component({
   selector: 'app-generic-side-bar',
   imports: [
     SlicePipe,
     UpperCasePipe,
-    RouterLink,
     NgClass,
     MainLogo,
     LogoutBtn,
@@ -28,7 +29,7 @@ import { SvgColour } from "@app/shared/components/svg-colour/svg-colour";
     Footer,
     FormsModule,
     GenericInput,
-    SvgColour
+    SvgColour,
 ],
   templateUrl: './generic-side-bar.html',
   styleUrl: './generic-side-bar.css',
@@ -96,6 +97,10 @@ export class GenericSideBar<T> implements OnInit {
 
   toggleSidebar() {
     this.layoutService.toggleSidebar();
+  }
+
+  routerLinking(route: string){
+    this.routerRef.navigate([route]);
   }
 
   onRoute(route: string) {

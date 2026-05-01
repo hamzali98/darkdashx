@@ -7,10 +7,11 @@ import { Header } from "../header/header";
 import { Subject, takeUntil } from 'rxjs';
 import { Layout } from '@app/core/services/layout';
 import { TranslationService } from '@app/core/services/translate.service';
+import { AuthDesignStyleElements2 } from "@app/core/auth/shared/components/auth-design-style-elements2/auth-design-style-elements2";
 
 @Component({
   selector: 'app-home-layout',
-  imports: [RouterOutlet, GenericSideBar, Header, NgClass],
+  imports: [RouterOutlet, GenericSideBar, Header, NgClass, AuthDesignStyleElements2],
   templateUrl: './home-layout.html',
   styleUrl: './home-layout.css',
 })

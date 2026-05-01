@@ -32,6 +32,7 @@ export class Adduser implements OnInit, OnDestroy, HasUnsavedChanges {
 
   ngOnInit(): void {
     if (!this.isEditing) {
+      console.log("add user ngoninit");
       // dialog checking
       if (this.userFormService.hasSavedForm()) {
         this.dialogService.open({

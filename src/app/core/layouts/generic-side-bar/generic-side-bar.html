@@ -1,5 +1,5 @@
-<div class="flex flex-col bg-primary-bg border-r border-border w-71 h-screen 
-    transition-all duration-300 ease-in-out dark:bg-primary-bg drop-shadow-xl dark:drop-shadow-black/25 ">
+<div class="flex flex-col border-r border-border w-71 h-screen 
+    transition-all duration-300 ease-in-out backdrop-blur-sm drop-shadow-xl dark:drop-shadow-black/25 ">
 
     <div class="flex flex-col gap-2.5 w-auto h-auto px-6.5 py-8.5 pb-0  ">
         <div class="flex flex-row justify-between align-middle items-center ">
@@ -64,9 +64,10 @@
             : 'opacity-0 max-h-0 pointer-events-none py-3 ' "
                 class="flex flex-col transition-all duration-400 ease-in-out ">
                 @for(list of items!.routeNames; track $index){
-                <a [routerLink]="[items!.routeLink[$index]]" [ngClass]="isActive(items!.routeLink[$index]) 
+                <!-- [routerLink]="[items!.routeLink[$index]]" -->
+                <a (click)="routerLinking(items!.routeLink[$index])" [ngClass]="isActive(items!.routeLink[$index]) 
                     ? 'ltr:border-l-4 rtl:border-r-4 border-primary bg-active-route-bg/60 dark:bg-active-route-bg' 
-                    : 'px-2'" class=" text-figma-neutral ltr:text-left text-sm px-4 py-2.5 rounded-sm font-normal">
+                    : 'px-2'" class=" text-figma-neutral ltr:text-left text-sm px-4 py-2.5 rounded-sm font-normal cursor-pointer">
                     <span class="">{{items!.routeNames[$index] | translate}}</span>
                 </a>
                 }
