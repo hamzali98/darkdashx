@@ -14,6 +14,7 @@ import { SubmitButton } from "@app/shared/components/submit-button/submit-button
 import { AuthFormFooter } from "../../shared/components/auth-form-footer/auth-form-footer";
 import { CustomInputConfig, GenericInput } from '@app/shared/components/generic-input/generic-input';
 import { AuthInputConfigs } from '../../shared/configs/config';
+import { TickAnimationService } from '@app/shared/services/tick-animation/tick-animation-service';
 
 @Component({
   selector: 'app-login-page',
@@ -49,6 +50,7 @@ export class LoginPage {
   private routerRef = inject(Router);
   private authService = inject(AuthService);
   private translateService = inject(TranslateService);
+  private tickService = inject(TickAnimationService);
 
 
   constructor() {
@@ -99,6 +101,12 @@ export class LoginPage {
     return !!this.password?.valid;
   }
 
+  onRemember() {
+    // console.log("On Remember", this.remember);
+    this.remember = !this.remember;
+    // console.log("Remember", this.remember);
+  }
+
   onLoginSubmit() {
     if (this.loginForm.invalid) {
       this.snackService.warning(this.translateService.instant("Please fill in all required fields!"), 5000, 'bottom-center');
@@ -110,6 +118,8 @@ export class LoginPage {
           const user = res.body.find(
             (u: credentials) => {
               if (u.email === this.email?.value && u.password === this.password?.value) {
+                u.password = "****";
+                u.c_password = "****";
                 return u;
               } else {
                 return;
@@ -129,10 +139,13 @@ export class LoginPage {
           if (res.success) {
             // console.log(res);
             this.authService.login(res.user, this.remember);
-            this.routerRef.navigate(["/"]);
-            // if (this.remember) {
-            // }
-            this.snackService.success(this.translateService.instant("Login successfull!"), 2000, 'top-center');
+            setTimeout(() => {
+              this.tickService.show("Login successfull!", 2000);
+              setTimeout(() => {
+                this.routerRef.navigate(["/"]);
+              }, 1000);
+            }, 1000);
+            // this.snackService.success(this.translateService.instant("Login successfull!"), 2000, 'top-center');
           } else {
             this.snackService.error(
               `${res.message}`,

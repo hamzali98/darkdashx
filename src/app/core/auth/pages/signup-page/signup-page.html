@@ -2,7 +2,7 @@
 
     <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
         <!-- username input -->
-        <div class="scroll-container overflow-y-auto scroll-auto h-64 mt-2 px-2">
+        <div class="scroll-container overflow-y-auto scroll-auto h-64 mt-2 px-5 lg:px-8">
             <app-generic-input [config]="userNameConfig" formControlName="username"
                 [hasError]="username?.hasError('required') && username?.touched"
                 [isInvalid]="username?.hasError('maxlength') || username?.hasError('minlength')"

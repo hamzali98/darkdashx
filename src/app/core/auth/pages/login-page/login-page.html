@@ -1,19 +1,23 @@
 <auth-page-design [authFormTitle]="loginPageTitle" [authFormSubtitle]="loginPageSubtitle">
     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
-        <!-- email input -->
-        <app-generic-input [config]="emailInputConfig" formControlName="email" [hasError]="emailHasError"
-            [isValid]="emailValid" />
-        <!-- Password input -->
-        <app-generic-input [config]="passwordInputConfig" formControlName="password" [hasError]="passwordHasError"
-            [isValid]="passwordValid" />
+        <div class="px-5 lg:px-8">
+            <!-- email input -->
+            <app-generic-input [config]="emailInputConfig" formControlName="email" [hasError]="emailHasError"
+                [isValid]="emailValid" />
+            <!-- Password input -->
+            <app-generic-input [config]="passwordInputConfig" formControlName="password" [hasError]="passwordHasError"
+                [isValid]="passwordValid" />
 
-        <!-- remember me -->
-        <div class="py-1 pt-2 w-full">
-            <div class="flex flex-row items-center justify-between">
-                <app-generic-input [config]="rememberMe" [(ngModel)]="remember"
-                    [ngModelOptions]="{ standalone: true }" />
-                <a routerLink="/auth/forgot" class="text-sm text-primary underline cursor-pointer ">{{'FORGOT_PASSWORD'
-                    | translate}}</a>
+            <!-- [(ngModel)]="remember"
+            [ngModelOptions]="{ standalone: true }" -->
+            <!-- remember me -->
+            <div class="py-1 pt-2 w-full">
+                <div class="flex flex-row items-center justify-between">
+                    <app-generic-input [checkBoxDisabled]="btnDisabled" [config]="rememberMe" (change)="onRemember()" />
+                    <a routerLink="/auth/forgot"
+                        class="text-sm text-primary underline cursor-pointer ">{{'FORGOT_PASSWORD'
+                        | translate}}</a>
+                </div>
             </div>
         </div>
         <!-- login page button -->
