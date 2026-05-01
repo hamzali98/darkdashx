@@ -1,10 +1,11 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { UnderDevSvg } from "./under-dev-svg/under-dev-svg";
 
 @Component({
   selector: 'app-under-development',
-  imports: [TranslateModule],
+  imports: [TranslateModule, UnderDevSvg],
   templateUrl: './under-development.html',
   styleUrl: './under-development.css',
 })

@@ -5,15 +5,18 @@ import { CanDeactivateFn } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DialogService } from '../services/dialog-service/dialog';
 import { HasUnsavedChanges } from '../interface/has-unsaved-changes';
+import { AuthService } from '@app/core/auth/services/auth-service';
 
 export const unsavedChangesGuard: CanDeactivateFn<HasUnsavedChanges> = (component) => {
   const dialogService = inject(DialogService);
   const translateModule = inject(TranslateService);
+  const authService = inject(AuthService);
 
   if (!component.hasUnsavedChanges() && !component.isValid()) {
     return true;
   }
 
+  if(authService.isAuthenticated()){
   // ✅ Return the Observable directly — Angular waits for it to emit
   return dialogService.open({
     actbtn: translateModule.instant('CONFIRM'),
@@ -28,4 +31,7 @@ export const unsavedChangesGuard: CanDeactivateFn<HasUnsavedChanges> = (componen
       return confirmed; // true = allow navigation, false = block it
     })
   );
+} else {
+  return true;
+}
 };

@@ -64,6 +64,7 @@ export class GenericInput implements ControlValueAccessor {
   @Input() checkBoxId!: number;
   @Input() checkBoxIndeterminate!: boolean;
   @Input() checkBoxChecked!: boolean;
+  @Input() checkBoxDisabled!: boolean;
   @Input() hasError: boolean | undefined = false;
   @Input() passwordStrengthColor!: string;
   @Input() passwordStrengthProgress!: string;

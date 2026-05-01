@@ -8,7 +8,11 @@
             @if(config.labelIcon) {
             <app-svg-colour svgColor="bg-figma-neutral" svgSize="size-3" [svgPath]="config.labelIcon"></app-svg-colour>
             }
-            <label [for]="config.labelFor" class="text-figma-neutral text-xs font-medium text-nowrap">
+            <label
+            [ngClass]="{
+                'text-figma-neutral/50' : checkBoxDisabled,
+            }"
+            [for]="config.labelFor" class="text-figma-neutral text-xs font-medium text-nowrap">
                 {{ config.label | translate }}
                 @if(config.required) { <span class="text-red-600">*</span> }
             </label>
@@ -23,15 +27,15 @@
             'password') {
             <div class="relative flex flex-row justify-end items-center">
                 @if(config.startIcon){
-                <app-svg-colour svgPath="{{config.startIcon}}" svgColor="bg-primary"
+                <app-svg-colour svgPath="{{config.startIcon}}" svgColor="bg-figma-neutral"
                     svgSize="absolute rtl:right-3 top-4 left-3 p-0 flex align-middle size-3.5 bg-none pointer-events-none"></app-svg-colour>
                 <!-- <img [src]="config.startIcon"
                     class="absolute rtl:right-3 left-3 p-0 flex align-middle size-3.5 bg-none pointer-events-none"
                     alt="icon" /> -->
                 }
-                <input class="flex-1 h-11 rounded-sm outline-0
-                border 
-                    text-figma-neutral text-sm font-light bg-inherit caret-primary
+                <input
+                class="flex-1 h-11 rounded-sm outline-0
+                    border text-figma-neutral text-sm font-light bg-inherit caret-primary
                     placeholder:text-figma-neutral placeholder:text-sm" [required]="config.required" [type]="inputType"
                     [id]="config.inputId" [name]="config.inputName"
                     [placeholder]="(config.placeholder ?? '' | translate)" [autocomplete]="config.autocomplete ?? 'off'"
@@ -53,7 +57,7 @@
                 <button type="button" (click)="togglePassword()"
                     class="absolute mx-2 bg-transparent border-none cursor-pointer p-0 flex items-center">
                     @if(!showPassword()) {
-                    <svg [ngClass]="isValid? 'stroke-green-500' : 'stroke-red-500'" width="20" height="20"
+                    <svg [ngClass]="isValid && !hasError? 'stroke-green-500' : 'stroke-red-500'" width="20" height="20"
                         viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                         <circle cx="12" cy="12" r="3" />
@@ -91,10 +95,14 @@
             @if(config.type === 'checkbox') {
             <input class="
                 indeterminate:appearance-auto indeterminate:accent-primary
-                appearance-none bg-inherit border border-primary
+                appearance-none bg-inherit border border-border
                 size-3 rounded-xs checked:appearance-auto
-                accent-primary my-2 mx-2 cursor-pointer" [type]="config.type" [indeterminate]="checkBoxIndeterminate"
-                [checked]="checkBoxChecked" [name]="config.inputName" [id]="checkBoxId? checkBoxId : config.inputId ">
+                accent-primary my-2 mx-2 cursor-pointer
+                disabled:accent-border/50 disabled:border-border/50
+                " [type]="config.type" [indeterminate]="checkBoxIndeterminate"
+                [checked]="checkBoxChecked" [name]="config.inputName" [id]="checkBoxId? checkBoxId : config.inputId "
+                [disabled]="checkBoxDisabled"
+                >
             }
 
             <!-- ════════ TEXTAREA ════════ -->
