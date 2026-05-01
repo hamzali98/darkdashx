@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-main-logo',
-  imports: [RouterLink, TranslateModule],
+  imports: [TranslateModule],
   templateUrl: './main-logo.html',
   styleUrl: './main-logo.css',
 })
@@ -15,5 +15,9 @@ export class MainLogo {
 
   onOpen(section: string){
     this.layoutService.onOpen(section);
+  }
+
+  onRoute(route: string) {
+    this.layoutService.onRoute(route);
   }
 }

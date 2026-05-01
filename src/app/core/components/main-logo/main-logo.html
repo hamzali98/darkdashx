@@ -1,6 +1,7 @@
 <!-- (click)="[onOpen('')]" -->
+ <!-- [routerLink]="['/']" -->
 <div class="flex flex-row justify-between align-middle items-center ">
-    <a [routerLink]="['']" (click)="[onOpen('')]">
+    <a (click)="[onOpen(''), onRoute('')]" class="cursor-pointer">
         <div class="flex flex-row">
             <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
