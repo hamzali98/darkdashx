@@ -1,0 +1,248 @@
+
+
+/* // SVG filters need ::ng-deep to escape encapsulation */
+/* ::ng-deep {
+  .pulse-dot        { filter: drop-shadow(0 0 3px var(--neon-purple)); }
+  .pulse-dot-cyan   { filter: drop-shadow(0 0 3px var(--neon-cyan)); }
+  .pulse-dot-blue   { filter: drop-shadow(0 0 3px #7986cb); }
+  .node-purple      { filter: drop-shadow(0 0 4px var(--neon-purple)); }
+  .node-cyan        { filter: drop-shadow(0 0 3px var(--neon-cyan)); }
+} */
+
+.circuit-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.line {
+    fill: none;
+    stroke: var(--line-color);
+    stroke-width: 0.5;
+}
+
+/* .line-bright { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 0.5; } */
+.line-bright {
+    fill: none;
+    stroke: color-mix(in srgb, var(--color-border), transparent 50%);
+    stroke-width: 0.7;
+}
+
+.pulse-dot {
+    fill: none;
+    stroke: var(--neon-purple);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 6 2000;
+    stroke-dashoffset: 2000;
+    filter: drop-shadow(0 0 3px var(--neon-purple));
+}
+
+.pulse-dot-cyan {
+    fill: none;
+    stroke: var(--neon-cyan);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 4 2000;
+    stroke-dashoffset: 2000;
+    filter: drop-shadow(0 0 3px var(--neon-cyan));
+}
+
+.pulse-dot-blue {
+    fill: none;
+    stroke: var(--color-secondary2);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 5 2000;
+    stroke-dashoffset: 2000;
+    filter: drop-shadow(0 0 3px var(--color-secondary2));
+}
+
+@keyframes moveDot1 {
+    0% {
+        stroke-dashoffset: 2000
+    }
+
+    100% {
+        stroke-dashoffset: 0
+    }
+}
+
+@keyframes moveDot2 {
+    0% {
+        stroke-dashoffset: 2000
+    }
+
+    100% {
+        stroke-dashoffset: 0
+    }
+}
+
+@keyframes moveDot3 {
+    0% {
+        stroke-dashoffset: 2000
+    }
+
+    100% {
+        stroke-dashoffset: 0
+    }
+}
+
+@keyframes moveDot4 {
+    0% {
+        stroke-dashoffset: 2000
+    }
+
+    100% {
+        stroke-dashoffset: 0
+    }
+}
+
+@keyframes moveDot5 {
+    0% {
+        stroke-dashoffset: 2000
+    }
+
+    100% {
+        stroke-dashoffset: 0
+    }
+}
+
+@keyframes moveDot6 {
+    0% {
+        stroke-dashoffset: 2000
+    }
+
+    100% {
+        stroke-dashoffset: 0
+    }
+}
+
+@keyframes pulseNode {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        r: 2
+    }
+
+    50% {
+        opacity: 1;
+        r: 3.5
+    }
+}
+
+@keyframes pulseNodeCyan {
+
+    0%,
+    100% {
+        opacity: 0.2;
+        r: 2
+    }
+
+    50% {
+        opacity: 0.9;
+        r: 3
+    }
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%)
+    }
+
+    100% {
+        transform: translateY(600px)
+    }
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        opacity: 0.15
+    }
+
+    50% {
+        opacity: 0.35
+    }
+}
+
+.p1 {
+    animation: moveDot1 5s linear infinite;
+}
+
+.p2 {
+    animation: moveDot2 7s linear infinite 1.5s;
+}
+
+.p3 {
+    animation: moveDot3 6s linear infinite 0.8s;
+}
+
+.p4 {
+    animation: moveDot4 8s linear infinite 2.2s;
+}
+
+.p5 {
+    animation: moveDot5 4.5s linear infinite 0.3s;
+}
+
+.p6 {
+    animation: moveDot6 6.5s linear infinite 3s;
+}
+
+.node-purple {
+    fill: var(--neon-purple);
+    animation: pulseNode 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 4px var(--neon-purple));
+}
+
+.node-cyan {
+    fill: var(--neon-cyan);
+    animation: pulseNodeCyan 4s ease-in-out infinite 1s;
+    filter: drop-shadow(0 0 3px var(--neon-cyan));
+}
+
+.node-static {
+    fill: color-mix(in srgb, var(--color-border), transparent 35%);
+    /* fill: rgba(255, 255, 255, 0.15); */
+    r: 1.5;
+}
+
+.scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    /* background: linear-gradient(to right, transparent, rgba(186, 104, 200, 0.15), rgba(77, 208, 225, 0.1), transparent); */
+    background: linear-gradient(to right, transparent, color-mix(in srgb, var(--color-primary), transparent 75%), color-mix(in srgb, var(--color-secondary2), transparent 85%), transparent);
+    animation: scanline 8s linear infinite;
+    pointer-events: none;
+}
+
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: glowPulse 4s ease-in-out infinite;
+}
+
+.glow-purple {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-primary), transparent 65%) 0%, transparent 70%);
+    top: -80px;
+    right: -60px;
+}
+
+.glow-cyan {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-secondary2), transparent 75%) 0%, transparent 70%);
+    bottom: -40px;
+    left: -40px;
+    animation-delay: 2s;
+}

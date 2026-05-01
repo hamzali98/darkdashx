@@ -1,0 +1,80 @@
+<div class="glow-orb glow-purple"></div>
+    <div class="glow-orb glow-cyan"></div>
+    <div class="scanline"></div>
+
+    <svg class="circuit-bg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"
+        xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Horizontal grid lines -->
+        <line class="line" x1="0" y1="80" x2="800" y2="80" />
+        <line class="line" x1="0" y1="160" x2="800" y2="160" />
+        <line class="line" x1="0" y1="240" x2="800" y2="240" />
+        <line class="line" x1="0" y1="320" x2="800" y2="320" />
+        <line class="line" x1="0" y1="400" x2="800" y2="400" />
+        <line class="line" x1="0" y1="480" x2="800" y2="480" />
+        <line class="line" x1="0" y1="560" x2="800" y2="560" />
+
+        <!-- Vertical grid lines -->
+        <line class="line" x1="80" y1="0" x2="80" y2="600" />
+        <line class="line" x1="160" y1="0" x2="160" y2="600" />
+        <line class="line" x1="240" y1="0" x2="240" y2="600" />
+        <line class="line" x1="560" y1="0" x2="560" y2="600" />
+        <line class="line" x1="640" y1="0" x2="640" y2="600" />
+        <line class="line" x1="720" y1="0" x2="720" y2="600" />
+
+        <!-- Circuit traces — left cluster -->
+        <path class="line-bright" d="M0,80 L80,80 L80,160 L160,160 L160,240 L240,240" />
+        <path class="line-bright" d="M80,0 L80,80 L160,80 L160,160" />
+        <path class="line-bright" d="M0,240 L80,240 L80,320 L160,320 L160,400" />
+        <path class="line-bright" d="M160,400 L240,400 L240,480 L160,480 L160,560" />
+        <path class="line-bright" d="M0,400 L80,400" />
+
+        <!-- Circuit traces — right cluster -->
+        <path class="line-bright" d="M800,160 L720,160 L720,240 L640,240 L640,320 L560,320" />
+        <path class="line-bright" d="M800,320 L720,320 L720,400 L640,400" />
+        <path class="line-bright" d="M720,0 L720,80 L640,80 L640,160" />
+        <path class="line-bright" d="M640,400 L640,480 L720,480 L720,560 L800,560" />
+        <path class="line-bright" d="M560,480 L640,480" />
+
+        <!-- Corner nodes — static -->
+        <circle class="node-static" cx="80" cy="80" r="1.5" />
+        <circle class="node-static" cx="160" cy="80" r="1.5" />
+        <circle class="node-static" cx="80" cy="160" r="1.5" />
+        <circle class="node-static" cx="160" cy="160" r="1.5" />
+        <circle class="node-static" cx="80" cy="240" r="1.5" />
+        <circle class="node-static" cx="160" cy="240" r="1.5" />
+        <circle class="node-static" cx="80" cy="320" r="1.5" />
+        <circle class="node-static" cx="160" cy="320" r="1.5" />
+        <circle class="node-static" cx="80" cy="400" r="1.5" />
+        <circle class="node-static" cx="160" cy="400" r="1.5" />
+        <circle class="node-static" cx="160" cy="480" r="1.5" />
+        <circle class="node-static" cx="240" cy="480" r="1.5" />
+        <circle class="node-static" cx="720" cy="160" r="1.5" />
+        <circle class="node-static" cx="640" cy="160" r="1.5" />
+        <circle class="node-static" cx="720" cy="240" r="1.5" />
+        <circle class="node-static" cx="640" cy="240" r="1.5" />
+        <circle class="node-static" cx="640" cy="320" r="1.5" />
+        <circle class="node-static" cx="720" cy="320" r="1.5" />
+        <circle class="node-static" cx="640" cy="400" r="1.5" />
+        <circle class="node-static" cx="720" cy="400" r="1.5" />
+        <circle class="node-static" cx="640" cy="480" r="1.5" />
+        <circle class="node-static" cx="720" cy="480" r="1.5" />
+
+        <!-- Pulsing accent nodes -->
+        <circle class="node-purple" cx="160" cy="160" r="2.5" />
+        <circle class="node-purple" cx="80" cy="320" r="2" />
+        <circle class="node-cyan" cx="640" cy="240" r="2.5" />
+        <circle class="node-cyan" cx="720" cy="400" r="2" />
+        <circle class="node-purple" cx="240" cy="240" r="2" />
+        <circle class="node-cyan" cx="560" cy="320" r="2" />
+
+        <!-- Pulse dots — purple traces -->
+        <path class="pulse-dot p1" d="M0,80 L80,80 L80,160 L160,160 L160,240 L240,240" />
+        <path class="pulse-dot p3" d="M0,240 L80,240 L80,320 L160,320 L160,400 L240,400 L240,480" />
+        <path class="pulse-dot p5" d="M160,560 L160,480 L240,480" />
+
+        <!-- Pulse dots — cyan traces -->
+        <path class="pulse-dot-cyan p2" d="M800,160 L720,160 L720,240 L640,240 L640,320 L560,320" />
+        <path class="pulse-dot-cyan p4" d="M800,320 L720,320 L720,400 L640,400 L640,480 L720,480 L720,560" />
+        <path class="pulse-dot-blue p6" d="M720,0 L720,80 L640,80 L640,160 L560,160" />
+    </svg>

@@ -19,4 +19,6 @@ export class AuthFormFooter {
   @Input({required:true}) routeLink!:string;
   @Input({required: true}) linkName!:string;
 
+  
+
 }

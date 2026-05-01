@@ -1,0 +1,21 @@
+:host {
+    display: block;
+    width: 100%;
+    /* Let the parent define height — works in both full-screen and partial layouts */
+}
+
+.ngrx-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    /* No border-radius here — apply it on the parent if needed */
+    /* background: var(--color-primary-bg); */
+    background: transparent;
+    /* fallback; override with var(--color-primary-bg) if you have it */
+
+    svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}

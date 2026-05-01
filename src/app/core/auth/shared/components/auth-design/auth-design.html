@@ -1,6 +1,8 @@
 <!-- bg-[url('/assets/lgbg.png')] bg-no-repeat bg-cover bg-center -->
-<div class="flex flex-col justify-center items-center min-h-screen overflow-auto p-2 md:p-0
-        hero-bg-image">
+<!-- <div class="flex flex-col justify-center items-center min-h-screen max-h-screen overflow-hidden p-0 md:p-0 border
+        "> -->
+
+<app-auth-design-style-elements>
     <!-- colour tint overlay -->
     <div class="absolute inset-0" style="
         background: var(--color-primary);
@@ -8,12 +10,19 @@
         opacity: 0.5;"></div>
     <div class="relative p-0">
         <!-- The glowing gradient background layer -->
-        <div class="absolute inset-0 bg-linear-to-br from-primary to-secondary2 rounded-lg filter blur-xl 
-            opacity-10 animate-pulse">
-        </div>
-        <div class="w-full lg:w-150 h-auto border border-border/25 rounded-xl 
-                    bg-primary-bg backdrop-blur-3xl p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5 ">
-            <div class="flex flex-row justify-between items-center">
+        <!-- <div class="absolute inset-0 bg-linear-to-br from-primary to-secondary2 rounded-lg filter blur-xl 
+        opacity-10 animate-pulse">
+        </div> -->
+        <!-- p-5 lg:p-8 lg:pb-1 mt-5.5 mb-5  -->
+        <!-- bg-primary-bg/75  -->
+        <div class="w-full lg:w-135 h-auto border border-primary/30 rounded-xl 
+        backdrop-blur-xs 
+        card mb-5 ">
+            <!-- <div class="corner-tl"></div>
+            <div class="corner-tr"></div>
+            <div class="corner-bl"></div>
+            <div class="corner-br"></div> -->
+            <div class="flex flex-row justify-between items-center px-5 pt-5 lg:px-8 lg:pt-5 ">
                 <div class="w-full">
                     <p class="text-primary-text text-lg font-semibold font-worksans ">{{authFormTitle | translate}}</p>
                     <p class="text-figma-neutral text-sm font-medium tracking-normal">{{authFormSubtitle | translate}}
@@ -21,8 +30,10 @@
                 </div>
                 <app-language-switcher></app-language-switcher>
             </div>
+            <div class="divider" ></div>
             <ng-content></ng-content>
         </div>
     </div>
     <app-footer></app-footer>
-</div>
+</app-auth-design-style-elements>
+<!-- </div> -->

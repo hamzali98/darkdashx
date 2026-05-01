@@ -1,11 +1,6 @@
-/* .hero-bg-image {
-  filter: var(--img-filter);
-  transition: filter 0.4s ease;
-} */
-
 /* In your global styles.css */
 
-.hero-bg-image {
+/* .hero-bg-image {
   position: relative;
 }
 
@@ -20,4 +15,68 @@
   background-repeat: no-repeat;
   filter: var(--img-filter, none);
   transition: filter 0.4s ease;
+} */
+
+.corner-tl,
+.corner-tr,
+.corner-bl,
+.corner-br {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+}
+
+.corner-tl {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--neon-cyan);
+  border-left: 2px solid var(--neon-cyan);
+  border-radius: 2px 0 0 0;
+}
+
+.corner-tr {
+  top: -1px;
+  right: -1px;
+  border-top: 2px solid var(--neon-cyan);
+  border-right: 2px solid var(--neon-cyan);
+  border-radius: 0 2px 0 0;
+}
+
+.corner-bl {
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 2px solid var(--neon-cyan);
+  border-left: 2px solid var(--neon-cyan);
+  border-radius: 0 0 0 2px;
+}
+
+.corner-br {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--neon-cyan);
+  border-right: 2px solid var(--neon-cyan);
+  border-radius: 0 0 2px 0;
+}
+
+.card {
+  /* border: 1px solid color-mix(in srgb, var(--color-primary), transparent 70%); */
+  /* border-radius: 16px; */
+  box-shadow: 0 0 40px color-mix(in srgb, var(--color-primary), transparent 80%), inset 0 1px 0 color-mix(in srgb, var(--color-secondary2), transparent 60%);
+}
+
+.card::before {
+  /* border-radius: 16px; */
+  /* border: 1px solid transparent; */
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary), transparent 60%), transparent 40%, color-mix(in srgb, var(--color-secondary2), transparent 70%)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+}
+
+
+.divider {
+    height: 1px;
+    background: color-mix(in srgb, var(--color-border), transparent 0%);
+    margin: 20px 0;
 }
