@@ -28,7 +28,6 @@ export class BasicInfo {
     this.personalInfo = this.userForm.getForm().get('personal_info') as FormGroup;
     this.basicInfo = this.userForm.getForm().get('basic_info') as FormGroup;
     this.basicInfo.markAllAsTouched();
-    // console.log(this.personalInfo.value);
 
     this.userPhoneConfig = new InputConfigs().userPhoneConfig;
     this.userPositionConfig = new InputConfigs().userPositionConfig;

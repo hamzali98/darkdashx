@@ -62,13 +62,11 @@ export class GenericDropMenu implements OnInit, OnDestroy, OnChanges {
       this.dataService.sharedProductData().subscribe(data => {
         // BehaviorSubject will emit current value immediately
         // and again when fetch completes
-        // console.log('product data loaded:', data);
       })
     );
 
     this.subscription.add(
       this.dataService.sharedUserData().subscribe(data => {
-        // console.log('user data loaded:', data);
       })
     );
   }
@@ -78,7 +76,6 @@ export class GenericDropMenu implements OnInit, OnDestroy, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     // if(changes['searchTerm']){
-    //   console.log("Searching...", this.searchTerm());
     //   this.fetchDataOptions();
     // }
   }
@@ -139,7 +136,6 @@ export class GenericDropMenu implements OnInit, OnDestroy, OnChanges {
   // ─── Select ───────────────────────────────────────────
   selectOption(option: SelectOption) {
     this.isOpen.set(false);
-    // console.log("Selected option : ", option);
 
     if (this.key === 'product') {
       const found = this.productData.find(item => item.id === option.value);

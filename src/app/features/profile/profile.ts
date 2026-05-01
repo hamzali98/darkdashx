@@ -154,7 +154,6 @@ export class Profile implements OnInit, OnDestroy {
 
   passcheck() {
     // debounceTime(1000);
-    // console.log(this.oldpass);
 
     // setTimeout(() => {
     if (this.oldpass.length >= 3 || this.oldpass.length === 0) {
@@ -176,7 +175,6 @@ export class Profile implements OnInit, OnDestroy {
             //     }
             //   }
             // );
-            // console.log(state);
             if (state) {
               return true;
             } else {
@@ -185,7 +183,6 @@ export class Profile implements OnInit, OnDestroy {
           }),
         ).subscribe({
           next: (res) => {
-            // console.log(res);
             if (res) {
               this.message = "";
             } else {
@@ -203,8 +200,6 @@ export class Profile implements OnInit, OnDestroy {
   }
 
   onPassChange() {
-    // console.log(password?.value);
-    // console.log(passwordStrengthGetter);
   }
 
   toggle(action: string) {
@@ -238,22 +233,17 @@ export class Profile implements OnInit, OnDestroy {
       this.snackService.warning(this.translateService.instant("Please fill in all required fields!"), 5000, 'bottom-center');
     } else {
 
-      // console.log(this.profileForm.value);
-      // console.log(this.user);
       const id = this.user!.id.toString();
       this.profileForm.patchValue({
         status: this.user?.status,
         role: this.user?.role
       });
-      // console.log(this.profileForm.value);
       this.httpService.editApi(this.URL, id, this.profileForm.value).subscribe({
         next: (res) => {
-          // console.log(res);
           this.authService.login(res, true);
           this.snackService.success(this.translateService.instant("Profile edited"), 2000, 'top-center');
         },
         error: (err) => {
-          // console.log(err);
           this.snackService.error(this.translateService.instant('Server Error!'), 2000, 'top-center');
         }
       }

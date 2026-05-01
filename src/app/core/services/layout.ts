@@ -23,11 +23,8 @@ export class Layout<T> implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // console.log("ng on init");
     const route = this.routerRef.routerState.snapshot.url.toString();
-    // console.log('active route', route);
     const rout: any = route.split('/').at(1);
-    // console.log(rout);
     this.onOpen(rout?.toString());
     // if (route.startsWith('/users')) {
     //   this.onOpen('users');
@@ -70,7 +67,6 @@ export class Layout<T> implements OnInit {
   // }
   async openAndNavigate(section: string | undefined, route: string | undefined) {
     const currentSection = this.open();
-    // console.log("Current Section", currentSection);
     const navigateSuccess = await this.routerRef.navigate([route]);
 
     if (navigateSuccess) {
@@ -79,7 +75,6 @@ export class Layout<T> implements OnInit {
     } else {
       this.open.set(currentSection);
       const route = this.routerRef.url;
-      // console.log("route", route);
       // this.onOpen(route);
     }
     // else if (currentSection !== section) {

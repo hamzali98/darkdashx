@@ -121,13 +121,11 @@ export class SignupPage {
       this.loaderService.showLoader();
       this.httpService.addApi(this.AuthURL, this.signupForm.value).subscribe({
         next: (res) => {
-          // console.log(res);
           this.snackService.success(this.translateService.instant("Account created successfully!"), 2000, 'bottom-center');
           this.loaderService.hideLoader();
           this.routerRef.navigate(['/auth/login']);
         },
         error: (err) => {
-          // console.log(err);
           this.snackService.error(this.translateService.instant("Server Error!"), 2000, 'bottom-center');
           this.loaderService.hideLoader();
         }

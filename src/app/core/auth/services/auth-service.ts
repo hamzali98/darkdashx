@@ -91,7 +91,6 @@ export class AuthService {
         message: this.translateService.instant('Session_expired_msg'),
         type: 'session-expired'
       });
-      // console.log('Session expired due to timeout');
       this.logout('expired'); // Mark as expired logout
       return false;
     }
@@ -153,7 +152,6 @@ export class AuthService {
     localStorage.setItem(this.EXPIRY_KEY, newExpiryTime.toString());
 
     // Debug log to verify it's being called
-    // console.log('Session timer reset. New expiry:', new Date(newExpiryTime).toLocaleTimeString());
   }
 
   // Manual method to reset session (useful for API calls)

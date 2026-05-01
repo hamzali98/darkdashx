@@ -57,8 +57,6 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes && this.productChartData && this.productChartData.length > 0) {
-      // console.log(this.userChartData);
-      // console.log(this.productChartData);
       this.prepareBarChart();
     }
   }
@@ -104,7 +102,6 @@ export class AmCharts implements OnInit, OnChanges, OnDestroy {
     const isRTL = this.isRtl;
     const maxValue = this.getDataMax();
 
-    // console.log("chart max value", maxValue);
 
     const productsSeriesName = this.translationService.instant('PRODUCTS');
     const stockSeriesName = this.translationService.instant('STOCK');

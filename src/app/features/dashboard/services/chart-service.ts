@@ -60,7 +60,6 @@ export class ChartService {
       averageStock: Math.ceil(categoryMap[category].stock / categoryMap[category].count)
     }));
 
-    // console.log('Prepared chart data:', data);
     return data;
   }
 
@@ -108,7 +107,6 @@ export class ChartService {
       inactiveUsers: teamMap[team].inactive
     }));
 
-    // console.log('Prepared chart data:', data);
     return data;
   }
 

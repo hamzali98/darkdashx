@@ -103,7 +103,6 @@ export class Products implements OnInit {
 
   deleteAllProductsData(selectedItems: product[]) {
 
-    // console.log("Selected items to delete:", selectedItems);
     if (!selectedItems.length) return;
 
     // Create a queue of ids to delete

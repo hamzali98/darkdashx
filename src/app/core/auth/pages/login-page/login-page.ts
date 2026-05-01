@@ -102,9 +102,7 @@ export class LoginPage {
   }
 
   onRemember() {
-    // console.log("On Remember", this.remember);
     this.remember = !this.remember;
-    // console.log("Remember", this.remember);
   }
 
   onLoginSubmit() {
@@ -126,7 +124,6 @@ export class LoginPage {
               }
             }
           );
-          // console.log(user);
           if (user) {
             return { success: true, user };
           } else {
@@ -135,9 +132,7 @@ export class LoginPage {
         }),
       ).subscribe({
         next: (res) => {
-          // console.log(res);
           if (res.success) {
-            // console.log(res);
             this.authService.login(res.user, this.remember);
             setTimeout(() => {
               this.tickService.show("Login successfull!", 2000);

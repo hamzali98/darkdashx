@@ -13,7 +13,6 @@ export const httprequestsInterceptor: HttpInterceptorFn = (req, next) => {
   // if(!authCheck){
   //   authService.logout();
   // }
-  // console.log("interceptor calling", req);
   // loaderService.hideLoader();
   return next(req);
 };

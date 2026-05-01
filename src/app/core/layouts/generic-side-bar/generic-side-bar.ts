@@ -67,11 +67,8 @@ export class GenericSideBar<T> implements OnInit {
   }
 
   ngOnInit() {
-    // console.log("ng on init");
     const route = this.routerRef.routerState.snapshot.url.toString();
-    // console.log('active route', route);
     const rout: any = route.split('/').at(1);
-    // console.log(rout);
     this.layoutService.onOpen(rout.toString());
   }
 
@@ -116,7 +113,6 @@ export class GenericSideBar<T> implements OnInit {
     const key = this.searchKey().toLowerCase().trim();
     if (!key) return this.navData;
 
-    // console.log("Nav Data", this.navData);
 
     return this.navData
       .map(item => {
