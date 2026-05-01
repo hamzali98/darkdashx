@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
+import { filter, map } from 'rxjs/operators';
+import { NavigationEnd, RouterOutlet } from '@angular/router';
 import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { Loaderservice } from './shared/services/loader/loaderservice';
 import { Loader } from "./shared/components/loader/loader";
@@ -15,8 +17,9 @@ import { ThemeService, THEMES } from './shared/services/theme-service/theme-serv
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, Loader, SnackBar, GenericDialog, AsyncPipe, NgTemplateOutlet, TranslateModule],
+  // animations: [slideAnimation],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App implements OnInit {
 
@@ -30,8 +33,23 @@ export class App implements OnInit {
   
   constructor(
     private title: Title,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private swUpdate: SwUpdate,
   ) {
+    if (this.swUpdate.isEnabled) {
+
+      // Listen for new version available
+      this.swUpdate.versionUpdates
+        .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
+        .subscribe(() => {
+          if (confirm('New version available. Load it?')) {
+            window.location.reload();
+          }
+        });
+
+      // Check for updates every 6 hours
+      setInterval(() => this.swUpdate.checkForUpdate(), 6 * 60 * 60 * 1000);
+    }
   }
   
   get dialogService() { return this.dialogServiceRef; }
@@ -61,4 +79,5 @@ export class App implements OnInit {
     this.dialogService.close();
     this.routerRef.navigate(['/auth/login']);
   }
+
 }

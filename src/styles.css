@@ -2,21 +2,53 @@
 @import "./tailwind.css";
 
 @layer utilities {
-  .text-app-primary    { color: var(--color-primary); }
-  .bg-app-primary      { background-color: var(--color-primary); }
-  .border-app-primary  { border-color: var(--color-primary); }
+  .text-app-primary {
+    color: var(--color-primary);
+  }
 
-  .text-app-secondary  { color: var(--color-secondary); }
-  .bg-app-secondary    { background-color: var(--color-secondary); }
+  .bg-app-primary {
+    background-color: var(--color-primary);
+  }
 
-  .text-app-accent     { color: var(--color-secondary2); }
-  .bg-app-accent       { background-color: var(--color-secondary2); }
+  .border-app-primary {
+    border-color: var(--color-primary);
+  }
 
-  .bg-app-page         { background-color: var(--color-primary-bg); }
-  .bg-app-card         { background-color: var(--color-card-bg); }
-  .bg-app-input        { background-color: var(--color-input-bg); }
-  .border-app          { border-color: var(--color-border); }
-  .text-app-neutral    { color: var(--color-figma-neutral); }
+  .text-app-secondary {
+    color: var(--color-secondary);
+  }
+
+  .bg-app-secondary {
+    background-color: var(--color-secondary);
+  }
+
+  .text-app-accent {
+    color: var(--color-secondary2);
+  }
+
+  .bg-app-accent {
+    background-color: var(--color-secondary2);
+  }
+
+  .bg-app-page {
+    background-color: var(--color-primary-bg);
+  }
+
+  .bg-app-card {
+    background-color: var(--color-card-bg);
+  }
+
+  .bg-app-input {
+    background-color: var(--color-input-bg);
+  }
+
+  .border-app {
+    border-color: var(--color-border);
+  }
+
+  .text-app-neutral {
+    color: var(--color-figma-neutral);
+  }
 }
 
 @font-face {
@@ -34,6 +66,18 @@
   font-family: 'JameelNoori', serif;
 }
 
+:root {
+  --neon-purple: var(--color-primary);
+  --neon-cyan: var(--color-secondary2);
+  --line-color: color-mix(in srgb, var(--color-secondary), transparent 90%);
+  --node-color: color-mix(in srgb, var(--color-primary), transparent 40%);
+  /* --neon-purple: #ba68c8;
+    --neon-cyan: #4dd0e1;
+    --line-color: rgba(255,255,255,0.07);
+    --node-color: rgba(186,104,200,0.4); 
+    */
+}
+
 
 input[type="date"] {
   background-color: var(--color-card-bg);
@@ -49,7 +93,8 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
-  appearance: textfield; /* Standard property for future compatibility */
+  appearance: textfield;
+  /* Standard property for future compatibility */
 }
 
 
@@ -137,22 +182,22 @@ input[type=number] {
   }
 
   .custom-tooltip {
-  position: absolute;
-  background: var(--color-card-bg);
-  color: var(--color-primary-text);
-  padding: 6px 10px;
-  font-size: 11px;
-  border-radius: 6px;
-  white-space: nowrap;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
+    position: absolute;
+    background: var(--color-card-bg);
+    color: var(--color-primary-text);
+    padding: 6px 10px;
+    font-size: 11px;
+    border-radius: 6px;
+    white-space: nowrap;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
 
-.custom-tooltip.show {
-  opacity: 1;
-}
+  .custom-tooltip.show {
+    opacity: 1;
+  }
 
   &.tooltip-top::after {
     top: 100%;
@@ -203,17 +248,71 @@ input::-webkit-credentials-auto-fill-button {
   display: none;
 }
 
-.ctext{
-    /* background-image: linear-gradient(#cb3cff,#cb3cff, #cb3cff, #00c2ff,#00c2ff,#00c2ff); */
-    background-image: linear-gradient(var(--color-primary),var(--color-primary), var(--color-primary), var(--color-secondary2),var(--color-secondary2),var(--color-secondary2));
+.ctext {
+  /* background-image: linear-gradient(#cb3cff,#cb3cff, #cb3cff, #00c2ff,#00c2ff,#00c2ff); */
+  background-image: linear-gradient(var(--color-primary), var(--color-primary), var(--color-primary), var(--color-secondary2), var(--color-secondary2), var(--color-secondary2));
 }
 
 .icon-mask {
   width: 200px;
   height: 24px;
-  background-color: var(--color-primary); /* Changes with theme */
+  background-color: var(--color-primary);
+  /* Changes with theme */
   mask-image: var(--icon-url);
   mask-repeat: no-repeat;
   mask-size: contain;
-  -webkit-mask-image: var(--icon-url); /* For Safari/Chrome */
+  -webkit-mask-image: var(--icon-url);
+  /* For Safari/Chrome */
 }
+
+/* background color while route changes with animation */
+html {
+  background-color: var(--color-primary-bg);
+}
+
+/* route change animations */
+::view-transition-old(root) {
+  animation: 200ms ease-out fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 200ms ease-in fade-in;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ::view-transition-old(root) {
+  animation: 300ms ease-out slide-out;
+}
+
+::view-transition-new(root) {
+  animation: 300ms ease-in slide-in;
+}
+
+@keyframes slide-out {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+} */
