@@ -1,6 +1,7 @@
 {
   "name": "Dashdark X",
   "short_name": "dashx",
+  "version": "0.0.3",
   "theme_color":"#000",
   "display": "standalone",
   "scope": "./",

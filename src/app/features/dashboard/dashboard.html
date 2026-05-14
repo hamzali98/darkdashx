@@ -44,24 +44,32 @@
 <div class="bg-card-bg border border-border  mx-10.5 mb-3">
     <div class="grid grid-cols-12 grid-rows-12  ">
         <div class="col-span-12 md:col-span-8 row-span-4 md:row-span-12 h-full w-full p-2">
-            @if(productsData() && productsData().length > 0){
-            <app-am-charts [productChartData]="productsData()"></app-am-charts>
-            } @else {
-            <app-data-error></app-data-error>
+            @defer () {
+                @if(productsData() && productsData().length > 0){
+                    <app-am-charts [productChartData]="productsData()"></app-am-charts>
+                } @else {
+                    <app-data-error></app-data-error>
+                }
             }
         </div>
         <div class="col-span-12 md:col-span-4 row-span-4 md:row-span-6 h-full w-full p-2">
-            @if(usersData() && usersData().length > 0){
-            <app-donut-chart [userChartData]="usersData()"></app-donut-chart>
-            } @else {
-            <app-data-error></app-data-error>
+            @defer () {
+
+                @if(usersData() && usersData().length > 0){
+                    <app-donut-chart [userChartData]="usersData()"></app-donut-chart>
+                } @else {
+                    <app-data-error></app-data-error>
+                }
             }
         </div>
         <div class="col-span-12 md:col-span-4 row-span-4 md:row-span-6 h-full w-full p-2">
-            @if(productsData() && productsData().length > 0){
-            <app-bubble-chart [productChartData]="productsData()"></app-bubble-chart>
-            } @else {
-            <app-data-error></app-data-error>
+            @defer () {
+
+                @if(productsData() && productsData().length > 0){
+                    <app-bubble-chart [productChartData]="productsData()"></app-bubble-chart>
+                } @else {
+                    <app-data-error></app-data-error>
+                }
             }
         </div>
     </div>
